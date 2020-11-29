@@ -15,6 +15,8 @@
 		2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B99FF8A257430A0008302FA /* LaunchScreen.storyboard */; };
 		2B99FF97257430A0008302FA /* Cravy_PartnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF96257430A0008302FA /* Cravy_PartnerTests.swift */; };
 		2B99FFA2257430A0008302FA /* Cravy_PartnerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFA1257430A0008302FA /* Cravy_PartnerUITests.swift */; };
+		2B99FFB025743FCF008302FA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFAF25743FCF008302FA /* Helper.swift */; };
+		2B99FFB2257441B2008302FA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB1257441B2008302FA /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		2B99FF9D257430A0008302FA /* Cravy-PartnerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cravy-PartnerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B99FFA1257430A0008302FA /* Cravy_PartnerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cravy_PartnerUITests.swift; sourceTree = "<group>"; };
 		2B99FFA3257430A0008302FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B99FFAF25743FCF008302FA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		2B99FFB1257441B2008302FA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				2B99FF88257430A0008302FA /* Assets.xcassets */,
 				2B99FF8A257430A0008302FA /* LaunchScreen.storyboard */,
 				2B99FF8D257430A0008302FA /* Info.plist */,
+				2B99FFAF25743FCF008302FA /* Helper.swift */,
+				2B99FFB1257441B2008302FA /* Extensions.swift */,
 			);
 			path = "Cravy-Partner";
 			sourceTree = "<group>";
@@ -259,9 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,
 				2B99FF842574309E008302FA /* ViewController.swift in Sources */,
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
+				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
