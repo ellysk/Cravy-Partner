@@ -86,9 +86,15 @@ extension UILabel {
     }
 }
 
+extension UIView {
+    func makeRounded() {
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
+    }
+}
+
 
 //MARK: - Foundation Extensions
-
 
 
 

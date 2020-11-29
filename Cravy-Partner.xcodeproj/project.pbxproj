@@ -17,6 +17,8 @@
 		2B99FFA2257430A0008302FA /* Cravy_PartnerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFA1257430A0008302FA /* Cravy_PartnerUITests.swift */; };
 		2B99FFB025743FCF008302FA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFAF25743FCF008302FA /* Helper.swift */; };
 		2B99FFB2257441B2008302FA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB1257441B2008302FA /* Extensions.swift */; };
+		2B99FFB425745277008302FA /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB325745277008302FA /* RoundButton.swift */; };
+		2B99FFB62574543A008302FA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB52574543A008302FA /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		2B99FFA3257430A0008302FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B99FFAF25743FCF008302FA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		2B99FFB1257441B2008302FA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2B99FFB325745277008302FA /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		2B99FFB52574543A008302FA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 				2B99FF8D257430A0008302FA /* Info.plist */,
 				2B99FFAF25743FCF008302FA /* Helper.swift */,
 				2B99FFB1257441B2008302FA /* Extensions.swift */,
+				2B99FFB325745277008302FA /* RoundButton.swift */,
+				2B99FFB52574543A008302FA /* Constants.swift */,
 			);
 			path = "Cravy-Partner";
 			sourceTree = "<group>";
@@ -265,9 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B99FFB425745277008302FA /* RoundButton.swift in Sources */,
 				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,
 				2B99FF842574309E008302FA /* ViewController.swift in Sources */,
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,
+				2B99FFB62574543A008302FA /* Constants.swift in Sources */,
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
 			);
