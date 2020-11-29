@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A subclass of UIButton that gives the button rounded corners.
 class RoundButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -15,6 +16,8 @@ class RoundButton: UIButton {
     }
 }
 
+
+/// A subclass of RoundButton that gives the button a border width of 1 with a default color of primary.
 class BorderedButton: RoundButton {
     override func layoutSubviews() {
         super.layoutSubviews()

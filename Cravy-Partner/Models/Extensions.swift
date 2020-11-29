@@ -87,6 +87,7 @@ extension UILabel {
 }
 
 extension UIView {
+    /// Gives the view rounded corners
     func makeRounded() {
         self.layer.cornerRadius = self.frame.height / 2
         self.clipsToBounds = true
