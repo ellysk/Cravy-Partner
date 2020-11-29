@@ -21,7 +21,6 @@ class RoundButton: UIButton {
 class BorderedButton: RoundButton {
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.borderWidth = 1
-        self.layer.borderColor = K.Color.primary.cgColor
+        self.makeBordered()
     }
 }

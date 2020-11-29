@@ -87,10 +87,18 @@ extension UILabel {
 }
 
 extension UIView {
+    
     /// Gives the view rounded corners
-    func makeRounded() {
-        self.layer.cornerRadius = self.frame.height / 2
+    /// - Parameter roundFactor: The factor which determines how curved the view's corner will be. The lower the factor the mroe the curved the view's corners will be. The default value is 2 which makes the corners form a full curve.
+    func makeRounded(roundFactor: CGFloat = 2) {
+        self.layer.cornerRadius = self.frame.height / roundFactor
         self.clipsToBounds = true
+    }
+    
+    /// Gives the view a border of width 1 and primary color
+    func makeBordered() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = K.Color.primary.cgColor
     }
 }
 
