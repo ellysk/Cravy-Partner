@@ -163,8 +163,16 @@ extension UIView {
         self.heightAnchor.constraint(equalToConstant: size).isActive = true
     }
     
+    func heightAnchor(to view: UIView, multiplier: CGFloat = 1) {
+        self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier).isActive = true
+    }
+    
     func widthAnchor(of size: CGFloat) {
         self.widthAnchor.constraint(equalToConstant: size).isActive = true
+    }
+    
+    func widthAnchor(to view: UIView, multiplier: CGFloat = 1) {
+        self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier).isActive = true
     }
 }
 
@@ -199,6 +207,16 @@ extension UIViewController {
         get {
             return cravySearchBar != nil
         }
+    }
+}
+
+//MARK: - UIStackView
+extension UIStackView {
+    func set(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment = .fill, distribution: UIStackView.Distribution = .fill, spacing: CGFloat = 8) {
+        self.axis = axis
+        self.alignment = alignment
+        self.distribution = distribution
+        self.spacing = spacing
     }
 }
 

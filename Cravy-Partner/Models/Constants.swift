@@ -23,6 +23,7 @@ struct K {
     
     struct Size {
         static let CRAVY_SEARCH_BAR_HEIGHT: CGFloat = 40
+        static let CRAVY_TOOL_BAR_HEIGHT: CGFloat = 30
     }
     
     struct ViewTag {

@@ -37,10 +37,7 @@ class CravySearchBar: UIView {
     
     private func setCravySearchBarView() {
         let hStackView = UIStackView(arrangedSubviews: [searchButton, textField, filterButton])
-        hStackView.axis = .horizontal
-        hStackView.alignment = .fill
-        hStackView.distribution = .fillProportionally
-        hStackView.spacing = 16
+        hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 16)
         
         self.addSubview(hStackView)
         hStackView.translatesAutoresizingMaskIntoConstraints = false
