@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showsCravySearchBar = true
         // Do any additional setup after loading the view.
     }
 }
-

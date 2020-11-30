@@ -9,9 +9,23 @@
 import UIKit
 
 struct K {
+    
+    struct UIConstants {
+        static let searchProductsPlaceholder: String = "Search for your products..."
+        static let filtersButtonTitle: String = "Filters"
+    }
+    
     struct Color {
         static let primary: UIColor = UIColor(named: "primary") ?? .orange
         static let light: UIColor = UIColor(named: "light") ?? .white
         static let dark: UIColor = UIColor(named: "dark") ?? .black
+    }
+    
+    struct Size {
+        static let CRAVY_SEARCH_BAR_HEIGHT: CGFloat = 40
+    }
+    
+    struct ViewTag {
+        static let CRAVY_SEARCH_BAR: Int = 11
     }
 }

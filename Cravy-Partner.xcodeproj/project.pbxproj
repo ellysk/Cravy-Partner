@@ -20,6 +20,7 @@
 		2B99FFB425745277008302FA /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB325745277008302FA /* RoundButton.swift */; };
 		2B99FFB62574543A008302FA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB52574543A008302FA /* Constants.swift */; };
 		2B99FFBB25745B17008302FA /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFBA25745B17008302FA /* RoundTextField.swift */; };
+		2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFBE2574F602008302FA /* CravySearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		2B99FFB325745277008302FA /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		2B99FFB52574543A008302FA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2B99FFBA25745B17008302FA /* RoundTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
+		2B99FFBE2574F602008302FA /* CravySearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravySearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				2B99FFB325745277008302FA /* RoundButton.swift */,
 				2B99FFB52574543A008302FA /* Constants.swift */,
 				2B99FFBA25745B17008302FA /* RoundTextField.swift */,
+				2B99FFBE2574F602008302FA /* CravySearchBar.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,
 				2B99FFB62574543A008302FA /* Constants.swift in Sources */,
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
+				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

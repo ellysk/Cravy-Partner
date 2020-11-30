@@ -86,6 +86,8 @@ extension UILabel {
     }
 }
 
+
+//MARK: - UIView
 extension UIView {
     
     /// Gives the view rounded corners
@@ -101,6 +103,42 @@ extension UIView {
         self.layer.borderColor = K.Color.primary.cgColor
     }
 }
+
+
+//MARK: - UIViewController
+extension UIViewController {
+    var cravySearchBar: CravySearchBar? {
+        return self.view.subviews.first { (subview) -> Bool in
+            return subview.tag == K.ViewTag.CRAVY_SEARCH_BAR
+        } as? CravySearchBar
+    }
+    
+    /// Displays a searchbar in this view controller.
+    var showsCravySearchBar: Bool {
+        set {
+            cravySearchBar?.isHidden = !newValue
+            
+            if newValue {
+                if cravySearchBar == nil {
+                    let CSB = CravySearchBar()
+                    
+                    self.view.addSubview(CSB)
+                    CSB.translatesAutoresizingMaskIntoConstraints = false
+                    CSB.heightAnchor.constraint(equalToConstant: K.Size.CRAVY_SEARCH_BAR_HEIGHT).isActive = true
+                    CSB.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+                    CSB.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+                    CSB.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+                    CSB.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+                }
+            }
+        }
+        
+        get {
+            return cravySearchBar != nil
+        }
+    }
+}
+
 
 
 //MARK: - Foundation Extensions

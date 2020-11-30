@@ -10,9 +10,24 @@ import UIKit
 
 /// A subclass of UIButton that gives the button rounded corners.
 class RoundButton: UIButton {
+    private var roundFactor: CGFloat?
+    
+    init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {
+        self.roundFactor = roundFactor
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.makeRounded()
+        if let factor = roundFactor {
+            self.makeRounded(roundFactor: factor)
+        } else {
+            self.makeRounded()
+        }
     }
 }
 
