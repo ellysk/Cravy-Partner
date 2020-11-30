@@ -102,6 +102,70 @@ extension UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = K.Color.primary.cgColor
     }
+    
+    func topAnchor(to view: UIView, constant: CGFloat = 0) {
+        self.topAnchor.constraint(equalTo: view.topAnchor, constant: constant).isActive = true
+    }
+    
+    func topAnchor(to layoutGuide: UILayoutGuide, constant: CGFloat = 0) {
+        self.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: constant).isActive = true
+    }
+    
+    func bottomAnchor(to view: UIView, constant: CGFloat = 0) {
+        self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: constant).isActive = true
+    }
+    
+    func leadingAnchor(to view: UIView, constant: CGFloat = 0) {
+        self.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant).isActive = true
+    }
+    
+    func trailingAnchor(to view: UIView, constant: CGFloat = 0) {
+        self.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: constant).isActive = true
+    }
+    
+    /// Add top and bottom constraint
+    func VConstraint(to view: UIView, constant: CGFloat = 0) {
+        topAnchor(to: view, constant: constant)
+        bottomAnchor(to: view, constant: -constant)
+    }
+    
+    /// Add leading and trailing constraint
+    func HConstraint(to view: UIView, constant: CGFloat = 0) {
+        leadingAnchor(to: view, constant: constant)
+        trailingAnchor(to: view, constant: -constant)
+    }
+    
+    
+    /// Add all anchor constraints (top, bottom, leading and trailing)
+    func VHConstraint(to view: UIView, VConstant: CGFloat = 0, HConstant: CGFloat = 0) {
+        VConstraint(to: view, constant: VConstant)
+        HConstraint(to: view, constant: HConstant)
+    }
+    
+    
+    /// Anchor the view in the center vertically
+    func centerYAnchor(to view: UIView) {
+        self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    /// Anchor the view in the center horizontally
+    func centerXAnchor(to view: UIView) {
+        self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    /// Anchor the vew in the center both horiziontally anf vertically
+    func centerXYAnchor(to view: UIView) {
+        centerYAnchor(to: view)
+        centerXAnchor(to: view)
+    }
+    
+    func heightAnchor(of size: CGFloat) {
+        self.heightAnchor.constraint(equalToConstant: size).isActive = true
+    }
+    
+    func widthAnchor(of size: CGFloat) {
+        self.widthAnchor.constraint(equalToConstant: size).isActive = true
+    }
 }
 
 
@@ -124,11 +188,10 @@ extension UIViewController {
                     
                     self.view.addSubview(CSB)
                     CSB.translatesAutoresizingMaskIntoConstraints = false
-                    CSB.heightAnchor.constraint(equalToConstant: K.Size.CRAVY_SEARCH_BAR_HEIGHT).isActive = true
-                    CSB.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-                    CSB.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-                    CSB.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
-                    CSB.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+                    CSB.heightAnchor(of: K.Size.CRAVY_SEARCH_BAR_HEIGHT)
+                    CSB.topAnchor(to: self.view.safeAreaLayoutGuide)
+                    CSB.centerXAnchor(to: self.view)
+                    CSB.HConstraint(to: self.view, constant: 8)
                 }
             }
         }
