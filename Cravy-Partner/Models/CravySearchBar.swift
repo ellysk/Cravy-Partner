@@ -53,7 +53,9 @@ class CravySearchBar: UIView {
         searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchButton.tintColor = CSBTintColor
         
+        textField.font = UIFont.regular.small
         textField.placeholder = K.UIConstants.searchProductsPlaceholder
+        textField.textColor = K.Color.dark
         
         filterButton.setTitle(K.UIConstants.filtersButtonTitle, for: .normal)
         filterButton.titleLabel?.font = UIFont.mediumItalic.small
