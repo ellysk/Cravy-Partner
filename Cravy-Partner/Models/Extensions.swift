@@ -220,6 +220,20 @@ extension UIStackView {
     }
 }
 
+//MARK: - UICollectionViewFlowLayout
+extension UICollectionViewFlowLayout {
+    /// Returns a layout that displays a single item column that can be scrolled through horizontally
+    /// - Parameter height: The height of the item.
+    static func singleItemHorizontalFlowLayoutWith(height: CGFloat) -> UICollectionViewFlowLayout {
+        let flowLayout = UICollectionViewFlowLayout()
+        
+        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: height)
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.sectionInset = UIEdgeInsets.zero
+        
+        return flowLayout
+    }
+}
 
 
 //MARK: - Foundation Extensions

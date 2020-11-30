@@ -11,8 +11,23 @@ import UIKit
 struct K {
     
     struct UIConstants {
+        /// Returns "Search for your products..."
         static let searchProductsPlaceholder: String = "Search for your products..."
+        /// Returns "Filters"
         static let filtersButtonTitle: String = "Filters"
+    }
+    
+    struct Identifier {
+        struct CollectionViewCell {
+            static let detailCell = "detailCell"
+        }
+    }
+    
+    struct Collections {
+        /// Returns ["Cook", "Present", "Track"]
+        static let introSections = ["Cook", "Present", "Track"]
+        /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
+        static let introSectionDetails = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
     }
     
     struct Color {
@@ -22,11 +37,14 @@ struct K {
     }
     
     struct Size {
+        /// Returns a size of 40
         static let CRAVY_SEARCH_BAR_HEIGHT: CGFloat = 40
+        /// Returns a size of 30
         static let CRAVY_TOOL_BAR_HEIGHT: CGFloat = 30
     }
     
     struct ViewTag {
+        /// Returns a tag value of 11
         static let CRAVY_SEARCH_BAR: Int = 11
     }
 }

@@ -15,9 +15,44 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="light"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dY0-CB-DU1">
+                                <rect key="frame" x="0.0" y="298" width="414" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="03f-7M-1GO"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Fnz-wf-zqD">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="ylS-l9-Pfv"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="t4g-zq-Wke"/>
+                                </connections>
+                            </collectionView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="IRu-7V-Bvw">
+                                <rect key="frame" x="187.5" y="606" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" name="light"/>
+                                <color key="currentPageIndicatorTintColor" name="primary"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" name="dark"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dY0-CB-DU1" secondAttribute="trailing" id="Myh-QE-xYg"/>
+                            <constraint firstItem="IRu-7V-Bvw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OKt-JL-Pac"/>
+                            <constraint firstItem="IRu-7V-Bvw" firstAttribute="top" secondItem="dY0-CB-DU1" secondAttribute="bottom" constant="8" id="ZEV-M9-b1j"/>
+                            <constraint firstItem="dY0-CB-DU1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pJS-Df-zU8"/>
+                            <constraint firstItem="dY0-CB-DU1" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="w2O-gh-EDG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="theCollectionView" destination="dY0-CB-DU1" id="J0O-P9-NOh"/>
+                        <outlet property="thePageControl" destination="IRu-7V-Bvw" id="uO4-Gy-pH7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -25,8 +60,14 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="dark">
+            <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="light">
             <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
