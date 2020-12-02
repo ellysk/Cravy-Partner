@@ -112,7 +112,7 @@ extension UIView {
     }
     
     func bottomAnchor(to view: UIView, constant: CGFloat = 0) {
-        self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: constant).isActive = true
+        self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant).isActive = true
     }
     
     func leadingAnchor(to view: UIView, constant: CGFloat = 0) {
@@ -120,19 +120,19 @@ extension UIView {
     }
     
     func trailingAnchor(to view: UIView, constant: CGFloat = 0) {
-        self.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: constant).isActive = true
+        self.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
     }
     
     /// Add top and bottom constraint
     func VConstraint(to view: UIView, constant: CGFloat = 0) {
         topAnchor(to: view, constant: constant)
-        bottomAnchor(to: view, constant: -constant)
+        bottomAnchor(to: view, constant: constant)
     }
     
     /// Add leading and trailing constraint
     func HConstraint(to view: UIView, constant: CGFloat = 0) {
         leadingAnchor(to: view, constant: constant)
-        trailingAnchor(to: view, constant: -constant)
+        trailingAnchor(to: view, constant: constant)
     }
     
     

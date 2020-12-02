@@ -17,13 +17,15 @@
 		2B99FFA2257430A0008302FA /* Cravy_PartnerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFA1257430A0008302FA /* Cravy_PartnerUITests.swift */; };
 		2B99FFB025743FCF008302FA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFAF25743FCF008302FA /* Helper.swift */; };
 		2B99FFB2257441B2008302FA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB1257441B2008302FA /* Extensions.swift */; };
-		2B99FFB425745277008302FA /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB325745277008302FA /* RoundButton.swift */; };
+		2B99FFB425745277008302FA /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB325745277008302FA /* CustomButton.swift */; };
 		2B99FFB62574543A008302FA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFB52574543A008302FA /* Constants.swift */; };
 		2B99FFBB25745B17008302FA /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFBA25745B17008302FA /* RoundTextField.swift */; };
 		2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFBE2574F602008302FA /* CravySearchBar.swift */; };
 		2B99FFC125751AEE008302FA /* CravyToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC025751AEE008302FA /* CravyToolBar.swift */; };
 		2B99FFC4257534AD008302FA /* DetailCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC2257534AD008302FA /* DetailCollectionCell.swift */; };
 		2B99FFC5257534AD008302FA /* DetailCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B99FFC3257534AD008302FA /* DetailCollectionCell.xib */; };
+		2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC6257723D7008302FA /* CustomImageView.swift */; };
+		2B99FFC925772814008302FA /* CraveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC825772814008302FA /* CraveImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,13 +62,15 @@
 		2B99FFA3257430A0008302FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B99FFAF25743FCF008302FA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		2B99FFB1257441B2008302FA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		2B99FFB325745277008302FA /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		2B99FFB325745277008302FA /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		2B99FFB52574543A008302FA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2B99FFBA25745B17008302FA /* RoundTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
 		2B99FFBE2574F602008302FA /* CravySearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravySearchBar.swift; sourceTree = "<group>"; };
 		2B99FFC025751AEE008302FA /* CravyToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyToolBar.swift; sourceTree = "<group>"; };
 		2B99FFC2257534AD008302FA /* DetailCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionCell.swift; sourceTree = "<group>"; };
 		2B99FFC3257534AD008302FA /* DetailCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailCollectionCell.xib; sourceTree = "<group>"; };
+		2B99FFC6257723D7008302FA /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		2B99FFC825772814008302FA /* CraveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,11 +174,13 @@
 			children = (
 				2B99FFAF25743FCF008302FA /* Helper.swift */,
 				2B99FFB1257441B2008302FA /* Extensions.swift */,
-				2B99FFB325745277008302FA /* RoundButton.swift */,
+				2B99FFB325745277008302FA /* CustomButton.swift */,
 				2B99FFB52574543A008302FA /* Constants.swift */,
 				2B99FFBA25745B17008302FA /* RoundTextField.swift */,
 				2B99FFBE2574F602008302FA /* CravySearchBar.swift */,
 				2B99FFC025751AEE008302FA /* CravyToolBar.swift */,
+				2B99FFC6257723D7008302FA /* CustomImageView.swift */,
+				2B99FFC825772814008302FA /* CraveImageView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,7 +318,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B99FFBB25745B17008302FA /* RoundTextField.swift in Sources */,
-				2B99FFB425745277008302FA /* RoundButton.swift in Sources */,
+				2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */,
+				2B99FFB425745277008302FA /* CustomButton.swift in Sources */,
 				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,
 				2B99FFC125751AEE008302FA /* CravyToolBar.swift in Sources */,
 				2B99FF842574309E008302FA /* ViewController.swift in Sources */,
@@ -322,6 +329,7 @@
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
+				2B99FFC925772814008302FA /* CraveImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
