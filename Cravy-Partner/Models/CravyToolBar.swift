@@ -69,6 +69,7 @@ class CravyToolBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.heightAnchor(of: K.Size.CRAVY_TOOL_BAR_HEIGHT)
         setToolBarStackView()
     }
     

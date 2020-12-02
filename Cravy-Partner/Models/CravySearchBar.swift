@@ -31,6 +31,7 @@ class CravySearchBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.heightAnchor(of: K.Size.CRAVY_SEARCH_BAR_HEIGHT)
         makeRounded(roundFactor: 5)
         makeBordered()
     }
@@ -51,10 +52,10 @@ class CravySearchBar: UIView {
         searchButton.tintColor = CSBTintColor
         
         textField.font = UIFont.regular.small
-        textField.placeholder = K.UIConstants.searchProductsPlaceholder
+        textField.placeholder = K.UIConstant.searchProductsPlaceholder
         textField.textColor = K.Color.dark
         
-        filterButton.setTitle(K.UIConstants.filtersButtonTitle, for: .normal)
+        filterButton.setTitle(K.UIConstant.filtersButtonTitle, for: .normal)
         filterButton.titleLabel?.font = UIFont.mediumItalic.small
         filterButton.setTitleColor(K.Color.light, for: .normal)
         filterButton.backgroundColor = CSBTintColor.withAlphaComponent(0.8)

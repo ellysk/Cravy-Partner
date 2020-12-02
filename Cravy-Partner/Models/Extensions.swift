@@ -196,7 +196,6 @@ extension UIViewController {
                     
                     self.view.addSubview(CSB)
                     CSB.translatesAutoresizingMaskIntoConstraints = false
-                    CSB.heightAnchor(of: K.Size.CRAVY_SEARCH_BAR_HEIGHT)
                     CSB.topAnchor(to: self.view.safeAreaLayoutGuide)
                     CSB.centerXAnchor(to: self.view)
                     CSB.HConstraint(to: self.view, constant: 8)

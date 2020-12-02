@@ -26,6 +26,7 @@
 		2B99FFC5257534AD008302FA /* DetailCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B99FFC3257534AD008302FA /* DetailCollectionCell.xib */; };
 		2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC6257723D7008302FA /* CustomImageView.swift */; };
 		2B99FFC925772814008302FA /* CraveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC825772814008302FA /* CraveImageView.swift */; };
+		2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C69A25779D87004BA3CA /* LinkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		2B99FFC3257534AD008302FA /* DetailCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailCollectionCell.xib; sourceTree = "<group>"; };
 		2B99FFC6257723D7008302FA /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		2B99FFC825772814008302FA /* CraveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveImageView.swift; sourceTree = "<group>"; };
+		2BC0C69A25779D87004BA3CA /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				2B99FFC025751AEE008302FA /* CravyToolBar.swift */,
 				2B99FFC6257723D7008302FA /* CustomImageView.swift */,
 				2B99FFC825772814008302FA /* CraveImageView.swift */,
+				2BC0C69A25779D87004BA3CA /* LinkView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
+				2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */,
 				2B99FFC925772814008302FA /* CraveImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

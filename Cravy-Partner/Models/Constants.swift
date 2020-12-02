@@ -10,11 +10,13 @@ import UIKit
 
 struct K {
     
-    struct UIConstants {
+    struct UIConstant {
         /// Returns "Search for your products..."
         static let searchProductsPlaceholder: String = "Search for your products..."
         /// Returns "Filters"
         static let filtersButtonTitle: String = "Filters"
+        /// Returns ""VISIT"
+        static let visit: String = "VISIT"
     }
     
     struct Identifier {
@@ -34,6 +36,7 @@ struct K {
         static let primary: UIColor = UIColor(named: "primary") ?? .orange
         static let light: UIColor = UIColor(named: "light") ?? .white
         static let dark: UIColor = UIColor(named: "dark") ?? .black
+        static let link: UIColor = UIColor(named: "link") ?? .link
     }
     
     struct Size {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// A custom view that displays an imageview and extra views at the bottom such a an imagview for the cravings icon and a label showing the number of cravings.
+/// A custom view that displays an imageview and extra views at the bottom such as a linkview, an imagview for the cravings icon and a label showing the number of cravings.
 class CraveImageView: UIView {
     private var imageView: RoundImageView
     private var cravingsImageView = RoundImageView(image: UIImage(named: "cravings"))
@@ -22,6 +22,11 @@ class CraveImageView: UIView {
         get {
             return imageView.image
         }
+    }
+    private var linkView = LinkView()
+    /// The button in the link view
+    var linkButton: RoundButton {
+        return linkView.linkButton
     }
     /// The expected maximum height of the view
     private let EXPECTED_MAX_HEIGHT:CGFloat = 350
@@ -53,6 +58,16 @@ class CraveImageView: UIView {
             return Int(cravings)
         }
     }
+    /// A boolean that determines whether the link view should be hidden
+    var showsLink: Bool {
+        set {
+            linkView.isHidden = !newValue
+        }
+        
+        get {
+            return linkView.isHidden
+        }
+    }
     
     /// - Parameters:
     ///   - height: The height of the view, default height is 250 which is recommended as the minimum height.
@@ -71,6 +86,7 @@ class CraveImageView: UIView {
         super.layoutSubviews()
         self.heightAnchor(of: height)
         setCraveImageView()
+        setLinkView()
         setCravingsView()
     }
     
@@ -113,5 +129,13 @@ class CraveImageView: UIView {
         vStackView.translatesAutoresizingMaskIntoConstraints = false
         vStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(cravingsImageViewSize/2)).isActive = true
         vStackView.trailingAnchor(to: self, constant: 8)
+    }
+    
+    private func setLinkView() {
+        self.addSubview(linkView)
+        linkView.translatesAutoresizingMaskIntoConstraints = false
+        linkView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(linkView.height/2)).isActive = true
+        linkView.leadingAnchor(to: self, constant: 8)
+        linkView.setNeedsLayout()
     }
 }
