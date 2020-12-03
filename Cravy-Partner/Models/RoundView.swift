@@ -1,5 +1,5 @@
 //
-//  CustomImageView.swift
+//  RoundView.swift
 //  Cravy-Partner
 //
 //  Created by Cravy on 02/12/2020.
@@ -8,21 +8,16 @@
 
 import UIKit
 
-class RoundImageView: UIImageView {
+class RoundView: UIView {
     private var roundFactor: CGFloat?
     
-    init(frame: CGRect = .zero, roundfactor: CGFloat? = nil) {
-        self.roundFactor = roundfactor
+    init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {
+        self.roundFactor = roundFactor
         super.init(frame: frame)
     }
     
-    init(image: UIImage? = nil, roundfactor: CGFloat? = nil) {
-        self.roundFactor = roundfactor
-        super.init(image: image)
-    }
-    
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func layoutSubviews() {

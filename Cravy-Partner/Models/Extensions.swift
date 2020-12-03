@@ -221,6 +221,28 @@ extension UIStackView {
 
 //MARK: - UICollectionViewFlowLayout
 extension UICollectionViewFlowLayout {
+    static var tagCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.estimatedItemSize = CGSize(width: 60, height: 20)
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumLineSpacing = 8
+        layout.sectionInset.left = 8
+        
+        return layout
+    }
+    
+    static var craveCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 3
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
+        let itemWidth = (UIScreen.main.bounds.width - (layout.minimumInteritemSpacing + layout.sectionInset.left + layout.sectionInset.right)) / 2
+        layout.itemSize = CGSize(width: itemWidth, height: 340)
+        
+        return layout
+    }
+    
     /// Returns a layout that displays a single item column that can be scrolled through horizontally
     /// - Parameter height: The height of the item.
     static func singleItemHorizontalFlowLayoutWith(height: CGFloat) -> UICollectionViewFlowLayout {
@@ -231,6 +253,34 @@ extension UICollectionViewFlowLayout {
         flowLayout.sectionInset = UIEdgeInsets.zero
         
         return flowLayout
+    }
+}
+
+//MARK: - UIImage
+extension UIImage {
+    func withInset(_ insets: UIEdgeInsets) -> UIImage? {
+        let cgSize = CGSize(width: self.size.width + insets.left * self.scale + insets.right * self.scale,
+                            height: self.size.height + insets.top * self.scale + insets.bottom * self.scale)
+
+        UIGraphicsBeginImageContextWithOptions(cgSize, false, self.scale)
+        defer { UIGraphicsEndImageContext() }
+
+        let origin = CGPoint(x: insets.left * self.scale, y: insets.top * self.scale)
+        self.draw(at: origin)
+
+        return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(self.renderingMode)
+    }
+}
+
+//MARK: - UIButton
+extension UIButton {
+    /// Returns a button containing an ellipsis image with a tint color of dark
+    static var optionsButton: UIButton {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        btn.tintColor = K.Color.dark
+        
+        return btn
     }
 }
 

@@ -15,26 +15,9 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-GP-AhM" customClass="LinkView" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="147" y="425.5" width="120" height="45"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="EjZ-eK-1GW"/>
-                                    <constraint firstAttribute="width" constant="120" id="egq-rg-g3a"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" name="light"/>
-                        <constraints>
-                            <constraint firstItem="Shu-GP-AhM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QLZ-TU-8I5"/>
-                            <constraint firstItem="Shu-GP-AhM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Rvs-tA-AVr"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <connections>
-                        <outlet property="theLinkView" destination="Shu-GP-AhM" id="vhE-G1-wic"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

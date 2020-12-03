@@ -27,6 +27,11 @@
 		2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC6257723D7008302FA /* CustomImageView.swift */; };
 		2B99FFC925772814008302FA /* CraveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC825772814008302FA /* CraveImageView.swift */; };
 		2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C69A25779D87004BA3CA /* LinkView.swift */; };
+		2BC0C69E25780053004BA3CA /* CraveCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C69C25780053004BA3CA /* CraveCollectionCell.swift */; };
+		2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C69D25780053004BA3CA /* CraveCollectionCell.xib */; };
+		2BC0C6A1257810C2004BA3CA /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A0257810C2004BA3CA /* RoundView.swift */; };
+		2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */; };
+		2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +78,11 @@
 		2B99FFC6257723D7008302FA /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		2B99FFC825772814008302FA /* CraveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveImageView.swift; sourceTree = "<group>"; };
 		2BC0C69A25779D87004BA3CA /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
+		2BC0C69C25780053004BA3CA /* CraveCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveCollectionCell.swift; sourceTree = "<group>"; };
+		2BC0C69D25780053004BA3CA /* CraveCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionCell.xib; sourceTree = "<group>"; };
+		2BC0C6A0257810C2004BA3CA /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
+		2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionCell.swift; sourceTree = "<group>"; };
+		2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +169,10 @@
 				2B99FF8A257430A0008302FA /* LaunchScreen.storyboard */,
 				2B99FFC2257534AD008302FA /* DetailCollectionCell.swift */,
 				2B99FFC3257534AD008302FA /* DetailCollectionCell.xib */,
+				2BC0C69C25780053004BA3CA /* CraveCollectionCell.swift */,
+				2BC0C69D25780053004BA3CA /* CraveCollectionCell.xib */,
+				2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */,
+				2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,6 +198,7 @@
 				2B99FFC6257723D7008302FA /* CustomImageView.swift */,
 				2B99FFC825772814008302FA /* CraveImageView.swift */,
 				2BC0C69A25779D87004BA3CA /* LinkView.swift */,
+				2BC0C6A0257810C2004BA3CA /* RoundView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -293,6 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B99FFC5257534AD008302FA /* DetailCollectionCell.xib in Resources */,
+				2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */,
+				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
@@ -321,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B99FFBB25745B17008302FA /* RoundTextField.swift in Sources */,
+				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
 				2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */,
 				2B99FFB425745277008302FA /* CustomButton.swift in Sources */,
 				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,
@@ -333,7 +351,9 @@
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
 				2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */,
+				2BC0C6A1257810C2004BA3CA /* RoundView.swift in Sources */,
 				2B99FFC925772814008302FA /* CraveImageView.swift in Sources */,
+				2BC0C69E25780053004BA3CA /* CraveCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

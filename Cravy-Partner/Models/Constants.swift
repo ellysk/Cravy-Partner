@@ -17,11 +17,17 @@ struct K {
         static let filtersButtonTitle: String = "Filters"
         /// Returns ""VISIT"
         static let visit: String = "VISIT"
+        static let recommendations = "recommendations"
     }
     
     struct Identifier {
         struct CollectionViewCell {
+            /// A reusable identifier for the DetailCollectionCell
             static let detailCell = "detailCell"
+            /// A resuable identifier for the CraveCollectionCell
+            static let craveCell = "craveCell"
+            /// A reusable identifier for the TagCollectionCell
+            static let tagCell = "tagCell"
         }
     }
     
@@ -34,9 +40,11 @@ struct K {
     
     struct Color {
         static let primary: UIColor = UIColor(named: "primary") ?? .orange
+        static let secondary: UIColor = UIColor(named: "secondary") ?? .orange
         static let light: UIColor = UIColor(named: "light") ?? .white
         static let dark: UIColor = UIColor(named: "dark") ?? .black
         static let link: UIColor = UIColor(named: "link") ?? .link
+        static let important: UIColor = UIColor(named: "important") ?? .red
     }
     
     struct Size {

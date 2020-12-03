@@ -11,7 +11,7 @@ import UIKit
 /// A custom view that displays an imageview and extra views at the bottom such as a linkview, an imagview for the cravings icon and a label showing the number of cravings.
 class CraveImageView: UIView {
     private var imageView: RoundImageView
-    private var cravingsImageView = RoundImageView(image: UIImage(named: "cravings"))
+    private var cravingsImageView = RoundImageView(image: UIImage(named: "cravings")?.withInset(UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)))
     private var cravingsLabel = UILabel()
     /// The image displayed in the imageview
     var craveImage: UIImage? {
@@ -72,8 +72,8 @@ class CraveImageView: UIView {
     /// - Parameters:
     ///   - height: The height of the view, default height is 250 which is recommended as the minimum height.
     init(height: CGFloat = 250, image: UIImage? = nil, cravings: Int? = nil) {
-        imageView = RoundImageView(roundfactor: 10, image: image)
         self.height = height
+        self.imageView = RoundImageView(image: image, roundfactor: 10)
         super.init(frame: .zero)
         self.cravings = cravings
     }
@@ -101,7 +101,7 @@ class CraveImageView: UIView {
     
     private func setCravingsImageView() {
         cravingsImageView.contentMode = .scaleAspectFit
-        cravingsImageView.backgroundColor = K.Color.light
+        cravingsImageView.backgroundColor = K.Color.secondary
         cravingsImageView.translatesAutoresizingMaskIntoConstraints = false
         cravingsImageView.heightAnchor(of: cravingsImageViewSize)
         cravingsImageView.widthAnchor(of: cravingsImageViewSize)
