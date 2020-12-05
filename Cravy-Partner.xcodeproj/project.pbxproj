@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B99FF802574309E008302FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF7F2574309E008302FA /* AppDelegate.swift */; };
 		2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF812574309E008302FA /* SceneDelegate.swift */; };
 		2B99FF842574309E008302FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF832574309E008302FA /* ViewController.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B99FF7C2574309E008302FA /* Cravy-Partner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cravy-Partner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B99FF7F2574309E008302FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B99FF812574309E008302FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				2B99FFC825772814008302FA /* CraveImageView.swift */,
 				2BC0C69A25779D87004BA3CA /* LinkView.swift */,
 				2BC0C6A0257810C2004BA3CA /* RoundView.swift */,
+				2B84AE78257BBCD6002A626A /* MarketView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 			files = (
 				2B99FFBB25745B17008302FA /* RoundTextField.swift in Sources */,
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
+				2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */,
 				2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */,
 				2B99FFB425745277008302FA /* CustomButton.swift in Sources */,
 				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,

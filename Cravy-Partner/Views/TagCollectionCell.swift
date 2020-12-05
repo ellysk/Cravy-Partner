@@ -23,6 +23,8 @@ class TagCollectionCell: UICollectionViewCell {
             return separator.isHidden
         }
     }
+    /// The font of the tagLabel.
+    var font: UIFont = UIFont.regular.xSmall
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +39,7 @@ class TagCollectionCell: UICollectionViewCell {
         if tagLabel == nil {
             tagLabel = UILabel()
             tagLabel.text = tag
-            tagLabel.font = UIFont.regular.xSmall
+            tagLabel.font = font
             tagLabel.textAlignment = .left
             tagLabel.textColor = K.Color.dark
         } else {

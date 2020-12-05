@@ -68,6 +68,16 @@ class CraveImageView: UIView {
             return linkView.isHidden
         }
     }
+    /// Changes the background color of the cravings image view, default color is secondary color.
+    var cravingsTintColor: UIColor? {
+        set {
+            cravingsImageView.backgroundColor = newValue
+        }
+        
+        get {
+            return cravingsImageView.backgroundColor
+        }
+    }
     
     /// - Parameters:
     ///   - height: The height of the view, default height is 250 which is recommended as the minimum height.
