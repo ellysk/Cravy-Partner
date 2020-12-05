@@ -86,6 +86,9 @@ class CraveImageView: UIView {
         self.imageView = RoundImageView(image: image, roundfactor: 10)
         super.init(frame: .zero)
         self.cravings = cravings
+        setCraveImageView()
+        setLinkView()
+        setCravingsView()
     }
     
     required init?(coder: NSCoder) {
@@ -95,9 +98,6 @@ class CraveImageView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.heightAnchor(of: height)
-        setCraveImageView()
-        setLinkView()
-        setCravingsView()
     }
     
     private func setCraveImageView() {

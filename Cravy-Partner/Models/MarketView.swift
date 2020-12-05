@@ -52,6 +52,9 @@ class MarketView: UIView {
         self.marketStatus = marketStatus
         super.init(frame: frame)
         self.backgroundColor = .clear
+        setMarketStackView()
+        setTopView()
+        setContentStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -60,9 +63,6 @@ class MarketView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setMarketStackView()
-        setTopView()
-        setContentStackView()
         self.heightAnchor(to: marketStackView)
     }
     

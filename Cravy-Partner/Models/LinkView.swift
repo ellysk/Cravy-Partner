@@ -19,15 +19,23 @@ class LinkView: UIView {
         return 120
     }
     private let LINK_IMAGEVIEW_SIZE: CGFloat = 30
-        
+    
+    init() {
+        super.init(frame: .zero)
+        self.backgroundColor = K.Color.link
+        setLinkView()
+        setLinkButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.heightAnchor(of: height)
         self.widthAnchor(of: width)
         self.makeRounded()
-        setLinkView()
-        setLinkButton()
-        style()
     }
     
     private func setLinkView() {
@@ -57,9 +65,5 @@ class LinkView: UIView {
         self.addSubview(linkButton)
         linkButton.translatesAutoresizingMaskIntoConstraints = false
         linkButton.VHConstraint(to: self)
-    }
-    
-    private func style() {
-        self.backgroundColor = K.Color.link
     }
 }

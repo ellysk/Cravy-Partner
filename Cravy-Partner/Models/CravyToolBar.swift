@@ -61,6 +61,7 @@ class CravyToolBar: UIView {
         super.init(frame: .zero)
         self.titles = titles
         self.backgroundColor = .clear
+        setToolBarStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -70,7 +71,6 @@ class CravyToolBar: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.heightAnchor(of: K.Size.CRAVY_TOOL_BAR_HEIGHT)
-        setToolBarStackView()
     }
     
     private func setToolBarStackView() {

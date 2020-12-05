@@ -204,7 +204,44 @@ extension UIViewController {
         }
         
         get {
-            return cravySearchBar != nil
+            if let searchBar = cravySearchBar {
+                return !searchBar.isHidden
+            } else {
+                return false
+            }
+        }
+    }
+    /// A button displayed at the bottom-right of the view.
+    var floaterButton: RoundButton? {
+        return self.view.subviews.first { (subview) -> Bool in
+            return subview.tag == K.ViewTag.FLOATER_BUTTON
+        } as? RoundButton
+    }
+    var showsFloaterButton: Bool {
+        set {
+            floaterButton?.isHidden = !newValue
+            
+            if newValue {
+                if floaterButton == nil {
+                    let btn = RoundButton()
+                    btn.tag = K.ViewTag.FLOATER_BUTTON
+                    btn.backgroundColor = K.Color.primary
+                    self.view.addSubview(btn)
+                    btn.translatesAutoresizingMaskIntoConstraints = false
+                    btn.bottomAnchor(to: self.view, constant: 8)
+                    btn.heightAnchor(of: 50)
+                    btn.trailingAnchor(to: self.view, constant: 8)
+                    btn.widthAnchor(of: 50)
+                }
+            }
+        }
+        
+        get {
+            if let floater = floaterButton {
+                return !floater.isHidden
+            } else {
+                return false
+            }
         }
     }
 }
@@ -281,6 +318,11 @@ extension UIButton {
         btn.tintColor = K.Color.dark
         
         return btn
+    }
+    
+    /// Sets the background image specifically designed for the size ratio of a floater button that is displayed in a view controller.
+    func setFloaterButtonBackgroundImage(image: UIImage?) {
+        self.setBackgroundImage(image?.withInset(UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))?.withTintColor(K.Color.light), for: .normal)
     }
 }
 

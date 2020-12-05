@@ -59,5 +59,7 @@ struct K {
     struct ViewTag {
         /// Returns a tag value of 11
         static let CRAVY_SEARCH_BAR: Int = 11
+        /// Returns a tag value of 22
+        static let FLOATER_BUTTON: Int = 22
     }
 }

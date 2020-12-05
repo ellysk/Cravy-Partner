@@ -28,5 +28,16 @@ class ViewController: UIViewController {
         marketView.translatesAutoresizingMaskIntoConstraints = false
         marketView.centerYAnchor(to: self.view)
         marketView.HConstraint(to: self.view, constant: 16)
+        
+        self.showsFloaterButton = true
+        self.floaterButton?.setFloaterButtonBackgroundImage(image: UIImage(systemName: "square.and.pencil"))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.showsFloaterButton = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.showsFloaterButton = true
+            }
+        }
     }
 }
