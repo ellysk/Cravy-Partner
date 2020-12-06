@@ -33,7 +33,7 @@ class RoundButton: UIButton {
 
 
 /// A subclass of RoundButton that gives the button a border width of 1 with a default color of primary.
-class BorderedButton: RoundButton {
+class RoundBorderedButton: RoundButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.makeBordered()

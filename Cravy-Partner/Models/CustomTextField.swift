@@ -10,19 +10,37 @@ import UIKit
 
 /// A subclass of UITextField that gives rounded corners and is bordered.
 class RoundTextField: UITextField {
+    private var roundFactor: CGFloat?
+    
+    init(roundFactor: CGFloat? = nil, placeholder: String = "Write something here...") {
+        super.init(frame: .zero)
+        setPlaceholder(placeholder)
+        self.font = UIFont.regular.small
+        self.textColor = K.Color.dark
+        self.roundFactor = roundFactor
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.makeRounded()
+        if let factor = roundFactor {
+            self.makeRounded(roundFactor: factor)
+        } else {
+            self.makeRounded()
+        }
         self.makeBordered()
         self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 16, dy: 8);
+        return bounds.insetBy(dx: 8, dy: 8);
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 16, dy: 8);
+        return bounds.insetBy(dx: 8, dy: 8);
     }
     
     /// Sets the placeholder of the textfield with custom style of a dark color with an alpha value of 0.5

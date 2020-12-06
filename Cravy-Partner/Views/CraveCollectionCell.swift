@@ -130,7 +130,7 @@ class CraveCollectionCell: UICollectionViewCell {
         self.tags = tags
         
         if craveTagsCollectionView == nil {
-            craveTagsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.tagCollectionViewFlowLayout)
+            craveTagsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout)
             craveTagsCollectionView.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
             craveTagsCollectionView.dataSource = self
             craveTagsCollectionView.delegate = self

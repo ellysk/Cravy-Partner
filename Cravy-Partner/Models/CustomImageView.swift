@@ -34,3 +34,10 @@ class RoundImageView: UIImageView {
         }
     }
 }
+
+class RoundBorderedImageView: RoundImageView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.makeBordered()
+    }
+}

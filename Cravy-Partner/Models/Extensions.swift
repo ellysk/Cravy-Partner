@@ -258,13 +258,24 @@ extension UIStackView {
 
 //MARK: - UICollectionViewFlowLayout
 extension UICollectionViewFlowLayout {
-    static var tagCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    static var horizontalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 60, height: 20)
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 8
         layout.sectionInset.left = 8
+        
+        return layout
+    }
+    
+    static var verticalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.sectionInset.left = 8
+        layout.sectionInset.right = 8
         
         return layout
     }
