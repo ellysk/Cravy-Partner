@@ -34,6 +34,7 @@
 		2BC0C6A1257810C2004BA3CA /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A0257810C2004BA3CA /* RoundView.swift */; };
 		2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */; };
 		2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */; };
+		2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEBCE63257D34B300B11C66 /* BusinessView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		2BC0C6A0257810C2004BA3CA /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionCell.swift; sourceTree = "<group>"; };
 		2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionCell.xib; sourceTree = "<group>"; };
+		2BEBCE63257D34B300B11C66 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 				2BC0C6A0257810C2004BA3CA /* RoundView.swift */,
 				2B84AE78257BBCD6002A626A /* MarketView.swift */,
 				2B84AE7A257BF1C8002A626A /* CustomTextView.swift */,
+				2BEBCE63257D34B300B11C66 /* BusinessView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
 				2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */,
+				2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */,
 				2BC0C6A1257810C2004BA3CA /* RoundView.swift in Sources */,
 				2B99FFC925772814008302FA /* CraveImageView.swift in Sources */,
 				2BC0C69E25780053004BA3CA /* CraveCollectionCell.swift in Sources */,

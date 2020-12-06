@@ -11,14 +11,14 @@ import UIKit
 /// A custom view that portrays a link to the related website.
 class LinkView: UIView {
     /// The button that is triggered when the user taps in this view
-    var linkButton = RoundButton()
+    private var linkButton = RoundButton()
     var height: CGFloat {
         return 45
     }
     var width: CGFloat {
-        return 120
+        return 140
     }
-    private let LINK_IMAGEVIEW_SIZE: CGFloat = 30
+    private let LINK_IMAGEVIEW_SIZE: CGFloat = 35
     
     init() {
         super.init(frame: .zero)
@@ -45,7 +45,7 @@ class LinkView: UIView {
         linkLabel.textAlignment = .left
         linkLabel.textColor = K.Color.light
         
-        let linkImageView = UIImageView(image: UIImage(systemName: "chevron.right.circle.fill"))
+        let linkImageView = UIImageView(image: UIImage(named: "go"))
         linkImageView.contentMode = .scaleAspectFit
         linkImageView.tintColor = K.Color.light
         linkImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,11 +53,11 @@ class LinkView: UIView {
         linkImageView.widthAnchor(of: LINK_IMAGEVIEW_SIZE)
         
         let hStackView = UIStackView(arrangedSubviews: [linkLabel, linkImageView])
-        hStackView.set(axis: .horizontal, alignment: .center, distribution: .fillProportionally)
+        hStackView.set(axis: .horizontal, alignment: .center)
         self.addSubview(hStackView)
         hStackView.translatesAutoresizingMaskIntoConstraints = false
-        hStackView.VConstraint(to: self)
-        hStackView.HConstraint(to: self, constant: 8)
+        hStackView.centerYAnchor(to: self)
+        hStackView.HConstraint(to: self, constant: 16)
     }
     
     private func setLinkButton() {

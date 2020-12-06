@@ -59,9 +59,9 @@ class CravyToolBar: UIView {
     
     init(titles: [String]) {
         super.init(frame: .zero)
-        self.titles = titles
         self.backgroundColor = .clear
         setToolBarStackView()
+        self.titles = titles
     }
     
     required init?(coder: NSCoder) {

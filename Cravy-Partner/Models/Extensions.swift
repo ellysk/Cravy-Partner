@@ -7,10 +7,7 @@
 //
 
 import UIKit
-
-//MARK: - UI Extensions
-
-
+/* -------------- UIKIT EXTENSIONS -------------- */
 
 //MARK: - UIFont
 extension UIFont {
@@ -32,6 +29,11 @@ extension UIFont {
     /// Returns an AvenirNext-Regular font style
     static var regular: UIFontDescriptor {
         return addAtrributeName(name: "AvenirNext-Regular")
+    }
+    
+    /// Returns an AvenirNext-Italic font style
+    static var italic: UIFontDescriptor {
+        return addAtrributeName(name: "AvenirNext-Italic")
     }
     
     /// Returns an AvenirNext-MediumItalic font style
@@ -338,7 +340,7 @@ extension UIButton {
 }
 
 
-//MARK: - Foundation Extensions
+/* -------------- FOUNDATION EXTENSIONS -------------- */
 
 
 

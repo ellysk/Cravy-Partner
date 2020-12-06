@@ -119,6 +119,7 @@ class ContentView: RoundView {
     init(roundFactor: CGFloat? = nil, contentImage: UIImage? = nil, contentDescription: String? = nil) {
         super.init(roundFactor: roundFactor)
         self.backgroundColor = K.Color.secondary
+        setContentView()
         self.contentImage = contentImage
         self.content = contentDescription
     }
@@ -130,7 +131,6 @@ class ContentView: RoundView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.heightAnchor(of: 50)
-        setContentView()
     }
     
     private func setContentView() {

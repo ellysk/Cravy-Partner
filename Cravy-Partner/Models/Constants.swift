@@ -18,6 +18,7 @@ struct K {
         /// Returns ""VISIT"
         static let visit: String = "VISIT"
         static let recommendations = "recommendations"
+        static let subscribers = "Subscribers"
         static let offTheMarket = "Off the market"
         static let onTheMarket = "On the market"
     }

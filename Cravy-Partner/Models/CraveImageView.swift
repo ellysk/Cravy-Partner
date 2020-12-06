@@ -24,10 +24,6 @@ class CraveImageView: UIView {
         }
     }
     private var linkView = LinkView()
-    /// The button in the link view
-    var linkButton: RoundButton {
-        return linkView.linkButton
-    }
     /// The expected maximum height of the view
     private let EXPECTED_MAX_HEIGHT:CGFloat = 350
     
@@ -85,10 +81,10 @@ class CraveImageView: UIView {
         self.height = height
         self.imageView = RoundImageView(image: image, roundfactor: 10)
         super.init(frame: .zero)
-        self.cravings = cravings
         setCraveImageView()
         setLinkView()
         setCravingsView()
+        self.cravings = cravings
     }
     
     required init?(coder: NSCoder) {

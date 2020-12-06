@@ -15,44 +15,9 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgimage" translatesAutoresizingMaskIntoConstraints="NO" id="wqt-CH-Ngb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q64-ac-5q4">
-                                <rect key="frame" x="0.0" y="348" width="414" height="200"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="hpQ-9Z-fVB"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eBE-cf-Zsu">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="SAa-4j-or9"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="092-r7-o7Y"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" name="dark"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="wqt-CH-Ngb" secondAttribute="bottom" id="4wB-9i-eYa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q64-ac-5q4" secondAttribute="trailing" id="6hp-16-6ME"/>
-                            <constraint firstItem="wqt-CH-Ngb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AHl-qC-9Gl"/>
-                            <constraint firstItem="q64-ac-5q4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XLD-sz-g1k"/>
-                            <constraint firstItem="wqt-CH-Ngb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cV7-Al-tSR"/>
-                            <constraint firstItem="wqt-CH-Ngb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e2z-sN-pKU"/>
-                            <constraint firstItem="q64-ac-5q4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jkZ-eX-mss"/>
-                        </constraints>
+                        <color key="backgroundColor" name="light"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <connections>
-                        <outlet property="theCollectionView" destination="q64-ac-5q4" id="zZs-z3-E7S"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -60,9 +25,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bgimage" width="1024" height="1024"/>
-        <namedColor name="dark">
-            <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="light">
+            <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
