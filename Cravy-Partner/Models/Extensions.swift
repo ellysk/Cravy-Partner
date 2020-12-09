@@ -287,8 +287,7 @@ extension UICollectionViewFlowLayout {
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 3
         layout.sectionInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
-        let itemWidth = (UIScreen.main.bounds.width - (layout.minimumInteritemSpacing + layout.sectionInset.left + layout.sectionInset.right)) / 2
-        layout.itemSize = CGSize(width: itemWidth, height: 340)
+        layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 340)
         
         return layout
     }
@@ -296,13 +295,34 @@ extension UICollectionViewFlowLayout {
     /// Returns a layout that displays a single item column that can be scrolled through horizontally
     /// - Parameter height: The height of the item.
     static func singleItemHorizontalFlowLayoutWith(height: CGFloat) -> UICollectionViewFlowLayout {
-        let flowLayout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         
-        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: height)
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.sectionInset = UIEdgeInsets.zero
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: height)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets.zero
         
-        return flowLayout
+        return layout
+    }
+    
+    static var imageCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8
+        layout.sectionInset.left = 8
+        layout.sectionInset.right = 8
+        let itemWidth = layout.widthVisibleFor(numberOfItems: 1.5)
+        layout.itemSize = CGSize(width: itemWidth, height: 0.5 * itemWidth )
+        
+        return layout
+    }
+    
+    /// - Calculates the width of a single item in the layout depending on the number of visible items provided. To get desired results, set all needed layout properties before setting the size of the layout item.
+    /// - Returns: Width of item that will fit the number of visible items provided in the screen.
+    func widthVisibleFor(numberOfItems: CGFloat) -> CGFloat {
+        let spacing = self.scrollDirection == .vertical ? self.minimumInteritemSpacing : self.minimumLineSpacing
+        let width = (UIScreen.main.bounds.width - (spacing + self.sectionInset.left + self.sectionInset.right)) / numberOfItems
+        
+        return width
     }
 }
 

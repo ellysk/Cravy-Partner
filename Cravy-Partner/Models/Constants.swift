@@ -31,6 +31,8 @@ struct K {
             static let craveCell = "craveCell"
             /// A reusable identifier for the TagCollectionCell
             static let tagCell = "tagCell"
+            /// A reusable identifier for the ImageCollectionCell
+            static let imageCell = "imageCell"
         }
     }
     
