@@ -21,6 +21,7 @@ struct K {
         static let subscribers = "Subscribers"
         static let offTheMarket = "Off the market"
         static let onTheMarket = "On the market"
+        static let post = "POST"
     }
     
     struct Identifier {

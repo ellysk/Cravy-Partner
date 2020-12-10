@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum CRAVE_COLLECTION_STYLE {
+    case contained
+    case expanded
+}
+
 /// A cell that displays infromation of a product. Use craveCollectionViewFlowLayout to set the layout of the collection view registered with this cell.
 class CraveCollectionCell: UICollectionViewCell {
     private var containerView: UIStackView!
@@ -20,6 +25,7 @@ class CraveCollectionCell: UICollectionViewCell {
     private var craveRecommendationLabel: UILabel!
     private var craveTagsCollectionView: UICollectionView!
     private var tags: [String]?
+    private var style: CRAVE_COLLECTION_STYLE!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +33,9 @@ class CraveCollectionCell: UICollectionViewCell {
     }
     
     /// Initializes the subviews in this cell while optionally populating them with the related data.
-    func setCraveCollectionCell(image: UIImage? = nil, cravings: Int? = nil, title: String? = nil, recommendations: Int? = nil, tags: [String]? = nil, stat: String? = nil) {
+    ///   - style: Determines the layout style of the cell. The default is expanded whereby all the view are visible except the interactable view inside a CraveImageView. contained style does not show the TagsCollectionView and displays a UIButton inside the CraveImageView.
+    func setCraveCollectionCell(image: UIImage? = nil, cravings: Int? = nil, title: String? = nil, recommendations: Int? = nil, tags: [String]? = nil, stat: String? = nil, style: CRAVE_COLLECTION_STYLE = .expanded) {
+        self.style = style
         setContainerView()
         setToolBarView(stat: stat)
         setCraveView(image: image, cravings: cravings, title: title, recommendations: recommendations, tags: tags)
@@ -44,22 +52,25 @@ class CraveCollectionCell: UICollectionViewCell {
     }
     
     private func setToolBarView(stat: String? = nil) {
-        if toolBarStackView == nil && statLabel == nil {
-            let optionsButton = UIButton.optionsButton
-            optionsButton.contentHorizontalAlignment = .left
-            
-            statLabel = UILabel()
-            statLabel.text = stat
-            statLabel.font = UIFont.medium.xSmall
-            statLabel.textAlignment = .center
-            statLabel.textColor = K.Color.important
-            
-            toolBarStackView = UIStackView(arrangedSubviews: [optionsButton, statLabel])
-            toolBarStackView.set(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 0)
-            
-            containerView.addArrangedSubview(toolBarStackView)
-        } else {
-            statLabel.text = stat
+        if style == .expanded {
+            if toolBarStackView == nil && statLabel == nil {
+                let optionsButton = UIButton.optionsButton
+                optionsButton.imageEdgeInsets.left = 8
+                optionsButton.contentHorizontalAlignment = .left
+                
+                statLabel = UILabel()
+                statLabel.text = stat
+                statLabel.font = UIFont.medium.xSmall
+                statLabel.textAlignment = .center
+                statLabel.textColor = K.Color.important
+                
+                toolBarStackView = UIStackView(arrangedSubviews: [optionsButton, statLabel])
+                toolBarStackView.set(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 0)
+                
+                containerView.addArrangedSubview(toolBarStackView)
+            } else {
+                statLabel.text = stat
+            }
         }
     }
     
@@ -76,8 +87,12 @@ class CraveCollectionCell: UICollectionViewCell {
     
     private func setCraveImageView(image: UIImage? = nil, cravings: Int? = nil) {
         if craveImageView == nil {
-            craveImageView = CraveImageView(image: image, cravings: cravings)
-            craveImageView.showsLink = false
+            if style == .expanded {
+                craveImageView = CraveImageView(image: image, cravings: cravings)
+                craveImageView.isInteractableHidden = false
+            } else {
+                craveImageView = CraveImageView(height: 180, image: image, cravings: cravings, interactable: .post)
+            }
             craveView.addSubview(craveImageView)
             craveImageView.translatesAutoresizingMaskIntoConstraints = false
             craveImageView.topAnchor(to: craveView)
@@ -121,27 +136,29 @@ class CraveCollectionCell: UICollectionViewCell {
             craveTitleRecommendationStackView.set(axis: .vertical, alignment: .leading, spacing: 1)
             craveView.addSubview(craveTitleRecommendationStackView)
             craveTitleRecommendationStackView.translatesAutoresizingMaskIntoConstraints = false
-            craveTitleRecommendationStackView.topAnchor.constraint(equalTo: craveImageView.bottomAnchor, constant: -16).isActive = true
+            craveTitleRecommendationStackView.topAnchor.constraint(equalTo: craveImageView.bottomAnchor, constant: 8).isActive = true
             craveTitleRecommendationStackView.HConstraint(to: self, constant: 8)
         }
     }
     
     private func setCraveTagsCollectionView(tags: [String]? = nil) {
-        self.tags = tags
-        
-        if craveTagsCollectionView == nil {
-            craveTagsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout)
-            craveTagsCollectionView.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
-            craveTagsCollectionView.dataSource = self
-            craveTagsCollectionView.delegate = self
-            craveTagsCollectionView.backgroundColor = .clear
-            craveView.addSubview(craveTagsCollectionView)
-            craveTagsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-            craveTagsCollectionView.topAnchor.constraint(equalTo: craveTitleRecommendationStackView.bottomAnchor, constant: 8).isActive = true
-            craveTagsCollectionView.heightAnchor(of: 30)
-            craveTagsCollectionView.HConstraint(to: craveView)
-        } else {
-            craveTagsCollectionView.reloadData()
+        if style == .expanded {
+            self.tags = tags
+            
+            if craveTagsCollectionView == nil {
+                craveTagsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout)
+                craveTagsCollectionView.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
+                craveTagsCollectionView.dataSource = self
+                craveTagsCollectionView.delegate = self
+                craveTagsCollectionView.backgroundColor = .clear
+                craveView.addSubview(craveTagsCollectionView)
+                craveTagsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+                craveTagsCollectionView.topAnchor.constraint(equalTo: craveTitleRecommendationStackView.bottomAnchor, constant: 8).isActive = true
+                craveTagsCollectionView.heightAnchor(of: 30)
+                craveTagsCollectionView.HConstraint(to: craveView)
+            } else {
+                craveTagsCollectionView.reloadData()
+            }
         }
     }
 }

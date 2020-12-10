@@ -9,8 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource {
-    @IBOutlet weak var theCollectionView: UICollectionView!
-    var layout: UICollectionViewFlowLayout!
+    let theCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout)
     let images: [UIImage] = [UIImage(named: "promote")!, UIImage(named: "comingsoon")!]
     
     override func viewDidLoad() {
@@ -35,26 +34,24 @@ class ViewController: UIViewController, UICollectionViewDataSource {
 //        bsv.centerYAnchor(to: self.view)
 //        bsv.HConstraint(to: self.view, constant: 16)
         
+        self.view.addSubview(theCollectionView)
+        theCollectionView.backgroundColor = .clear
+        theCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        theCollectionView.centerYAnchor(to: self.view)
+        theCollectionView.HConstraint(to: self.view)
+        theCollectionView.heightAnchor(of: 500)
         
-        theCollectionView.register(ImageCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.imageCell)
-        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        if layout == nil {
-            theCollectionView.setCollectionViewLayout(UICollectionViewFlowLayout.imageCollectionViewFlowLayout, animated: true)
-        }
+        theCollectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
+        theCollectionView.dataSource = self
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.imageCell, for: indexPath) as! ImageCollectionCell
-        cell.setImageCollectionCell(image: images[indexPath.item])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.craveCell, for: indexPath) as! CraveCollectionCell
+        cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings the big mac innit", recommendations: 56, tags: ["Chicken", "Wings", "Street food", "Spicy"])
         
         return cell
     }

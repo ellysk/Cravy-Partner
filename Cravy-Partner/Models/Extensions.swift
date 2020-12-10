@@ -263,7 +263,8 @@ extension UICollectionViewFlowLayout {
     static var horizontalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: 80, height: 20)
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 8
         layout.sectionInset.left = 8
         
@@ -273,7 +274,8 @@ extension UICollectionViewFlowLayout {
     static var verticalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: 100, height: 30)
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
         layout.sectionInset.left = 8
@@ -282,12 +284,22 @@ extension UICollectionViewFlowLayout {
         return layout
     }
     
-    static var craveCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    static var verticalCraveCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 3
         layout.sectionInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
         layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 340)
+        
+        return layout
+    }
+    
+    static var horizontalCraveCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 3
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
+        layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 1.8), height: 240)
         
         return layout
     }

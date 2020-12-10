@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum INTERACTABLE {
+    case link
+    case post
+}
+
 /// A custom view that displays an imageview and extra views at the bottom such as a linkview, an imagview for the cravings icon and a label showing the number of cravings.
 class CraveImageView: UIView {
     private var imageView: RoundImageView
@@ -23,17 +28,18 @@ class CraveImageView: UIView {
             return imageView.image
         }
     }
-    private var linkView = LinkView()
+    private var linkView: LinkView?
+    private var postButton: RoundButton?
     /// The expected maximum height of the view
     private let EXPECTED_MAX_HEIGHT:CGFloat = 350
     
     /// The expected minimum height of the view
-    private let EXPECTED_MIN_HEIGHT: CGFloat = 250
+    private let EXPECTED_MIN_HEIGHT: CGFloat = 230
     private var height: CGFloat
     /// The height and width value of the cravings image view which displays the cravings icon
     private var cravingsImageViewSize: CGFloat {
         if height <= EXPECTED_MAX_HEIGHT {
-            return 0.1 * height
+            return 0.1 * EXPECTED_MIN_HEIGHT
         } else {
             return 0.1 * EXPECTED_MAX_HEIGHT
         }
@@ -55,13 +61,14 @@ class CraveImageView: UIView {
         }
     }
     /// A boolean that determines whether the link view should be hidden
-    var showsLink: Bool {
+    var isInteractableHidden: Bool {
         set {
-            linkView.isHidden = !newValue
+            linkView?.isHidden = !newValue
+            postButton?.isHidden = !newValue
         }
         
         get {
-            return linkView.isHidden
+            return linkView?.isHidden ?? postButton?.isHidden ?? false
         }
     }
     /// Changes the background color of the cravings image view, default color is secondary color.
@@ -77,12 +84,13 @@ class CraveImageView: UIView {
     
     /// - Parameters:
     ///   - height: The height of the view, default height is 250 which is recommended as the minimum height.
-    init(height: CGFloat = 250, image: UIImage? = nil, cravings: Int? = nil) {
+    ///   - interactable: Determines which type of view to set as the interactable. defaulat is the LinkView.
+    init(height: CGFloat = 230, image: UIImage? = nil, cravings: Int? = nil, interactable: INTERACTABLE = .link) {
         self.height = height
         self.imageView = RoundImageView(image: image, roundfactor: 10)
         super.init(frame: .zero)
         setCraveImageView()
-        setLinkView()
+        setInteractable(interactable)
         setCravingsView()
         self.cravings = cravings
     }
@@ -101,7 +109,7 @@ class CraveImageView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor(to: self)
-        imageView.heightAnchor(to: self, multiplier: 0.8)
+        imageView.heightAnchor(to: self, multiplier: 0.87)
         imageView.HConstraint(to: self)
     }
     
@@ -137,11 +145,36 @@ class CraveImageView: UIView {
         vStackView.trailingAnchor(to: self, constant: 8)
     }
     
+    /// Sets a button at the bottom-left edge of the image view.
+    private func setInteractable(_ interactable: INTERACTABLE) {
+        if interactable == .link {
+            setLinkView()
+        } else {
+            setPostButton()
+        }
+    }
+    
     private func setLinkView() {
-        self.addSubview(linkView)
-        linkView.translatesAutoresizingMaskIntoConstraints = false
-        linkView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(linkView.height/2)).isActive = true
-        linkView.leadingAnchor(to: self, constant: 8)
-        linkView.setNeedsLayout()
+        linkView = LinkView()
+        self.addSubview(linkView!)
+        linkView!.translatesAutoresizingMaskIntoConstraints = false
+        linkView!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(linkView!.height/2)).isActive = true
+        linkView!.leadingAnchor(to: self, constant: 8)
+        linkView!.setNeedsLayout()
+    }
+    
+    private func setPostButton() {
+        postButton = RoundButton()
+        postButton!.setTitle(K.UIConstant.post, for: .normal)
+        postButton!.titleLabel?.font = UIFont.demiBold.small
+        postButton!.setTitleColor(K.Color.light, for: .normal)
+        postButton!.backgroundColor = K.Color.primary
+        self.addSubview(postButton!)
+        let postButtonSize = CGSize(width: 80, height: 30)
+        postButton!.translatesAutoresizingMaskIntoConstraints = false
+        postButton!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(postButtonSize.height/2)).isActive = true
+        postButton!.heightAnchor(of: postButtonSize.height)
+        postButton!.leadingAnchor(to: self, constant: 8)
+        postButton!.widthAnchor(of: postButtonSize.width)
     }
 }
