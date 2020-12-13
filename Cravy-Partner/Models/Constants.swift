@@ -35,6 +35,11 @@ struct K {
             /// A reusable identifier for the ImageCollectionCell
             static let imageCell = "imageCell"
         }
+        
+        struct TableViewCell {
+            /// A reusable identifier for the GalleryTableCell
+            static let galleryCell = "galleryCell"
+        }
     }
     
     struct Collections {

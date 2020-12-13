@@ -8,51 +8,51 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource {
-    let theCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout)
-    let images: [UIImage] = [UIImage(named: "promote")!, UIImage(named: "comingsoon")!]
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var theTableView: UITableView!
+    var bgimages: [UIImage] = Array(repeating: UIImage(named: "bgimage")!, count:2)
+    var pmimages: [UIImage] = Array(repeating: UIImage(named: "pmimage")!, count: 6)
+    var images: [[UIImage]] {
+        var array: [UIImage] = []
+        array.append(contentsOf: bgimages)
+        array.append(contentsOf: pmimages)
+        
+        return array.chunked(into: GalleryView.MAX_SUBVIEWS)
+    }
+    var layout: GALLERY_LAYOUT = .uzumaki
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-//        let lv = LinkView()
-//        self.view.addSubview(lv)
-//        lv.translatesAutoresizingMaskIntoConstraints = false
-//        lv.centerXYAnchor(to: self.view)
-        
-        
-//        let bv = BusinessView(image: UIImage(named: "bgimage"), name: "EAT Restaurant & Cafe", email: "eat@restcafe.co.uk")
-//        self.view.addSubview(bv)
-//        bv.translatesAutoresizingMaskIntoConstraints = false
-//        bv.topAnchor(to: self.view.safeAreaLayoutGuide)
-//        bv.HConstraint(to: self.view)
-//
-//        let bsv = BusinessStatView(recommendations: 100, subscribers: 200)
-//        self.view.addSubview(bsv)
-//        bsv.translatesAutoresizingMaskIntoConstraints = false
-//        bsv.centerYAnchor(to: self.view)
-//        bsv.HConstraint(to: self.view, constant: 16)
-        
-        self.view.addSubview(theCollectionView)
-        theCollectionView.backgroundColor = .clear
-        theCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        theCollectionView.centerYAnchor(to: self.view)
-        theCollectionView.HConstraint(to: self.view)
-        theCollectionView.heightAnchor(of: 500)
-        
-        theCollectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
-        theCollectionView.dataSource = self
+        theTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
+//        reload(1)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+    func reload(_ count: Int) {
+        if count <= 5 {
+            DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+                self.bgimages = Array(repeating: UIImage(named: "bgimage")!, count: count)
+                self.theTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                let num = count + 1
+                self.reload(num)
+            }
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.craveCell, for: indexPath) as! CraveCollectionCell
-        cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings the big mac innit", recommendations: 56, tags: ["Chicken", "Wings", "Street food", "Spicy"])
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
+        cell.setGalleryTableCell(layout: layout, images: images[indexPath.item])
+        
+        layout.change()
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }

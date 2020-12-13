@@ -15,9 +15,32 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQ6-VB-vYi">
+                                <rect key="frame" x="87" y="384" width="240" height="275"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8a2-3g-Nc9">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="pXA-h5-4BH"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="i7X-l8-lo5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="8a2-3g-Nc9" secondAttribute="bottom" id="Cea-kf-SdP"/>
+                            <constraint firstItem="8a2-3g-Nc9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ELk-rW-eoh"/>
+                            <constraint firstItem="8a2-3g-Nc9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bqs-Rf-ZdF"/>
+                            <constraint firstItem="8a2-3g-Nc9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fOf-c2-Bcu"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="theTableView" destination="8a2-3g-Nc9" id="Lvx-WB-Ixp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
