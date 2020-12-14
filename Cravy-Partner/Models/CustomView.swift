@@ -50,7 +50,7 @@ class FloaterView: RoundView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.widthAnchor(to: floaterStackView, multiplier: 1.01)
+        self.widthAnchor(to: floaterStackView, multiplier: 1.1)
         self.heightAnchor(to: floaterStackView, multiplier: 1.2)
     }
     
@@ -58,7 +58,7 @@ class FloaterView: RoundView {
         setImageView()
         setTitleLabel()
         floaterStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
-        floaterStackView.set(axis: .horizontal, alignment: .center ,distribution: .fillProportionally, spacing: 8)
+        floaterStackView.set(axis: .horizontal, alignment: .center ,distribution: .fill, spacing: 8)
         self.addSubview(floaterStackView)
         floaterStackView.translatesAutoresizingMaskIntoConstraints = false
         floaterStackView.centerYAnchor(to: self)
@@ -75,7 +75,6 @@ class FloaterView: RoundView {
     
     private func setTitleLabel() {
         titleLabel.font = UIFont.demiBold.small
-        titleLabel.textAlignment = .left
         titleLabel.textColor = K.Color.light
     }
     
