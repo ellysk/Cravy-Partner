@@ -24,6 +24,7 @@ struct K {
         static let post = "POST"
         static let edit = "Edit"
         static let settings = "Settings"
+        static let settingsAlertMessage = "Important information regarding privacy and security rules will be alerted here"
     }
     
     struct Identifier {
@@ -45,6 +46,8 @@ struct K {
             static let imageCell = "imageCell"
             /// A resuable identifier for the CraveCollectionTableCell
             static let craveCell = "craveCell"
+            /// A reusable identifier for the BasicTableCell
+            static let basicCell = "basicCell"
         }
     }
     
@@ -53,6 +56,10 @@ struct K {
         static let introSections = ["Cook", "Present", "Track"]
         /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
         static let introSectionDetails = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
+        static let sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
+        static let settingsTitles = ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
+        static let settingsImages = [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
+        
     }
     
     struct Color {
@@ -81,5 +88,10 @@ struct K {
     struct Image {
         static let ellipsisCricleFill: UIImage = UIImage(systemName: "ellipsis.circle.fill")!
         static let pencilCircleFill : UIImage = UIImage(systemName: "pencil.circle.fill")!
+        static let account: UIImage = UIImage(named: "account")!
+        static let notifications: UIImage = UIImage(systemName: "bell")!
+        static let privacy: UIImage = UIImage(systemName: "lock")!
+        static let about: UIImage = UIImage(systemName: "questionmark.circle")!
+        static let help: UIImage = UIImage(named: "help")!
     }
 }

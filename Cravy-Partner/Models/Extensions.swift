@@ -98,6 +98,11 @@ extension UIView {
         self.clipsToBounds = true
     }
     
+    func removeRounded() {
+        self.layer.cornerRadius = self.frame.height
+        self.clipsToBounds = false
+    }
+    
     /// Gives the view a border of width 1 and primary color
     func makeBordered() {
         self.layer.borderWidth = 1
