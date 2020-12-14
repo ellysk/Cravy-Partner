@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B060A282586CF5100F59CB5 /* ImageCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A262586CF5100F59CB5 /* ImageCollectionTableCell.swift */; };
+		2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */; };
+		2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */; };
+		2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */; };
 		2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */; };
 		2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
@@ -59,6 +63,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B060A262586CF5100F59CB5 /* ImageCollectionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionTableCell.swift; sourceTree = "<group>"; };
+		2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionTableCell.xib; sourceTree = "<group>"; };
+		2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveCollectionTableCell.swift; sourceTree = "<group>"; };
+		2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionTableCell.xib; sourceTree = "<group>"; };
 		2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTableCell.swift; sourceTree = "<group>"; };
 		2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryTableCell.xib; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
@@ -191,6 +199,10 @@
 				2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */,
 				2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */,
 				2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */,
+				2B060A262586CF5100F59CB5 /* ImageCollectionTableCell.swift */,
+				2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */,
+				2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */,
+				2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,8 +346,10 @@
 				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
 				2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */,
+				2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
+				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +379,8 @@
 				2B99FFBB25745B17008302FA /* CustomTextField.swift in Sources */,
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
 				2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */,
+				2B060A282586CF5100F59CB5 /* ImageCollectionTableCell.swift in Sources */,
+				2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */,
 				2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */,
 				2B99FFB425745277008302FA /* CustomButton.swift in Sources */,
 				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,

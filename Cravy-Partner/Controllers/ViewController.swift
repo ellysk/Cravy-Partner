@@ -20,12 +20,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return array.chunked(into: GalleryView.MAX_SUBVIEWS)
     }
     var layout: GALLERY_LAYOUT = .uzumaki
+    var sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        theTableView.register(ImageCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.imageCell)
+        theTableView.register(CraveCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.craveCell)
         theTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
-//        reload(1)
     }
     
     func reload(_ count: Int) {
@@ -39,20 +40,54 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
+        if section <= 2 {
+            return 1
+        } else {
+            return images.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
-        cell.setGalleryTableCell(layout: layout, images: images[indexPath.item])
+        var cell: UITableViewCell!
         
-        layout.change()
+        if indexPath.section == 0 {
+            print("fucking hell____________")
+            let imageCell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ImageCollectionTableCell
+            imageCell.setImageCollectionTableCell(images: [UIImage(named: "promote")!, UIImage(named: "comingsoon")!])
+            
+            cell = imageCell
+        } else if indexPath.section == 1 {
+            print("oi oi oi oi oi oi oi oi oi oi")
+            let craveCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.craveCell, for: indexPath) as! CraveCollectionTableCell
+            craveCell.setCraveCollectionTableCell(craves: ["one", "two"])
+            
+            cell = craveCell
+        } else {
+            let galleryCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
+            galleryCell.setGalleryTableCell(layout: layout, images: images[indexPath.item])
+            
+            layout.change()
+            
+            cell = galleryCell
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tableView.sectionWithTitle(sectionTitles[section])
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
 }

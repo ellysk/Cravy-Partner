@@ -91,7 +91,6 @@ extension UILabel {
 
 //MARK: - UIView
 extension UIView {
-    
     /// Gives the view rounded corners
     /// - Parameter roundFactor: The factor which determines how curved the view's corner will be. The lower the factor the mroe the curved the view's corners will be. The default value is 2 which makes the corners form a full curve.
     func makeRounded(roundFactor: CGFloat = 2) {
@@ -298,7 +297,7 @@ extension UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 3
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 1.8), height: 240)
         
         return layout
@@ -368,6 +367,26 @@ extension UIButton {
     /// Sets the background image specifically designed for the size ratio of a floater button that is displayed in a view controller.
     func setFloaterButtonBackgroundImage(image: UIImage?) {
         self.setBackgroundImage(image?.withInset(UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))?.withTintColor(K.Color.light), for: .normal)
+    }
+}
+
+extension UITableView {
+    /// Returns a view for a section inside a table view.
+    /// - Parameter title: The text that will appear on the label inside the view.
+    func sectionWithTitle(_ title: String) -> UIView {
+        let section = UIView(frame: CGRect(origin: .zero, size: CGSize(width: self.frame.width, height: 0)))
+        section.backgroundColor = K.Color.light
+        let sectionTitle = UILabel()
+        sectionTitle.text = title
+        sectionTitle.font = UIFont.demiBold.small
+        sectionTitle.textAlignment = .left
+        sectionTitle.textColor = K.Color.dark.withAlphaComponent(0.5)
+        section.addSubview(sectionTitle)
+        sectionTitle.translatesAutoresizingMaskIntoConstraints = false
+        sectionTitle.bottomAnchor(to: section, constant: 3)
+        sectionTitle.HConstraint(to: section, constant: 8)
+        
+        return section
     }
 }
 

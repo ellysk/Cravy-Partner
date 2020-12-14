@@ -39,6 +39,10 @@ struct K {
         struct TableViewCell {
             /// A reusable identifier for the GalleryTableCell
             static let galleryCell = "galleryCell"
+            /// A reusable identifier for the ImageCollectionTableCell
+            static let imageCell = "imageCell"
+            /// A resuable identifier for the CraveCollectionTableCell
+            static let craveCell = "craveCell"
         }
     }
     
