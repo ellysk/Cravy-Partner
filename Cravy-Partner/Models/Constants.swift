@@ -22,6 +22,8 @@ struct K {
         static let offTheMarket = "Off the market"
         static let onTheMarket = "On the market"
         static let post = "POST"
+        static let edit = "Edit"
+        static let settings = "Settings"
     }
     
     struct Identifier {
@@ -73,6 +75,11 @@ struct K {
         /// Returns a tag value of 11
         static let CRAVY_SEARCH_BAR: Int = 11
         /// Returns a tag value of 22
-        static let FLOATER_BUTTON: Int = 22
+        static let FLOATER_VIEW: Int = 22
+    }
+    
+    struct Image {
+        static let ellipsisCricleFill: UIImage = UIImage(systemName: "ellipsis.circle.fill")!
+        static let pencilCircleFill : UIImage = UIImage(systemName: "pencil.circle.fill")!
     }
 }

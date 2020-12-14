@@ -116,6 +116,10 @@ extension UIView {
         self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant).isActive = true
     }
     
+    func bottomAnchor(to layoutGuide: UILayoutGuide, constant: CGFloat = 0) {
+        self.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -constant).isActive = true
+    }
+    
     func leadingAnchor(to view: UIView, constant: CGFloat = 0) {
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant).isActive = true
     }
@@ -212,33 +216,31 @@ extension UIViewController {
             }
         }
     }
-    /// A button displayed at the bottom-right of the view.
-    var floaterButton: RoundButton? {
+    /// A view displayed at the bottom-right of the view controller.
+    var floaterView: FloaterView? {
         return self.view.subviews.first { (subview) -> Bool in
-            return subview.tag == K.ViewTag.FLOATER_BUTTON
-        } as? RoundButton
+            return subview.tag == K.ViewTag.FLOATER_VIEW
+        } as? FloaterView
     }
-    var showsFloaterButton: Bool {
+    /// Initiliazes and displays a floater view.
+    var showsFloaterView: Bool {
         set {
-            floaterButton?.isHidden = !newValue
+            floaterView?.isHidden = !newValue
             
             if newValue {
-                if floaterButton == nil {
-                    let btn = RoundButton()
-                    btn.tag = K.ViewTag.FLOATER_BUTTON
-                    btn.backgroundColor = K.Color.primary
-                    self.view.addSubview(btn)
-                    btn.translatesAutoresizingMaskIntoConstraints = false
-                    btn.bottomAnchor(to: self.view, constant: 8)
-                    btn.heightAnchor(of: 50)
-                    btn.trailingAnchor(to: self.view, constant: 8)
-                    btn.widthAnchor(of: 50)
+                if floaterView == nil {
+                    let fv = FloaterView()
+                    fv.tag = K.ViewTag.FLOATER_VIEW
+                    self.view.addSubview(fv)
+                    fv.translatesAutoresizingMaskIntoConstraints = false
+                    fv.bottomAnchor(to: self.view.safeAreaLayoutGuide)
+                    fv.trailingAnchor(to: self.view, constant: 3)
                 }
             }
         }
         
         get {
-            if let floater = floaterButton {
+            if let floater = floaterView {
                 return !floater.isHidden
             } else {
                 return false
@@ -364,7 +366,7 @@ extension UIButton {
         return btn
     }
     
-    /// Sets the background image specifically designed for the size ratio of a floater button that is displayed in a view controller.
+    /// Sets the background image of the button with insets value of 2 in all sides.
     func setFloaterButtonBackgroundImage(image: UIImage?) {
         self.setBackgroundImage(image?.withInset(UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))?.withTintColor(K.Color.light), for: .normal)
     }
