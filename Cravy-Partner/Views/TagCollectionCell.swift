@@ -66,6 +66,7 @@ class TagCollectionCell: UICollectionViewCell {
     func setTagCollectionCell(tag: String? = nil, style: TAG_COLLECTION_STYLE = .none_filled) {
         setTagView(tag: tag, style: style)
         self.style = style
+        self.isTransparent = true
     }
     
     private func setTagLabel(tag: String? = nil) {
@@ -82,7 +83,6 @@ class TagCollectionCell: UICollectionViewCell {
         setTagLabel(tag: tag)
         
         if tagStackView == nil && separator == nil {
-            self.backgroundColor = .clear
             separator = RoundView()
             separator.backgroundColor = K.Color.primary
             separator.translatesAutoresizingMaskIntoConstraints = false

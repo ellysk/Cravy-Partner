@@ -91,6 +91,18 @@ extension UILabel {
 
 //MARK: - UIView
 extension UIView {
+    /// A boolean that determines if the view's background is clear.
+    var isTransparent: Bool {
+        set {
+            if newValue {
+                self.backgroundColor = .clear
+            }
+        }
+        
+        get {
+            return self.backgroundColor == .clear
+        }
+    }
     /// Gives the view rounded corners
     /// - Parameter roundFactor: The factor which determines how curved the view's corner will be. The lower the factor the mroe the curved the view's corners will be. The default value is 2 which makes the corners form a full curve.
     func makeRounded(roundFactor: CGFloat = 2) {
@@ -293,33 +305,21 @@ extension UICollectionViewFlowLayout {
     
     static var verticalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.estimatedItemSize = CGSize(width: 100, height: 30)
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        layout.sectionInset.left = 8
-        layout.sectionInset.right = 8
+        layout.set(direction: .vertical, estimatedItemSize: CGSize(width: 100, height: 30))
         
         return layout
     }
     
     static var verticalCraveCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 3
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3)
-        layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 340)
-        
+        layout.set(direction: .vertical, itemSize: CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 340), minimumInterimSpacing: 3, sectionInset: UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3))
+       
         return layout
     }
     
     static var horizontalCraveCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 3
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 1.8), height: 240)
+        layout.set(direction: .horizontal, itemSize: CGSize(width: layout.widthVisibleFor(numberOfItems: 1.8), height: 240), minimumLineSpacing: 3)
         
         return layout
     }
@@ -328,24 +328,29 @@ extension UICollectionViewFlowLayout {
     /// - Parameter height: The height of the item.
     static func singleItemHorizontalFlowLayoutWith(height: CGFloat) -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: height)
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets.zero
+        layout.set(direction: .horizontal, itemSize: CGSize(width: UIScreen.main.bounds.width, height: height), sectionInset: .zero)
         
         return layout
     }
     
     static var imageCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        layout.sectionInset.left = 8
-        layout.sectionInset.right = 8
         let itemWidth = layout.widthVisibleFor(numberOfItems: 1.5)
-        layout.itemSize = CGSize(width: itemWidth, height: 0.5 * itemWidth )
+        layout.set(direction: .horizontal, itemSize: CGSize(width: itemWidth, height: 0.5 * itemWidth ))
         
         return layout
+    }
+    
+    /// Sets the main properties of a UICollectionViewFlowLayout
+    func set(direction: UICollectionView.ScrollDirection, estimatedItemSize: CGSize? = nil, itemSize: CGSize = UICollectionViewFlowLayout.automaticSize, minimumLineSpacing: CGFloat = 8, minimumInterimSpacing: CGFloat = 8, sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)) {
+        self.scrollDirection = .vertical
+        self.minimumLineSpacing = minimumLineSpacing
+        self.minimumInteritemSpacing = minimumInterimSpacing
+        self.sectionInset = sectionInset
+        if let size = estimatedItemSize {
+            self.estimatedItemSize = size
+        }
+        self.itemSize = itemSize
     }
     
     /// - Calculates the width of a single item in the layout depending on the number of visible items provided. To get desired results, set all needed layout properties before setting the size of the layout item.

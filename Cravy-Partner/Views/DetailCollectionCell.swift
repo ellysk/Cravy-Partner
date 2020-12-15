@@ -24,12 +24,12 @@ class DetailCollectionCell: UICollectionViewCell {
         setTitleLabel(title: title)
         setDetailLabel(detail: detail)
         arrangeLabels()
+        self.isTransparent = true
     }
     
     
     private func setTitleLabel(title: String? = nil) {
         if titleLabel == nil {
-            self.backgroundColor = .clear
             titleLabel = UILabel()
             titleLabel.text = title
             titleLabel.font = UIFont.heavy.large

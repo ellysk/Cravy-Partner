@@ -38,11 +38,11 @@ class CraveCollectionCell: UICollectionViewCell {
         setContainerView()
         setToolBarView(stat: stat)
         setCraveView(image: image, cravings: cravings, title: title, recommendations: recommendations, tags: tags)
+        self.isTransparent = true
     }
     
     private func setContainerView() {
         if containerView == nil {
-            self.backgroundColor = .clear
             containerView = UIStackView()
             containerView.set(axis: .vertical, spacing: 0)
             self.addSubview(containerView)

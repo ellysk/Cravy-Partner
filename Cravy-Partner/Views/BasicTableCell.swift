@@ -30,6 +30,7 @@ class BasicTableCell: UITableViewCell {
     
     func setBasicCell(image: UIImage, title: String) {
         setStackView(image: image, title: title)
+        self.isTransparent = true
     }
     
     private func setStackView(image: UIImage, title: String) {
@@ -38,7 +39,6 @@ class BasicTableCell: UITableViewCell {
         
         if stackView == nil {
             self.accessoryType = .disclosureIndicator
-            self.backgroundColor = .clear
             self.tintColor = K.Color.dark
             stackView = UIStackView(arrangedSubviews: [basicImageView, basicLabel])
             stackView.set(axis: .horizontal, alignment: .center, distribution: .fillProportionally, spacing: 16)

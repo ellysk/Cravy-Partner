@@ -20,11 +20,11 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     func setCraveCollectionTableCell(craves: [String]) {
         self.craves = craves
         setCraveCollectionView()
+        self.isTransparent = true
     }
     
     private func setCraveCollectionView() {
         if craveCollectionView == nil {
-            self.backgroundColor = .clear
             let layout = UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout
             craveCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             craveCollectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)

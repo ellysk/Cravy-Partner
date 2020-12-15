@@ -38,11 +38,11 @@ class GalleryTableCell: UITableViewCell {
     func setGalleryTableCell(layout: GALLERY_LAYOUT = .uzumaki, images: [UIImage] = []) {
         setContainerView()
         setGalleryView(layout: layout, images: images)
+        self.isTransparent = true
     }
     
     private func setContainerView() {
         if containerView == nil {
-            self.backgroundColor = .clear
             containerView = UIView()
             containerView.backgroundColor = .clear
             self.addSubview(containerView)

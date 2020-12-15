@@ -19,11 +19,11 @@ class ImageCollectionCell: UICollectionViewCell {
     /// Sets the round image view with a default round factor of 5.
     func setImageCollectionCell(image: UIImage? = nil, roundfactor: CGFloat = 5) {
         setRoundImageView(image: image, roundfactor: roundfactor)
+        self.isTransparent = true
     }
     
     private func setRoundImageView(image: UIImage? = nil, roundfactor: CGFloat) {
         if roundImageView == nil {
-            self.backgroundColor = .clear
             roundImageView = RoundImageView(image: image, roundfactor: roundfactor)
             self.addSubview(roundImageView)
             roundImageView.translatesAutoresizingMaskIntoConstraints = false

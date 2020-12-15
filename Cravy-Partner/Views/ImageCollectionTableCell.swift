@@ -20,11 +20,11 @@ class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     func setImageCollectionTableCell(images: [UIImage]) {
         self.images = images
         setImageCollectionView()
+        self.isTransparent = true
     }
     
     private func setImageCollectionView() {
         if imageCollectionView == nil {
-            self.backgroundColor = .clear
             let layout = UICollectionViewFlowLayout.imageCollectionViewFlowLayout
             imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             imageCollectionView.register(ImageCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.imageCell)
