@@ -9,7 +9,7 @@
 import UIKit
 
 /// A cell that displays an image view and label.
-class BasicCell: UITableViewCell {
+class BasicTableCell: UITableViewCell {
     private var stackView: UIStackView!
     private var basicImageView: UIImageView!
     private var basicLabel: UILabel!

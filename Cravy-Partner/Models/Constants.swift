@@ -25,6 +25,9 @@ struct K {
         static let edit = "Edit"
         static let settings = "Settings"
         static let settingsAlertMessage = "Important information regarding privacy and security rules will be alerted here"
+        static let askPasswordTitle = "Ask password"
+        static let askPasswordDetail = "Asks you for the password every time the app goes in background for more than one minute."
+        static let termsAndAgreement = "Terms & Agreement"
     }
     
     struct Identifier {
@@ -48,6 +51,8 @@ struct K {
             static let craveCell = "craveCell"
             /// A reusable identifier for the BasicTableCell
             static let basicCell = "basicCell"
+            /// A reusable identifier for the ToggleTableCell
+            static let toggleCell = "toggleCell"
         }
     }
     
@@ -55,11 +60,23 @@ struct K {
         /// Returns ["Cook", "Present", "Track"]
         static let introSections = ["Cook", "Present", "Track"]
         /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
-        static let introSectionDetails = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
-        static let sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
-        static let settingsTitles = ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
-        static let settingsImages = [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
         
+        /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
+        static let introSectionDetails = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
+        /// Returns ["Make your business stand out", "Let your customers see them", "The Kitchen"]
+        static let sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
+        /// Returns ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
+        static let settingsTitles = ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
+        /// Returns [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
+        static let settingsImages = [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
+        /// Returns ["Email notifications", "Push notifications"]
+        static let notificationSectionTitles = ["Email notifications", "Push notifications"]
+        /// Returns ["Product updates", "News Letters"]
+        static let notificationTitles = ["Product updates", "News Letters"]
+        /// Returns ["Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers.", "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses."]
+        static let notificationDetails = ["Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers.", "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses."]
+        /// Returns ["Send via Email", "Send via SMS"]
+        static let twoFactorAuthenticationTitles = ["Send via Email", "Send via SMS"]
     }
     
     struct Color {

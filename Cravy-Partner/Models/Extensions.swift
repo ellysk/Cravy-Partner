@@ -420,6 +420,31 @@ extension UITableView {
         
         return section
     }
+    
+    /// Returns a view for a section inside a table view with a UISwitch at the trailing end.
+    /// - Parameter title: The text that will appear on the label inside the view.
+    func sectionWithToggle(title: String) -> UIView {
+        let section = UIView(frame: CGRect(origin: .zero, size: CGSize(width: self.frame.width, height: 0)))
+        section.backgroundColor = K.Color.light
+        let sectionTitle = UILabel()
+        sectionTitle.text = title
+        sectionTitle.font = UIFont.medium.medium
+        sectionTitle.textAlignment = .left
+        sectionTitle.textColor = K.Color.dark
+        
+        let toggle = UISwitch()
+        toggle.onTintColor = K.Color.primary
+        
+        let hStackView = UIStackView(arrangedSubviews: [sectionTitle, toggle])
+        hStackView.set(axis: .horizontal, alignment: .center, distribution: .fill)
+        
+        section.addSubview(hStackView)
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.bottomAnchor(to: section, constant: 3)
+        hStackView.HConstraint(to: section, constant: 16)
+        
+        return section
+    }
 }
 
 extension UIImageView {

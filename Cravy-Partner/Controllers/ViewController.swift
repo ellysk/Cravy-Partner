@@ -20,8 +20,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return array.chunked(into: GalleryView.MAX_SUBVIEWS)
     }
     var layout: GALLERY_LAYOUT = .uzumaki
-    var sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
+    var sectionTitles = ["Email notifications", "Push notifications"]
     var settingsTitles = ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
+    var titles = ["Product updates", "News Letters"]
+    var details = ["Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers.", "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses."]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +34,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        theTableView.register(CraveCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.craveCell)
 //        theTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
         
-        theTableView.register(BasicCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.basicCell)
+//        theTableView.register(BasicTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.basicCell)
+//
         
+        theTableView.register(ToggleTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.toggleCell)
+        
+//        let label = UILabel()
+//        label.text = K.UIConstant.termsAndAgreement
+//        label.font = UIFont.medium.small
+//        label.underline()
+//        label.textColor = K.Color.primary
+//        
+//        self.view.addSubview(label)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.centerXYAnchor(to: self.view)
         
 //        let textfield = RoundTextField(roundFactor: 5)
 //        textfield.text = "EAT Restaurant & Cafe"
@@ -78,9 +92,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 3
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        if section <= 2 {
@@ -89,7 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //            return images.count
 //        }
         
-        return K.Collections.settingsTitles.count
+        return titles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,21 +130,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //            cell = galleryCell
 //        }
         
-        let settingsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.basicCell, for: indexPath) as! BasicCell
-        settingsCell.setBasicCell(image: K.Collections.settingsImages[indexPath.row], title: settingsTitles[indexPath.row])
+//        let settingsCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.basicCell, for: indexPath) as! BasicTableCell
+//        settingsCell.setBasicCell(image: K.Collections.settingsImages[indexPath.row], title: settingsTitles[indexPath.row])
+//
+//        return settingsCell
         
-        return settingsCell
+        
+        var toggleCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.toggleCell, for: indexPath) as! ToggleTableCell
+        
+        if toggleCell.detailTextLabel == nil {
+            toggleCell = ToggleTableCell(style: .subtitle, reuseIdentifier: K.Identifier.TableViewCell.toggleCell)
+        }
+        
+        if indexPath.section == 0 {
+            toggleCell.setToggleCell(title: titles[indexPath.row], detail: details[indexPath.row])
+        } else {
+            toggleCell.setToggleCell(title: titles[indexPath.row], detail: nil)
+        }
+        
+        return toggleCell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return tableView.sectionWithTitle(sectionTitles[section])
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tableView.sectionWithToggle(title: sectionTitles[section])
+    }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 40
-//    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 }

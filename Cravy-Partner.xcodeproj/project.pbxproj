@@ -11,8 +11,10 @@
 		2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */; };
 		2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */; };
 		2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */; };
-		2B060A32258809E000F59CB5 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicCell.swift */; };
-		2B060A33258809E000F59CB5 /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicCell.xib */; };
+		2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicTableCell.swift */; };
+		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
+		2B62D9882588FC2B00C7E948 /* ToggleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */; };
+		2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B62D9872588FC2A00C7E948 /* ToggleTable.xib */; };
 		2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */; };
 		2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
@@ -69,8 +71,10 @@
 		2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionTableCell.xib; sourceTree = "<group>"; };
 		2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveCollectionTableCell.swift; sourceTree = "<group>"; };
 		2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionTableCell.xib; sourceTree = "<group>"; };
-		2B060A30258809E000F59CB5 /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
-		2B060A31258809E000F59CB5 /* BasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
+		2B060A30258809E000F59CB5 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
+		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
+		2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableCell.swift; sourceTree = "<group>"; };
+		2B62D9872588FC2A00C7E948 /* ToggleTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTable.xib; sourceTree = "<group>"; };
 		2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTableCell.swift; sourceTree = "<group>"; };
 		2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryTableCell.xib; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
@@ -207,8 +211,10 @@
 				2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */,
 				2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */,
 				2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */,
-				2B060A30258809E000F59CB5 /* BasicCell.swift */,
-				2B060A31258809E000F59CB5 /* BasicCell.xib */,
+				2B060A30258809E000F59CB5 /* BasicTableCell.swift */,
+				2B060A31258809E000F59CB5 /* BasicTableCell.xib */,
+				2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */,
+				2B62D9872588FC2A00C7E948 /* ToggleTable.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -349,12 +355,13 @@
 				2BE371BF2580EEC700B38D30 /* ImageCollectionCell.xib in Resources */,
 				2B99FFC5257534AD008302FA /* DetailCollectionCell.xib in Resources */,
 				2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */,
-				2B060A33258809E000F59CB5 /* BasicCell.xib in Resources */,
+				2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */,
 				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
 				2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */,
 				2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
+				2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */,
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
 				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
 			);
@@ -395,9 +402,10 @@
 				2B99FF842574309E008302FA /* ViewController.swift in Sources */,
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,
 				2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */,
-				2B060A32258809E000F59CB5 /* BasicCell.swift in Sources */,
+				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,
 				2B99FFB62574543A008302FA /* Constants.swift in Sources */,
 				2B99FFC4257534AD008302FA /* DetailCollectionCell.swift in Sources */,
+				2B62D9882588FC2B00C7E948 /* ToggleTableCell.swift in Sources */,
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
