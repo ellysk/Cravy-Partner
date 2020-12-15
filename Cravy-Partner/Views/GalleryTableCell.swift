@@ -30,7 +30,6 @@ class GalleryTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     /// - Parameters:
@@ -43,6 +42,7 @@ class GalleryTableCell: UITableViewCell {
     
     private func setContainerView() {
         if containerView == nil {
+            self.backgroundColor = .clear
             containerView = UIView()
             containerView.backgroundColor = .clear
             self.addSubview(containerView)

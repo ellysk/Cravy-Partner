@@ -10,6 +10,7 @@ import UIKit
 
 class RoundView: UIView {
     private var roundFactor: CGFloat?
+    var isBordered: Bool = false
     
     init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {
         self.roundFactor = roundFactor
@@ -26,6 +27,9 @@ class RoundView: UIView {
             self.makeRounded(roundFactor: factor)
         } else {
             self.makeRounded()
+        }
+        if isBordered {
+            self.makeBordered()
         }
     }
 }

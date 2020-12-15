@@ -14,7 +14,6 @@ class ImageCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     /// Sets the round image view with a default round factor of 5.
@@ -24,6 +23,7 @@ class ImageCollectionCell: UICollectionViewCell {
     
     private func setRoundImageView(image: UIImage? = nil, roundfactor: CGFloat) {
         if roundImageView == nil {
+            self.backgroundColor = .clear
             roundImageView = RoundImageView(image: image, roundfactor: roundfactor)
             self.addSubview(roundImageView)
             roundImageView.translatesAutoresizingMaskIntoConstraints = false

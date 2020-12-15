@@ -15,7 +15,6 @@ class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     func setImageCollectionTableCell(images: [UIImage]) {
@@ -25,6 +24,7 @@ class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     
     private func setImageCollectionView() {
         if imageCollectionView == nil {
+            self.backgroundColor = .clear
             let layout = UICollectionViewFlowLayout.imageCollectionViewFlowLayout
             imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             imageCollectionView.register(ImageCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.imageCell)

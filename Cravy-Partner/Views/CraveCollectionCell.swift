@@ -29,7 +29,6 @@ class CraveCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     /// Initializes the subviews in this cell while optionally populating them with the related data.
@@ -43,6 +42,7 @@ class CraveCollectionCell: UICollectionViewCell {
     
     private func setContainerView() {
         if containerView == nil {
+            self.backgroundColor = .clear
             containerView = UIStackView()
             containerView.set(axis: .vertical, spacing: 0)
             self.addSubview(containerView)

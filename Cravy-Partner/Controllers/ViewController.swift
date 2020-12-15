@@ -33,6 +33,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        theTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
         
         theTableView.register(BasicCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.basicCell)
+        
+        
+//        let textfield = RoundTextField(roundFactor: 5)
+//        textfield.text = "EAT Restaurant & Cafe"
+//        textfield.font = UIFont.medium.small
+//
+//        let stackView = textfield.withSectionTitle("Change business name")
+//        self.view.addSubview(stackView)
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.centerYAnchor(to: self.view)
+//        stackView.HConstraint(to: self.view, constant: 16)
+        
+        
+//        let roundImageView = RoundImageView(image: UIImage(named: "promote"), roundfactor: 5)
+//        roundImageView.contentMode = .scaleAspectFill
+//
+//        let placeholderView = roundImageView.withPlaceholderView()
+//        placeholderView.translatesAutoresizingMaskIntoConstraints = false
+//        placeholderView.heightAnchor(of: 100)
+//        placeholderView.widthAnchor(of: 100)
+//
+//        let stackView = placeholderView.withSectionTitle("Change business logo")
+//
+//        self.view.addSubview(stackView)
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.centerXYAnchor(to: self.view)
+        
+        
+//        let button = UIButton.logOutButton
+//        self.view.addSubview(button)
+//        button.centerXYAnchor(to: self.view)
+        
     }
     
     func reload(_ count: Int) {

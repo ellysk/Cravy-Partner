@@ -18,6 +18,7 @@ class RoundTextField: UITextField {
         self.font = UIFont.regular.small
         self.textColor = K.Color.dark
         self.roundFactor = roundFactor
+        self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +33,6 @@ class RoundTextField: UITextField {
             self.makeRounded()
         }
         self.makeBordered()
-        self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {

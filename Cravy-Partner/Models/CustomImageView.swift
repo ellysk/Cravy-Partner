@@ -9,7 +9,7 @@
 import UIKit
 
 class RoundImageView: UIImageView {
-    private var roundFactor: CGFloat?
+    var roundFactor: CGFloat?
     
     init(frame: CGRect = .zero, roundfactor: CGFloat? = nil) {
         self.roundFactor = roundfactor

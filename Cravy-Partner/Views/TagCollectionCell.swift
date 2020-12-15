@@ -51,7 +51,6 @@ class TagCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     override func layoutSubviews() {
@@ -83,6 +82,7 @@ class TagCollectionCell: UICollectionViewCell {
         setTagLabel(tag: tag)
         
         if tagStackView == nil && separator == nil {
+            self.backgroundColor = .clear
             separator = RoundView()
             separator.backgroundColor = K.Color.primary
             separator.translatesAutoresizingMaskIntoConstraints = false

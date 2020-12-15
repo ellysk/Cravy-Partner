@@ -15,7 +15,6 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     func setCraveCollectionTableCell(craves: [String]) {
@@ -25,6 +24,7 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     
     private func setCraveCollectionView() {
         if craveCollectionView == nil {
+            self.backgroundColor = .clear
             let layout = UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout
             craveCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             craveCollectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)

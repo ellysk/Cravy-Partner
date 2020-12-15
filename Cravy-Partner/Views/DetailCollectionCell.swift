@@ -16,7 +16,6 @@ class DetailCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
     }
     
     
@@ -30,6 +29,7 @@ class DetailCollectionCell: UICollectionViewCell {
     
     private func setTitleLabel(title: String? = nil) {
         if titleLabel == nil {
+            self.backgroundColor = .clear
             titleLabel = UILabel()
             titleLabel.text = title
             titleLabel.font = UIFont.heavy.large

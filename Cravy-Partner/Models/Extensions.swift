@@ -184,6 +184,20 @@ extension UIView {
     func widthAnchor(to view: UIView, multiplier: CGFloat = 1) {
         self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier).isActive = true
     }
+    
+    /// Adds a title on top of the view and returns the stack view that holds both the label and the view.
+    func withSectionTitle(_ title: String, titleFont: UIFont = UIFont.medium.small, titleColor: UIColor = K.Color.dark.withAlphaComponent(0.5), alignment: UIStackView.Alignment = .leading) -> UIStackView {
+        let sectionLabel = UILabel()
+        sectionLabel.text = title
+        sectionLabel.font = titleFont
+        sectionLabel.textAlignment = .left
+        sectionLabel.textColor = titleColor
+        
+        let vStackView = UIStackView(arrangedSubviews: [sectionLabel, self])
+        vStackView.set(axis: .vertical, alignment: alignment ,distribution: .fill, spacing: 8)
+        
+        return vStackView
+    }
 }
 
 
@@ -362,6 +376,16 @@ extension UIImage {
 
 //MARK: - UIButton
 extension UIButton {
+    /// Returns a button that represents an action of logging out.
+    static var logOutButton: UIButton {
+        let logOutButton = UIButton()
+        logOutButton.setImage(UIImage(named: "logout"), for: .normal)
+        logOutButton.translatesAutoresizingMaskIntoConstraints = false
+        logOutButton.heightAnchor(of: 60)
+        logOutButton.widthAnchor(of: 60)
+        
+        return logOutButton
+    }
     /// Returns a button containing an ellipsis image with a tint color of dark
     static var optionsButton: UIButton {
         let btn = UIButton()
@@ -377,6 +401,7 @@ extension UIButton {
     }
 }
 
+//MARK: - UITableView
 extension UITableView {
     /// Returns a view for a section inside a table view.
     /// - Parameter title: The text that will appear on the label inside the view.
@@ -397,6 +422,30 @@ extension UITableView {
     }
 }
 
+extension UIImageView {
+    /// Returns a view that contains the the image view.
+    func withPlaceholderView(placeholderBackgroundColor: UIColor = K.Color.dark) -> UIView {
+        self.alpha = 0.5
+        
+        let roundImageView = self as? RoundImageView
+        let bgView = RoundView(frame: self.frame, roundFactor: roundImageView?.roundFactor)
+        bgView.isBordered = true
+        bgView.backgroundColor = placeholderBackgroundColor
+        bgView.addSubview(self)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.VHConstraint(to: bgView)
+        
+        let placeholder = UIImageView(image: UIImage(systemName: "camera.circle.fill"))
+        placeholder.tintColor = K.Color.light
+        bgView.addSubview(placeholder)
+        placeholder.translatesAutoresizingMaskIntoConstraints = false
+        placeholder.centerXYAnchor(to: bgView)
+        placeholder.heightAnchor(of: 50)
+        placeholder.widthAnchor(of: 50)
+        
+        return bgView
+    }
+}
 
 /* -------------- FOUNDATION EXTENSIONS -------------- */
 extension Array {
