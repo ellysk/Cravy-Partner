@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CravyPartnerLogoXD-1.png",
+      "filename" : "cravypartnerlogo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "cravypartnerlogo@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "cravypartnerlogo@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

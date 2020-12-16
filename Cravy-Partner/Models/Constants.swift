@@ -32,8 +32,6 @@ struct K {
     
     struct Identifier {
         struct CollectionViewCell {
-            /// A reusable identifier for the DetailCollectionCell
-            static let detailCell = "detailCell"
             /// A resuable identifier for the CraveCollectionCell
             static let craveCell = "craveCell"
             /// A reusable identifier for the TagCollectionCell
@@ -62,7 +60,7 @@ struct K {
         /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
         
         /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
-        static let introSectionDetails = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
+        static let introSectionDetails: [String : String] = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
         /// Returns ["Make your business stand out", "Let your customers see them", "The Kitchen"]
         static let sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
         /// Returns ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]

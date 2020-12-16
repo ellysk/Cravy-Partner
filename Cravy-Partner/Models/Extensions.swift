@@ -326,9 +326,9 @@ extension UICollectionViewFlowLayout {
     
     /// Returns a layout that displays a single item column that can be scrolled through horizontally
     /// - Parameter height: The height of the item.
-    static func singleItemHorizontalFlowLayoutWith(height: CGFloat) -> UICollectionViewFlowLayout {
+    static func singleItemHorizontalFlowLayoutWith(estimatedSize: CGSize? = nil, size: CGSize = UICollectionViewFlowLayout.automaticSize) -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.set(direction: .horizontal, itemSize: CGSize(width: UIScreen.main.bounds.width, height: height), sectionInset: .zero)
+        layout.set(direction: .horizontal, estimatedItemSize: estimatedSize, itemSize: size, sectionInset: .zero)
         
         return layout
     }
@@ -343,7 +343,7 @@ extension UICollectionViewFlowLayout {
     
     /// Sets the main properties of a UICollectionViewFlowLayout
     func set(direction: UICollectionView.ScrollDirection, estimatedItemSize: CGSize? = nil, itemSize: CGSize = UICollectionViewFlowLayout.automaticSize, minimumLineSpacing: CGFloat = 8, minimumInterimSpacing: CGFloat = 8, sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)) {
-        self.scrollDirection = .vertical
+        self.scrollDirection = direction
         self.minimumLineSpacing = minimumLineSpacing
         self.minimumInteritemSpacing = minimumInterimSpacing
         self.sectionInset = sectionInset
