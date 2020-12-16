@@ -17,6 +17,7 @@ class RoundTextField: UITextField {
         setPlaceholder(placeholder)
         self.font = UIFont.regular.small
         self.textColor = K.Color.dark
+        self.tintColor = K.Color.primary
         self.roundFactor = roundFactor
         self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
     }
