@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wZH-WR-uWE">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -90,15 +90,92 @@
             </objects>
             <point key="canvasLocation" x="139" y="657"/>
         </scene>
+        <!--New product-->
+        <scene sceneID="09j-UV-8uZ">
+            <objects>
+                <viewController id="Y2e-x0-VIU" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PrR-T3-kWa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ZOa-24-cPf"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="New product" image="newcrave" selectedImage="newcrave-filled" id="yHb-Cr-rcm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2558" y="130"/>
+        </scene>
+        <!--My business-->
+        <scene sceneID="tmb-Ph-pte">
+            <objects>
+                <viewController id="cGZ-m9-aba" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y7c-Jn-hlo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="MlE-pb-Qm5"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My business" image="mybusiness" selectedImage="mybusiness-filled" id="LKN-rm-IWb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EjI-qe-M4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800" y="644"/>
+        </scene>
+        <!--My products-->
+        <scene sceneID="LZ2-Eb-Czn">
+            <objects>
+                <viewController id="1lT-8r-Gu6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Wl-wx-1ii">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eSj-Uw-l1v"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My products" image="myproducts" selectedImage="myproducts-filled" id="yja-Q6-LkR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PqH-CZ-uhs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800" y="-319"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="aan-Rh-LJF">
+            <objects>
+                <tabBarController id="wZH-WR-uWE" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9Td-Xa-sMT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="dark"/>
+                        <color key="selectedImageTintColor" name="primary"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="1lT-8r-Gu6" kind="relationship" relationship="viewControllers" id="lC4-lC-0Gs"/>
+                        <segue destination="Y2e-x0-VIU" kind="relationship" relationship="viewControllers" id="jQ4-F5-k8S"/>
+                        <segue destination="cGZ-m9-aba" kind="relationship" relationship="viewControllers" id="aKn-M6-UAD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D05-iH-MMV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="962" y="130"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bgimage" width="1024" height="1024"/>
         <image name="cravypartnerlogo" width="352" height="187"/>
+        <image name="mybusiness" width="23" height="23"/>
+        <image name="mybusiness-filled" width="23" height="23"/>
+        <image name="myproducts" width="23" height="23"/>
+        <image name="myproducts-filled" width="23" height="23"/>
+        <image name="newcrave" width="27.5" height="23"/>
+        <image name="newcrave-filled" width="27.5" height="23"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="light">
             <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

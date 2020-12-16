@@ -20,6 +20,7 @@
 		2B7DF48E258A0C1400AA1337 /* IntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF48D258A0C1400AA1337 /* IntroController.swift */; };
 		2B7DF490258A1C0700AA1337 /* IntroPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */; };
 		2B7DF492258A375100AA1337 /* AuthStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF491258A375100AA1337 /* AuthStackView.swift */; };
+		2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF493258A996200AA1337 /* CravyTabBarController.swift */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE7A257BF1C8002A626A /* CustomTextView.swift */; };
 		2B99FF802574309E008302FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF7F2574309E008302FA /* AppDelegate.swift */; };
@@ -81,6 +82,7 @@
 		2B7DF48D258A0C1400AA1337 /* IntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroController.swift; sourceTree = "<group>"; };
 		2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPageController.swift; sourceTree = "<group>"; };
 		2B7DF491258A375100AA1337 /* AuthStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStackView.swift; sourceTree = "<group>"; };
+		2B7DF493258A996200AA1337 /* CravyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyTabBarController.swift; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B84AE7A257BF1C8002A626A /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2B99FF7C2574309E008302FA /* Cravy-Partner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cravy-Partner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +227,7 @@
 				2B99FF832574309E008302FA /* SplashController.swift */,
 				2B7DF48D258A0C1400AA1337 /* IntroController.swift */,
 				2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */,
+				2B7DF493258A996200AA1337 /* CravyTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BE371BE2580EEC700B38D30 /* ImageCollectionCell.swift in Sources */,
+				2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */,
 				2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */,
 				2B99FFBB25745B17008302FA /* CustomTextField.swift in Sources */,
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
