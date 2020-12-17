@@ -210,6 +210,18 @@ extension UIView {
         
         return vStackView
     }
+    
+    /// Sets the background color of the view to be a gradient color of the colors provided.
+    func setGradientBackgroundWith(colors: [CGColor]) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors = colors
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func setCravyGradientBackground() {
+        setGradientBackgroundWith(colors: [K.Color.secondary.cgColor, K.Color.light.cgColor])
+    }
 }
 
 
@@ -312,7 +324,7 @@ extension UICollectionViewFlowLayout {
     
     static var verticalCraveCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.set(direction: .vertical, itemSize: CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 340), minimumInterimSpacing: 3, sectionInset: UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 3))
+        layout.set(direction: .vertical, itemSize: CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 340), minimumInterimSpacing: 3, sectionInset: UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3))
        
         return layout
     }

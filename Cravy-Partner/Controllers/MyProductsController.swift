@@ -16,6 +16,7 @@ class MyProductsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.setCravyGradientBackground()
         craveCollectionView.register()
         // Do any additional setup after loading the view.
     }

@@ -130,23 +130,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWn-xX-giU" customClass="CravySearchBar" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="8" y="44" width="398" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9Kj-g4-0sI"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFp-jO-0xf" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="414" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="vPz-6g-GTp"/>
-                                </constraints>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tm6-8I-f3E" customClass="CraveCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="146" width="414" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="147" width="414" height="666"/>
+                                <color key="backgroundColor" name="light"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ygv-g8-07p">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -159,19 +145,47 @@
                                     <outlet property="delegate" destination="1lT-8r-Gu6" id="Tqc-tg-nIM"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlN-tt-4JV" customClass="CurtainView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="103"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dwb-Ge-1mR">
+                                        <rect key="frame" x="8" y="8.5" width="398" height="86"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWn-xX-giU" customClass="CravySearchBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="398" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="9Kj-g4-0sI"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFp-jO-0xf" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="56" width="398" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="vPz-6g-GTp"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="dwb-Ge-1mR" secondAttribute="trailing" constant="8" id="7YL-sq-YHI"/>
+                                    <constraint firstItem="dwb-Ge-1mR" firstAttribute="leading" secondItem="IlN-tt-4JV" secondAttribute="leading" constant="8" id="FZ6-gv-bY3"/>
+                                    <constraint firstAttribute="height" secondItem="dwb-Ge-1mR" secondAttribute="height" multiplier="1.2" id="eIf-Wp-GFp"/>
+                                    <constraint firstItem="dwb-Ge-1mR" firstAttribute="centerY" secondItem="IlN-tt-4JV" secondAttribute="centerY" id="yu6-Yh-Nlo"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="light"/>
                         <constraints>
-                            <constraint firstItem="bFp-jO-0xf" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" id="1DX-wd-kJt"/>
-                            <constraint firstItem="eSj-Uw-l1v" firstAttribute="trailing" secondItem="xWn-xX-giU" secondAttribute="trailing" constant="8" id="4iM-Ii-ShJ"/>
                             <constraint firstItem="tm6-8I-f3E" firstAttribute="bottom" secondItem="eSj-Uw-l1v" secondAttribute="bottom" id="EYi-Wv-64j"/>
-                            <constraint firstItem="xWn-xX-giU" firstAttribute="top" secondItem="eSj-Uw-l1v" secondAttribute="top" id="EoG-5v-SJo"/>
+                            <constraint firstItem="tm6-8I-f3E" firstAttribute="top" secondItem="IlN-tt-4JV" secondAttribute="bottom" id="MmI-a3-oK6"/>
+                            <constraint firstItem="IlN-tt-4JV" firstAttribute="trailing" secondItem="eSj-Uw-l1v" secondAttribute="trailing" id="Slq-38-cXL"/>
                             <constraint firstItem="tm6-8I-f3E" firstAttribute="trailing" secondItem="eSj-Uw-l1v" secondAttribute="trailing" id="aSd-2d-dxs"/>
+                            <constraint firstItem="IlN-tt-4JV" firstAttribute="top" secondItem="eSj-Uw-l1v" secondAttribute="top" id="eAq-Ma-rLe"/>
                             <constraint firstItem="tm6-8I-f3E" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" id="g3x-p7-oCq"/>
-                            <constraint firstItem="tm6-8I-f3E" firstAttribute="top" secondItem="bFp-jO-0xf" secondAttribute="bottom" constant="16" id="hyc-UW-NiE"/>
-                            <constraint firstItem="bFp-jO-0xf" firstAttribute="trailing" secondItem="eSj-Uw-l1v" secondAttribute="trailing" id="npa-OY-tfG"/>
-                            <constraint firstItem="bFp-jO-0xf" firstAttribute="top" secondItem="xWn-xX-giU" secondAttribute="bottom" constant="16" id="nx7-wD-z0d"/>
-                            <constraint firstItem="xWn-xX-giU" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" constant="8" id="rxd-KX-stZ"/>
+                            <constraint firstItem="IlN-tt-4JV" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" id="n47-a7-Tgf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eSj-Uw-l1v"/>
                     </view>

@@ -57,10 +57,10 @@ class CravySearchBar: UIView {
         searchImageView.tintColor = CSBTintColor
         textField.leftView = searchImageView
         textField.leftViewMode = .always
+        textField.setPlaceholder(K.UIConstant.searchProductsPlaceholder)
         textField.font = UIFont.regular.small
-        textField.placeholder = K.UIConstant.searchProductsPlaceholder
-        textField.tintColor = CSBTintColor
         textField.textColor = K.Color.dark
+        textField.tintColor = CSBTintColor
         
         filterButton.setTitle(K.UIConstant.filtersButtonTitle, for: .normal)
         filterButton.titleLabel?.font = UIFont.mediumItalic.small

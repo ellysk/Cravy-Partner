@@ -19,6 +19,12 @@ class CravyTextField: UITextField {
         let dx: CGFloat = self.leftView == nil ? 8 : 24
         return bounds.insetBy(dx: dx, dy: 8);
     }
+    
+    /// Sets the placeholder of the textfield with custom style of a dark color with an alpha value of 0.5
+    /// - Parameter placeholder: The text to be set as placeholder
+    func setPlaceholder(_ placeholder: String, placeholderTextColor: UIColor = K.Color.dark.withAlphaComponent(0.5)) {
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : placeholderTextColor])
+    }
 }
 
 /// A subclass of CravyTextField that gives rounded corners and is bordered.
@@ -47,11 +53,5 @@ class RoundTextField: CravyTextField {
             self.makeRounded()
         }
         self.makeBordered()
-    }
-    
-    /// Sets the placeholder of the textfield with custom style of a dark color with an alpha value of 0.5
-    /// - Parameter placeholder: The text to be set as placeholder
-    func setPlaceholder(_ placeholder: String) {
-        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : K.Color.dark.withAlphaComponent(0.5)])
     }
 }

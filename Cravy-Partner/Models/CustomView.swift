@@ -89,3 +89,25 @@ class FloaterView: RoundView {
         button.VHConstraint(to: self)
     }
 }
+
+/// A view with a gradient background and shadow at the bottom.
+class CurtainView: UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setCravyGradientBackground()
+        setBottomShadow()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setCravyGradientBackground()
+        setBottomShadow()
+    }
+    
+    private func setBottomShadow() {
+        self.layer.masksToBounds = false
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = K.Color.primary.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
+}
