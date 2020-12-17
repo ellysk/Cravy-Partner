@@ -14,8 +14,9 @@ class CravyToolBar: UIView {
     private var items: [UIButton] = []
     private var item: UIButton {
         let button = UIButton()
+        button.addTarget(self, action: #selector(itemSelected(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.demiBold.small
-        button.setTitleColor(K.Color.dark.withAlphaComponent(0.5), for: .normal)
+        isSelected(isSelected: false, item: button)
         
         return button
     }
@@ -29,7 +30,7 @@ class CravyToolBar: UIView {
         
         return separator
     }
-    private var titles: [String] {
+    var titles: [String] {
         set {
             //set the title and tag of each item
             for i in 0...newValue.count - 1 {
@@ -39,7 +40,6 @@ class CravyToolBar: UIView {
                 
                 items.append(button)
             }
-            
             //then add them to the stackview
             arrangeItems()
         }
@@ -59,13 +59,19 @@ class CravyToolBar: UIView {
     
     init(titles: [String]) {
         super.init(frame: .zero)
-        self.backgroundColor = .clear
-        setToolBarStackView()
-        self.titles = titles
+        setCravyToolBarLayout()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setCravyToolBarLayout()
+    }
+    
+    private func setCravyToolBarLayout() {
+        self.backgroundColor = .clear
+        setToolBarStackView()
+        self.titles = K.Collections.craveStatuses
+        isSelected(isSelected: true, item: items[0])
     }
     
     override func layoutSubviews() {
@@ -91,5 +97,24 @@ class CravyToolBar: UIView {
                 toolBarStackView.addArrangedSubview(separatorView)
             }
         }
+    }
+    
+    private func isSelected(isSelected: Bool, item: UIButton) {
+        if isSelected {
+            item.setTitleColor(K.Color.primary, for: .normal)
+        } else {
+            item.setTitleColor(K.Color.dark.withAlphaComponent(0.5), for: .normal)
+        }
+    }
+    
+    @objc func itemSelected(_ sender: UIButton) {
+        isSelected(isSelected: true, item: sender)
+        items.forEach { (button) in
+            if button != sender {
+                isSelected(isSelected: false, item: button)
+            }
+        }
+        
+        //TODO
     }
 }

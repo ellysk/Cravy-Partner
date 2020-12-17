@@ -125,18 +125,66 @@
         <!--My products-->
         <scene sceneID="LZ2-Eb-Czn">
             <objects>
-                <viewController id="1lT-8r-Gu6" sceneMemberID="viewController">
+                <viewController id="1lT-8r-Gu6" customClass="MyProductsController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Wl-wx-1ii">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWn-xX-giU" customClass="CravySearchBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="8" y="44" width="398" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9Kj-g4-0sI"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFp-jO-0xf" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="100" width="414" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="vPz-6g-GTp"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tm6-8I-f3E" customClass="CraveCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="146" width="414" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ygv-g8-07p">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="1lT-8r-Gu6" id="rv2-eu-eec"/>
+                                    <outlet property="delegate" destination="1lT-8r-Gu6" id="Tqc-tg-nIM"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstItem="bFp-jO-0xf" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" id="1DX-wd-kJt"/>
+                            <constraint firstItem="eSj-Uw-l1v" firstAttribute="trailing" secondItem="xWn-xX-giU" secondAttribute="trailing" constant="8" id="4iM-Ii-ShJ"/>
+                            <constraint firstItem="tm6-8I-f3E" firstAttribute="bottom" secondItem="eSj-Uw-l1v" secondAttribute="bottom" id="EYi-Wv-64j"/>
+                            <constraint firstItem="xWn-xX-giU" firstAttribute="top" secondItem="eSj-Uw-l1v" secondAttribute="top" id="EoG-5v-SJo"/>
+                            <constraint firstItem="tm6-8I-f3E" firstAttribute="trailing" secondItem="eSj-Uw-l1v" secondAttribute="trailing" id="aSd-2d-dxs"/>
+                            <constraint firstItem="tm6-8I-f3E" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" id="g3x-p7-oCq"/>
+                            <constraint firstItem="tm6-8I-f3E" firstAttribute="top" secondItem="bFp-jO-0xf" secondAttribute="bottom" constant="16" id="hyc-UW-NiE"/>
+                            <constraint firstItem="bFp-jO-0xf" firstAttribute="trailing" secondItem="eSj-Uw-l1v" secondAttribute="trailing" id="npa-OY-tfG"/>
+                            <constraint firstItem="bFp-jO-0xf" firstAttribute="top" secondItem="xWn-xX-giU" secondAttribute="bottom" constant="16" id="nx7-wD-z0d"/>
+                            <constraint firstItem="xWn-xX-giU" firstAttribute="leading" secondItem="eSj-Uw-l1v" secondAttribute="leading" constant="8" id="rxd-KX-stZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="eSj-Uw-l1v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="My products" image="myproducts" selectedImage="myproducts-filled" id="yja-Q6-LkR"/>
+                    <connections>
+                        <outlet property="craveCollectionView" destination="tm6-8I-f3E" id="smL-dH-6qM"/>
+                        <outlet property="cravyToolBar" destination="bFp-jO-0xf" id="mFi-Zd-dnh"/>
+                        <outlet property="searchBar" destination="xWn-xX-giU" id="VIe-NU-ohH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PqH-CZ-uhs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800" y="-319"/>
+            <point key="canvasLocation" x="1800.0000000000002" y="-319.41964285714283"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aan-Rh-LJF">

@@ -24,10 +24,20 @@ struct K {
         static let post = "POST"
         static let edit = "Edit"
         static let settings = "Settings"
+        /// Returns "Important information regarding privacy and security rules will be alerted here"
         static let settingsAlertMessage = "Important information regarding privacy and security rules will be alerted here"
+        /// Returns "Ask password"
         static let askPasswordTitle = "Ask password"
+        /// Returns "Asks you for the password every time the app goes in background for more than one minute."
         static let askPasswordDetail = "Asks you for the password every time the app goes in background for more than one minute."
+        /// Returns "Terms & Agreement"
         static let termsAndAgreement = "Terms & Agreement"
+        static let byTitle = "By Title"
+        static let byCravings = "By Cravings"
+        static let byRecommendations = "By Recommendations"
+        static let filtersMessage = "Choose a filter"
+        static let removeFilter = "Remove Filter"
+        static let cancel = "Cancel"
     }
     
     struct Identifier {
@@ -75,6 +85,7 @@ struct K {
         static let notificationDetails = ["Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers.", "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses."]
         /// Returns ["Send via Email", "Send via SMS"]
         static let twoFactorAuthenticationTitles = ["Send via Email", "Send via SMS"]
+        static let craveStatuses = ["Active", "Inactive"]
     }
     
     struct Color {

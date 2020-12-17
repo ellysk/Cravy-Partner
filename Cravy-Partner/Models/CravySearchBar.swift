@@ -11,22 +11,26 @@ import UIKit
 
 /// A custom search bar view that lets you search and filter data.
 class CravySearchBar: UIView {
-    private var searchButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 20, height: 20)))
-    private var textField = UITextField()
-    private var filterButton = RoundButton(frame: CGRect(origin: .zero, size: CGSize(width: 70, height: 30)), roundFactor: 5)
+    private var textField = CravyTextField()
+    private var filterButton = RoundButton(roundFactor: 5)
     private var CSBTintColor: UIColor! {
         return K.Color.primary
     }
     
     init() {
         super.init(frame: .zero)
-        self.tag = K.ViewTag.CRAVY_SEARCH_BAR
-        setCravySearchBarView()
-        style()
+        setCravySearchBarLayout()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setCravySearchBarLayout()
+    }
+    
+    private func setCravySearchBarLayout() {
+        self.tag = K.ViewTag.CRAVY_SEARCH_BAR
+        setCravySearchBarView()
+        style()
     }
     
     override func layoutSubviews() {
@@ -37,27 +41,56 @@ class CravySearchBar: UIView {
     }
     
     private func setCravySearchBarView() {
-        let hStackView = UIStackView(arrangedSubviews: [searchButton, textField, filterButton])
-        hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 16)
+        let hStackView = UIStackView(arrangedSubviews: [textField, filterButton])
+        hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 8)
+        filterButton.translatesAutoresizingMaskIntoConstraints = false
+        filterButton.widthAnchor(of: 70)
         
         self.addSubview(hStackView)
         hStackView.translatesAutoresizingMaskIntoConstraints = false
-        hStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        hStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
-        hStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8).isActive = true
+        hStackView.VConstraint(to: self, constant: 3)
+        hStackView.HConstraint(to: self, constant: 8)
     }
     
     private func style() {
-        searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        searchButton.tintColor = CSBTintColor
-        
+        let searchImageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        searchImageView.tintColor = CSBTintColor
+        textField.leftView = searchImageView
+        textField.leftViewMode = .always
         textField.font = UIFont.regular.small
         textField.placeholder = K.UIConstant.searchProductsPlaceholder
+        textField.tintColor = CSBTintColor
         textField.textColor = K.Color.dark
         
         filterButton.setTitle(K.UIConstant.filtersButtonTitle, for: .normal)
         filterButton.titleLabel?.font = UIFont.mediumItalic.small
         filterButton.setTitleColor(K.Color.light, for: .normal)
         filterButton.backgroundColor = CSBTintColor.withAlphaComponent(0.8)
+    }
+    
+    @objc func showFilters(_ sender: UIButton) {
+        let filterByTitle = UIAlertAction(title: K.UIConstant.byTitle, style: .default) { (action) in
+            //TODO
+        }
+        let filterByCravings = UIAlertAction(title: K.UIConstant.byCravings, style: .default) { (action) in
+            //TODO
+        }
+        let filterByRecommendations = UIAlertAction(title: K.UIConstant.byRecommendations, style: .default) { (action) in
+            //TODO
+        }
+        let removeFilterAction = UIAlertAction(title: K.UIConstant.removeFilter, style: .destructive) { (action) in
+            //TODO
+        }
+        
+        let alertController = UIAlertController(title: nil, message: K.UIConstant.filtersMessage, preferredStyle: .actionSheet)
+        alertController.addAction(filterByTitle)
+        alertController.addAction(filterByCravings)
+        alertController.addAction(filterByRecommendations)
+        alertController.addAction(removeFilterAction)
+        alertController.addAction(UIAlertAction.cancel)
+        
+        alertController.pruneNegativeWidthConstraints()
+        
+        //TODO
     }
 }

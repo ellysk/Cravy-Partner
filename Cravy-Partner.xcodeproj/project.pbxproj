@@ -21,6 +21,8 @@
 		2B7DF490258A1C0700AA1337 /* IntroPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */; };
 		2B7DF492258A375100AA1337 /* AuthStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF491258A375100AA1337 /* AuthStackView.swift */; };
 		2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF493258A996200AA1337 /* CravyTabBarController.swift */; };
+		2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF495258A99FF00AA1337 /* MyProductsController.swift */; };
+		2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE7A257BF1C8002A626A /* CustomTextView.swift */; };
 		2B99FF802574309E008302FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF7F2574309E008302FA /* AppDelegate.swift */; };
@@ -83,6 +85,8 @@
 		2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPageController.swift; sourceTree = "<group>"; };
 		2B7DF491258A375100AA1337 /* AuthStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStackView.swift; sourceTree = "<group>"; };
 		2B7DF493258A996200AA1337 /* CravyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyTabBarController.swift; sourceTree = "<group>"; };
+		2B7DF495258A99FF00AA1337 /* MyProductsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductsController.swift; sourceTree = "<group>"; };
+		2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B84AE7A257BF1C8002A626A /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2B99FF7C2574309E008302FA /* Cravy-Partner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cravy-Partner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +232,7 @@
 				2B7DF48D258A0C1400AA1337 /* IntroController.swift */,
 				2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */,
 				2B7DF493258A996200AA1337 /* CravyTabBarController.swift */,
+				2B7DF495258A99FF00AA1337 /* MyProductsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				2B84AE7A257BF1C8002A626A /* CustomTextView.swift */,
 				2BEBCE63257D34B300B11C66 /* BusinessView.swift */,
 				2B7DF491258A375100AA1337 /* AuthStackView.swift */,
+				2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -410,6 +416,7 @@
 				2B7DF48E258A0C1400AA1337 /* IntroController.swift in Sources */,
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,
 				2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */,
+				2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */,
 				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,
 				2B7DF492258A375100AA1337 /* AuthStackView.swift in Sources */,
 				2B99FFB62574543A008302FA /* Constants.swift in Sources */,
@@ -418,6 +425,7 @@
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2B99FFB025743FCF008302FA /* Helper.swift in Sources */,
 				2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */,
+				2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */,
 				2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */,
 				2BC0C6A1257810C2004BA3CA /* CustomView.swift in Sources */,
 				2B99FFC925772814008302FA /* CraveImageView.swift in Sources */,

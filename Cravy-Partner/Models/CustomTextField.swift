@@ -8,8 +8,21 @@
 
 import UIKit
 
-/// A subclass of UITextField that gives rounded corners and is bordered.
-class RoundTextField: UITextField {
+/// A subclass of UITextField that overrides the textRect and editingRect to have a larger inset value.
+class CravyTextField: UITextField {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        let dx: CGFloat = self.leftView == nil ? 8 : 24
+        return bounds.insetBy(dx: dx, dy: 8);
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        let dx: CGFloat = self.leftView == nil ? 8 : 24
+        return bounds.insetBy(dx: dx, dy: 8);
+    }
+}
+
+/// A subclass of CravyTextField that gives rounded corners and is bordered.
+class RoundTextField: CravyTextField {
     private var roundFactor: CGFloat?
     
     init(roundFactor: CGFloat? = nil, placeholder: String = "Write something here...") {
@@ -34,14 +47,6 @@ class RoundTextField: UITextField {
             self.makeRounded()
         }
         self.makeBordered()
-    }
-    
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 8, dy: 8);
-    }
-    
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: 8, dy: 8);
     }
     
     /// Sets the placeholder of the textfield with custom style of a dark color with an alpha value of 0.5

@@ -477,6 +477,24 @@ extension UIImageView {
     }
 }
 
+//MARK: - UIAlertController
+extension UIAlertController {
+    func pruneNegativeWidthConstraints() {
+        for subView in self.view.subviews {
+            for constraint in subView.constraints where constraint.debugDescription.contains("width == - 16") {
+                subView.removeConstraint(constraint)
+            }
+        }
+    }
+}
+
+//MARK: - UIAlertAction
+extension UIAlertAction {
+    static var cancel: UIAlertAction {
+        return UIAlertAction(title: K.UIConstant.cancel, style: .cancel)
+    }
+}
+
 /* -------------- FOUNDATION EXTENSIONS -------------- */
 extension Array {
     /// Converts an array into an array of arrays, using whatever size you specify.
