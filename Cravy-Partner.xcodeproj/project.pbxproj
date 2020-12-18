@@ -17,6 +17,7 @@
 		2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B62D9872588FC2A00C7E948 /* ToggleTable.xib */; };
 		2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */; };
 		2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */; };
+		2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B77137D258BD33E00C6C9F0 /* Product.storyboard */; };
 		2B7DF48E258A0C1400AA1337 /* IntroController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF48D258A0C1400AA1337 /* IntroController.swift */; };
 		2B7DF490258A1C0700AA1337 /* IntroPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */; };
 		2B7DF492258A375100AA1337 /* AuthStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF491258A375100AA1337 /* AuthStackView.swift */; };
@@ -81,6 +82,7 @@
 		2B62D9872588FC2A00C7E948 /* ToggleTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTable.xib; sourceTree = "<group>"; };
 		2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTableCell.swift; sourceTree = "<group>"; };
 		2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryTableCell.xib; sourceTree = "<group>"; };
+		2B77137D258BD33E00C6C9F0 /* Product.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Product.storyboard; sourceTree = "<group>"; };
 		2B7DF48D258A0C1400AA1337 /* IntroController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroController.swift; sourceTree = "<group>"; };
 		2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPageController.swift; sourceTree = "<group>"; };
 		2B7DF491258A375100AA1337 /* AuthStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStackView.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				2B060A31258809E000F59CB5 /* BasicTableCell.xib */,
 				2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */,
 				2B62D9872588FC2A00C7E948 /* ToggleTable.xib */,
+				2B77137D258BD33E00C6C9F0 /* Product.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */,
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
+				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
 				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

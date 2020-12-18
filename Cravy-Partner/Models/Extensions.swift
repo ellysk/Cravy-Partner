@@ -517,4 +517,14 @@ extension Array {
     }
 }
 
+//MARK: - String
+extension String {
+    func withFont(font: UIFont) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: self)
+        attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: attributedString.length))
+        
+        return attributedString
+    }
+}
+
 

@@ -220,6 +220,35 @@
             </objects>
             <point key="canvasLocation" x="962" y="130"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Wve-6g-9YE">
+            <objects>
+                <viewController id="Dfs-US-JCi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hrg-s9-sZy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8y-IY-AHE" customClass="CraveImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="35b-IQ-el7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstItem="b8y-IY-AHE" firstAttribute="top" secondItem="Hrg-s9-sZy" secondAttribute="top" id="DqR-iV-J1L"/>
+                            <constraint firstItem="b8y-IY-AHE" firstAttribute="leading" secondItem="5Lt-hD-e2V" secondAttribute="leading" id="SIB-aM-j6j"/>
+                            <constraint firstItem="b8y-IY-AHE" firstAttribute="trailing" secondItem="5Lt-hD-e2V" secondAttribute="trailing" id="qne-Fm-XAs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5Lt-hD-e2V"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yqJ-pC-uQv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2650.7246376811595" y="-654.24107142857144"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bgimage" width="1024" height="1024"/>

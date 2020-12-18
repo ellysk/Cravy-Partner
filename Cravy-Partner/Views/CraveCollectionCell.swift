@@ -87,16 +87,20 @@ class CraveCollectionCell: UICollectionViewCell {
     
     private func setCraveImageView(image: UIImage? = nil, cravings: Int? = nil) {
         if craveImageView == nil {
-            if style == .expanded {
-                craveImageView = CraveImageView(image: image, cravings: cravings)
-                craveImageView.isInteractableHidden = false
-            } else {
-                craveImageView = CraveImageView(height: 180, image: image, cravings: cravings, interactable: .post)
-            }
+            let interactable: INTERACTABLE = style == .expanded ? .link : .post
+            craveImageView = CraveImageView(image: image, cravings: cravings, interactable: interactable)
+            craveImageView.isInteractableHidden = style == .expanded
+            
             craveView.addSubview(craveImageView)
             craveImageView.translatesAutoresizingMaskIntoConstraints = false
             craveImageView.topAnchor(to: craveView)
             craveImageView.HConstraint(to: craveView)
+            
+            if style == .expanded {
+                craveImageView.heightAnchor(of: 230)
+            } else {
+                craveImageView.heightAnchor(of: 180)
+            }
         } else {
             craveImageView.craveImage = image
             craveImageView.cravings = cravings
@@ -136,7 +140,7 @@ class CraveCollectionCell: UICollectionViewCell {
             craveTitleRecommendationStackView.set(axis: .vertical, alignment: .leading, spacing: 1)
             craveView.addSubview(craveTitleRecommendationStackView)
             craveTitleRecommendationStackView.translatesAutoresizingMaskIntoConstraints = false
-            craveTitleRecommendationStackView.topAnchor.constraint(equalTo: craveImageView.bottomAnchor, constant: 8).isActive = true
+            craveTitleRecommendationStackView.topAnchor.constraint(equalTo: craveImageView.bottomAnchor, constant: 3).isActive = true
             craveTitleRecommendationStackView.HConstraint(to: self, constant: 8)
         }
     }
