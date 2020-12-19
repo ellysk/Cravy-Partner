@@ -11,6 +11,13 @@ import UIKit
 
 //MARK: - UIFont
 extension UIFont {
+    enum SIZE {
+        case xsmall
+        case small
+        case medium
+        case large
+    }
+    
     /// Returns an AvenirNext-Medium font style
     static var medium: UIFontDescriptor {
         return addAtrributeName(name: "AvenirNext-Medium")
@@ -222,6 +229,14 @@ extension UIView {
     func setCravyGradientBackground() {
         setGradientBackgroundWith(colors: [K.Color.secondary.cgColor, K.Color.light.cgColor])
     }
+    
+    /// Add shadow in the view's layer
+    func setShadow() {
+        self.layer.masksToBounds = false
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowColor = K.Color.dark.cgColor
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+    }
 }
 
 
@@ -349,6 +364,14 @@ extension UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         let itemWidth = layout.widthVisibleFor(numberOfItems: 1.5)
         layout.set(direction: .horizontal, itemSize: CGSize(width: itemWidth, height: 0.5 * itemWidth ))
+        
+        return layout
+    }
+    
+    static var widgetCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.set(direction: .horizontal, minimumLineSpacing: 3, sectionInset: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+        layout.itemSize = CGSize(width: layout.widthVisibleFor(numberOfItems: 2), height: 120)
         
         return layout
     }
@@ -527,4 +550,30 @@ extension String {
     }
 }
 
-
+//MARK: - Int
+extension Int {
+    /// Changes the number to a format that represents a unit provided.
+    func represent(unit: String, size: UIFont.SIZE = .xsmall) -> NSMutableAttributedString {
+        var font1: UIFont!
+        var font2: UIFont!
+        if size == .xsmall {
+            font1 = UIFont.demiBold.xSmall
+            font2 = UIFont.regular.xSmall
+        } else {
+            font1 = UIFont.demiBold.small
+            font2 = UIFont.regular.small
+        }
+        
+        let fullText = NSMutableAttributedString()
+        
+        let firstString = String(self).withFont(font: font1)
+        let space = NSMutableAttributedString(string: " ")
+        let secondString = unit.withFont(font: font2)
+        
+        fullText.append(firstString)
+        fullText.append(space)
+        fullText.append(secondString)
+        
+        return fullText
+    }
+}

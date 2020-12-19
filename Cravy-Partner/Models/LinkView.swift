@@ -26,7 +26,9 @@ class LinkView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setLinkView()
+        setLinkButton()
     }
     
     override func layoutSubviews() {
@@ -34,12 +36,13 @@ class LinkView: UIView {
         linkImageView.heightAnchor(of: LINK_IMAGEVIEW_SIZE)
         linkImageView.widthAnchor(of: LINK_IMAGEVIEW_SIZE)
         self.makeRounded()
+        self.setShadow()
     }
     
     private func setLinkView() {
         linkLabel.text = K.UIConstant.visit
         linkLabel.adjustsFontSizeToFitWidth = true
-        linkLabel.font = UIFont.medium.small
+        linkLabel.font = UIFont.demiBold.medium
         linkLabel.textAlignment = .left
         linkLabel.textColor = K.Color.light
         

@@ -16,49 +16,69 @@ class MarketView: UIView {
     private let searchContentView = ContentView(contentImage: UIImage(systemName: "magnifyingglass"))
     private let viewsContentView = ContentView(contentImage: UIImage(systemName: "eye.fill"))
     private let linksContentView = ContentView(contentImage: UIImage(systemName: "link"))
-    private var marketStatus: Int
-    /// The content related to number of searches.
-    var searchContent: String? {
+    var marketStatus: Int {
         set {
-            searchContentView.content = newValue
+            marketLabel.text = newValue == 0 ? K.UIConstant.offTheMarket : K.UIConstant.onTheMarket
         }
         
         get {
-            return searchContentView.content
+            if marketLabel.text == K.UIConstant.offTheMarket {
+                return 0
+            } else {
+                return 1
+            }
+        }
+    }
+    private var searches: Int = 0
+    private var views: Int = 0
+    private var links: Int = 0
+    /// The content related to number of searches.
+    var numberOfSearches: Int {
+        set {
+            searches = newValue
+            searchContentView.content = "\(newValue) search appearances"
+        }
+        
+        get {
+            return searches
         }
     }
     /// The content related to number of views.
-    var viewsContent: String? {
+    var nuberOfViews: Int {
         set {
-            viewsContentView.content = newValue
+            viewsContentView.content = "\(newValue) views"
         }
         
         get {
-            return viewsContentView.content
+            return views
         }
     }
     /// The content related to number of visits.
-    var linkContent: String? {
+    var numberOfVisits: Int {
         set {
-            linksContentView.content = newValue
+            linksContentView.content = "\(newValue) visits"
         }
         
         get {
-            return linksContentView.content
+            return links
         }
     }
     
     init(frame: CGRect = .zero, marketStatus: Int = 0) {
-        self.marketStatus = marketStatus
         super.init(frame: frame)
         self.backgroundColor = .clear
+        self.marketStatus = marketStatus
         setMarketStackView()
         setTopView()
         setContentStackView()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        self.marketStatus = 0
+        setMarketStackView()
+        setTopView()
+        setContentStackView()
     }
     
     override func layoutSubviews() {
@@ -71,11 +91,10 @@ class MarketView: UIView {
         marketStackView.set(axis: .vertical, alignment: .fill)
         self.addSubview(marketStackView)
         marketStackView.translatesAutoresizingMaskIntoConstraints = false
-        marketStackView.VHConstraint(to: self)
+        marketStackView.VHConstraint(to: self, HConstant: 8)
     }
     
     private func setTopView() {
-        marketLabel.text = marketStatus == 0 ? K.UIConstant.offTheMarket : K.UIConstant.onTheMarket
         marketLabel.font = UIFont.demiBold.small
         marketLabel.textAlignment = .left
         marketLabel.textColor = K.Color.dark.withAlphaComponent(0.5)

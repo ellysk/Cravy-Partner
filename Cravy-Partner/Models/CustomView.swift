@@ -56,6 +56,7 @@ class FloaterView: RoundView {
         super.layoutSubviews()
         self.widthAnchor(to: floaterStackView, multiplier: 1.1)
         self.heightAnchor(to: floaterStackView, multiplier: 1.2)
+        self.setShadow()
     }
     
     private func setFloaterStackView() {

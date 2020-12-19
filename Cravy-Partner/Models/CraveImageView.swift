@@ -30,15 +30,14 @@ class CraveImageView: UIView {
     }
     private var linkView: LinkView?
     private var postButton: RoundButton?
-    private var recommendationsLabel = UILabel()
     var cravings: Int? {
         set {
             if let cravings = newValue {
                 cravingsLabel.isHidden = false
-                cravingsLabel.text = "\(cravings)"
+                cravingsLabel.attributedText = cravings.represent(unit: K.UIConstant.cravings)
             } else {
                 cravingsLabel.isHidden = true
-                cravingsLabel.text = nil
+                cravingsLabel.attributedText = nil
             }
         }
         
@@ -47,33 +46,6 @@ class CraveImageView: UIView {
             return Int(cravings)
         }
     }
-//    var recommendations: Int? {
-//        set {
-//            if let recommendations = newValue {
-//                recommendationsLabel.isHidden = false
-//
-//                let fullText = NSMutableAttributedString()
-//
-//                let firstString = String(recommendations).withFont(font: UIFont.demiBold.small)
-//                let space = NSMutableAttributedString(string: " ")
-//                let secondString = "recommendations".withFont(font: UIFont.regular.small)
-//
-//                fullText.append(firstString)
-//                fullText.append(space)
-//                fullText.append(secondString)
-//
-//                recommendationsLabel.attributedText = fullText
-//            } else {
-//                recommendationsLabel.isHidden = true
-//                recommendationsLabel.text = nil
-//            }
-//        }
-//
-//        get {
-//            guard let recommendations = recommendationsLabel.text else {return nil}
-//            return Int(recommendations)
-//        }
-//    }
     private let interactableSize: CGSize = CGSize(width: 80, height: 30)
     private let cravingsImageViewSize: CGSize = CGSize(width: 30, height: 30)
     /// A boolean that determines whether the link view should be hidden

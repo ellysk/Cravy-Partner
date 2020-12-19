@@ -16,7 +16,7 @@ enum TAG_COLLECTION_STYLE {
 /// A cell that displays a label with a round separator.
 class TagCollectionCell: UICollectionViewCell {
     private var tagStackView: UIStackView!
-    private var tagLabel: UILabel!
+    var tagLabel: UILabel!
     private var separator: UIView!
     /// Hides the separator in this particular cell.
     var isSeparatorHidden: Bool {

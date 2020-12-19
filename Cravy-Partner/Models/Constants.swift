@@ -18,6 +18,7 @@ struct K {
         /// Returns ""VISIT"
         static let visit: String = "VISIT"
         static let recommendations = "recommendations"
+        static let cravings = "cravings"
         static let subscribers = "Subscribers"
         static let offTheMarket = "Off the market"
         static let onTheMarket = "On the market"
@@ -48,6 +49,8 @@ struct K {
             static let tagCell = "tagCell"
             /// A reusable identifier for the ImageCollectionCell
             static let imageCell = "imageCell"
+            /// A reusable identifier for the WidgetCollectionCell
+            static let widgetCell = "widgetCell"
         }
         
         struct TableViewCell {
@@ -119,5 +122,7 @@ struct K {
         static let privacy: UIImage = UIImage(systemName: "lock")!
         static let about: UIImage = UIImage(systemName: "questionmark.circle")!
         static let help: UIImage = UIImage(named: "help")!
+        static let thumbsUp: UIImage = UIImage(systemName: "hand.thumbsup.fill")!
+        static let cravings: UIImage = UIImage(named: "cravings")!
     }
 }
