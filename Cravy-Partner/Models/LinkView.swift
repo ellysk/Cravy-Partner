@@ -12,13 +12,11 @@ import UIKit
 class LinkView: UIView {
     /// The button that is triggered when the user taps in this view
     private var linkButton = RoundButton()
-    var height: CGFloat {
-        return 45
+    private var linkLabel = UILabel()
+    private var linkImageView = UIImageView(image: UIImage(named: "go"))
+    private var LINK_IMAGEVIEW_SIZE: CGFloat {
+        return self.frame.height * 0.78
     }
-    var width: CGFloat {
-        return 140
-    }
-    private let LINK_IMAGEVIEW_SIZE: CGFloat = 35
     
     init() {
         super.init(frame: .zero)
@@ -33,31 +31,27 @@ class LinkView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.heightAnchor(of: height)
-        self.widthAnchor(of: width)
+        linkImageView.heightAnchor(of: LINK_IMAGEVIEW_SIZE)
+        linkImageView.widthAnchor(of: LINK_IMAGEVIEW_SIZE)
         self.makeRounded()
     }
     
     private func setLinkView() {
-        let linkLabel = UILabel()
         linkLabel.text = K.UIConstant.visit
-        linkLabel.font = UIFont.demiBold.medium
+        linkLabel.adjustsFontSizeToFitWidth = true
+        linkLabel.font = UIFont.medium.small
         linkLabel.textAlignment = .left
         linkLabel.textColor = K.Color.light
         
-        let linkImageView = UIImageView(image: UIImage(named: "go"))
         linkImageView.contentMode = .scaleAspectFit
         linkImageView.tintColor = K.Color.light
         linkImageView.translatesAutoresizingMaskIntoConstraints = false
-        linkImageView.heightAnchor(of: LINK_IMAGEVIEW_SIZE)
-        linkImageView.widthAnchor(of: LINK_IMAGEVIEW_SIZE)
         
         let hStackView = UIStackView(arrangedSubviews: [linkLabel, linkImageView])
-        hStackView.set(axis: .horizontal, alignment: .center)
+        hStackView.set(axis: .horizontal, alignment: .center, spacing: 3)
         self.addSubview(hStackView)
         hStackView.translatesAutoresizingMaskIntoConstraints = false
-        hStackView.centerYAnchor(to: self)
-        hStackView.HConstraint(to: self, constant: 16)
+        hStackView.centerXYAnchor(to: self)
     }
     
     private func setLinkButton() {

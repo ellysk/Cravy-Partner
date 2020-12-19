@@ -151,6 +151,7 @@ class CraveCollectionCell: UICollectionViewCell {
             
             if craveTagsCollectionView == nil {
                 craveTagsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout)
+                craveTagsCollectionView.showsHorizontalScrollIndicator = false
                 craveTagsCollectionView.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
                 craveTagsCollectionView.dataSource = self
                 craveTagsCollectionView.delegate = self

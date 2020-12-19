@@ -47,33 +47,35 @@ class CraveImageView: UIView {
             return Int(cravings)
         }
     }
-    var recommendations: Int? {
-        set {
-            if let recommendations = newValue {
-                recommendationsLabel.isHidden = false
-                
-                let fullText = NSMutableAttributedString()
-                
-                let firstString = String(recommendations).withFont(font: UIFont.demiBold.small)
-                let space = NSMutableAttributedString(string: " ")
-                let secondString = "recommendations".withFont(font: UIFont.regular.small)
-                
-                fullText.append(firstString)
-                fullText.append(space)
-                fullText.append(secondString)
-                
-                recommendationsLabel.attributedText = fullText
-            } else {
-                recommendationsLabel.isHidden = true
-                recommendationsLabel.text = nil
-            }
-        }
-        
-        get {
-            guard let recommendations = recommendationsLabel.text else {return nil}
-            return Int(recommendations)
-        }
-    }
+//    var recommendations: Int? {
+//        set {
+//            if let recommendations = newValue {
+//                recommendationsLabel.isHidden = false
+//
+//                let fullText = NSMutableAttributedString()
+//
+//                let firstString = String(recommendations).withFont(font: UIFont.demiBold.small)
+//                let space = NSMutableAttributedString(string: " ")
+//                let secondString = "recommendations".withFont(font: UIFont.regular.small)
+//
+//                fullText.append(firstString)
+//                fullText.append(space)
+//                fullText.append(secondString)
+//
+//                recommendationsLabel.attributedText = fullText
+//            } else {
+//                recommendationsLabel.isHidden = true
+//                recommendationsLabel.text = nil
+//            }
+//        }
+//
+//        get {
+//            guard let recommendations = recommendationsLabel.text else {return nil}
+//            return Int(recommendations)
+//        }
+//    }
+    private let interactableSize: CGSize = CGSize(width: 80, height: 30)
+    private let cravingsImageViewSize: CGSize = CGSize(width: 30, height: 30)
     /// A boolean that determines whether the link view should be hidden
     var isInteractableHidden: Bool {
         set {
@@ -104,22 +106,11 @@ class CraveImageView: UIView {
         setCraveImageView()
         setInteractable(interactable)
         setCravingsView()
-        setRecommendationLabel()
         self.cravings = cravings
-        self.recommendations = recommendations
     }
     
     required init?(coder: NSCoder) {
-        self.imageView = RoundImageView(image: UIImage(named: "bgimage"), roundfactor: 10)
-        super.init(coder: coder)
-        setCraveImageView()
-        setInteractable(.link)
-        setCravingsView()
-        cravingsLabel.font = UIFont.demiBold.small
-        setRecommendationLabel()
-        cravingsTintColor = K.Color.light
-        self.cravings = 438
-        self.recommendations = 200
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setCraveImageView() {
@@ -135,8 +126,8 @@ class CraveImageView: UIView {
         cravingsImageView.contentMode = .scaleAspectFit
         cravingsImageView.backgroundColor = K.Color.secondary
         cravingsImageView.translatesAutoresizingMaskIntoConstraints = false
-        cravingsImageView.heightAnchor(of: 30)
-        cravingsImageView.widthAnchor(of: 30)
+        cravingsImageView.heightAnchor(of: cravingsImageViewSize.height)
+        cravingsImageView.widthAnchor(of: cravingsImageViewSize.width)
     }
     
     private func setCravingsLabel() {
@@ -154,7 +145,7 @@ class CraveImageView: UIView {
         vStackView.set(axis: .vertical, alignment: .center, distribution: .fill, spacing: 3)
         self.addSubview(vStackView)
         vStackView.translatesAutoresizingMaskIntoConstraints = false
-        vStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(cravingsImageView.frame.height/2)).isActive = true
+        vStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(cravingsImageViewSize.height/2)).isActive = true
         vStackView.trailingAnchor(to: self, constant: 8)
     }
     
@@ -171,9 +162,10 @@ class CraveImageView: UIView {
         linkView = LinkView()
         self.addSubview(linkView!)
         linkView!.translatesAutoresizingMaskIntoConstraints = false
-        linkView!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(linkView!.height/2)).isActive = true
+        linkView!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
+        linkView!.heightAnchor(of: interactableSize.height)
         linkView!.leadingAnchor(to: self, constant: 8)
-        linkView!.setNeedsLayout()
+        linkView!.widthAnchor(of: interactableSize.width)
     }
     
     private func setPostButton() {
@@ -183,21 +175,10 @@ class CraveImageView: UIView {
         postButton!.setTitleColor(K.Color.light, for: .normal)
         postButton!.backgroundColor = K.Color.primary
         self.addSubview(postButton!)
-        let postButtonSize = CGSize(width: 80, height: 30)
         postButton!.translatesAutoresizingMaskIntoConstraints = false
-        postButton!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(postButtonSize.height/2)).isActive = true
-        postButton!.heightAnchor(of: postButtonSize.height)
+        postButton!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
+        postButton!.heightAnchor(of: interactableSize.height)
         postButton!.leadingAnchor(to: self, constant: 8)
-        postButton!.widthAnchor(of: postButtonSize.width)
-    }
-    
-    private func setRecommendationLabel() {
-        recommendationsLabel.textAlignment = .left
-        recommendationsLabel.textColor = K.Color.dark
-        self.addSubview(recommendationsLabel)
-        recommendationsLabel.translatesAutoresizingMaskIntoConstraints = false
-        recommendationsLabel.topAnchor.constraint(equalTo: linkView?.bottomAnchor ?? imageView.bottomAnchor, constant: 8).isActive = true
-        recommendationsLabel.bottomAnchor(to: self)
-        recommendationsLabel.leadingAnchor(to: self, constant: 8)
+        postButton!.widthAnchor(of: interactableSize.width)
     }
 }
