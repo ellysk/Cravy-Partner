@@ -34,10 +34,10 @@ class CraveImageView: UIView {
         set {
             if let cravings = newValue {
                 cravingsLabel.isHidden = false
-                cravingsLabel.attributedText = cravings.represent(unit: K.UIConstant.cravings)
+                cravingsLabel.text = "\(cravings)"
             } else {
                 cravingsLabel.isHidden = true
-                cravingsLabel.attributedText = nil
+                cravingsLabel.text = nil
             }
         }
         
@@ -142,6 +142,7 @@ class CraveImageView: UIView {
     
     private func setPostButton() {
         postButton = RoundButton()
+        postButton!.castShadow = true
         postButton!.setTitle(K.UIConstant.post, for: .normal)
         postButton!.titleLabel?.font = UIFont.demiBold.small
         postButton!.setTitleColor(K.Color.light, for: .normal)

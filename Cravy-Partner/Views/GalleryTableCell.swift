@@ -27,6 +27,7 @@ class GalleryTableCell: UITableViewCell {
     private var containerView: UIView!
     private var uzumakiGalleryView: GalleryView?
     private var uchihaGalleryView: GalleryView?
+    var layout: GALLERY_LAYOUT!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,8 +37,9 @@ class GalleryTableCell: UITableViewCell {
     ///   - layout: Determines how the image views are layout and presented. adjusts the size and position.
     ///   - images: The images that will be displayed. The maximum number of images displayed is 5.
     func setGalleryTableCell(layout: GALLERY_LAYOUT = .uzumaki, images: [UIImage] = []) {
+        self.layout = layout
         setContainerView()
-        setGalleryView(layout: layout, images: images)
+        setGalleryView(images: images)
         self.isTransparent = true
     }
     
@@ -51,7 +53,7 @@ class GalleryTableCell: UITableViewCell {
         }
     }
     
-    private func setGalleryView(layout: GALLERY_LAYOUT, images: [UIImage]) {
+    private func setGalleryView(images: [UIImage]) {
         if layout == .uzumaki {
             uzumakiGalleryView?.isHidden = false
             uchihaGalleryView?.isHidden = true

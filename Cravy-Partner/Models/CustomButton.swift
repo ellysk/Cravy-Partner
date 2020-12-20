@@ -11,6 +11,8 @@ import UIKit
 /// A subclass of UIButton that gives the button rounded corners.
 class RoundButton: UIButton {
     private var roundFactor: CGFloat?
+    /// A boolean that determines if the button should have a shadow layer.
+    var castShadow: Bool = false
     
     init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {
         self.roundFactor = roundFactor
@@ -27,6 +29,9 @@ class RoundButton: UIButton {
             self.makeRounded(roundFactor: factor)
         } else {
             self.makeRounded()
+        }
+        if castShadow {
+            self.setShadow()
         }
     }
 }

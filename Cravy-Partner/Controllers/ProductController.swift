@@ -23,21 +23,14 @@ class ProductController: UIViewController {
         imageView.image = UIImage(named: "bgimage")
         titleLabel.text = "Chicken wings"
         titleLabel.underline()
-        detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
+        detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
         marketView.numberOfSearches = 254
         marketView.nuberOfViews = 122
         marketView.numberOfVisits = 120
         // Do any additional setup after loading the view.
+        self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
         widgetCollectionView.register()
         horizontalTagsCollectionView.register()
-        setFloaterView()
-    }
-    
-    /// Show floater view for representing an edit button.
-    private func setFloaterView() {
-        self.showsFloaterView = true
-        floaterView?.imageView.image = K.Image.pencilCircleFill
-        floaterView?.titleLabel.text = K.UIConstant.edit
     }
 }
 

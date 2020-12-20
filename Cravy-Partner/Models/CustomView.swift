@@ -96,12 +96,15 @@ class CurtainView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setCravyGradientBackground()
-        setBottomShadow()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setCravyGradientBackground()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         setBottomShadow()
     }
     

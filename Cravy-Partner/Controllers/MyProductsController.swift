@@ -22,6 +22,7 @@ class MyProductsController: UIViewController {
     }
 }
 
+//MARK: - UICollectionView DataSource
 extension MyProductsController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5

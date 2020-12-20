@@ -109,18 +109,71 @@
         <!--My business-->
         <scene sceneID="tmb-Ph-pte">
             <objects>
-                <viewController id="cGZ-m9-aba" sceneMemberID="viewController">
+                <viewController id="cGZ-m9-aba" customClass="BusinessController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y7c-Jn-hlo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="gVn-Qw-ojZ">
+                                <rect key="frame" x="0.0" y="224" width="414" height="589"/>
+                                <color key="backgroundColor" name="light"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cGZ-m9-aba" id="rU0-EO-Bcr"/>
+                                    <outlet property="delegate" destination="cGZ-m9-aba" id="Zdw-ZL-Nxf"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0W7-E4-MgE" customClass="CurtainView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="180"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMK-s2-PYW" customClass="BusinessView" customModule="Cravy_Partner" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="0.0" width="406" height="100"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="vJW-js-C3m"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R9b-pg-Y74" customClass="BusinessStatView" customModule="Cravy_Partner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="124" width="414" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="nml-Nz-MqR"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="CMK-s2-PYW" secondAttribute="trailing" id="43C-lW-WL3"/>
+                                    <constraint firstItem="R9b-pg-Y74" firstAttribute="top" secondItem="CMK-s2-PYW" secondAttribute="bottom" constant="24" id="BXV-nE-1eK"/>
+                                    <constraint firstItem="R9b-pg-Y74" firstAttribute="leading" secondItem="0W7-E4-MgE" secondAttribute="leading" id="GNB-oF-MnG"/>
+                                    <constraint firstItem="CMK-s2-PYW" firstAttribute="top" secondItem="0W7-E4-MgE" secondAttribute="top" id="TAj-b2-RS0"/>
+                                    <constraint firstItem="CMK-s2-PYW" firstAttribute="leading" secondItem="0W7-E4-MgE" secondAttribute="leading" constant="8" id="VhV-up-p3P"/>
+                                    <constraint firstAttribute="height" constant="180" id="xBC-x4-qCe"/>
+                                    <constraint firstAttribute="trailing" secondItem="R9b-pg-Y74" secondAttribute="trailing" id="y8K-oh-9CF"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstItem="gVn-Qw-ojZ" firstAttribute="bottom" secondItem="MlE-pb-Qm5" secondAttribute="bottom" id="6Af-5m-w2d"/>
+                            <constraint firstItem="0W7-E4-MgE" firstAttribute="top" secondItem="MlE-pb-Qm5" secondAttribute="top" id="97b-dc-Lnc"/>
+                            <constraint firstItem="0W7-E4-MgE" firstAttribute="leading" secondItem="MlE-pb-Qm5" secondAttribute="leading" id="BJh-7V-kyV"/>
+                            <constraint firstItem="gVn-Qw-ojZ" firstAttribute="trailing" secondItem="MlE-pb-Qm5" secondAttribute="trailing" id="Qx0-mO-P3g"/>
+                            <constraint firstItem="0W7-E4-MgE" firstAttribute="trailing" secondItem="MlE-pb-Qm5" secondAttribute="trailing" id="VcN-ZP-VKL"/>
+                            <constraint firstItem="gVn-Qw-ojZ" firstAttribute="leading" secondItem="MlE-pb-Qm5" secondAttribute="leading" id="ph4-sV-Nt0"/>
+                            <constraint firstItem="gVn-Qw-ojZ" firstAttribute="top" secondItem="0W7-E4-MgE" secondAttribute="bottom" id="r9k-dT-YUG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="MlE-pb-Qm5"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="My business" image="mybusiness" selectedImage="mybusiness-filled" id="LKN-rm-IWb"/>
+                    <connections>
+                        <outlet property="businessStatView" destination="R9b-pg-Y74" id="qzI-az-Ts4"/>
+                        <outlet property="businessTableView" destination="gVn-Qw-ojZ" id="DYK-mj-aQY"/>
+                        <outlet property="businessView" destination="CMK-s2-PYW" id="gIF-pC-RQe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EjI-qe-M4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800" y="644"/>
+            <point key="canvasLocation" x="1800.0000000000002" y="643.52678571428567"/>
         </scene>
         <!--My products-->
         <scene sceneID="LZ2-Eb-Czn">

@@ -50,21 +50,21 @@ class BusinessView: UIView {
     init(frame: CGRect = .zero, image: UIImage? = nil, name: String? = nil, email: String? = nil) {
         super.init(frame: frame)
         self.backgroundColor = .clear
-        setBusinessStackView()
-        setBusinessImageView()
-        setBusinessInfoStackView()
+        setBusinessViewLayout()
         self.image = image
         self.name = name
         self.email = email
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setBusinessViewLayout()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.heightAnchor(of: 100)
+    private func setBusinessViewLayout() {
+        setBusinessStackView()
+        setBusinessImageView()
+        setBusinessInfoStackView()
     }
     
     private func setBusinessStackView() {
@@ -104,6 +104,9 @@ class BusinessView: UIView {
     
     private func setLinkView() {
         businessInfoStackView.addArrangedSubview(linkView)
+        linkView.translatesAutoresizingMaskIntoConstraints = false
+        linkView.heightAnchor(of: 45)
+        linkView.widthAnchor(of: 150)
     }
 }
 
@@ -159,20 +162,20 @@ class BusinessStatView: UIView {
     
     init(frame: CGRect = .zero, recommendations: Int = 0, subscribers: Int = 0) {
         super.init(frame: frame)
-        setBusinessStatStackView()
-        setRecommendationStatStackView()
-        setSubscriberStatStackView()
+        setBusinessStatViewLayout()
         self.recommendations = recommendations
         self.subscribers = subscribers
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setBusinessStatViewLayout()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.heightAnchor(of: 45)
+    private func setBusinessStatViewLayout() {
+        setBusinessStatStackView()
+        setRecommendationStatStackView()
+        setSubscriberStatStackView()
     }
     
     private func setBusinessStatStackView() {

@@ -291,7 +291,7 @@ extension UIViewController {
                     fv.tag = K.ViewTag.FLOATER_VIEW
                     self.view.addSubview(fv)
                     fv.translatesAutoresizingMaskIntoConstraints = false
-                    fv.bottomAnchor(to: self.view.safeAreaLayoutGuide)
+                    fv.bottomAnchor(to: self.view.safeAreaLayoutGuide, constant: 3)
                     fv.trailingAnchor(to: self.view, constant: 3)
                 }
             }
@@ -304,6 +304,13 @@ extension UIViewController {
                 return false
             }
         }
+    }
+    
+    /// Displays a floater view with the provided image and title.
+    func setFloaterViewWith(image: UIImage, title: String) {
+        self.showsFloaterView = true
+        self.floaterView?.imageView.image = image
+        self.floaterView?.titleLabel.text = title
     }
 }
 
@@ -321,12 +328,7 @@ extension UIStackView {
 extension UICollectionViewFlowLayout {
     static var horizontalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 80, height: 20)
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
-        layout.minimumLineSpacing = 8
-        layout.sectionInset.left = 8
-        
+        layout.set(direction: .horizontal, estimatedItemSize: CGSize(width: 80, height: 20), sectionInset: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0))
         return layout
     }
     
@@ -362,8 +364,9 @@ extension UICollectionViewFlowLayout {
     
     static var imageCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
+        layout.set(direction: .horizontal)
         let itemWidth = layout.widthVisibleFor(numberOfItems: 1.5)
-        layout.set(direction: .horizontal, itemSize: CGSize(width: itemWidth, height: 0.5 * itemWidth ))
+        layout.itemSize = CGSize(width: itemWidth, height: 0.5 * itemWidth)
         
         return layout
     }

@@ -75,7 +75,9 @@ struct K {
         /// Returns ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
         static let introSectionDetails: [String : String] = ["Cook" : "You get to do what you have always been doing, that is making good food for your customers.", "Present" : "Good food ought to be noticed by people, post your greatest or upcoming creations for the people in your area to see!", "Track" : "See how many people are engaging with your creations, visiting your website and recommending people to try out your product!"]
         /// Returns ["Make your business stand out", "Let your customers see them", "The Kitchen"]
-        static let sectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
+        static let businessSectionTitles = ["Make your business stand out", "Let your customers see them", "The Kitchen"]
+        /// Returns [K.Image.promote, K.Image.comingSoon]
+        static let businessStandoutImages = [K.Image.promote, K.Image.comingSoon]
         /// Returns ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
         static let settingsTitles = ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
         /// Returns [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
@@ -124,5 +126,7 @@ struct K {
         static let help: UIImage = UIImage(named: "help")!
         static let thumbsUp: UIImage = UIImage(systemName: "hand.thumbsup.fill")!
         static let cravings: UIImage = UIImage(named: "cravings")!
+        static let promote: UIImage = UIImage(named: "promote")!
+        static let comingSoon: UIImage = UIImage(named: "comingsoon")!
     }
 }
