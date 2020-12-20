@@ -3,6 +3,177 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Product Controller-->
+        <scene sceneID="8KE-ZV-aGf">
+            <objects>
+                <viewController id="D16-c9-Isv" customClass="ProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pFi-9x-luv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUC-OP-ezN">
+                                <rect key="frame" x="0.0" y="-48" width="414" height="944"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TIn-V5-xT9">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2m-Hm-Fn4">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DFz-xF-hwV" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="277.5"/>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFH-Vv-iJf" customClass="LinkView" customModule="Cravy_Partner" customModuleProvider="target">
+                                                        <rect key="frame" x="8" y="255" width="150" height="45"/>
+                                                        <color key="backgroundColor" name="link"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="iJ8-Oe-7uz"/>
+                                                            <constraint firstAttribute="width" constant="150" id="xXB-cx-6ik"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="DFz-xF-hwV" firstAttribute="top" secondItem="Q2m-Hm-Fn4" secondAttribute="top" id="AGL-E6-CDk"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DFz-xF-hwV" secondAttribute="trailing" id="ARO-w1-Hpu"/>
+                                                    <constraint firstItem="DFz-xF-hwV" firstAttribute="leading" secondItem="Q2m-Hm-Fn4" secondAttribute="leading" id="PA3-05-9aR"/>
+                                                    <constraint firstItem="DFz-xF-hwV" firstAttribute="height" secondItem="Q2m-Hm-Fn4" secondAttribute="height" multiplier="0.925" id="XEp-8r-ng8"/>
+                                                    <constraint firstAttribute="height" constant="300" id="bK4-ZS-743"/>
+                                                    <constraint firstItem="FFH-Vv-iJf" firstAttribute="top" secondItem="DFz-xF-hwV" secondAttribute="bottom" constant="-22.5" id="dM7-ay-hFU"/>
+                                                    <constraint firstItem="FFH-Vv-iJf" firstAttribute="leading" secondItem="Q2m-Hm-Fn4" secondAttribute="leading" constant="8" id="ioA-v6-JL4"/>
+                                                </constraints>
+                                            </view>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rSg-ZJ-8Re" customClass="WidgetCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="308" width="414" height="120"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="120" id="Kht-Fo-Gk3"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Qi-zj-EZU">
+                                                    <size key="itemSize" width="128" height="128"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="D16-c9-Isv" id="gfU-Ny-FIj"/>
+                                                    <outlet property="delegate" destination="D16-c9-Isv" id="YNA-Ow-fQp"/>
+                                                </connections>
+                                            </collectionView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLp-65-aND">
+                                                <rect key="frame" x="0.0" y="436" width="414" height="70"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Jse-t8-W9u">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irG-9A-Zy1" customClass="PaddingLabel" customModule="Cravy_Partner" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="63.5" height="40"/>
+                                                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="24"/>
+                                                                <color key="textColor" name="dark"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Rw7-gr-TAw" customClass="HorizontalTagsCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="40" width="414" height="30"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="6T9-NE-bna"/>
+                                                                </constraints>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="R7r-iF-clm">
+                                                                    <size key="itemSize" width="128" height="128"/>
+                                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                </collectionViewFlowLayout>
+                                                                <cells/>
+                                                                <connections>
+                                                                    <outlet property="dataSource" destination="D16-c9-Isv" id="74U-ZK-L5q"/>
+                                                                    <outlet property="delegate" destination="D16-c9-Isv" id="uVA-dq-Mjb"/>
+                                                                </connections>
+                                                            </collectionView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="Rw7-gr-TAw" firstAttribute="width" secondItem="Jse-t8-W9u" secondAttribute="width" id="7Pj-90-6ab"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="3xW-kf-5Th"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Jse-t8-W9u" secondAttribute="bottom" id="LlZ-5O-x12"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Jse-t8-W9u" secondAttribute="trailing" id="cfd-yA-nMY"/>
+                                                    <constraint firstItem="Jse-t8-W9u" firstAttribute="top" secondItem="FLp-65-aND" secondAttribute="top" id="poq-qh-aBs"/>
+                                                    <constraint firstItem="Jse-t8-W9u" firstAttribute="leading" secondItem="FLp-65-aND" secondAttribute="leading" id="ub6-vs-qjX"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZg-hC-0Qe" customClass="PaddingLabel" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="514" width="414" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                <color key="textColor" name="dark"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIj-as-n7P" customClass="MarketView" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="522" width="414" height="200"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="HRC-Uh-N6H"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="TIn-V5-xT9" firstAttribute="bottom" secondItem="jVC-jj-hdA" secondAttribute="bottom" id="A5F-ai-5ER"/>
+                                    <constraint firstItem="jVC-jj-hdA" firstAttribute="top" secondItem="TIn-V5-xT9" secondAttribute="top" id="Uxe-DP-fAv"/>
+                                    <constraint firstItem="TIn-V5-xT9" firstAttribute="trailing" secondItem="jVC-jj-hdA" secondAttribute="trailing" id="Yxa-KN-yRY"/>
+                                    <constraint firstItem="TIn-V5-xT9" firstAttribute="leading" secondItem="jVC-jj-hdA" secondAttribute="leading" id="bnu-Yd-XRe"/>
+                                    <constraint firstItem="TIn-V5-xT9" firstAttribute="width" secondItem="Luj-RB-fpu" secondAttribute="width" id="u0y-5q-aDp"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="jVC-jj-hdA"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Luj-RB-fpu"/>
+                                <connections>
+                                    <outlet property="delegate" destination="D16-c9-Isv" id="Fk0-1W-Fmc"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstItem="dUC-OP-ezN" firstAttribute="leading" secondItem="rqk-aF-KOC" secondAttribute="leading" id="OyH-Ed-2TY"/>
+                            <constraint firstItem="dUC-OP-ezN" firstAttribute="trailing" secondItem="rqk-aF-KOC" secondAttribute="trailing" id="Xka-QH-hF1"/>
+                            <constraint firstAttribute="bottom" secondItem="dUC-OP-ezN" secondAttribute="bottom" id="dMX-8V-7RP"/>
+                            <constraint firstItem="dUC-OP-ezN" firstAttribute="top" secondItem="pFi-9x-luv" secondAttribute="top" constant="-48" id="f3c-gD-Qm7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rqk-aF-KOC"/>
+                    </view>
+                    <connections>
+                        <outlet property="detailLabel" destination="hZg-hC-0Qe" id="tPq-js-pCs"/>
+                        <outlet property="horizontalTagsCollectionView" destination="Rw7-gr-TAw" id="Lhy-0a-OBC"/>
+                        <outlet property="imageView" destination="DFz-xF-hwV" id="ENb-sY-rnU"/>
+                        <outlet property="linkView" destination="FFH-Vv-iJf" id="WpW-YM-w4e"/>
+                        <outlet property="marketView" destination="PIj-as-n7P" id="plN-Gw-aiT"/>
+                        <outlet property="titleLabel" destination="irG-9A-Zy1" id="HDK-GE-ICg"/>
+                        <outlet property="widgetCollectionView" destination="rSg-ZJ-8Re" id="0Hr-q9-Zta"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nWa-WD-JuG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2650.7246376811595" y="-654.24107142857144"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="dark">
+            <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="light">
+            <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="link">
+            <color red="0.12549019607843137" green="0.63529411764705879" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

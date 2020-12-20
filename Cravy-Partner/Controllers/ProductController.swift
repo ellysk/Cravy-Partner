@@ -30,15 +30,7 @@ class ProductController: UIViewController {
         // Do any additional setup after loading the view.
         widgetCollectionView.register()
         horizontalTagsCollectionView.register()
-        customiseHorizontalTagsCollectionLayout()
-        customiseHorizontalTagsCollectionLayout()
         setFloaterView()
-    }
-    
-    /// Set left inset of the layout to 0
-    private func customiseHorizontalTagsCollectionLayout() {
-        let layout = horizontalTagsCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.sectionInset.left = 0
     }
     
     /// Show floater view for representing an edit button.
