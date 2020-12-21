@@ -31,9 +31,11 @@ class CravyTextField: UITextField {
 class RoundTextField: CravyTextField {
     private var roundFactor: CGFloat?
     
-    init(roundFactor: CGFloat? = nil, placeholder: String = "Write something here...") {
+    init(roundFactor: CGFloat? = nil, placeholder: String? = nil) {
         super.init(frame: .zero)
-        setPlaceholder(placeholder)
+        if let holder = placeholder {
+         setPlaceholder(holder)
+        }
         self.font = UIFont.regular.small
         self.textColor = K.Color.dark
         self.tintColor = K.Color.primary

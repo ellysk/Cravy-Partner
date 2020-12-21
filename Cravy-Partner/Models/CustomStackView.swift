@@ -57,3 +57,45 @@ class AuthStackView: UIStackView {
         authButton.heightAnchor(of: 45)
     }
 }
+
+/// A vertical stack view that displays interactive views in which the user can edit account details such as logo, name, email and phone number.
+class AccountStackView: UIStackView {
+    var logoImageView: RoundImageView!
+    var nameTextField: RoundTextField!
+    var emailTextField: RoundTextField!
+    var numberTextField: RoundTextField!
+    private var textField: RoundTextField {
+        let field = RoundTextField(roundFactor: 5)
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.heightAnchor(of: 45)
+        return field
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        self.set(axis: .vertical, distribution: .equalSpacing)
+        setAccountStackView()
+    }
+    
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        setAccountStackView()
+    }
+    
+    private func setAccountStackView() {
+        logoImageView = RoundImageView(image: nil, roundfactor: 5)
+        let logoView = logoImageView.withPlaceholderView()
+        logoView.translatesAutoresizingMaskIntoConstraints = false
+        logoView.heightAnchor(of: 100)
+        logoView.widthAnchor(of: 100)
+        
+        nameTextField = textField
+        emailTextField = textField
+        numberTextField = textField
+        
+        self.addArrangedSubview(logoView.withSectionTitle(K.UIConstant.addBusinessLogo, alignment: .leading))
+        self.addArrangedSubview(nameTextField.withSectionTitle(K.UIConstant.changeBusinessName))
+        self.addArrangedSubview(emailTextField.withSectionTitle(K.UIConstant.changeBusinessEmail))
+        self.addArrangedSubview(numberTextField.withSectionTitle(K.UIConstant.changePhoneNumber))
+    }
+}

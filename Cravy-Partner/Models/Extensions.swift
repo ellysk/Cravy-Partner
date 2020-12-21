@@ -205,7 +205,7 @@ extension UIView {
     }
     
     /// Adds a title on top of the view and returns the stack view that holds both the label and the view.
-    func withSectionTitle(_ title: String, titleFont: UIFont = UIFont.medium.small, titleColor: UIColor = K.Color.dark.withAlphaComponent(0.5), alignment: UIStackView.Alignment = .leading) -> UIStackView {
+    func withSectionTitle(_ title: String, titleFont: UIFont = UIFont.medium.small, titleColor: UIColor = K.Color.dark.withAlphaComponent(0.5), alignment: UIStackView.Alignment = .fill) -> UIStackView {
         let sectionLabel = UILabel()
         sectionLabel.text = title
         sectionLabel.font = titleFont
@@ -423,9 +423,6 @@ extension UIButton {
     static var logOutButton: UIButton {
         let logOutButton = UIButton()
         logOutButton.setImage(UIImage(named: "logout"), for: .normal)
-        logOutButton.translatesAutoresizingMaskIntoConstraints = false
-        logOutButton.heightAnchor(of: 60)
-        logOutButton.widthAnchor(of: 60)
         
         return logOutButton
     }
@@ -490,6 +487,7 @@ extension UITableView {
     }
 }
 
+//MARK: - UIImageView
 extension UIImageView {
     /// Returns a view that contains the the image view.
     func withPlaceholderView(placeholderBackgroundColor: UIColor = K.Color.dark) -> UIView {

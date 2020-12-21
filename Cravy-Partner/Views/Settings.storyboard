@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FlQ-Qc-lfG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -79,6 +79,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPm-Ea-FKP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-65.217391304347828" y="152.67857142857142"/>
+        </scene>
+        <!--Account Controller-->
+        <scene sceneID="Ank-x0-Sg4">
+            <objects>
+                <viewController id="sGN-Zo-nhf" customClass="AccountController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nox-aV-B9a">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kZU-vK-tJz" customClass="AccountStackView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="20" y="44" width="374" height="400"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="kth-Bq-wd1"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstItem="eJo-Ab-i63" firstAttribute="trailing" secondItem="kZU-vK-tJz" secondAttribute="trailing" constant="20" id="AqI-FM-8fC"/>
+                            <constraint firstItem="kZU-vK-tJz" firstAttribute="leading" secondItem="eJo-Ab-i63" secondAttribute="leading" constant="20" id="ak7-3O-Ogu"/>
+                            <constraint firstItem="kZU-vK-tJz" firstAttribute="top" secondItem="eJo-Ab-i63" secondAttribute="top" id="pOm-9x-GvS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eJo-Ab-i63"/>
+                    </view>
+                    <connections>
+                        <outlet property="accountStackView" destination="kZU-vK-tJz" id="9Si-PL-7I7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zwl-ni-K6b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="611.59420289855075" y="-103.125"/>
         </scene>
     </scenes>
     <resources>

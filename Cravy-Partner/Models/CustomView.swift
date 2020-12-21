@@ -11,6 +11,7 @@ import UIKit
 class RoundView: UIView {
     private var roundFactor: CGFloat?
     var isBordered: Bool = false
+    /// A boolean that determines if the view should have a shadow layer.
     var castShadow: Bool = false
     
     init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {

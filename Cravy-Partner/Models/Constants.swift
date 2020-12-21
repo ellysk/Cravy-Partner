@@ -39,6 +39,10 @@ struct K {
         static let filtersMessage = "Choose a filter"
         static let removeFilter = "Remove Filter"
         static let cancel = "Cancel"
+        static let addBusinessLogo = "Change business logo"
+        static let changeBusinessName = "Change business name"
+        static let changeBusinessEmail = "Change business email"
+        static let changePhoneNumber = "Change business phone number"
     }
     
     struct Identifier {
