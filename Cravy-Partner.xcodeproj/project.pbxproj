@@ -18,6 +18,8 @@
 		2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */; };
 		2B61BE44258E89B100545E59 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE43258E89B100545E59 /* CustomLabel.swift */; };
 		2B61BE46258FF12100545E59 /* BusinessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE45258FF12100545E59 /* BusinessController.swift */; };
+		2B61BE482590D56400545E59 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B61BE472590D56400545E59 /* Settings.storyboard */; };
+		2B61BE4A2590DA4D00545E59 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE492590DA4D00545E59 /* SettingsController.swift */; };
 		2B62D9882588FC2B00C7E948 /* ToggleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */; };
 		2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B62D9872588FC2A00C7E948 /* ToggleTable.xib */; };
 		2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */; };
@@ -88,6 +90,8 @@
 		2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetCollectionCell.xib; sourceTree = "<group>"; };
 		2B61BE43258E89B100545E59 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		2B61BE45258FF12100545E59 /* BusinessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessController.swift; sourceTree = "<group>"; };
+		2B61BE472590D56400545E59 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		2B61BE492590DA4D00545E59 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableCell.swift; sourceTree = "<group>"; };
 		2B62D9872588FC2A00C7E948 /* ToggleTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTable.xib; sourceTree = "<group>"; };
 		2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTableCell.swift; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 				2B77137D258BD33E00C6C9F0 /* Product.storyboard */,
 				2B61BE3F258E653700545E59 /* WidgetCollectionCell.swift */,
 				2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */,
+				2B61BE472590D56400545E59 /* Settings.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				2B7DF495258A99FF00AA1337 /* MyProductsController.swift */,
 				2B61BE3D258E4AA200545E59 /* ProductController.swift */,
 				2B61BE45258FF12100545E59 /* BusinessController.swift */,
+				2B61BE492590DA4D00545E59 /* SettingsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
 				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
 				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
+				2B61BE482590D56400545E59 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B61BE4A2590DA4D00545E59 /* SettingsController.swift in Sources */,
 				2BE371BE2580EEC700B38D30 /* ImageCollectionCell.swift in Sources */,
 				2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */,
 				2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */,

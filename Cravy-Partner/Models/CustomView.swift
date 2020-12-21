@@ -11,6 +11,7 @@ import UIKit
 class RoundView: UIView {
     private var roundFactor: CGFloat?
     var isBordered: Bool = false
+    var castShadow: Bool = false
     
     init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {
         self.roundFactor = roundFactor
@@ -18,6 +19,7 @@ class RoundView: UIView {
     }
     
     required init?(coder: NSCoder) {
+        self.roundFactor = 5
         super.init(coder: coder)
     }
     
@@ -30,6 +32,9 @@ class RoundView: UIView {
         }
         if isBordered {
             self.makeBordered()
+        }
+        if castShadow {
+            self.setShadow()
         }
     }
 }
