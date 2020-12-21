@@ -10,19 +10,22 @@ import UIKit
 
 /// A vertical stack view that displays two textfields that handle email input and password input respectively and a RoundButton to trigger action for the inputs provided all.
 class AuthStackView: UIStackView {
-    private var emailTextField = RoundTextField(placeholder: "Email")
-    private var passwordTextField = RoundTextField(placeholder: "Password")
+    var emailTextField = RoundTextField(placeholder: "Email")
+    var passwordTextField = RoundTextField(placeholder: "Password")
     private var authButton = RoundButton()
     
     init() {
         super.init(frame: .zero)
-        self.set(axis: .vertical, alignment: .center, distribution: .fillProportionally, spacing: 24)
+        self.set(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 24)
         setTextFieldsStackView()
         setAuthButton()
     }
     
     required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        self.set(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 24)
+        setTextFieldsStackView()
+        setAuthButton()
     }
     
     private func setTextFieldsStackView() {

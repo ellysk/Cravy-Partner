@@ -17,7 +17,7 @@ enum SPLASH {
 class SplashController: UIViewController {
     @IBOutlet weak var pageController: UIView!
     @IBOutlet weak var getStartedButton: RoundBorderedButton!
-    var authStackView = AuthStackView()
+    @IBOutlet weak var authStackView: AuthStackView!
     @IBOutlet weak var noticeLabel: UILabel!
     /// Determines the state of the view controller. if intro then the controller displays the IntroPageController otherwise the AuthStackView is displayed.
     var splash: SPLASH {
@@ -40,14 +40,6 @@ class SplashController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         splash = .intro
-        setAuthStackView()
-    }
-    
-    private func setAuthStackView() {
-        self.view.addSubview(authStackView)
-        authStackView.translatesAutoresizingMaskIntoConstraints = false
-        authStackView.centerYAnchor(to: self.view)
-        authStackView.HConstraint(to: self.view, constant: 8)
     }
     
     @IBAction func getStarted(_ sender: UIButton) {
