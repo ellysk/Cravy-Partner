@@ -157,8 +157,7 @@ class ContentView: RoundView {
         contentImageView.tintColor = K.Color.primary
         contentImageView.backgroundColor = K.Color.light
         contentImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentImageView.heightAnchor(of: 40)
-        contentImageView.widthAnchor(of: 40)
+        contentImageView.sizeAnchorOf(width: 40, height: 40)
         
         contentLabel.font = UIFont.mediumItalic.small
         contentLabel.textAlignment = .left

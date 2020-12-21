@@ -98,8 +98,7 @@ class CraveImageView: UIView {
         cravingsImageView.contentMode = .scaleAspectFit
         cravingsImageView.backgroundColor = K.Color.secondary
         cravingsImageView.translatesAutoresizingMaskIntoConstraints = false
-        cravingsImageView.heightAnchor(of: cravingsImageViewSize.height)
-        cravingsImageView.widthAnchor(of: cravingsImageViewSize.width)
+        cravingsImageView.sizeAnchorOf(width: cravingsImageViewSize.width, height:  cravingsImageViewSize.height)
     }
     
     private func setCravingsLabel() {
@@ -135,9 +134,8 @@ class CraveImageView: UIView {
         self.addSubview(linkView!)
         linkView!.translatesAutoresizingMaskIntoConstraints = false
         linkView!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
-        linkView!.heightAnchor(of: interactableSize.height)
         linkView!.leadingAnchor(to: self, constant: 8)
-        linkView!.widthAnchor(of: interactableSize.width)
+        linkView!.sizeAnchorOf(width: interactableSize.width, height: interactableSize.height)
     }
     
     private func setPostButton() {
@@ -150,8 +148,7 @@ class CraveImageView: UIView {
         self.addSubview(postButton!)
         postButton!.translatesAutoresizingMaskIntoConstraints = false
         postButton!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
-        postButton!.heightAnchor(of: interactableSize.height)
         postButton!.leadingAnchor(to: self, constant: 8)
-        postButton!.widthAnchor(of: interactableSize.width)
+        postButton!.sizeAnchorOf(width: interactableSize.width, height: interactableSize.height)
     }
 }

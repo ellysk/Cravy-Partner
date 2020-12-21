@@ -54,8 +54,7 @@ class BasicTableCell: UITableViewCell {
         if basicImageView == nil {
             basicImageView = UIImageView(image: image)
             basicImageView.translatesAutoresizingMaskIntoConstraints = false
-            basicImageView.heightAnchor(of: 30)
-            basicImageView.widthAnchor(of: 30)
+            basicImageView.sizeAnchorOf(width: 30, height: 30)
             basicImageView.contentMode = .scaleAspectFill
             basicImageView.tintColor = K.Color.dark
         } else {

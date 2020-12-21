@@ -47,8 +47,7 @@ class WidgetCollectionCell: UICollectionViewCell {
             widgetImageView.contentMode = .scaleAspectFit
             widgetImageView.tintColor = K.Color.primary
             widgetImageView.translatesAutoresizingMaskIntoConstraints = false
-            widgetImageView.heightAnchor(of: 45)
-            widgetImageView.widthAnchor(of: 40)
+            widgetImageView.sizeAnchorOf(width: 40, height: 45)
         } else {
             widgetImageView.image = image
         }

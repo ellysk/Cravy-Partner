@@ -33,8 +33,7 @@ class LinkView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        linkImageView.heightAnchor(of: LINK_IMAGEVIEW_SIZE)
-        linkImageView.widthAnchor(of: LINK_IMAGEVIEW_SIZE)
+        linkImageView.sizeAnchorOf(width: LINK_IMAGEVIEW_SIZE, height: LINK_IMAGEVIEW_SIZE)
         self.makeRounded()
         self.setShadow()
     }

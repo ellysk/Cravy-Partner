@@ -72,16 +72,14 @@ class FloaterView: RoundView {
         floaterStackView.set(axis: .horizontal, alignment: .center ,distribution: .fill, spacing: 8)
         self.addSubview(floaterStackView)
         floaterStackView.translatesAutoresizingMaskIntoConstraints = false
-        floaterStackView.centerYAnchor(to: self)
-        floaterStackView.centerYAnchor(to: self)
+        floaterStackView.centerXYAnchor(to: self)
     }
     
     private func setImageView() {
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = K.Color.light
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.heightAnchor(of: 30)
-        imageView.widthAnchor(of: 30)
+        imageView.sizeAnchorOf(width: 30, height: 30)
     }
     
     private func setTitleLabel() {

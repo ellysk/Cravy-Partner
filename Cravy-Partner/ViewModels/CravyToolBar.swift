@@ -74,11 +74,6 @@ class CravyToolBar: UIView {
         isSelected(isSelected: true, item: items[0])
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.heightAnchor(of: K.Size.CRAVY_TOOL_BAR_HEIGHT)
-    }
-    
     private func setToolBarStackView() {
         toolBarStackView.set(axis: .horizontal, alignment: .center, distribution: .fillProportionally, spacing: 16)
         

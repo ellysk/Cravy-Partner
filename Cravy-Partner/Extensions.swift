@@ -128,6 +128,10 @@ extension UIView {
         self.layer.borderColor = K.Color.primary.cgColor
     }
     
+    func removeBordered() {
+        self.layer.borderWidth = 0
+    }
+    
     func topAnchor(to view: UIView, constant: CGFloat = 0) {
         self.topAnchor.constraint(equalTo: view.topAnchor, constant: constant).isActive = true
     }
@@ -202,6 +206,12 @@ extension UIView {
     
     func widthAnchor(to view: UIView, multiplier: CGFloat = 1) {
         self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier).isActive = true
+    }
+    
+    /// Sets constraints of the width and height of the view.
+    func sizeAnchorOf(width: CGFloat, height: CGFloat) {
+        self.widthAnchor(of: width)
+        self.heightAnchor(of: height)
     }
     
     /// Adds a title on top of the view and returns the stack view that holds both the label and the view.
@@ -434,11 +444,6 @@ extension UIButton {
         
         return btn
     }
-    
-    /// Sets the background image of the button with insets value of 2 in all sides.
-    func setFloaterButtonBackgroundImage(image: UIImage?) {
-        self.setBackgroundImage(image?.withInset(UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))?.withTintColor(K.Color.light), for: .normal)
-    }
 }
 
 //MARK: - UITableView
@@ -548,6 +553,34 @@ extension String {
 
 //MARK: - Int
 extension Int {
+    /// Changes the number to a format that represents a unit provided.
+    func represent(unit: String, size: UIFont.SIZE = .xsmall) -> NSMutableAttributedString {
+        var font1: UIFont!
+        var font2: UIFont!
+        if size == .xsmall {
+            font1 = UIFont.demiBold.xSmall
+            font2 = UIFont.regular.xSmall
+        } else {
+            font1 = UIFont.demiBold.small
+            font2 = UIFont.regular.small
+        }
+        
+        let fullText = NSMutableAttributedString()
+        
+        let firstString = String(self).withFont(font: font1)
+        let space = NSMutableAttributedString(string: " ")
+        let secondString = unit.withFont(font: font2)
+        
+        fullText.append(firstString)
+        fullText.append(space)
+        fullText.append(secondString)
+        
+        return fullText
+    }
+}
+
+//MARK: - Int
+extension Double {
     /// Changes the number to a format that represents a unit provided.
     func represent(unit: String, size: UIFont.SIZE = .xsmall) -> NSMutableAttributedString {
         var font1: UIFont!

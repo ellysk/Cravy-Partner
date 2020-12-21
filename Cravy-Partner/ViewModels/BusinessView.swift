@@ -77,8 +77,7 @@ class BusinessView: UIView {
     private func setBusinessImageView() {
         businessImageView.contentMode = .scaleAspectFill
         businessImageView.translatesAutoresizingMaskIntoConstraints = false
-        businessImageView.heightAnchor(of: 100)
-        businessImageView.widthAnchor(of: 100)
+        businessImageView.sizeAnchorOf(width: 100, height: 100  )
         businessStackView.addArrangedSubview(businessImageView)
     }
     
@@ -105,8 +104,7 @@ class BusinessView: UIView {
     private func setLinkView() {
         businessInfoStackView.addArrangedSubview(linkView)
         linkView.translatesAutoresizingMaskIntoConstraints = false
-        linkView.heightAnchor(of: 45)
-        linkView.widthAnchor(of: 150)
+        linkView.sizeAnchorOf(width: 150, height: 45)
     }
 }
 

@@ -234,16 +234,4 @@ class GalleryView: UIStackView {
             gallery[3].widthAnchor(of: horizontalSpaceToFill * 0.7)
         }
     }
-    
-    /// Returns the number of rows required to display images provided.
-    static func calculateNumberOfRows(for numberOfImages: Int) -> Int {
-        if numberOfImages <= 0 {
-            return 1
-        } else if numberOfImages % MAX_SUBVIEWS == 0 {
-            return numberOfImages / MAX_SUBVIEWS
-        } else {
-            let nearestMultiple = numberOfImages + 1
-            return calculateNumberOfRows(for: nearestMultiple)
-        }
-    }
 }

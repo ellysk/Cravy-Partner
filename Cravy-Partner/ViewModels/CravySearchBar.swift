@@ -35,7 +35,6 @@ class CravySearchBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.heightAnchor(of: K.Size.CRAVY_SEARCH_BAR_HEIGHT)
         makeRounded(roundFactor: 5)
         makeBordered()
     }

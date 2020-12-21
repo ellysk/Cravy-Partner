@@ -56,8 +56,7 @@ class AuthStackView: UIStackView {
         authButton.backgroundColor = K.Color.primary
         self.addArrangedSubview(authButton)
         authButton.translatesAutoresizingMaskIntoConstraints = false
-        authButton.widthAnchor(of: 160)
-        authButton.heightAnchor(of: 45)
+        authButton.sizeAnchorOf(width: 160, height: 45)
     }
 }
 
@@ -90,8 +89,7 @@ class AccountStackView: UIStackView {
         logoImageView = RoundImageView(image: nil, roundfactor: 5)
         let logoView = logoImageView.withPlaceholderView()
         logoView.translatesAutoresizingMaskIntoConstraints = false
-        logoView.heightAnchor(of: 100)
-        logoView.widthAnchor(of: 100)
+        logoView.sizeAnchorOf(width: 100, height: 100)
         
         nameTextField = textField
         nameTextField.keyboardType = .default

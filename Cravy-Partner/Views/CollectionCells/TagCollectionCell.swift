@@ -86,8 +86,7 @@ class TagCollectionCell: UICollectionViewCell {
             separator = RoundView()
             separator.backgroundColor = K.Color.primary
             separator.translatesAutoresizingMaskIntoConstraints = false
-            separator.heightAnchor(of: 5)
-            separator.widthAnchor(of: 5)
+            separator.sizeAnchorOf(width: 5, height: 5)
             
             tagStackView  = UIStackView(arrangedSubviews: [tagLabel, separator])
             tagStackView.set(axis: .horizontal, alignment: .center, spacing: 8)
