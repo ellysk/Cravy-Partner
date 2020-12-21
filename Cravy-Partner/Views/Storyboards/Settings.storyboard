@@ -111,6 +111,24 @@
             </objects>
             <point key="canvasLocation" x="611.59420289855075" y="-103.125"/>
         </scene>
+        <!--Settings Table Controller-->
+        <scene sceneID="o7Q-QV-oBI">
+            <objects>
+                <tableViewController id="4TG-VK-f7k" customClass="SettingsTableController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="VEE-UB-zy7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="light"/>
+                        <connections>
+                            <outlet property="dataSource" destination="4TG-VK-f7k" id="51X-us-Bvs"/>
+                            <outlet property="delegate" destination="4TG-VK-f7k" id="WB3-BZ-KKw"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9b7-RD-bjg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="612" y="698"/>
+        </scene>
     </scenes>
     <resources>
         <namedColor name="dark">
