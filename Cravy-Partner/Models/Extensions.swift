@@ -461,7 +461,7 @@ extension UITableView {
         return section
     }
     
-    /// Returns a view for a section inside a table view with a UISwitch at the trailing end.
+    /// Returns a view for a section inside a table view registered with ToggleTableCell
     /// - Parameter title: The text that will appear on the label inside the view.
     func sectionWithToggle(title: String) -> UIView {
         let section = UIView(frame: CGRect(origin: .zero, size: CGSize(width: self.frame.width, height: 0)))
@@ -470,18 +470,13 @@ extension UITableView {
         sectionTitle.text = title
         sectionTitle.font = UIFont.medium.medium
         sectionTitle.textAlignment = .left
+        sectionTitle.adjustsFontSizeToFitWidth = true
         sectionTitle.textColor = K.Color.dark
         
-        let toggle = UISwitch()
-        toggle.onTintColor = K.Color.primary
-        
-        let hStackView = UIStackView(arrangedSubviews: [sectionTitle, toggle])
-        hStackView.set(axis: .horizontal, alignment: .center, distribution: .fill)
-        
-        section.addSubview(hStackView)
-        hStackView.translatesAutoresizingMaskIntoConstraints = false
-        hStackView.bottomAnchor(to: section, constant: 3)
-        hStackView.HConstraint(to: section, constant: 16)
+        section.addSubview(sectionTitle)
+        sectionTitle.translatesAutoresizingMaskIntoConstraints = false
+        sectionTitle.bottomAnchor(to: section, constant: 3)
+        sectionTitle.HConstraint(to: section, constant: 16)
         
         return section
     }

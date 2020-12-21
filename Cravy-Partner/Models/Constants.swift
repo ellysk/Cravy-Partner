@@ -27,10 +27,6 @@ struct K {
         static let settings = "Settings"
         /// Returns "Important information regarding privacy and security rules will be alerted here"
         static let settingsAlertMessage = "Important information regarding privacy and security rules will be alerted here"
-        /// Returns "Ask password"
-        static let askPasswordTitle = "Ask password"
-        /// Returns "Asks you for the password every time the app goes in background for more than one minute."
-        static let askPasswordDetail = "Asks you for the password every time the app goes in background for more than one minute."
         /// Returns "Terms & Agreement"
         static let termsAndAgreement = "Terms & Agreement"
         static let byTitle = "By Title"
@@ -43,6 +39,7 @@ struct K {
         static let changeBusinessName = "Change business name"
         static let changeBusinessEmail = "Change business email"
         static let changePhoneNumber = "Change business phone number"
+        static let twoFactorAuth = "Two-Factor Authentication"
     }
     
     struct Identifier {
@@ -88,12 +85,10 @@ struct K {
         static let settingsImages = [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
         /// Returns ["Email notifications", "Push notifications"]
         static let notificationSectionTitles = ["Email notifications", "Push notifications"]
-        /// Returns ["Product updates", "News Letters"]
-        static let notificationTitles = ["Product updates", "News Letters"]
-        /// Returns ["Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers.", "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses."]
-        static let notificationDetails = ["Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers.", "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses."]
-        /// Returns ["Send via Email", "Send via SMS"]
-        static let twoFactorAuthenticationTitles = ["Send via Email", "Send via SMS"]
+        /// Returns settings related to notifications.
+        static let notificationSettings = [Setting(title: "Product updates", detail: "Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers."), Setting(title: "News Letters", detail: "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses.")]
+        /// Returns settings related to two factor authentication
+        static let twoFactorAuthenticationSettings = [Setting(title: "Send via Email", detail: nil), Setting(title: "Send via SMS", detail: nil), Setting(title: "Ask password", detail: "Asks you for the password every time the app goes in background for more than one minute.")]
         static let craveStatuses = ["Active", "Inactive"]
     }
     
