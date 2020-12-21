@@ -69,6 +69,7 @@ class AccountStackView: UIStackView {
     var numberTextField: RoundTextField!
     private var textField: RoundTextField {
         let field = RoundTextField(roundFactor: 5)
+        field.returnKeyType = .done
         field.translatesAutoresizingMaskIntoConstraints = false
         field.heightAnchor(of: 45)
         return field
@@ -93,8 +94,11 @@ class AccountStackView: UIStackView {
         logoView.widthAnchor(of: 100)
         
         nameTextField = textField
+        nameTextField.keyboardType = .default
         emailTextField = textField
+        emailTextField.keyboardType = .emailAddress
         numberTextField = textField
+        numberTextField.keyboardType = .phonePad
         
         self.addArrangedSubview(logoView.withSectionTitle(K.UIConstant.addBusinessLogo, alignment: .leading))
         self.addArrangedSubview(nameTextField.withSectionTitle(K.UIConstant.changeBusinessName))
