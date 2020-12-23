@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 /* -------------- UIKIT EXTENSIONS -------------- */
 
 //MARK: - UIFont
@@ -579,7 +580,7 @@ extension Int {
     }
 }
 
-//MARK: - Int
+//MARK: - Double
 extension Double {
     /// Changes the number to a format that represents a unit provided.
     func represent(unit: String, size: UIFont.SIZE = .xsmall) -> NSMutableAttributedString {
@@ -604,5 +605,18 @@ extension Double {
         fullText.append(secondString)
         
         return fullText
+    }
+}
+
+/* -------------- COCOAPODS EXTENSIONS -------------- */
+extension AnimationView {
+    static var focusAnimation: AnimationView {
+        return AnimationView(name: "focus")
+    }
+    
+    /// Plays the animation at the speicified position on the screen.
+    func play(at position: CGPoint) {
+        self.frame.origin = position
+        self.play()
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 /// A subclass of UIButton that gives the button rounded corners.
 class RoundButton: UIButton {
-    private var roundFactor: CGFloat?
+    var roundFactor: CGFloat?
     /// A boolean that determines if the button should have a shadow layer.
     var castShadow: Bool = false
     

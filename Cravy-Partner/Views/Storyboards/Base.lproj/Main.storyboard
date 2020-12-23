@@ -107,10 +107,74 @@
                     <view key="view" contentMode="scaleToFill" id="PrR-T3-kWa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2d-68-NhO" customClass="RoundBorderedButton" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="167" y="717" width="80" height="80"/>
+                                <color key="backgroundColor" name="light"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="K8O-Gd-YL0"/>
+                                    <constraint firstAttribute="width" constant="80" id="fm7-tA-9Pp"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="capture:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="UCj-Qx-NQv"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2dl-1v-W90">
+                                <rect key="frame" x="354" y="52" width="40" height="76"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vW0-ZK-4ri">
+                                        <rect key="frame" x="10" y="-1" width="20" height="31.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Agg-p3-gQh"/>
+                                            <constraint firstAttribute="width" constant="20" id="Esi-qo-3DE"/>
+                                        </constraints>
+                                        <color key="tintColor" name="light"/>
+                                        <state key="normal" backgroundImage="bolt.slash.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="utilityAction:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="TpD-21-sGV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJU-OF-lm7">
+                                        <rect key="frame" x="0.0" y="46.5" width="40" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="1cl-io-eqk"/>
+                                            <constraint firstAttribute="height" constant="30" id="tBg-1V-D8e"/>
+                                        </constraints>
+                                        <color key="tintColor" name="light"/>
+                                        <state key="normal" backgroundImage="camera.rotate.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="utilityAction:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="N3P-Nh-uxo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgimage" translatesAutoresizingMaskIntoConstraints="NO" id="xCq-x9-0yj" customClass="RoundBorderedImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="20" y="52" width="60" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="00y-Ma-LLQ"/>
+                                    <constraint firstAttribute="width" constant="60" id="6XD-lD-1Sr"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZOa-24-cPf" firstAttribute="trailing" secondItem="2dl-1v-W90" secondAttribute="trailing" constant="20" id="Cup-aI-it4"/>
+                            <constraint firstItem="2dl-1v-W90" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="TYA-PQ-wJk"/>
+                            <constraint firstItem="ZOa-24-cPf" firstAttribute="bottom" secondItem="x2d-68-NhO" secondAttribute="bottom" constant="16" id="UgH-Nw-bnJ"/>
+                            <constraint firstItem="xCq-x9-0yj" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="20" id="Xjj-k5-3nS"/>
+                            <constraint firstItem="xCq-x9-0yj" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="lJc-rb-9KI"/>
+                            <constraint firstItem="x2d-68-NhO" firstAttribute="centerX" secondItem="PrR-T3-kWa" secondAttribute="centerX" id="rNn-D2-XkB"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ZOa-24-cPf"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="New product" image="newcrave" selectedImage="newcrave-filled" id="yHb-Cr-rcm"/>
+                    <connections>
+                        <outlet property="captureButton" destination="x2d-68-NhO" id="ZZ6-sB-MgR"/>
+                        <outlet property="flashButton" destination="vW0-ZK-4ri" id="3Tb-Os-zWS"/>
+                        <outlet property="galleryImageView" destination="xCq-x9-0yj" id="5WL-6E-y3q"/>
+                        <outlet property="switchCameraButton" destination="rJU-OF-lm7" id="une-dT-ssP"/>
+                        <outlet property="utilityStackView" destination="2dl-1v-W90" id="rTq-Ob-MMj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -286,6 +350,8 @@
     </scenes>
     <resources>
         <image name="bgimage" width="1024" height="1024"/>
+        <image name="bolt.slash.fill" catalog="system" width="101" height="128"/>
+        <image name="camera.rotate.fill" catalog="system" width="128" height="96"/>
         <image name="cravypartnerlogo" width="352" height="187"/>
         <image name="mybusiness" width="23" height="23"/>
         <image name="mybusiness-filled" width="23" height="23"/>

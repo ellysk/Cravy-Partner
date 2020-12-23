@@ -127,5 +127,7 @@ struct K {
         static let cravings: UIImage = UIImage(named: "cravings")!
         static let promote: UIImage = UIImage(named: "promote")!
         static let comingSoon: UIImage = UIImage(named: "comingsoon")!
+        static let flashOn: UIImage = UIImage(systemName: "bolt.fill")!
+        static let flashOff: UIImage = UIImage(systemName: "bolt.slash.fill")!
     }
 }
