@@ -103,7 +103,7 @@
         <!--New product-->
         <scene sceneID="09j-UV-8uZ">
             <objects>
-                <viewController id="Y2e-x0-VIU" sceneMemberID="viewController">
+                <viewController id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PrR-T3-kWa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
