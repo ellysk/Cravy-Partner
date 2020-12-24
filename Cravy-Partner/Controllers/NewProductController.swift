@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyCam
 import Lottie
+import Photos
 
 /// Handles the media representing the product.
 class NewProductController: SwiftyCamViewController {
@@ -24,17 +25,44 @@ class NewProductController: SwiftyCamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        additionalSetup()
+        cameraDelegate = self
         self.view.addSubview(focusAnimation)
         focusAnimation.frame.size = CGSize(width: 50, height: 50)
-        cameraDelegate = self
-        presetCamSettings()
         galleryImageView.roundFactor = 3.3
     }
     
-    private func presetCamSettings() {
+    private func additionalSetup() {
         self.pinchToZoom = true
         self.tapToFocus = true
         self.doubleTapCameraSwitch = true
+        self.checkPhotoLibraryPermission { (isPermitted) in
+            if !isPermitted {
+                self.present(UIAlertController.photoLibrayAccessAlert, animated: true)
+            } else {
+                let fetchOptions = PHFetchOptions()
+                if let album = fetchOptions.cravyPartnerAlbum {
+                    self.fetchImageFrom(album)
+                } else {
+                    self.createCravyPartnerAlbum()
+                }
+            }
+        }
+    }
+    
+    /// Fetch an asset in the Cravy partner asset collection and assigns it to the gallery image view.
+    private func fetchImageFrom(_ album: PHAssetCollection) {
+        let assets = album.fetchAssetsWith()
+        self.galleryImageView.fetchImageAsset(assets.firstObject, targetSize: self.galleryImageView.bounds.size, completionHandler: nil)
+    }
+    
+    /// Create Cravy partner album
+    private func createCravyPartnerAlbum() {
+        let photoLibrary = PHPhotoLibrary.shared()
+        photoLibrary.createAssetCollectionWithTitle(title: K.UIConstant.albumTitle) { (completed, error) in
+            guard let e = error else {return}
+            fatalError("Could not make album: Error -> \(e.localizedDescription)")
+        }
     }
     
     /// Opens the user's device photos application content.

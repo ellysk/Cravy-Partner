@@ -8,6 +8,8 @@
 
 import UIKit
 import Lottie
+import SwiftyCam
+import Photos
 /* -------------- UIKIT EXTENSIONS -------------- */
 
 //MARK: - UIFont
@@ -512,10 +514,32 @@ extension UIImageView {
         
         return bgView
     }
+    
+    /// Gets the image from the asset and assigns it to the image with the size and content mode provided.
+    func fetchImageAsset(_ asset: PHAsset?, targetSize size: CGSize, contentMode: PHImageContentMode = .aspectFill, options: PHImageRequestOptions? = nil, completionHandler: ((Bool) -> ())?) {
+      guard let asset = asset else {
+        completionHandler?(false)
+        return
+      }
+      
+      PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: contentMode, options: options) { (requestedImage, info) in
+        self.image = requestedImage
+        completionHandler?(true)
+      }
+    }
 }
 
 //MARK: - UIAlertController
 extension UIAlertController {
+    /// An alert showing that the photo library could not be accessed.
+    static var photoLibrayAccessAlert: UIAlertController {
+        let alertController = UIAlertController(title: K.UIConstant.accessDenied, message: K.UIConstant.photoLibraryAccessDeniedMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.goToSettings)
+        alertController.addAction(UIAlertAction.cancel)
+        
+        return alertController
+    }
+    
     func pruneNegativeWidthConstraints() {
         for subView in self.view.subviews {
             for constraint in subView.constraints where constraint.debugDescription.contains("width == - 16") {
@@ -530,9 +554,64 @@ extension UIAlertAction {
     static var cancel: UIAlertAction {
         return UIAlertAction(title: K.UIConstant.cancel, style: .cancel)
     }
+    
+    /// Redirects the device to open settings.
+    static var goToSettings: UIAlertAction {
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (action) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    if !success {return}
+                })
+            }
+        }
+        
+        return settingsAction
+    }
+}
+
+
+/* -------------- PHOTOKIT EXTENSIONS -------------- */
+
+//MARK: - PHFetchOptions
+extension PHFetchOptions {
+    /// An asset collection under the name of the application.
+    var cravyPartnerAlbum: PHAssetCollection? {
+        return self.fetchAssetCollectionWithTitle(title: K.UIConstant.albumTitle).firstObject
+    }
+    
+    /// Returns the asset collection with the specified title. If title is nil then it returns all asset collections that have been created by the user in the device
+    func fetchAssetCollectionWithTitle(title: String? = nil) -> PHFetchResult<PHAssetCollection>  {
+        self.predicate = title == nil ? nil : NSPredicate(format: "title = %@", "\(title!)")
+        let results = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: self)
+        return results
+    }
+}
+
+//MARK: - PHAssetCollection
+extension PHAssetCollection {
+    /// Returns a result for collection of assets with the specified option.
+    func fetchAssetsWith(options: PHFetchOptions? = nil) -> PHFetchResult<PHAsset> {
+        return PHAsset.fetchAssets(in: self, options: options)
+    }
+}
+
+//MARK: - PHPhotoLibrary
+extension PHPhotoLibrary {
+  /// Asynchronously creates a new asset collection with the specified title.
+  func createAssetCollectionWithTitle(title: String, completionHander: @escaping (Bool, Error?)->()) {
+    self.performChanges({
+      PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: title)
+    }) { (completed, error) in
+      completionHander(completed, error)
+    }
+  }
 }
 
 /* -------------- FOUNDATION EXTENSIONS -------------- */
+
+//MARK: - Array
 extension Array {
     /// Converts an array into an array of arrays, using whatever size you specify.
     func chunked(into size: Int) -> [[Element]] {
@@ -609,6 +688,8 @@ extension Double {
 }
 
 /* -------------- COCOAPODS EXTENSIONS -------------- */
+
+//MARK: - AnimationView
 extension AnimationView {
     static var focusAnimation: AnimationView {
         return AnimationView(name: "focus")
@@ -618,5 +699,18 @@ extension AnimationView {
     func play(at position: CGPoint) {
         self.frame.origin = position
         self.play()
+    }
+}
+
+//MARK: - SwiftyCamController
+extension SwiftyCamViewController {
+    func checkPhotoLibraryPermission(completionHandler: @escaping (Bool)->()) {
+        if PHPhotoLibrary.authorizationStatus() == .authorized {
+            completionHandler(true)
+        } else {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                completionHandler(status == .authorized)
+            }
+        }
     }
 }

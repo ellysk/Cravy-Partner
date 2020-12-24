@@ -40,6 +40,9 @@ struct K {
         static let changeBusinessEmail = "Change business email"
         static let changePhoneNumber = "Change business phone number"
         static let twoFactorAuth = "Two-Factor Authentication"
+        static let albumTitle = "Cravy Partner"
+        static let accessDenied = "Access denied"
+        static let photoLibraryAccessDeniedMessage = "We can not access your photo library, please go to settings to change this"
     }
     
     struct Identifier {
