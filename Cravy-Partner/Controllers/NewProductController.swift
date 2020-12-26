@@ -52,7 +52,7 @@ class NewProductController: SwiftyCamViewController {
     
     /// Fetch an asset in the Cravy partner asset collection and assigns it to the gallery image view.
     private func fetchImageFrom(_ album: PHAssetCollection) {
-        let assets = album.fetchAssetsWith()
+        let assets = album.fetchAssets()
         self.galleryImageView.fetchImageAsset(assets.firstObject, targetSize: self.galleryImageView.bounds.size, completionHandler: nil)
     }
     

@@ -55,6 +55,13 @@ struct K {
             static let imageCell = "imageCell"
             /// A reusable identifier for the WidgetCollectionCell
             static let widgetCell = "widgetCell"
+            /// A reusable identifier for the AlbumCollectionCell
+            static let albumCell = "albumCell"
+            
+            struct ReusableView {
+                /// A reusable identifier for the BasicReusableView
+                static let basicView = "basicView"
+            }
         }
         
         struct TableViewCell {

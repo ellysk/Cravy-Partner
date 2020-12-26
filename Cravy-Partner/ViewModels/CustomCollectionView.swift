@@ -73,3 +73,29 @@ class WidgetCollectionView: UICollectionView {
         self.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.widgetCell)
     }
 }
+
+/// A collection view responsible for handling AlbumCollectionCell
+class AlbumCollectionView: UICollectionView {
+    init(layout: UICollectionViewFlowLayout, scrollDirection: UICollectionView.ScrollDirection) {
+        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.albumCollectionViewFlowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.albumCollectionViewFlowLayout, animated: true)
+    }
+    
+    override func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
+        super.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
+    }
+    
+    override func register(_ viewClass: AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) {
+        super.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
+    }
+    
+    /// Registers the AlbumCollectionCell to this CollectionView
+    func register() {
+        self.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
+        self.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
+    }
+}

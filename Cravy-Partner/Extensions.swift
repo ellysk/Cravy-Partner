@@ -392,6 +392,16 @@ extension UICollectionViewFlowLayout {
         return layout
     }
     
+    static var albumCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.set(direction: .vertical, minimumLineSpacing: 0, minimumInterimSpacing: 0, sectionInset: UIEdgeInsets.zero)
+        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
+        let layoutSize = layout.widthVisibleFor(numberOfItems: 2)
+        layout.itemSize = CGSize(width: layoutSize, height: layoutSize)
+        
+        return layout
+    }
+    
     /// Sets the main properties of a UICollectionViewFlowLayout
     func set(direction: UICollectionView.ScrollDirection, estimatedItemSize: CGSize? = nil, itemSize: CGSize = UICollectionViewFlowLayout.automaticSize, minimumLineSpacing: CGFloat = 8, minimumInterimSpacing: CGFloat = 8, sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)) {
         self.scrollDirection = direction
@@ -516,16 +526,20 @@ extension UIImageView {
     }
     
     /// Gets the image from the asset and assigns it to the image with the size and content mode provided.
-    func fetchImageAsset(_ asset: PHAsset?, targetSize size: CGSize, contentMode: PHImageContentMode = .aspectFill, options: PHImageRequestOptions? = nil, completionHandler: ((Bool) -> ())?) {
-      guard let asset = asset else {
-        completionHandler?(false)
-        return
-      }
-      
-      PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: contentMode, options: options) { (requestedImage, info) in
-        self.image = requestedImage
-        completionHandler?(true)
-      }
+    func fetchImageAsset(_ asset: PHAsset?, targetSize size: CGSize, contentMode: PHImageContentMode = .aspectFill, completionHandler: ((Bool) -> ())?) {
+        let imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.deliveryMode = .highQualityFormat
+        imageRequestOptions.resizeMode = .exact
+        
+        guard let asset = asset else {
+            completionHandler?(false)
+            return
+        }
+        
+        PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: contentMode, options: imageRequestOptions) { (requestedImage, info) in
+            self.image = requestedImage
+            completionHandler?(true)
+        }
     }
 }
 
@@ -581,6 +595,14 @@ extension PHFetchOptions {
         return self.fetchAssetCollectionWithTitle(title: K.UIConstant.albumTitle).firstObject
     }
     
+    /// A result of assets in Cravy Partner Album.
+    var cravyPartnerAssets: PHFetchResult<PHAsset> {
+        guard let assetCollection = self.cravyPartnerAlbum else {fatalError("Cravy Partner Album not created!")}
+        let assets = assetCollection.fetchAssets()
+        
+        return assets
+    }
+    
     /// Returns the asset collection with the specified title. If title is nil then it returns all asset collections that have been created by the user in the device
     func fetchAssetCollectionWithTitle(title: String? = nil) -> PHFetchResult<PHAssetCollection>  {
         self.predicate = title == nil ? nil : NSPredicate(format: "title = %@", "\(title!)")
@@ -592,7 +614,7 @@ extension PHFetchOptions {
 //MARK: - PHAssetCollection
 extension PHAssetCollection {
     /// Returns a result for collection of assets with the specified option.
-    func fetchAssetsWith(options: PHFetchOptions? = nil) -> PHFetchResult<PHAsset> {
+    func fetchAssets(with options: PHFetchOptions? = nil) -> PHFetchResult<PHAsset> {
         return PHAsset.fetchAssets(in: self, options: options)
     }
 }
@@ -609,6 +631,32 @@ extension PHPhotoLibrary {
   }
 }
 
+//MARK: - PHFetchResult
+extension PHFetchResult where ObjectType == PHAsset {
+  /// Returns a dictionary of a key containing the created date of the asset and a value containing the array of assets created on that date. Also returns an array of all keys.
+  func splitByCreationDate(completionHandler: ([String : [PHAsset]], [String])->()) {
+    var dict: [String : [PHAsset]] = [:]
+    var keys: [String] = []
+    
+    for i in 0...self.count - 1 {
+      guard let creationDate = self[i].creationDate?.shortFormat else {continue}
+    
+      if dict[creationDate] == nil {
+        keys.append(creationDate)
+        dict[creationDate] = [self[i]]
+      } else {
+        var updatedAssets = dict[creationDate]!
+        updatedAssets.append(self[i])
+        dict.updateValue(updatedAssets, forKey: creationDate)
+      }
+    }
+    
+    let sortedKeys = keys.sortBy(formatter: DateFormatter.shortDateFormatter)
+    
+    completionHandler(dict, sortedKeys)
+  }
+}
+
 /* -------------- FOUNDATION EXTENSIONS -------------- */
 
 //MARK: - Array
@@ -619,6 +667,14 @@ extension Array {
             Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
+}
+
+extension Array where Element == String {
+  /// Sorts the elements which represent a date of a specific format from latest to oldest. The formatter should match the format of the strings in the array
+  /// - Parameter formatter: The format in which the date is represented.
+  func sortBy(formatter: DateFormatter) -> [String] {
+    return self.sorted(by: { formatter.date(from: $0)! > formatter.date(from: $1)! })
+  }
 }
 
 //MARK: - String
@@ -685,6 +741,25 @@ extension Double {
         
         return fullText
     }
+}
+
+//MARK: - Date
+extension Date {
+    /// Returns a string obtained from a date parsed through a shortDateFormatter.
+    var shortFormat: String {
+      return DateFormatter.shortDateFormatter.string(from: self)
+  }
+}
+
+//MARK: - DateFormatter
+extension DateFormatter {
+    /// returns an  "MMMM yyyy" format. eg: August 2020, September 2020 etc.
+  static var shortDateFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMMM yyyy"
+    
+    return formatter
+  }
 }
 
 /* -------------- COCOAPODS EXTENSIONS -------------- */
