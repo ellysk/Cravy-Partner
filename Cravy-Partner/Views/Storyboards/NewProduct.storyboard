@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Album Controller-->
+        <scene sceneID="l3Q-68-6eP">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I9H-tM-DiF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="Cvi-ow-24P" customClass="AlbumController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vir-0T-IcI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJh-AQ-0Ab" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="414" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="YP1-jW-mMw"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xC-zw-FxS">
+                                <rect key="frame" x="0.0" y="106" width="414" height="790"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="ODX-rp-Qhl" kind="embed" identifier="toAlbumPageController" id="gCZ-zW-KOD"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="OJh-AQ-0Ab" firstAttribute="top" secondItem="3DX-Si-b4g" secondAttribute="top" constant="16" id="7hu-yc-QWt"/>
+                            <constraint firstItem="1xC-zw-FxS" firstAttribute="top" secondItem="OJh-AQ-0Ab" secondAttribute="bottom" constant="16" id="Ai1-di-6ah"/>
+                            <constraint firstItem="OJh-AQ-0Ab" firstAttribute="leading" secondItem="3DX-Si-b4g" secondAttribute="leading" id="Gdr-pq-blP"/>
+                            <constraint firstItem="1xC-zw-FxS" firstAttribute="leading" secondItem="3DX-Si-b4g" secondAttribute="leading" id="VeU-2r-hOi"/>
+                            <constraint firstItem="OJh-AQ-0Ab" firstAttribute="trailing" secondItem="3DX-Si-b4g" secondAttribute="trailing" id="lG6-4c-SPh"/>
+                            <constraint firstItem="1xC-zw-FxS" firstAttribute="trailing" secondItem="3DX-Si-b4g" secondAttribute="trailing" id="moU-R1-HWN"/>
+                            <constraint firstAttribute="bottom" secondItem="1xC-zw-FxS" secondAttribute="bottom" id="uOK-Bb-YGy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3DX-Si-b4g"/>
+                    </view>
+                    <connections>
+                        <outlet property="cravyToolBar" destination="OJh-AQ-0Ab" id="uQv-Al-08x"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2029" y="-1570"/>
+        </scene>
+        <!--Album Page Controller-->
+        <scene sceneID="Ru6-kG-SnF">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kDT-eF-Coh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ODX-rp-Qhl" customClass="AlbumPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
+            </objects>
+            <point key="canvasLocation" x="2647" y="-912"/>
+        </scene>
+    </scenes>
+</document>

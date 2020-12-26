@@ -394,9 +394,9 @@ extension UICollectionViewFlowLayout {
     
     static var albumCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.set(direction: .vertical, minimumLineSpacing: 0, minimumInterimSpacing: 0, sectionInset: UIEdgeInsets.zero)
+        layout.set(direction: .vertical, minimumLineSpacing: 1, minimumInterimSpacing: 1, sectionInset: UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1))
         layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
-        let layoutSize = layout.widthVisibleFor(numberOfItems: 2)
+        let layoutSize = layout.widthVisibleFor(numberOfItems: 3)
         layout.itemSize = CGSize(width: layoutSize, height: layoutSize)
         
         return layout
@@ -417,7 +417,7 @@ extension UICollectionViewFlowLayout {
     /// - Calculates the width of a single item in the layout depending on the number of visible items provided. To get desired results, set all needed layout properties before setting the size of the layout item.
     /// - Returns: Width of item that will fit the number of visible items provided in the screen.
     func widthVisibleFor(numberOfItems: CGFloat) -> CGFloat {
-        let spacing = self.scrollDirection == .vertical ? self.minimumInteritemSpacing : self.minimumLineSpacing
+        let spacing = (self.scrollDirection == .vertical ? self.minimumInteritemSpacing : self.minimumLineSpacing) * (numberOfItems - 1)
         let width = (UIScreen.main.bounds.width - (spacing + self.sectionInset.left + self.sectionInset.right)) / numberOfItems
         
         return width
@@ -594,13 +594,18 @@ extension PHFetchOptions {
     var cravyPartnerAlbum: PHAssetCollection? {
         return self.fetchAssetCollectionWithTitle(title: K.UIConstant.albumTitle).firstObject
     }
-    
     /// A result of assets in Cravy Partner Album.
     var cravyPartnerAssets: PHFetchResult<PHAsset> {
         guard let assetCollection = self.cravyPartnerAlbum else {fatalError("Cravy Partner Album not created!")}
         let assets = assetCollection.fetchAssets()
         
         return assets
+    }
+    /// Returns all the photos in the user's library that are available.
+    var allPhotos: PHFetchResult<PHAsset> {
+        self.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        return PHAsset.fetchAssets(with: self)
     }
     
     /// Returns the asset collection with the specified title. If title is nil then it returns all asset collections that have been created by the user in the device
@@ -633,28 +638,28 @@ extension PHPhotoLibrary {
 
 //MARK: - PHFetchResult
 extension PHFetchResult where ObjectType == PHAsset {
-  /// Returns a dictionary of a key containing the created date of the asset and a value containing the array of assets created on that date. Also returns an array of all keys.
-  func splitByCreationDate(completionHandler: ([String : [PHAsset]], [String])->()) {
-    var dict: [String : [PHAsset]] = [:]
-    var keys: [String] = []
-    
-    for i in 0...self.count - 1 {
-      guard let creationDate = self[i].creationDate?.shortFormat else {continue}
-    
-      if dict[creationDate] == nil {
-        keys.append(creationDate)
-        dict[creationDate] = [self[i]]
-      } else {
-        var updatedAssets = dict[creationDate]!
-        updatedAssets.append(self[i])
-        dict.updateValue(updatedAssets, forKey: creationDate)
-      }
+    /// Returns a dictionary of a key containing the created date of the asset and a value containing the array of assets created on that date. Also returns an array of all keys.
+    func splitByCreationDate(completionHandler: ([String : [PHAsset]], [String])->()) {
+        var dict: [String : [PHAsset]] = [:]
+        var keys: [String] = []
+        
+        for i in 0...self.count - 1 {
+            guard let creationDate = self[i].creationDate?.shortFormat else {continue}
+            
+            if dict[creationDate] == nil {
+                keys.append(creationDate)
+                dict[creationDate] = [self[i]]
+            } else {
+                var updatedAssets = dict[creationDate]!
+                updatedAssets.append(self[i])
+                dict.updateValue(updatedAssets, forKey: creationDate)
+            }
+        }
+        
+        let sortedKeys = keys.sortBy(formatter: DateFormatter.shortDateFormatter)
+        
+        completionHandler(dict, sortedKeys)
     }
-    
-    let sortedKeys = keys.sortBy(formatter: DateFormatter.shortDateFormatter)
-    
-    completionHandler(dict, sortedKeys)
-  }
 }
 
 /* -------------- FOUNDATION EXTENSIONS -------------- */

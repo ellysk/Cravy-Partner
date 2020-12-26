@@ -17,6 +17,7 @@ class MyProductsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setCravyGradientBackground()
+        cravyToolBar.titles = [K.UIConstant.active, K.UIConstant.inactive]
         craveCollectionView.register()
         // Do any additional setup after loading the view.
     }

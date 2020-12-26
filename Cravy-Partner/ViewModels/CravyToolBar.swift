@@ -8,15 +8,18 @@
 
 import UIKit
 
+protocol CravyToolBarDelegate {
+    func itemSelected(at index: Int)
+}
+
 /// A custom class that acts as a tool bar containing different items that the user can interact with.
 class CravyToolBar: UIView {
     private var toolBarStackView = UIStackView()
-    private var items: [UIButton] = []
+    var items: [UIButton] = []
     private var item: UIButton {
         let button = UIButton()
         button.addTarget(self, action: #selector(itemSelected(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.demiBold.small
-        isSelected(isSelected: false, item: button)
         
         return button
     }
@@ -56,10 +59,12 @@ class CravyToolBar: UIView {
             return array
         }
     }
+    var delegate: CravyToolBarDelegate?
     
     init(titles: [String]) {
         super.init(frame: .zero)
         setCravyToolBarLayout()
+        self.titles = titles
     }
     
     required init?(coder: NSCoder) {
@@ -70,8 +75,6 @@ class CravyToolBar: UIView {
     private func setCravyToolBarLayout() {
         self.backgroundColor = .clear
         setToolBarStackView()
-        self.titles = K.Collections.craveStatuses
-        isSelected(isSelected: true, item: items[0])
     }
     
     private func setToolBarStackView() {
@@ -92,24 +95,28 @@ class CravyToolBar: UIView {
                 toolBarStackView.addArrangedSubview(separatorView)
             }
         }
+        guard let firstItem = items.first else {return}
+        isSelected(selectedItem: firstItem)
     }
     
-    private func isSelected(isSelected: Bool, item: UIButton) {
-        if isSelected {
-            item.setTitleColor(K.Color.primary, for: .normal)
-        } else {
-            item.setTitleColor(K.Color.dark.withAlphaComponent(0.5), for: .normal)
+    func isSelected(selectedItem: UIButton) {
+        selectedItem.setTitleColor(K.Color.primary, for: .normal)
+        
+        items.forEach { (button) in
+            if button != selectedItem {
+                button.setTitleColor(K.Color.dark.withAlphaComponent(0.5), for: .normal)
+            }
+        }
+    }
+    
+    func isSelectedItemAt(index: Int) {
+        if !items.isEmpty {
+            isSelected(selectedItem: items[index])
         }
     }
     
     @objc func itemSelected(_ sender: UIButton) {
-        isSelected(isSelected: true, item: sender)
-        items.forEach { (button) in
-            if button != sender {
-                isSelected(isSelected: false, item: button)
-            }
-        }
-        
-        //TODO
+        isSelected(selectedItem: sender)
+        self.delegate?.itemSelected(at: sender.tag)
     }
 }

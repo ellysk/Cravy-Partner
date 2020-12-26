@@ -11,27 +11,31 @@ import Photos
 
 /// Handles the diplsay of images from the user's photo library.
 class AlbumCollectionViewController: UICollectionViewController {
-    /// The assets fetched from a particular album.
-    var result: PHFetchResult<PHAsset>!
-    private var albumCollectionView: AlbumCollectionView {
-        guard let collectionView = self.collectionView as? AlbumCollectionView else {fatalError("Collection View type mismatch!")}
-        return collectionView
-    }
+    private var result: PHFetchResult<PHAsset>!
     private var album: [String : [PHAsset]] = [:]
     private var creationDates: [String] = []
     
+    /// - Parameter result: The assets fetched from a particular album.
+    init(result: PHFetchResult<PHAsset>) {
+        self.result = result
+        super.init(collectionViewLayout: UICollectionViewFlowLayout.albumCollectionViewFlowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //test
-        result = PHFetchOptions().cravyPartnerAssets
-        
+        self.collectionView.backgroundColor = .clear
         //Assign the result to the class fields so as the loaded and displayed in the collection view.
         result.splitByCreationDate { (album, creationDates) in
             self.album = album
             self.creationDates = creationDates
         }
         
-        self.albumCollectionView.register()
+        self.collectionView.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
+        self.collectionView.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
     }
     
     

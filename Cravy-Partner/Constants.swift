@@ -40,9 +40,13 @@ struct K {
         static let changeBusinessEmail = "Change business email"
         static let changePhoneNumber = "Change business phone number"
         static let twoFactorAuth = "Two-Factor Authentication"
+        /// Returns "Cravy Partner"
         static let albumTitle = "Cravy Partner"
         static let accessDenied = "Access denied"
         static let photoLibraryAccessDeniedMessage = "We can not access your photo library, please go to settings to change this"
+        static let allPhotos = "All photos"
+        static let active = "Active"
+        static let inactive = "Inactive"
     }
     
     struct Identifier {
@@ -76,6 +80,10 @@ struct K {
             /// A reusable identifier for the ToggleTableCell
             static let toggleCell = "toggleCell"
         }
+        
+        struct Segue {
+            static let toAlbumPageController = "toAlbumPageController"
+        }
     }
     
     struct Collections {
@@ -99,7 +107,6 @@ struct K {
         static let notificationSettings = [Setting(title: "Product updates", detail: "Receive updates on the product’s cravings and recommendations as well as information regarding the product’s engagement with the customers."), Setting(title: "News Letters", detail: "Receive updates from the Cravy team regarding the application and any changes made to it. Also receive relevant news on food businesses.")]
         /// Returns settings related to two factor authentication
         static let twoFactorAuthenticationSettings = [Setting(title: "Send via Email", detail: nil), Setting(title: "Send via SMS", detail: nil), Setting(title: "Ask password", detail: "Asks you for the password every time the app goes in background for more than one minute.")]
-        static let craveStatuses = ["Active", "Inactive"]
     }
     
     struct Color {
