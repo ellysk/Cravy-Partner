@@ -606,6 +606,26 @@ extension PHAssetCollection {
     func fetchAssets(with options: PHFetchOptions? = nil) -> PHFetchResult<PHAsset> {
         return PHAsset.fetchAssets(in: self, options: options)
     }
+    
+    /// Adds the specified image into this asset collection.
+    func addImage(_ image: UIImage, completionHandler: @escaping (Bool, Error?)->()) {
+        PHPhotoLibrary.shared().performChanges({
+            //asset change request
+            let assetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            let assetPlaceHolder = assetChangeRequest.placeholderForCreatedAsset
+            let albumChangeRequest = PHAssetCollectionChangeRequest(for: self)
+            let enumeration: NSArray = [assetPlaceHolder!]
+            
+            if self.estimatedAssetCount == 0 {
+                albumChangeRequest?.addAssets(enumeration)
+            } else {
+                albumChangeRequest?.insertAssets(enumeration, at: [0])
+            }
+            
+        }) { (completed, error) in
+            completionHandler(completed, error)
+        }
+    }
 }
 
 //MARK: - PHPhotoLibrary

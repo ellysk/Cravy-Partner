@@ -44,7 +44,7 @@ struct K {
         static let albumTitle = "Cravy Partner"
         static let accessDenied = "Access denied"
         static let photoLibraryAccessDeniedMessage = "We can not access your photo library, please go to settings to change this"
-        static let allPhotos = "All photos"
+        static let cameraRoll = "Camera roll"
         static let active = "Active"
         static let inactive = "Inactive"
         static let next = "Next"

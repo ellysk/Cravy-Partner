@@ -18,7 +18,6 @@ class NewProductController: SwiftyCamViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var switchCameraButton: UIButton!
     @IBOutlet weak var captureButton: RoundBorderedButton!
-    
     /// The animation played when user focuses on a specific point by tapping on the view once.
     let focusAnimation = AnimationView.focusAnimation
     
@@ -43,8 +42,6 @@ class NewProductController: SwiftyCamViewController {
                 let fetchOptions = PHFetchOptions()
                 if let album = fetchOptions.cravyPartnerAlbum {
                     self.fetchImageFrom(album)
-                } else {
-                    self.createCravyPartnerAlbum()
                 }
             }
         }
@@ -56,15 +53,6 @@ class NewProductController: SwiftyCamViewController {
         guard let asset = assets.firstObject else {return}
         asset.fetchImage(targetSize: galleryImageView.bounds.size) { (fetchedImage, info) in
             self.galleryImageView.image = fetchedImage
-        }
-    }
-    
-    /// Create Cravy partner album
-    private func createCravyPartnerAlbum() {
-        let photoLibrary = PHPhotoLibrary.shared()
-        photoLibrary.createAssetCollectionWithTitle(title: K.UIConstant.albumTitle) { (completed, error) in
-            guard let e = error else {return}
-            fatalError("Could not make album: Error -> \(e.localizedDescription)")
         }
     }
     

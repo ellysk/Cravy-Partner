@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,5 +59,90 @@
             </objects>
             <point key="canvasLocation" x="2852" y="-1570"/>
         </scene>
+        <!--Image View Controller-->
+        <scene sceneID="7zT-jO-Kql">
+            <objects>
+                <viewController id="3BH-Q5-WR4" customClass="ImageViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hkm-2a-tql">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fC2-4C-UeD" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="90" width="414" height="746.5"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xi2-MR-1hs">
+                                <rect key="frame" x="16" y="52.5" width="30" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="9te-TW-fyZ"/>
+                                    <constraint firstAttribute="width" constant="30" id="jMF-Dz-BWD"/>
+                                </constraints>
+                                <color key="tintColor" name="dark"/>
+                                <state key="normal" backgroundImage="xmark.circle.fill" catalog="system"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQu-0Q-ZvI">
+                                <rect key="frame" x="368" y="52" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3f3-tH-u75"/>
+                                    <constraint firstAttribute="width" constant="30" id="lyV-fk-oGb"/>
+                                </constraints>
+                                <color key="tintColor" name="primary"/>
+                                <state key="normal" backgroundImage="square.and.arrow.down.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="saveToCravyPartnerAlbum:" destination="3BH-Q5-WR4" eventType="touchUpInside" id="MpZ-BB-qq2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqv-zg-XZM" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="278" y="814" width="120" height="45"/>
+                                <color key="backgroundColor" name="primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="2ul-1H-RR6"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="8ri-5O-jxh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="24"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" name="light"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstItem="iqv-zg-XZM" firstAttribute="top" secondItem="fC2-4C-UeD" secondAttribute="bottom" constant="-22.5" id="8fx-mr-xKO"/>
+                            <constraint firstItem="fC2-4C-UeD" firstAttribute="leading" secondItem="tch-YO-x4V" secondAttribute="leading" id="Cbq-kR-uJy"/>
+                            <constraint firstItem="VQu-0Q-ZvI" firstAttribute="top" secondItem="tch-YO-x4V" secondAttribute="top" constant="8" id="Fkg-c6-glC"/>
+                            <constraint firstItem="iqv-zg-XZM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tch-YO-x4V" secondAttribute="leading" symbolic="YES" id="JE8-EL-tDY"/>
+                            <constraint firstItem="Xi2-MR-1hs" firstAttribute="top" secondItem="tch-YO-x4V" secondAttribute="top" constant="8" id="Ovb-LC-eIK"/>
+                            <constraint firstItem="fC2-4C-UeD" firstAttribute="top" secondItem="Xi2-MR-1hs" secondAttribute="bottom" constant="8" id="Sla-FF-WN9"/>
+                            <constraint firstItem="fC2-4C-UeD" firstAttribute="trailing" secondItem="tch-YO-x4V" secondAttribute="trailing" id="YPA-yl-U0E"/>
+                            <constraint firstItem="tch-YO-x4V" firstAttribute="trailing" secondItem="VQu-0Q-ZvI" secondAttribute="trailing" constant="16" id="fnH-WU-LwW"/>
+                            <constraint firstItem="iqv-zg-XZM" firstAttribute="bottom" secondItem="tch-YO-x4V" secondAttribute="bottom" constant="-3" id="hq7-yb-vVT"/>
+                            <constraint firstItem="Xi2-MR-1hs" firstAttribute="leading" secondItem="tch-YO-x4V" secondAttribute="leading" constant="16" id="nge-8b-0VA"/>
+                            <constraint firstItem="tch-YO-x4V" firstAttribute="trailing" secondItem="iqv-zg-XZM" secondAttribute="trailing" constant="16" id="ye7-BT-bXY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tch-YO-x4V"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="Xi2-MR-1hs" id="9VH-A1-Kq2"/>
+                        <outlet property="imageView" destination="fC2-4C-UeD" id="DVe-6U-Nsa"/>
+                        <outlet property="nextButon" destination="iqv-zg-XZM" id="9Jj-qu-w9Z"/>
+                        <outlet property="saveButton" destination="VQu-0Q-ZvI" id="23E-Ws-lzQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rq1-HK-Myj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2029" y="-865"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="dark">
+            <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="light">
+            <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

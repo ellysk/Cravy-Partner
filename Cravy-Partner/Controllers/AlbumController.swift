@@ -15,7 +15,7 @@ class AlbumController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setCravyGradientBackground()
-        cravyToolBar.titles = [K.UIConstant.albumTitle, K.UIConstant.allPhotos]
+        cravyToolBar.titles = [K.UIConstant.albumTitle, K.UIConstant.cameraRoll]
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
