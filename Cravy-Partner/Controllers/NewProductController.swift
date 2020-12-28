@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyCam
 import Lottie
+import Photos
 
 /// Handles the media representing the product.
 class NewProductController: SwiftyCamViewController {
@@ -17,24 +18,42 @@ class NewProductController: SwiftyCamViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var switchCameraButton: UIButton!
     @IBOutlet weak var captureButton: RoundBorderedButton!
-    
     /// The animation played when user focuses on a specific point by tapping on the view once.
     let focusAnimation = AnimationView.focusAnimation
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        additionalSetup()
+        cameraDelegate = self
         self.view.addSubview(focusAnimation)
         focusAnimation.frame.size = CGSize(width: 50, height: 50)
-        cameraDelegate = self
-        presetCamSettings()
         galleryImageView.roundFactor = 3.3
     }
     
-    private func presetCamSettings() {
+    private func additionalSetup() {
         self.pinchToZoom = true
         self.tapToFocus = true
         self.doubleTapCameraSwitch = true
+        self.checkPhotoLibraryPermission { (isPermitted) in
+            if !isPermitted {
+                self.present(UIAlertController.photoLibrayAccessAlert, animated: true)
+            } else {
+                let fetchOptions = PHFetchOptions()
+                if let album = fetchOptions.cravyPartnerAlbum {
+                    self.fetchImageFrom(album)
+                }
+            }
+        }
+    }
+    
+    /// Fetch an asset in the Cravy partner asset collection and assigns it to the gallery image view.
+    private func fetchImageFrom(_ album: PHAssetCollection) {
+        let assets = album.fetchAssets()
+        guard let asset = assets.firstObject else {return}
+        asset.fetchImage(targetSize: galleryImageView.bounds.size) { (fetchedImage, info) in
+            self.galleryImageView.image = fetchedImage
+        }
     }
     
     /// Opens the user's device photos application content.

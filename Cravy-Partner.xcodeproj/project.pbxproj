@@ -37,6 +37,7 @@
 		2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF493258A996200AA1337 /* CravyTabBarController.swift */; };
 		2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF495258A99FF00AA1337 /* MyProductsController.swift */; };
 		2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */; };
+		2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBB259A03590040E860 /* ImageViewController.swift */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE7A257BF1C8002A626A /* CustomTextView.swift */; };
 		2B99FF802574309E008302FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF7F2574309E008302FA /* AppDelegate.swift */; };
@@ -64,6 +65,15 @@
 		2BE371BE2580EEC700B38D30 /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE371BC2580EEC700B38D30 /* ImageCollectionCell.swift */; };
 		2BE371BF2580EEC700B38D30 /* ImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */; };
 		2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEBCE63257D34B300B11C66 /* BusinessView.swift */; };
+		2BFC750C25977AB4009A35AE /* AlbumCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC750A25977AB4009A35AE /* AlbumCollectionCell.swift */; };
+		2BFC750D25977AB4009A35AE /* AlbumCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFC750B25977AB4009A35AE /* AlbumCollectionCell.xib */; };
+		2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC750E25977ED7009A35AE /* BasicReusableView.swift */; };
+		2BFC751125977ED7009A35AE /* BasicReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFC750F25977ED7009A35AE /* BasicReusableView.xib */; };
+		2BFC75132597808C009A35AE /* AlbumCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC75122597808C009A35AE /* AlbumCollectionViewController.swift */; };
+		2BFC75152597BB5B009A35AE /* NewProduct.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFC75142597BB5B009A35AE /* NewProduct.storyboard */; };
+		2BFC75172597BD57009A35AE /* AlbumPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC75162597BD57009A35AE /* AlbumPageController.swift */; };
+		2BFC75192597BF08009A35AE /* CustomPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC75182597BF08009A35AE /* CustomPageController.swift */; };
+		2BFC751B2597C1A5009A35AE /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC751A2597C1A5009A35AE /* AlbumController.swift */; };
 		4B1FD39ECE734E6C1A5C7EE0 /* Pods_Cravy_PartnerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A403A3999D88A5ABD71A3A /* Pods_Cravy_PartnerUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +125,7 @@
 		2B7DF493258A996200AA1337 /* CravyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyTabBarController.swift; sourceTree = "<group>"; };
 		2B7DF495258A99FF00AA1337 /* MyProductsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductsController.swift; sourceTree = "<group>"; };
 		2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
+		2B823DBB259A03590040E860 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B84AE7A257BF1C8002A626A /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2B99FF7C2574309E008302FA /* Cravy-Partner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cravy-Partner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +159,15 @@
 		2BE371BC2580EEC700B38D30 /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionCell.xib; sourceTree = "<group>"; };
 		2BEBCE63257D34B300B11C66 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
+		2BFC750A25977AB4009A35AE /* AlbumCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionCell.swift; sourceTree = "<group>"; };
+		2BFC750B25977AB4009A35AE /* AlbumCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCollectionCell.xib; sourceTree = "<group>"; };
+		2BFC750E25977ED7009A35AE /* BasicReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicReusableView.swift; sourceTree = "<group>"; };
+		2BFC750F25977ED7009A35AE /* BasicReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicReusableView.xib; sourceTree = "<group>"; };
+		2BFC75122597808C009A35AE /* AlbumCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewController.swift; sourceTree = "<group>"; };
+		2BFC75142597BB5B009A35AE /* NewProduct.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewProduct.storyboard; sourceTree = "<group>"; };
+		2BFC75162597BD57009A35AE /* AlbumPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPageController.swift; sourceTree = "<group>"; };
+		2BFC75182597BF08009A35AE /* CustomPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageController.swift; sourceTree = "<group>"; };
+		2BFC751A2597C1A5009A35AE /* AlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
 		2F5B405DDE47A92CCFA6CD0C /* Pods-Cravy-Partner-Cravy-PartnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cravy-Partner-Cravy-PartnerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Cravy-Partner-Cravy-PartnerUITests/Pods-Cravy-Partner-Cravy-PartnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3928B6C7CDD73976695534CC /* Pods-Cravy-Partner-Cravy-PartnerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cravy-Partner-Cravy-PartnerUITests.release.xcconfig"; path = "Target Support Files/Pods-Cravy-Partner-Cravy-PartnerUITests/Pods-Cravy-Partner-Cravy-PartnerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8B959F1B9C04B45B46A6E58A /* Pods_Cravy_Partner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cravy_Partner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +214,7 @@
 				2B99FF8A257430A0008302FA /* LaunchScreen.storyboard */,
 				2B77137D258BD33E00C6C9F0 /* Product.storyboard */,
 				2B61BE472590D56400545E59 /* Settings.storyboard */,
+				2BFC75142597BB5B009A35AE /* NewProduct.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -215,6 +236,10 @@
 				2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */,
 				2B61BE3F258E653700545E59 /* WidgetCollectionCell.swift */,
 				2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */,
+				2BFC750A25977AB4009A35AE /* AlbumCollectionCell.swift */,
+				2BFC750B25977AB4009A35AE /* AlbumCollectionCell.xib */,
+				2BFC750E25977ED7009A35AE /* BasicReusableView.swift */,
+				2BFC750F25977ED7009A35AE /* BasicReusableView.xib */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -311,6 +336,10 @@
 				2B61BE4B2590DF7B00545E59 /* AccountController.swift */,
 				2B61BE4F2590FA9500545E59 /* SettingsTableController.swift */,
 				2B61BE742593927B00545E59 /* NewProductController.swift */,
+				2BFC75122597808C009A35AE /* AlbumCollectionViewController.swift */,
+				2BFC75162597BD57009A35AE /* AlbumPageController.swift */,
+				2BFC751A2597C1A5009A35AE /* AlbumController.swift */,
+				2B823DBB259A03590040E860 /* ImageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -332,6 +361,7 @@
 				2B7DF491258A375100AA1337 /* CustomStackView.swift */,
 				2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */,
 				2B61BE43258E89B100545E59 /* CustomLabel.swift */,
+				2BFC75182597BF08009A35AE /* CustomPageController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -470,16 +500,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BE371BF2580EEC700B38D30 /* ImageCollectionCell.xib in Resources */,
+				2BFC75152597BB5B009A35AE /* NewProduct.storyboard in Resources */,
 				2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */,
 				2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */,
 				2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */,
 				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
+				2BFC750D25977AB4009A35AE /* AlbumCollectionCell.xib in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
 				2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */,
 				2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B61BE772593ADED00545E59 /* focus.json in Resources */,
 				2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */,
+				2BFC751125977ED7009A35AE /* BasicReusableView.xib in Resources */,
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
 				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
 				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
@@ -605,6 +638,7 @@
 				2B060A282586CF5100F59CB5 /* ImageCollectionTableCell.swift in Sources */,
 				2B61BE41258E653700545E59 /* WidgetCollectionCell.swift in Sources */,
 				2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */,
+				2BFC750C25977AB4009A35AE /* AlbumCollectionCell.swift in Sources */,
 				2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */,
 				2B99FFB425745277008302FA /* CustomButton.swift in Sources */,
 				2B7DF490258A1C0700AA1337 /* IntroPageController.swift in Sources */,
@@ -615,6 +649,7 @@
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,
 				2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */,
 				2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */,
+				2BFC75192597BF08009A35AE /* CustomPageController.swift in Sources */,
 				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,
 				2B61BE752593927B00545E59 /* NewProductController.swift in Sources */,
 				2B7DF492258A375100AA1337 /* CustomStackView.swift in Sources */,
@@ -625,8 +660,13 @@
 				2B61BE3E258E4AA200545E59 /* ProductController.swift in Sources */,
 				2B99FFBF2574F602008302FA /* CravySearchBar.swift in Sources */,
 				2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */,
+				2BFC751B2597C1A5009A35AE /* AlbumController.swift in Sources */,
+				2BFC75132597808C009A35AE /* AlbumCollectionViewController.swift in Sources */,
 				2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */,
 				2B61BE4C2590DF7B00545E59 /* AccountController.swift in Sources */,
+				2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */,
+				2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */,
+				2BFC75172597BD57009A35AE /* AlbumPageController.swift in Sources */,
 				2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */,
 				2BC0C6A1257810C2004BA3CA /* CustomView.swift in Sources */,
 				2B99FFC925772814008302FA /* CraveImageView.swift in Sources */,

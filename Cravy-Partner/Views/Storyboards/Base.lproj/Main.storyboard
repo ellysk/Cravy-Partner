@@ -27,7 +27,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wwq-xq-xhM" customClass="RoundBorderedButton" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="8" y="817" width="398" height="45"/>
+                                <rect key="frame" x="8" y="809" width="398" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="fy4-io-LFT"/>
                                 </constraints>
@@ -49,7 +49,7 @@
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you do not have an account, please visit our website to create one." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-yL-Gy3">
-                                <rect key="frame" x="8" y="818" width="398" height="44"/>
+                                <rect key="frame" x="8" y="810" width="398" height="44"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="16"/>
                                 <color key="textColor" name="light"/>
                                 <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                         <color key="backgroundColor" name="dark"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dKr-yL-Gy3" secondAttribute="trailing" constant="8" id="AP5-vj-g02"/>
-                            <constraint firstItem="dKr-yL-Gy3" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="FtU-W3-rRC"/>
+                            <constraint firstItem="dKr-yL-Gy3" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-8" id="FtU-W3-rRC"/>
                             <constraint firstItem="ArW-jc-E6M" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Hiq-gf-MP7"/>
                             <constraint firstItem="Pka-hN-Ud0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Omn-yz-WzA"/>
                             <constraint firstItem="dKr-yL-Gy3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Rxx-CN-k6K"/>
@@ -73,7 +73,7 @@
                             <constraint firstItem="Pka-hN-Ud0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fxB-cd-fhp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wwq-xq-xhM" secondAttribute="trailing" constant="8" id="gTG-hD-W90"/>
                             <constraint firstItem="dVx-mk-ATv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gaQ-Yu-1oq"/>
-                            <constraint firstItem="Wwq-xq-xhM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ghV-yJ-zvD"/>
+                            <constraint firstItem="Wwq-xq-xhM" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-8" id="ghV-yJ-zvD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ArW-jc-E6M" secondAttribute="trailing" constant="8" id="hzM-gn-xKA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pka-hN-Ud0" secondAttribute="trailing" constant="20" id="jlN-fl-h72"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dVx-mk-ATv" secondAttribute="trailing" id="ooZ-DN-eka"/>
@@ -327,10 +327,10 @@
             </objects>
             <point key="canvasLocation" x="1800.0000000000002" y="-319.41964285714283"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Cravy Tab Bar Controller-->
         <scene sceneID="aan-Rh-LJF">
             <objects>
-                <tabBarController id="wZH-WR-uWE" sceneMemberID="viewController">
+                <tabBarController id="wZH-WR-uWE" customClass="CravyTabBarController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9Td-Xa-sMT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

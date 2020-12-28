@@ -8,6 +8,9 @@
 
 import UIKit
 import Lottie
+import SwiftyCam
+import Photos
+
 /* -------------- UIKIT EXTENSIONS -------------- */
 
 //MARK: - UIFont
@@ -390,6 +393,16 @@ extension UICollectionViewFlowLayout {
         return layout
     }
     
+    static var albumCollectionViewFlowLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.set(direction: .vertical, minimumLineSpacing: 1, minimumInterimSpacing: 1, sectionInset: UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 1))
+        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
+        let layoutSize = layout.widthVisibleFor(numberOfItems: 3)
+        layout.itemSize = CGSize(width: layoutSize, height: layoutSize)
+        
+        return layout
+    }
+    
     /// Sets the main properties of a UICollectionViewFlowLayout
     func set(direction: UICollectionView.ScrollDirection, estimatedItemSize: CGSize? = nil, itemSize: CGSize = UICollectionViewFlowLayout.automaticSize, minimumLineSpacing: CGFloat = 8, minimumInterimSpacing: CGFloat = 8, sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)) {
         self.scrollDirection = direction
@@ -405,7 +418,7 @@ extension UICollectionViewFlowLayout {
     /// - Calculates the width of a single item in the layout depending on the number of visible items provided. To get desired results, set all needed layout properties before setting the size of the layout item.
     /// - Returns: Width of item that will fit the number of visible items provided in the screen.
     func widthVisibleFor(numberOfItems: CGFloat) -> CGFloat {
-        let spacing = self.scrollDirection == .vertical ? self.minimumInteritemSpacing : self.minimumLineSpacing
+        let spacing = (self.scrollDirection == .vertical ? self.minimumInteritemSpacing : self.minimumLineSpacing) * (numberOfItems - 1)
         let width = (UIScreen.main.bounds.width - (spacing + self.sectionInset.left + self.sectionInset.right)) / numberOfItems
         
         return width
@@ -516,6 +529,15 @@ extension UIImageView {
 
 //MARK: - UIAlertController
 extension UIAlertController {
+    /// An alert showing that the photo library could not be accessed.
+    static var photoLibrayAccessAlert: UIAlertController {
+        let alertController = UIAlertController(title: K.UIConstant.accessDenied, message: K.UIConstant.photoLibraryAccessDeniedMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.goToSettings)
+        alertController.addAction(UIAlertAction.cancel)
+        
+        return alertController
+    }
+    
     func pruneNegativeWidthConstraints() {
         for subView in self.view.subviews {
             for constraint in subView.constraints where constraint.debugDescription.contains("width == - 16") {
@@ -530,9 +552,139 @@ extension UIAlertAction {
     static var cancel: UIAlertAction {
         return UIAlertAction(title: K.UIConstant.cancel, style: .cancel)
     }
+    
+    /// Redirects the device to open settings.
+    static var goToSettings: UIAlertAction {
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (action) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    if !success {return}
+                })
+            }
+        }
+        
+        return settingsAction
+    }
 }
 
+
+/* -------------- PHOTOKIT EXTENSIONS -------------- */
+
+//MARK: - PHFetchOptions
+extension PHFetchOptions {
+    /// An asset collection under the name of the application.
+    var cravyPartnerAlbum: PHAssetCollection? {
+        return self.fetchAssetCollectionWithTitle(title: K.UIConstant.albumTitle).firstObject
+    }
+    /// A result of assets in Cravy Partner Album.
+    var cravyPartnerAssets: PHFetchResult<PHAsset> {
+        guard let assetCollection = self.cravyPartnerAlbum else {fatalError("Cravy Partner Album not created!")}
+        let assets = assetCollection.fetchAssets()
+        
+        return assets
+    }
+    /// Returns all the photos in the user's library that are available.
+    var allPhotos: PHFetchResult<PHAsset> {
+        self.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        return PHAsset.fetchAssets(with: .image, options: self)
+    }
+    
+    /// Returns the asset collection with the specified title. If title is nil then it returns all asset collections that have been created by the user in the device
+    func fetchAssetCollectionWithTitle(title: String? = nil) -> PHFetchResult<PHAssetCollection>  {
+        self.predicate = title == nil ? nil : NSPredicate(format: "title = %@", "\(title!)")
+        let results = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: self)
+        return results
+    }
+}
+
+//MARK: - PHAssetCollection
+extension PHAssetCollection {
+    /// Returns a result for collection of assets with the specified option.
+    func fetchAssets(with options: PHFetchOptions? = nil) -> PHFetchResult<PHAsset> {
+        return PHAsset.fetchAssets(in: self, options: options)
+    }
+    
+    /// Adds the specified image into this asset collection.
+    func addImage(_ image: UIImage, completionHandler: @escaping (Bool, Error?)->()) {
+        PHPhotoLibrary.shared().performChanges({
+            //asset change request
+            let assetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            let assetPlaceHolder = assetChangeRequest.placeholderForCreatedAsset
+            let albumChangeRequest = PHAssetCollectionChangeRequest(for: self)
+            let enumeration: NSArray = [assetPlaceHolder!]
+            
+            if self.estimatedAssetCount == 0 {
+                albumChangeRequest?.addAssets(enumeration)
+            } else {
+                albumChangeRequest?.insertAssets(enumeration, at: [0])
+            }
+            
+        }) { (completed, error) in
+            completionHandler(completed, error)
+        }
+    }
+}
+
+//MARK: - PHPhotoLibrary
+extension PHPhotoLibrary {
+  /// Asynchronously creates a new asset collection with the specified title.
+  func createAssetCollectionWithTitle(title: String, completionHander: @escaping (Bool, Error?)->()) {
+    self.performChanges({
+      PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: title)
+    }) { (completed, error) in
+      completionHander(completed, error)
+    }
+  }
+}
+
+//MARK: - PHFetchResult
+extension PHFetchResult where ObjectType == PHAsset {
+    /// Returns a dictionary of a key containing the created date of the asset and a value containing the array of assets created on that date. Also returns an array of all keys.
+    func splitByCreationDate(completionHandler: ([String : [PHAsset]], [String])->()) {
+        var dict: [String : [PHAsset]] = [:]
+        var keys: [String] = []
+        
+        for i in 0...self.count - 1 {
+            guard let creationDate = self[i].creationDate?.shortFormat else {continue}
+            
+            if dict[creationDate] == nil {
+                keys.append(creationDate)
+                dict[creationDate] = [self[i]]
+            } else {
+                var updatedAssets = dict[creationDate]!
+                updatedAssets.append(self[i])
+                dict.updateValue(updatedAssets, forKey: creationDate)
+            }
+        }
+        
+        let sortedKeys = keys.sortBy(formatter: DateFormatter.shortDateFormatter)
+        
+        completionHandler(dict, sortedKeys)
+    }
+}
+
+//MARK: - PHAsset
+extension PHAsset {
+    /// Gets the image from the asset and assigns it to the image with the size and content mode provided.
+    func fetchImage(targetSize size: CGSize = PHImageManagerMaximumSize, contentMode: PHImageContentMode = .aspectFill, completionHandler: @escaping (UIImage?, [AnyHashable : Any]?)->()) {
+        var imageRequestOptions: PHImageRequestOptions?
+        imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions!.deliveryMode = size == PHImageManagerMaximumSize ? .highQualityFormat : .opportunistic
+        imageRequestOptions!.resizeMode = size == PHImageManagerMaximumSize ? .none : .exact
+        
+        PHImageManager.default().requestImage(for: self, targetSize: size, contentMode: contentMode, options: imageRequestOptions) { (requestedImage, info) in
+            completionHandler(requestedImage, info)
+        }
+    }
+}
+
+
 /* -------------- FOUNDATION EXTENSIONS -------------- */
+
+//MARK: - Array
 extension Array {
     /// Converts an array into an array of arrays, using whatever size you specify.
     func chunked(into size: Int) -> [[Element]] {
@@ -540,6 +692,14 @@ extension Array {
             Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
+}
+
+extension Array where Element == String {
+  /// Sorts the elements which represent a date of a specific format from latest to oldest. The formatter should match the format of the strings in the array
+  /// - Parameter formatter: The format in which the date is represented.
+  func sortBy(formatter: DateFormatter) -> [String] {
+    return self.sorted(by: { formatter.date(from: $0)! > formatter.date(from: $1)! })
+  }
 }
 
 //MARK: - String
@@ -608,7 +768,28 @@ extension Double {
     }
 }
 
+//MARK: - Date
+extension Date {
+    /// Returns a string obtained from a date parsed through a shortDateFormatter.
+    var shortFormat: String {
+      return DateFormatter.shortDateFormatter.string(from: self)
+  }
+}
+
+//MARK: - DateFormatter
+extension DateFormatter {
+    /// returns an  "MMMM yyyy" format. eg: August 2020, September 2020 etc.
+  static var shortDateFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMMM yyyy"
+    
+    return formatter
+  }
+}
+
 /* -------------- COCOAPODS EXTENSIONS -------------- */
+
+//MARK: - AnimationView
 extension AnimationView {
     static var focusAnimation: AnimationView {
         return AnimationView(name: "focus")
@@ -618,5 +799,18 @@ extension AnimationView {
     func play(at position: CGPoint) {
         self.frame.origin = position
         self.play()
+    }
+}
+
+//MARK: - SwiftyCamController
+extension SwiftyCamViewController {
+    func checkPhotoLibraryPermission(completionHandler: @escaping (Bool)->()) {
+        if PHPhotoLibrary.authorizationStatus() == .authorized {
+            completionHandler(true)
+        } else {
+            PHPhotoLibrary.requestAuthorization { (status) in
+                completionHandler(status == .authorized)
+            }
+        }
     }
 }
