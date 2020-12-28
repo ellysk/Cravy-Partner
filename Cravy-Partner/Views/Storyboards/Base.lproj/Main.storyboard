@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wZH-WR-uWE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q0o-BX-GFH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -327,10 +327,10 @@
             </objects>
             <point key="canvasLocation" x="1800.0000000000002" y="-319.41964285714283"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Cravy Tab Bar Controller-->
         <scene sceneID="aan-Rh-LJF">
             <objects>
-                <tabBarController id="wZH-WR-uWE" sceneMemberID="viewController">
+                <tabBarController id="wZH-WR-uWE" customClass="CravyTabBarController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9Td-Xa-sMT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -346,6 +346,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D05-iH-MMV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="962" y="130"/>
+        </scene>
+        <!--Album Controller-->
+        <scene sceneID="aiW-nG-y1a">
+            <objects>
+                <viewController id="q0o-BX-GFH" customClass="AlbumController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mCI-7j-ee7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVi-aB-nNq" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="414" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="crc-MT-hEH"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqB-DB-zjw">
+                                <rect key="frame" x="0.0" y="106" width="414" height="790"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="BYT-7c-8vx" kind="embed" identifier="toAlbumPageController" id="8q0-Ma-vDO"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="wqB-DB-zjw" firstAttribute="trailing" secondItem="jXu-bu-hCg" secondAttribute="trailing" id="1db-iv-uuB"/>
+                            <constraint firstItem="wqB-DB-zjw" firstAttribute="top" secondItem="cVi-aB-nNq" secondAttribute="bottom" constant="16" id="IW8-4C-6VR"/>
+                            <constraint firstAttribute="bottom" secondItem="wqB-DB-zjw" secondAttribute="bottom" id="VuC-wr-yYW"/>
+                            <constraint firstItem="cVi-aB-nNq" firstAttribute="leading" secondItem="jXu-bu-hCg" secondAttribute="leading" id="XcM-hY-RG6"/>
+                            <constraint firstItem="wqB-DB-zjw" firstAttribute="leading" secondItem="jXu-bu-hCg" secondAttribute="leading" id="jMb-hb-tl9"/>
+                            <constraint firstItem="cVi-aB-nNq" firstAttribute="trailing" secondItem="jXu-bu-hCg" secondAttribute="trailing" id="tyh-mi-4lg"/>
+                            <constraint firstItem="cVi-aB-nNq" firstAttribute="top" secondItem="jXu-bu-hCg" secondAttribute="top" constant="16" id="u2x-aL-Xfu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jXu-bu-hCg"/>
+                    </view>
+                    <connections>
+                        <outlet property="cravyToolBar" destination="cVi-aB-nNq" id="J4t-J1-vvP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TLm-Pw-BdI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2029" y="-1570"/>
+        </scene>
+        <!--Album Page Controller-->
+        <scene sceneID="NBJ-sA-Qsn">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="BYT-7c-8vx" customClass="AlbumPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bv2-AM-9rH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2852" y="-1570"/>
         </scene>
     </scenes>
     <resources>

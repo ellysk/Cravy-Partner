@@ -47,6 +47,7 @@ struct K {
         static let allPhotos = "All photos"
         static let active = "Active"
         static let inactive = "Inactive"
+        static let next = "Next"
     }
     
     struct Identifier {

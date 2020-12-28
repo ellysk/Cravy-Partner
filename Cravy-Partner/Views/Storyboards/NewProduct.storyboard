@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Cvi-ow-24P">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,7 +10,6 @@
         <!--Album Controller-->
         <scene sceneID="l3Q-68-6eP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I9H-tM-DiF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="Cvi-ow-24P" customClass="AlbumController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vir-0T-IcI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -47,16 +46,17 @@
                         <outlet property="cravyToolBar" destination="OJh-AQ-0Ab" id="uQv-Al-08x"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I9H-tM-DiF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2029" y="-1570"/>
         </scene>
         <!--Album Page Controller-->
         <scene sceneID="Ru6-kG-SnF">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kDT-eF-Coh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ODX-rp-Qhl" customClass="AlbumPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kDT-eF-Coh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2647" y="-912"/>
+            <point key="canvasLocation" x="2852" y="-1570"/>
         </scene>
     </scenes>
 </document>

@@ -10,6 +10,7 @@ import UIKit
 import Lottie
 import SwiftyCam
 import Photos
+
 /* -------------- UIKIT EXTENSIONS -------------- */
 
 //MARK: - UIFont
@@ -524,23 +525,6 @@ extension UIImageView {
         
         return bgView
     }
-    
-    /// Gets the image from the asset and assigns it to the image with the size and content mode provided.
-    func fetchImageAsset(_ asset: PHAsset?, targetSize size: CGSize, contentMode: PHImageContentMode = .aspectFill, completionHandler: ((Bool) -> ())?) {
-        let imageRequestOptions = PHImageRequestOptions()
-        imageRequestOptions.deliveryMode = .highQualityFormat
-        imageRequestOptions.resizeMode = .exact
-        
-        guard let asset = asset else {
-            completionHandler?(false)
-            return
-        }
-        
-        PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: contentMode, options: imageRequestOptions) { (requestedImage, info) in
-            self.image = requestedImage
-            completionHandler?(true)
-        }
-    }
 }
 
 //MARK: - UIAlertController
@@ -605,7 +589,7 @@ extension PHFetchOptions {
     var allPhotos: PHFetchResult<PHAsset> {
         self.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
-        return PHAsset.fetchAssets(with: self)
+        return PHAsset.fetchAssets(with: .image, options: self)
     }
     
     /// Returns the asset collection with the specified title. If title is nil then it returns all asset collections that have been created by the user in the device
@@ -661,6 +645,22 @@ extension PHFetchResult where ObjectType == PHAsset {
         completionHandler(dict, sortedKeys)
     }
 }
+
+//MARK: - PHAsset
+extension PHAsset {
+    /// Gets the image from the asset and assigns it to the image with the size and content mode provided.
+    func fetchImage(targetSize size: CGSize = PHImageManagerMaximumSize, contentMode: PHImageContentMode = .aspectFill, completionHandler: @escaping (UIImage?, [AnyHashable : Any]?)->()) {
+        var imageRequestOptions: PHImageRequestOptions?
+        imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions!.deliveryMode = size == PHImageManagerMaximumSize ? .highQualityFormat : .opportunistic
+        imageRequestOptions!.resizeMode = size == PHImageManagerMaximumSize ? .none : .exact
+        
+        PHImageManager.default().requestImage(for: self, targetSize: size, contentMode: contentMode, options: imageRequestOptions) { (requestedImage, info) in
+            completionHandler(requestedImage, info)
+        }
+    }
+}
+
 
 /* -------------- FOUNDATION EXTENSIONS -------------- */
 
