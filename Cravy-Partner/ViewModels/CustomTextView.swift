@@ -12,12 +12,14 @@ import UIKit
 class RoundTextView: UITextView {
     private var roundFactor: CGFloat?
     
-    init(roundFactor: CGFloat? = nil, placeholder: String = "Write something here...") {
+    init(roundFactor: CGFloat? = nil, placeholder: String?) {
         self.roundFactor = roundFactor
         super.init(frame: .zero, textContainer: nil)
         self.text = placeholder
         self.font = UIFont.regular.small
         self.textColor = K.Color.dark.withAlphaComponent(0.5)
+        self.textContainerInset.top = 16
+        self.textContainerInset.bottom = 16
     }
     
     required init?(coder: NSCoder) {

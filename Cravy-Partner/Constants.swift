@@ -48,6 +48,12 @@ struct K {
         static let active = "Active"
         static let inactive = "Inactive"
         static let next = "Next"
+        static let title = "TITLE"
+        static let description = "DESCRIPTION"
+        /// Returns "Write your product title here..."
+        static let titlePlaceholder = "Write your product title here..."
+        /// Returns "Write your product description here..."
+        static let descriptionPlaceholder = "Write your product description here..."
     }
     
     struct Identifier {

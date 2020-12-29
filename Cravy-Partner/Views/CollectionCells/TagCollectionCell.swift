@@ -15,6 +15,15 @@ enum TAG_COLLECTION_STYLE {
 
 /// A cell that displays a label with a round separator.
 class TagCollectionCell: UICollectionViewCell {
+    override var isSelected: Bool {
+        set {
+            self.backgroundColor = newValue ? K.Color.primary : K.Color.light
+        }
+        
+        get {
+            return self.backgroundColor == K.Color.primary
+        }
+    }
     private var tagStackView: UIStackView!
     var tagLabel: UILabel!
     private var separator: UIView!
@@ -66,7 +75,7 @@ class TagCollectionCell: UICollectionViewCell {
     func setTagCollectionCell(tag: String? = nil, style: TAG_COLLECTION_STYLE = .none_filled) {
         setTagView(tag: tag, style: style)
         self.style = style
-        self.isTransparent = true
+        self.isTransparent = style == .none_filled
     }
     
     private func setTagLabel(tag: String? = nil) {

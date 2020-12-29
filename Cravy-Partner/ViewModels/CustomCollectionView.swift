@@ -31,17 +31,8 @@ class CraveCollectionView: UICollectionView {
     }
 }
 
-
 /// A collection view responsible for handling TagCollectionCell.
-class HorizontalTagsCollectionView: UICollectionView {
-    init(layout: UICollectionViewFlowLayout, scrollDirection: UICollectionView.ScrollDirection) {
-        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setCollectionViewLayout(UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout, animated: true)
-    }
+class TagsCollectionView: UICollectionView {
     
     override func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
         super.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
@@ -50,6 +41,28 @@ class HorizontalTagsCollectionView: UICollectionView {
     /// Registers the TagCollectionCell to this CollectionView
     func register() {
         self.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
+    }
+}
+
+class HorizontalTagsCollectionView: TagsCollectionView {
+    init() {
+        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.horizontalTagCollectionViewFlowLayout, animated: true)
+    }
+}
+
+class VerticalTagsCollectionView: TagsCollectionView {
+    init() {
+        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.verticalTagCollectionViewFlowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.verticalTagCollectionViewFlowLayout, animated: true)
     }
 }
 

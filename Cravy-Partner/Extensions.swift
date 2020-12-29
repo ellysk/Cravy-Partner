@@ -348,7 +348,7 @@ extension UICollectionViewFlowLayout {
     
     static var verticalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.set(direction: .vertical, estimatedItemSize: CGSize(width: 100, height: 30))
+        layout.set(direction: .vertical, estimatedItemSize: CGSize(width: 100, height: 30), sectionInset: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
         
         return layout
     }

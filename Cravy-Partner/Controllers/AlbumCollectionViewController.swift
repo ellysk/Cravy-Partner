@@ -12,6 +12,10 @@ import CropViewController
 
 /// Handles the diplsay of images from the user's photo library.
 class AlbumCollectionViewController: UICollectionViewController {
+    var albumCollectionView: AlbumCollectionView {
+        let albumCollectionView = self.collectionView as! AlbumCollectionView
+        return albumCollectionView
+    }
     private var result: PHFetchResult<PHAsset>!
     private var album: [String : [PHAsset]] = [:]
     private var creationDates: [String] = []
@@ -29,15 +33,14 @@ class AlbumCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.backgroundColor = .clear
+        albumCollectionView.backgroundColor = .clear
         //Assign the result to the class fields so as the loaded and displayed in the collection view.
         result.splitByCreationDate { (album, creationDates) in
             self.album = album
             self.creationDates = creationDates
         }
         
-        self.collectionView.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
-        self.collectionView.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
+        albumCollectionView.register()
     }
 
     //MARK: - DataSource
