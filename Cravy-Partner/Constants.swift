@@ -55,6 +55,10 @@ struct K {
         /// Returns "Write your product description here..."
         static let descriptionPlaceholder = "Write your product description here..."
         static let addMyOwn = "Add my own"
+        static let newTag = "NEW TAG"
+        /// Returns "Provide a name of something that would most likely represent this product, it could be a cuisine or an ingredient."
+        static let newTagDetail = "Provide a name of something that would most likely represent this product, it could be a cuisine or an ingredient."
+        static let add = "ADD"
     }
     
     struct Identifier {

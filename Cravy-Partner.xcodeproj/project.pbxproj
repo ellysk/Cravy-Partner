@@ -42,6 +42,9 @@
 		2B823DC0259B85D30040E860 /* TagsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */; };
 		2B823DC5259CD0E10040E860 /* NewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */; };
 		2B823DC6259CD0E10040E860 /* NewCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B823DC4259CD0E10040E860 /* NewCollectionCell.xib */; };
+		2B823DC8259D01790040E860 /* ingredients.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B823DC7259D01790040E860 /* ingredients.json */; };
+		2B823DCA259D112F0040E860 /* PopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DC9259D112F0040E860 /* PopView.swift */; };
+		2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DCB259D1D420040E860 /* PopViewController.swift */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE7A257BF1C8002A626A /* CustomTextView.swift */; };
 		2B99FF802574309E008302FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF7F2574309E008302FA /* AppDelegate.swift */; };
@@ -134,6 +137,9 @@
 		2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewController.swift; sourceTree = "<group>"; };
 		2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCollectionCell.swift; sourceTree = "<group>"; };
 		2B823DC4259CD0E10040E860 /* NewCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewCollectionCell.xib; sourceTree = "<group>"; };
+		2B823DC7259D01790040E860 /* ingredients.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ingredients.json; sourceTree = "<group>"; };
+		2B823DC9259D112F0040E860 /* PopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopView.swift; sourceTree = "<group>"; };
+		2B823DCB259D1D420040E860 /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B84AE7A257BF1C8002A626A /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2B99FF7C2574309E008302FA /* Cravy-Partner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cravy-Partner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -300,6 +306,7 @@
 				2B99FF88257430A0008302FA /* Assets.xcassets */,
 				2B99FF8D257430A0008302FA /* Info.plist */,
 				2B61BE762593ADED00545E59 /* focus.json */,
+				2B823DC7259D01790040E860 /* ingredients.json */,
 			);
 			path = "Cravy-Partner";
 			sourceTree = "<group>";
@@ -352,6 +359,7 @@
 				2B823DBB259A03590040E860 /* ImageViewController.swift */,
 				2B823DBD259A497A0040E860 /* TextsViewController.swift */,
 				2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */,
+				2B823DCB259D1D420040E860 /* PopViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -374,6 +382,7 @@
 				2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */,
 				2B61BE43258E89B100545E59 /* CustomLabel.swift */,
 				2BFC75182597BF08009A35AE /* CustomPageController.swift */,
+				2B823DC9259D112F0040E860 /* PopView.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -512,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BE371BF2580EEC700B38D30 /* ImageCollectionCell.xib in Resources */,
+				2B823DC8259D01790040E860 /* ingredients.json in Resources */,
 				2BFC75152597BB5B009A35AE /* NewProduct.storyboard in Resources */,
 				2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */,
 				2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */,
@@ -665,6 +675,7 @@
 				2B823DBE259A497A0040E860 /* TextsViewController.swift in Sources */,
 				2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */,
 				2BFC75192597BF08009A35AE /* CustomPageController.swift in Sources */,
+				2B823DCA259D112F0040E860 /* PopView.swift in Sources */,
 				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,
 				2B61BE752593927B00545E59 /* NewProductController.swift in Sources */,
 				2B7DF492258A375100AA1337 /* CustomStackView.swift in Sources */,
@@ -681,6 +692,7 @@
 				2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */,
 				2B61BE4C2590DF7B00545E59 /* AccountController.swift in Sources */,
 				2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */,
+				2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */,
 				2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */,
 				2BFC75172597BD57009A35AE /* AlbumPageController.swift in Sources */,
 				2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */,

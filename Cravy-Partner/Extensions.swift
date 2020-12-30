@@ -794,6 +794,9 @@ extension AnimationView {
     static var focusAnimation: AnimationView {
         return AnimationView(name: "focus")
     }
+    static var ingredientsAnimation: AnimationView {
+        return AnimationView(name: "ingredients")
+    }
     
     /// Plays the animation at the speicified position on the screen.
     func play(at position: CGPoint) {

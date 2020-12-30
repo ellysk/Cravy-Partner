@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 /// Handles the display of the tags that the user can select and manage.
 class TagsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -94,7 +95,10 @@ class TagsCollectionViewController: UICollectionViewController, UICollectionView
 //MARK:- FloaterView Delegate
 extension TagsCollectionViewController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
-        print(floaterView.titleLabel.text!)
+        //TODO
+        let popV = PopView(title: K.UIConstant.newTag, detail: K.UIConstant.newTagDetail, actionTitle: K.UIConstant.add)
+        let popVC = PopViewController(popView: popV, animationView: AnimationView.ingredientsAnimation)
+        present(popVC, animated: true, completion: nil)
     }
 }
 
