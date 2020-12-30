@@ -17,13 +17,21 @@ enum TAG_COLLECTION_STYLE {
 class TagCollectionCell: UICollectionViewCell {
     override var isSelected: Bool {
         set {
-            self.backgroundColor = newValue ? K.Color.primary : K.Color.light
+            if allowsSelection {
+                self.backgroundColor = newValue ? K.Color.primary : defaultBackgroundColor
+            } else {
+                self.backgroundColor = defaultBackgroundColor
+            }
         }
         
         get {
             return self.backgroundColor == K.Color.primary
         }
     }
+    /// The color of the cell when it is not selected.
+    var defaultBackgroundColor: UIColor = K.Color.light
+    /// Determines if the cell should change its appearance if selected.
+    var allowsSelection: Bool = true
     private var tagStackView: UIStackView!
     var tagLabel: UILabel!
     private var separator: UIView!

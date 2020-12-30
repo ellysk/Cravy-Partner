@@ -40,18 +40,28 @@ class RoundView: UIView {
     }
 }
 
+protocol FloaterViewDelegate {
+    /// Use this to get the floater view in which the user has interacted with.
+    func didTapFloaterButton(_ floaterView: FloaterView)
+}
+
 /// Displays a rounded image view and a label.
 class FloaterView: RoundView {
     private var button = RoundButton()
     private var floaterStackView: UIStackView!
     var imageView = RoundImageView(frame: .zero)
     var titleLabel = UILabel()
+    /// Adjust the width and height of the view depending on the size of the subviews.
+    private var resizesToSubview: Bool
+    var delegate: FloaterViewDelegate?
     
-    init(frame: CGRect = .zero) {
-        super.init(frame: frame)
+    init(resizesToSubview: Bool = false) {
+        self.resizesToSubview = resizesToSubview
+        super.init(frame: .zero)
         self.backgroundColor = K.Color.primary
         setFloaterStackView()
         setButton()
+        self.sendSubviewToBack(floaterStackView)
     }
     
     required init?(coder: NSCoder) {
@@ -60,8 +70,6 @@ class FloaterView: RoundView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.widthAnchor(to: floaterStackView, multiplier: 1.1)
-        self.heightAnchor(to: floaterStackView, multiplier: 1.2)
         self.setShadow()
     }
     
@@ -72,7 +80,11 @@ class FloaterView: RoundView {
         floaterStackView.set(axis: .horizontal, alignment: .center ,distribution: .fill, spacing: 8)
         self.addSubview(floaterStackView)
         floaterStackView.translatesAutoresizingMaskIntoConstraints = false
-        floaterStackView.centerXYAnchor(to: self)
+        if resizesToSubview {
+            resizeToSubview()
+        } else {
+            floaterStackView.VHConstraint(to: self, VConstant: 5, HConstant: 5)
+        }
     }
     
     private func setImageView() {
@@ -88,10 +100,21 @@ class FloaterView: RoundView {
     }
     
     private func setButton() {
+        button.addTarget(self, action: #selector(tap(_:)), for: .touchUpInside)
         button.backgroundColor = .clear
         self.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.VHConstraint(to: self)
+    }
+    
+    private func resizeToSubview() {
+        floaterStackView.centerXYAnchor(to: self)
+        self.widthAnchor(to: floaterStackView, multiplier: 1.2)
+        self.heightAnchor(to: floaterStackView, multiplier: 1.2)
+    }
+    
+    @objc func tap(_ sender: RoundButton) {
+        self.delegate?.didTapFloaterButton(self)
     }
 }
 

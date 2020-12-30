@@ -54,6 +54,7 @@ struct K {
         static let titlePlaceholder = "Write your product title here..."
         /// Returns "Write your product description here..."
         static let descriptionPlaceholder = "Write your product description here..."
+        static let addMyOwn = "Add my own"
     }
     
     struct Identifier {
@@ -68,6 +69,8 @@ struct K {
             static let widgetCell = "widgetCell"
             /// A reusable identifier for the AlbumCollectionCell
             static let albumCell = "albumCell"
+            /// A reusable identifier for the NewCollectionCell
+            static let newCell = "newCell"
             
             struct ReusableView {
                 /// A reusable identifier for the BasicReusableView

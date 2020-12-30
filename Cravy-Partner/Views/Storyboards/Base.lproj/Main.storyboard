@@ -148,7 +148,7 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgimage" translatesAutoresizingMaskIntoConstraints="NO" id="xCq-x9-0yj" customClass="RoundBorderedImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xCq-x9-0yj" customClass="RoundBorderedImageView" customModule="Cravy_Partner" customModuleProvider="target">
                                 <rect key="frame" x="20" y="52" width="60" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="00y-Ma-LLQ"/>
@@ -326,8 +326,6 @@
                         <connections>
                             <outlet property="dataSource" destination="rbz-u9-PR8" id="aro-jU-TnK"/>
                             <outlet property="delegate" destination="rbz-u9-PR8" id="2Ds-Fn-ANY"/>
-                            <outlet property="dragDelegate" destination="rbz-u9-PR8" id="11H-6B-U4a"/>
-                            <outlet property="dropDelegate" destination="rbz-u9-PR8" id="jgu-fe-WUf"/>
                         </connections>
                     </collectionView>
                 </collectionViewController>

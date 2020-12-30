@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Handles the display of a textfield and a textview.
 class TextsViewController: UIViewController {
 
     override func viewDidLoad() {

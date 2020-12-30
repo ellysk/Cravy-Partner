@@ -35,7 +35,6 @@ class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
             self.addSubview(imageCollectionView)
             imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
             imageCollectionView.VHConstraint(to: self)
-            imageCollectionView.heightAnchor(of: layout.itemSize.height)
         } else {
             imageCollectionView.reloadData()
         }

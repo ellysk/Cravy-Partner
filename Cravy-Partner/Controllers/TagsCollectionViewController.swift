@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Handles the display of the tags that the user can select and manage.
 class TagsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var tagsCollectionView: VerticalTagsCollectionView {
         let verticalTagsCollectionView = self.collectionView as! VerticalTagsCollectionView
@@ -18,22 +19,9 @@ class TagsCollectionViewController: UICollectionViewController, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tagsCollectionView.dragInteractionEnabled = true
         tagsCollectionView.register()
         tagsCollectionView.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
-    }
-    
-    private func reorderTags(coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView: UICollectionView) {
-        if let tag = coordinator.items.first, let sourceIndexPath = tag.sourceIndexPath {
-            collectionView.performBatchUpdates({
-                self.tags[sections[sourceIndexPath.section]]?.remove(at: sourceIndexPath.item)
-                self.tags[sections[destinationIndexPath.section]]?.insert(tag.dragItem.localObject as! String, at: destinationIndexPath.item)
-
-                collectionView.deleteItems(at: [sourceIndexPath])
-                collectionView.insertItems(at: [destinationIndexPath])
-            }, completion: nil)
-//            coordinator.drop(tag.dragItem, toItemAt: destinationIndexPath)
-        }
+        tagsCollectionView.register(NewCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.newCell)
     }
 
     //MARK:- DataSource
@@ -42,20 +30,32 @@ class TagsCollectionViewController: UICollectionViewController, UICollectionView
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags[sections[section]]?.count ?? 0
+        let count = tags[sections[section]]?.count ?? 0
+        if section == 0 {
+            return count + 1 //The extra item is the NewCollectionCell
+        } else {
+            return count
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.tagCell, for: indexPath) as! TagCollectionCell
-        cell.setTagCollectionCell(tag: tags[sections[indexPath.section]]?[indexPath.item], style: .filled)
-        
-        if indexPath.section == 0 {
-            cell.isSelected = true
+        //If there are tags in the first section and the item is at a position greater than the count of the tags in the section, then return a NewCollectionCell.
+        if let myTags = tags[sections[0]], indexPath.section == 0, indexPath.item >= myTags.count {
+            let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.newCell, for: indexPath) as! NewCollectionCell
+            newCell.setNewCollectionCell()
+            newCell.delegate = self
+            
+            return newCell
         } else {
-            cell.isSelected = false
+            //Return TagCollectionCell.
+            let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.tagCell, for: indexPath) as! TagCollectionCell
+            tagCell.setTagCollectionCell(tag: tags[sections[indexPath.section]]?[indexPath.item], style: .filled)
+            tagCell.allowsSelection = indexPath.section == 1
+            tagCell.defaultBackgroundColor = indexPath.section == 0 ? K.Color.primary : K.Color.light
+            tagCell.isSelected = indexPath.section == 0
+            
+            return tagCell
         }
-        
-        return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -70,66 +70,31 @@ class TagsCollectionViewController: UICollectionViewController, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 40)
     }
-}
-
-//MARK:- UICollectionView DragDelegate
-extension TagsCollectionViewController: UICollectionViewDragDelegate {
-    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        print("preparing drag session")
-        //Get the tag to be dragged
-        let tag = tags[sections[indexPath.section]]![indexPath.item]
-        //Assign the tag to itemProvider
-        let itemProvider = NSItemProvider(object: tag as NSString)
-        //Assign the itemProvider to dragItem
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragItem.localObject = tag
-        
-        return [dragItem]
-    }
     
-    func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: UIDragSession) {
-        print("drag session will begin")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: UIDragSession) {
-        print("drag session ended")
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //If user has tapped on an item in the second section, then reorder the collection view
+        if indexPath.section == 1 {
+            //Update sturcture/model of tags.
+            let tagToAdd = tags[sections[1]]![indexPath.item] //The tag being seleceted.
+            tags[sections[0]]!.append(tagToAdd) //Add tag to the first section which represents the user's preference tags.
+            
+            //Reorder the collection view
+            collectionView.performBatchUpdates({
+                let item = collectionView.numberOfItems(inSection: 0) - 1
+                let destinationIndexPath = IndexPath(item: item, section: 0)
+                
+                collectionView.insertItems(at: [destinationIndexPath])
+            }) { (completed) in
+                collectionView.reloadItems(at: [indexPath])
+            }
+        }
     }
 }
 
-//MARK:- UICollectionView DropDelegate
-extension TagsCollectionViewController: UICollectionViewDropDelegate {
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        
-        if collectionView.hasActiveDrag {
-            print("is dragging...")
-            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        } else {
-            print("stop dragging")
-            return UICollectionViewDropProposal(operation: .forbidden)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        print("performing drop")
-        
-        if let destinationIndexPath = coordinator.destinationIndexPath, coordinator.proposal.operation == .move {
-            print("performin drop at position \(destinationIndexPath.item)")
-            reorderTags(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
-        } else {
-            print("outsideee")
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidEnter session: UIDropSession) {
-        print("drop session did enter")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidExit session: UIDropSession) {
-        print("drop session did exit")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: UIDropSession) {
-        print("drop sessoon did end")
+//MARK:- FloaterView Delegate
+extension TagsCollectionViewController: FloaterViewDelegate {
+    func didTapFloaterButton(_ floaterView: FloaterView) {
+        print(floaterView.titleLabel.text!)
     }
 }
 

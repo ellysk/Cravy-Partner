@@ -301,7 +301,7 @@ extension UIViewController {
             
             if newValue {
                 if floaterView == nil {
-                    let fv = FloaterView()
+                    let fv = FloaterView(resizesToSubview: true)
                     fv.tag = K.ViewTag.FLOATER_VIEW
                     self.view.addSubview(fv)
                     fv.translatesAutoresizingMaskIntoConstraints = false

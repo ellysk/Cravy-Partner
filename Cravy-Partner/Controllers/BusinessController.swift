@@ -81,6 +81,11 @@ extension BusinessController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        if indexPath.section == 0 {
+            let layout = UICollectionViewFlowLayout.imageCollectionViewFlowLayout
+            return layout.itemSize.height
+        } else {
+            return UITableView.automaticDimension
+        }
     }
 }

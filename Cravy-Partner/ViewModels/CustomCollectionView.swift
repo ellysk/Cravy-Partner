@@ -21,10 +21,6 @@ class CraveCollectionView: UICollectionView {
         self.setCollectionViewLayout(UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout, animated: true)
     }
     
-    override func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        super.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
-    }
-    
     /// Registers the CraveCollectionCell to this CollectionView
     func register() {
         self.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
@@ -33,10 +29,6 @@ class CraveCollectionView: UICollectionView {
 
 /// A collection view responsible for handling TagCollectionCell.
 class TagsCollectionView: UICollectionView {
-    
-    override func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        super.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.tagCell)
-    }
     
     /// Registers the TagCollectionCell to this CollectionView
     func register() {
@@ -77,13 +69,9 @@ class WidgetCollectionView: UICollectionView {
         self.setCollectionViewLayout(UICollectionViewFlowLayout.widgetCollectionViewFlowLayout, animated: true)
     }
     
-    override func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        super.register(WidgetCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.widgetCell)
-    }
-    
     /// Registers the WidgetCollectionCell to this CollectionView
     func register() {
-        self.register(TagCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.widgetCell)
+        self.register(WidgetCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.widgetCell)
     }
 }
 
@@ -96,14 +84,6 @@ class AlbumCollectionView: UICollectionView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setCollectionViewLayout(UICollectionViewFlowLayout.albumCollectionViewFlowLayout, animated: true)
-    }
-    
-    override func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        super.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
-    }
-    
-    override func register(_ viewClass: AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) {
-        super.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
     }
     
     /// Registers the AlbumCollectionCell to this CollectionView

@@ -40,6 +40,8 @@
 		2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBB259A03590040E860 /* ImageViewController.swift */; };
 		2B823DBE259A497A0040E860 /* TextsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBD259A497A0040E860 /* TextsViewController.swift */; };
 		2B823DC0259B85D30040E860 /* TagsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */; };
+		2B823DC5259CD0E10040E860 /* NewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */; };
+		2B823DC6259CD0E10040E860 /* NewCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B823DC4259CD0E10040E860 /* NewCollectionCell.xib */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE7A257BF1C8002A626A /* CustomTextView.swift */; };
 		2B99FF802574309E008302FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FF7F2574309E008302FA /* AppDelegate.swift */; };
@@ -130,6 +132,8 @@
 		2B823DBB259A03590040E860 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		2B823DBD259A497A0040E860 /* TextsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsViewController.swift; sourceTree = "<group>"; };
 		2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewController.swift; sourceTree = "<group>"; };
+		2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCollectionCell.swift; sourceTree = "<group>"; };
+		2B823DC4259CD0E10040E860 /* NewCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewCollectionCell.xib; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B84AE7A257BF1C8002A626A /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2B99FF7C2574309E008302FA /* Cravy-Partner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cravy-Partner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +248,8 @@
 				2BFC750B25977AB4009A35AE /* AlbumCollectionCell.xib */,
 				2BFC750E25977ED7009A35AE /* BasicReusableView.swift */,
 				2BFC750F25977ED7009A35AE /* BasicReusableView.xib */,
+				2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */,
+				2B823DC4259CD0E10040E860 /* NewCollectionCell.xib */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 				2BFC750D25977AB4009A35AE /* AlbumCollectionCell.xib in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
 				2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */,
+				2B823DC6259CD0E10040E860 /* NewCollectionCell.xib in Resources */,
 				2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B61BE772593ADED00545E59 /* focus.json in Resources */,
@@ -641,6 +648,7 @@
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
 				2B61BE44258E89B100545E59 /* CustomLabel.swift in Sources */,
 				2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */,
+				2B823DC5259CD0E10040E860 /* NewCollectionCell.swift in Sources */,
 				2B060A282586CF5100F59CB5 /* ImageCollectionTableCell.swift in Sources */,
 				2B61BE41258E653700545E59 /* WidgetCollectionCell.swift in Sources */,
 				2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */,
