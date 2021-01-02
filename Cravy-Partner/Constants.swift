@@ -59,6 +59,8 @@ struct K {
         /// Returns "Provide a name of something that would most likely represent this product, it could be a cuisine or an ingredient."
         static let newTagDetail = "Provide a name of something that would most likely represent this product, it could be a cuisine or an ingredient."
         static let add = "ADD"
+        static let OK = "OK"
+        static let loading = "Loading..."
     }
     
     struct Identifier {

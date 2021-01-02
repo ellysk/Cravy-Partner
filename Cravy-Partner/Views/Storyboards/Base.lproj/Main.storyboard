@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rbz-u9-PR8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jel-R2-C5y">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -333,6 +333,140 @@
             </objects>
             <point key="canvasLocation" x="4183" y="-729"/>
         </scene>
+        <!--Link View Controller-->
+        <scene sceneID="sRT-Og-HB7">
+            <objects>
+                <viewController id="l6X-UI-Ogd" customClass="LinkViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ksk-b6-hR8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5Ve-MI-01T"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="d9X-3J-KLr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zhE-x5-p4X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4182.608695652174" y="-3.3482142857142856"/>
+        </scene>
+        <!--Cravy Web View Controller-->
+        <scene sceneID="k22-AS-GiO">
+            <objects>
+                <viewController id="Jel-R2-C5y" customClass="CravyWebViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9bl-VQ-CCd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9YV-JY-eVi" customClass="CravyWebView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="90" width="414" height="728"/>
+                                <color key="backgroundColor" name="light"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAG-ah-rRO">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="barTintColor" name="secondary"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" name="dark"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="The longest word i can think of is not even the longest word i can think of" id="zmf-XB-ebS">
+                                        <leftBarButtonItems>
+                                            <barButtonItem image="xmark" catalog="system" style="done" id="tVZ-t4-l5w">
+                                                <color key="tintColor" name="primary"/>
+                                                <connections>
+                                                    <action selector="dismiss:" destination="Jel-R2-C5y" id="aKu-if-XmT"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="lock.fill" catalog="system" id="ntQ-JX-jS4">
+                                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </barButtonItem>
+                                        </leftBarButtonItems>
+                                        <barButtonItem key="rightBarButtonItem" image="arrow.clockwise" catalog="system" style="done" id="ILy-db-JpL">
+                                            <color key="tintColor" name="primary"/>
+                                            <connections>
+                                                <action selector="reload:" destination="Jel-R2-C5y" id="dSS-Wa-umm"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7E9-kZ-C9b">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1Ux-Tj-HW9"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="v3H-Pf-jE6"/>
+                                    <barButtonItem tag="-1" image="chevron.left" catalog="system" style="done" id="onB-mc-qbB">
+                                        <color key="tintColor" name="primary"/>
+                                        <connections>
+                                            <action selector="navigate:" destination="Jel-R2-C5y" id="Yi8-jM-y2H"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="elR-FQ-bW2"/>
+                                    <barButtonItem tag="1" image="chevron.right" catalog="system" style="done" id="pyd-dM-yBg">
+                                        <color key="tintColor" red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="navigate:" destination="Jel-R2-C5y" id="mnR-G8-k5J"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="gDM-Lo-t2X"/>
+                                </items>
+                                <color key="barTintColor" name="secondary"/>
+                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZv-9H-PBa" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="177" y="802.5" width="60" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="L3X-wq-ZYG"/>
+                                    <constraint firstAttribute="height" constant="60" id="fku-Xd-ohO"/>
+                                </constraints>
+                                <color key="tintColor" name="primary"/>
+                                <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="linkAction:" destination="Jel-R2-C5y" eventType="touchUpInside" id="C3A-TP-LNP"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rZr-IB-kr6">
+                                <rect key="frame" x="0.0" y="88" width="414" height="2"/>
+                                <color key="progressTintColor" name="primary"/>
+                                <color key="trackTintColor" name="secondary"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" name="secondary"/>
+                        <constraints>
+                            <constraint firstItem="7E9-kZ-C9b" firstAttribute="trailing" secondItem="9YV-JY-eVi" secondAttribute="trailing" id="08j-rI-6Zc"/>
+                            <constraint firstAttribute="trailing" secondItem="rZr-IB-kr6" secondAttribute="trailing" id="3Qj-Vd-JyN"/>
+                            <constraint firstItem="7E9-kZ-C9b" firstAttribute="leading" secondItem="9YV-JY-eVi" secondAttribute="leading" id="3gC-ho-1gm"/>
+                            <constraint firstItem="VZv-9H-PBa" firstAttribute="centerX" secondItem="9bl-VQ-CCd" secondAttribute="centerX" id="9Dn-vU-iYW"/>
+                            <constraint firstItem="7E9-kZ-C9b" firstAttribute="bottom" secondItem="PLA-Zq-YmH" secondAttribute="bottom" id="ION-Kp-RT8"/>
+                            <constraint firstItem="TAG-ah-rRO" firstAttribute="trailing" secondItem="PLA-Zq-YmH" secondAttribute="trailing" id="Ib8-hS-RFk"/>
+                            <constraint firstItem="PLA-Zq-YmH" firstAttribute="bottom" secondItem="VZv-9H-PBa" secondAttribute="bottom" id="M7b-jr-3hX"/>
+                            <constraint firstItem="TAG-ah-rRO" firstAttribute="leading" secondItem="PLA-Zq-YmH" secondAttribute="leading" id="OgH-RG-MC6"/>
+                            <constraint firstItem="9YV-JY-eVi" firstAttribute="top" secondItem="rZr-IB-kr6" secondAttribute="bottom" id="UbD-EK-9XB"/>
+                            <constraint firstItem="TAG-ah-rRO" firstAttribute="top" secondItem="PLA-Zq-YmH" secondAttribute="top" id="VS9-vL-JS3"/>
+                            <constraint firstItem="rZr-IB-kr6" firstAttribute="leading" secondItem="9bl-VQ-CCd" secondAttribute="leading" id="XVw-1p-ihz"/>
+                            <constraint firstItem="7E9-kZ-C9b" firstAttribute="top" secondItem="9YV-JY-eVi" secondAttribute="bottom" id="YSl-Kj-O4I"/>
+                            <constraint firstItem="rZr-IB-kr6" firstAttribute="top" secondItem="TAG-ah-rRO" secondAttribute="bottom" id="ry7-Kf-nhO"/>
+                            <constraint firstItem="9YV-JY-eVi" firstAttribute="trailing" secondItem="PLA-Zq-YmH" secondAttribute="trailing" id="tIc-ms-hWH"/>
+                            <constraint firstItem="9YV-JY-eVi" firstAttribute="leading" secondItem="PLA-Zq-YmH" secondAttribute="leading" id="vgP-g0-126"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PLA-Zq-YmH"/>
+                    </view>
+                    <connections>
+                        <outlet property="cravyWebView" destination="9YV-JY-eVi" id="g2Q-Bv-N91"/>
+                        <outlet property="linkButton" destination="VZv-9H-PBa" id="bA1-vj-xbv"/>
+                        <outlet property="navigationBar" destination="TAG-ah-rRO" id="5wa-Ce-G7k"/>
+                        <outlet property="progressView" destination="rZr-IB-kr6" id="CbE-TU-wpQ"/>
+                        <outlet property="securityItem" destination="ntQ-JX-jS4" id="KFR-bS-Luv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xV5-Y7-VBa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5082.608695652174" y="-3.3482142857142856"/>
+        </scene>
         <!--Texts View Controller-->
         <scene sceneID="iIV-hD-b1v">
             <objects>
@@ -461,16 +595,22 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="bgimage" width="1024" height="1024"/>
         <image name="bolt.slash.fill" catalog="system" width="101" height="128"/>
         <image name="camera.rotate.fill" catalog="system" width="128" height="96"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="cravypartnerlogo" width="352" height="187"/>
+        <image name="lock.fill" catalog="system" width="128" height="128"/>
         <image name="mybusiness" width="23" height="23"/>
         <image name="mybusiness-filled" width="23" height="23"/>
         <image name="myproducts" width="23" height="23"/>
         <image name="myproducts-filled" width="23" height="23"/>
         <image name="newcrave" width="27.5" height="23"/>
         <image name="newcrave-filled" width="27.5" height="23"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -479,6 +619,9 @@
         </namedColor>
         <namedColor name="primary">
             <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary">
+            <color red="1" green="0.91764705882352937" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

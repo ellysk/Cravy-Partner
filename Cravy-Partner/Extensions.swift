@@ -704,6 +704,10 @@ extension Array where Element == String {
 
 //MARK: - String
 extension String {
+    var removeLeadingAndTrailingSpaces: String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
     func withFont(font: UIFont) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: self)
         attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: attributedString.length))
@@ -785,6 +789,34 @@ extension DateFormatter {
     
     return formatter
   }
+}
+
+//MARK:- URLError.code
+extension URLError.Code {
+    var title: String {
+        switch self {
+        case .timedOut:
+            return "Poor network connection"
+        case .notConnectedToInternet:
+            return "No internet connection"
+        case .unknown:
+            return "Something went wrong"
+        default:
+            return "Something went wrong"
+        }
+    }
+    var description: String {
+        switch self {
+        case .timedOut:
+            return "Your connection timed out. Make sure you have a good internet connection and try again."
+        case .notConnectedToInternet:
+            return "The Internet connection appears to be offline. Make sure you have turned off your airplane mode or your mobile data is on."
+        case .unknown:
+            return "Please check your internet connection"
+        default:
+            return "Please check your internet connection"
+        }
+    }
 }
 
 /* -------------- COCOAPODS EXTENSIONS -------------- */

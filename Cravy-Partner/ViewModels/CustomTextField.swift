@@ -10,14 +10,17 @@ import UIKit
 
 /// A subclass of UITextField that overrides the textRect and editingRect to have a larger inset value.
 class CravyTextField: UITextField {
+    private var leftInset: CGFloat {
+        let left: CGFloat = self.leftView == nil ? 8 : 24
+        return left
+    }
+    
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        let dx: CGFloat = self.leftView == nil ? 8 : 24
-        return bounds.insetBy(dx: dx, dy: 8);
+        return bounds.inset(by: UIEdgeInsets(top: 8, left: leftInset, bottom: 8, right: 8))
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        let dx: CGFloat = self.leftView == nil ? 8 : 24
-        return bounds.insetBy(dx: dx, dy: 8);
+        return bounds.inset(by: UIEdgeInsets(top: 8, left: leftInset, bottom: 8, right: 8))
     }
     
     /// Sets the placeholder of the textfield with custom style of a dark color with an alpha value of 0.5

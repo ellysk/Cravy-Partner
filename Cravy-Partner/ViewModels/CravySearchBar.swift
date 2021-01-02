@@ -13,8 +13,15 @@ import UIKit
 class CravySearchBar: UIView {
     private var textField = CravyTextField()
     private var filterButton = RoundButton(roundFactor: 5)
-    private var CSBTintColor: UIColor! {
-        return K.Color.primary
+    private let CSBTintColor: UIColor = K.Color.primary
+    var isFilterHidden: Bool {
+        set {
+            filterButton.isHidden = newValue
+        }
+        
+        get {
+            return filterButton.isHidden
+        }
     }
     
     init() {
@@ -41,7 +48,7 @@ class CravySearchBar: UIView {
     
     private func setCravySearchBarView() {
         let hStackView = UIStackView(arrangedSubviews: [textField, filterButton])
-        hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 8)
+        hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 0)
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         filterButton.widthAnchor(of: 70)
         
@@ -65,6 +72,10 @@ class CravySearchBar: UIView {
         filterButton.titleLabel?.font = UIFont.mediumItalic.small
         filterButton.setTitleColor(K.Color.light, for: .normal)
         filterButton.backgroundColor = CSBTintColor.withAlphaComponent(0.8)
+    }
+    
+    func setPlaceholder(_ placeholder: String, color: UIColor) {
+        textField.setPlaceholder(placeholder, placeholderTextColor: color)
     }
     
     @objc func showFilters(_ sender: UIButton) {
