@@ -61,6 +61,8 @@ struct K {
         static let add = "ADD"
         static let OK = "OK"
         static let loading = "Loading..."
+        static let linkActionTitle = "Is this the web page you would like to use for linking your product?"
+        static let addLink = "Add link"
     }
     
     struct Identifier {

@@ -401,7 +401,7 @@
                                 <items>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="v3H-Pf-jE6"/>
                                     <barButtonItem tag="-1" image="chevron.left" catalog="system" style="done" id="onB-mc-qbB">
-                                        <color key="tintColor" name="primary"/>
+                                        <color key="tintColor" red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="navigate:" destination="Jel-R2-C5y" id="Yi8-jM-y2H"/>
                                         </connections>
@@ -456,10 +456,13 @@
                         <viewLayoutGuide key="safeArea" id="PLA-Zq-YmH"/>
                     </view>
                     <connections>
+                        <outlet property="backLinkButton" destination="onB-mc-qbB" id="Tx6-bZ-Wlt"/>
                         <outlet property="cravyWebView" destination="9YV-JY-eVi" id="g2Q-Bv-N91"/>
+                        <outlet property="forwardLinkButton" destination="pyd-dM-yBg" id="65s-zP-rRr"/>
                         <outlet property="linkButton" destination="VZv-9H-PBa" id="bA1-vj-xbv"/>
                         <outlet property="navigationBar" destination="TAG-ah-rRO" id="5wa-Ce-G7k"/>
                         <outlet property="progressView" destination="rZr-IB-kr6" id="CbE-TU-wpQ"/>
+                        <outlet property="reloadItem" destination="ILy-db-JpL" id="iFU-TA-2Im"/>
                         <outlet property="securityItem" destination="ntQ-JX-jS4" id="KFR-bS-Luv"/>
                     </connections>
                 </viewController>

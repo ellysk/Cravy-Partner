@@ -18,29 +18,40 @@ class CravyWebView: WKWebView, WKNavigationDelegate {
     
     /// Loads up the web content by generating a URL based of the string provided. Handles unsupportedURL error by querying the string using the google search engine.
     /// - Parameters:
-    ///   - completionHandler: returns true if content can be loaded up from the internet.
-    func load(_ string: String, completionHandler: @escaping (Bool)->()) {
-        let urlString = string.replacingOccurrences(of: " ", with: "+")
+    ///   - completionHandler: returns true if content can be loaded up from the internet and a URLError code if recognized.
+    func load(_ string: String, taskHandler: @escaping (Bool, URLError.Code?)->()) {
+        let urlString = string.replacingOccurrences(of: " ", with: "%20") //Prevent bad url format by replacing spaces with proper string protocol.
         
+        //Check if url is available.
         guard let url = URL(string: urlString) else {
-            completionHandler(false)
+            taskHandler(false, nil)
             return
         }
         
         let task = session.dataTask(with: url) { (data, response, error) in
             if let e = error {
-                if let URLError = e as? URLError, URLError.code == .unsupportedURL {
-                    self.query(urlString) { (isCompleted) in
-                        completionHandler(isCompleted)
+                //Error has occured.
+                if let URLError = e as? URLError {
+                    if URLError.code == .unsupportedURL {
+                        //This error could mean that the user has entered a search query text that produces a bad url format therefore we query using the queryURL.
+                        self.query(urlString) { (isCompleted) in
+                            taskHandler(isCompleted, nil)
+                        }
+                    } else if URLError.code == .appTransportSecurityRequiresSecureConnection {
+                        //User is trying to access an http web page.
+                        self.handleURLError(e) { (code) in
+                            taskHandler(false, code)
+                        }
                     }
                 }
             } else if let data = data, let response = response {
-                completionHandler(true)
+                //Task completed successfully.
+                taskHandler(true, nil)
                 DispatchQueue.main.async {
                     self.load(data, mimeType: response.mimeType ?? "", characterEncodingName: response.textEncodingName ?? "", baseURL: url)
                 }
             } else {
-                completionHandler(false)
+                taskHandler(false, nil)
             }
         }
         task.resume()

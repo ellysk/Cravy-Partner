@@ -800,9 +800,11 @@ extension URLError.Code {
         case .notConnectedToInternet:
             return "No internet connection"
         case .unknown:
-            return "Something went wrong"
+            return "Oops!"
+        case .appTransportSecurityRequiresSecureConnection:
+            return "Not secure"
         default:
-            return "Something went wrong"
+            return "Oops!"
         }
     }
     var description: String {
@@ -813,6 +815,8 @@ extension URLError.Code {
             return "The Internet connection appears to be offline. Make sure you have turned off your airplane mode or your mobile data is on."
         case .unknown:
             return "Please check your internet connection"
+        case .appTransportSecurityRequiresSecureConnection:
+            return "Sorry we can not allow you to access this web page as it is not secure."
         default:
             return "Please check your internet connection"
         }
