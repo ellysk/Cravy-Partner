@@ -274,7 +274,6 @@ extension UIViewController {
                     self.view.addSubview(CSB)
                     CSB.translatesAutoresizingMaskIntoConstraints = false
                     CSB.topAnchor(to: self.view.safeAreaLayoutGuide)
-                    CSB.centerXAnchor(to: self.view)
                     CSB.HConstraint(to: self.view, constant: 8)
                 }
             }
@@ -503,6 +502,15 @@ extension UITableView {
 
 //MARK: - UIImageView
 extension UIImageView {
+    /// Returns a blurred image visual
+    var blurredImageView: UIVisualEffectView {
+        let blurEfffect = UIBlurEffect(style: .dark)
+        let blurredEffectView = UIVisualEffectView(effect: blurEfffect)
+        blurredEffectView.frame = self.bounds
+        
+        return blurredEffectView
+    }
+    
     /// Returns a view that contains the the image view.
     func withPlaceholderView(placeholderBackgroundColor: UIColor = K.Color.dark) -> UIView {
         self.alpha = 0.5
@@ -525,6 +533,7 @@ extension UIImageView {
         
         return bgView
     }
+    
 }
 
 //MARK: - UIAlertController

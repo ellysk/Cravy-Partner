@@ -9,12 +9,13 @@
 import UIKit
 import WebKit
 
+/// Handles the input of a website link.
 class LinkViewController: UIViewController {
+    @IBOutlet weak var searchBar: CravySearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showsCravySearchBar = true
-        self.cravySearchBar!.setPlaceholder("Enter a link or search", color: K.Color.light.withAlphaComponent(0.5))
-        self.cravySearchBar!.isFilterHidden = true
+        searchBar.setPlaceholder(K.UIConstant.linkSearchPlaceholder, color: K.Color.light.withAlphaComponent(0.5))
+        searchBar.isFilterHidden = true
     }
 }

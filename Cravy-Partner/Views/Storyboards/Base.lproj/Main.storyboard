@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jel-R2-C5y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JOy-Df-EyH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -249,18 +249,18 @@
             </objects>
             <point key="canvasLocation" x="1800.0000000000002" y="643.52678571428567"/>
         </scene>
-        <!--View Controller-->
+        <!--New Product Views Controller-->
         <scene sceneID="tW8-ed-A9W">
             <objects>
-                <viewController id="JOy-Df-EyH" sceneMemberID="viewController">
+                <viewController id="JOy-Df-EyH" customClass="NewProductViewsController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DLr-GQ-tfF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S4D-GP-cZe">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgimage" translatesAutoresizingMaskIntoConstraints="NO" id="S4D-GP-cZe">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSh-cw-1Ex">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSh-cw-1Ex" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
                                 <rect key="frame" x="147" y="809" width="120" height="45"/>
                                 <color key="backgroundColor" name="primary"/>
                                 <constraints>
@@ -271,14 +271,33 @@
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" name="light"/>
                                 </state>
+                                <connections>
+                                    <action selector="action:" destination="JOy-Df-EyH" eventType="touchUpInside" id="c5w-2B-Yfr"/>
+                                </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTc-Nm-zsO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="749"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="705"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="CMb-cg-JYs" kind="embed" id="51k-L5-0l5"/>
+                                    <segue destination="CMb-cg-JYs" kind="embed" identifier="toNewProductPageVC" id="51k-L5-0l5"/>
                                 </connections>
                             </containerView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCR-JV-PYe">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem id="hiX-3a-iR7">
+                                        <barButtonItem key="leftBarButtonItem" title="Previous" style="done" id="FE9-aK-OJV">
+                                            <color key="tintColor" name="primary"/>
+                                            <connections>
+                                                <action selector="previous:" destination="JOy-Df-EyH" id="yt4-ch-VDn"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="B6m-d3-BkC">
+                                            <color key="tintColor" name="primary"/>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -286,24 +305,33 @@
                             <constraint firstItem="VTc-Nm-zsO" firstAttribute="leading" secondItem="Cqo-bk-zSA" secondAttribute="leading" id="8Ti-8y-SBE"/>
                             <constraint firstItem="S4D-GP-cZe" firstAttribute="trailing" secondItem="Cqo-bk-zSA" secondAttribute="trailing" id="Nat-SA-qkc"/>
                             <constraint firstAttribute="bottom" secondItem="S4D-GP-cZe" secondAttribute="bottom" id="b0n-Op-uL7"/>
+                            <constraint firstItem="VTc-Nm-zsO" firstAttribute="top" secondItem="gCR-JV-PYe" secondAttribute="bottom" id="bLC-JL-HKz"/>
+                            <constraint firstItem="gCR-JV-PYe" firstAttribute="leading" secondItem="Cqo-bk-zSA" secondAttribute="leading" id="bN0-zd-gzO"/>
                             <constraint firstItem="wSh-cw-1Ex" firstAttribute="bottom" secondItem="Cqo-bk-zSA" secondAttribute="bottom" constant="-8" id="kjK-Mo-x1q"/>
-                            <constraint firstItem="VTc-Nm-zsO" firstAttribute="top" secondItem="Cqo-bk-zSA" secondAttribute="top" id="la4-dp-xb1"/>
+                            <constraint firstItem="gCR-JV-PYe" firstAttribute="trailing" secondItem="Cqo-bk-zSA" secondAttribute="trailing" id="prA-L5-68g"/>
                             <constraint firstItem="S4D-GP-cZe" firstAttribute="leading" secondItem="Cqo-bk-zSA" secondAttribute="leading" id="se9-lR-aGi"/>
                             <constraint firstItem="S4D-GP-cZe" firstAttribute="top" secondItem="DLr-GQ-tfF" secondAttribute="top" id="uhK-Lc-Amq"/>
+                            <constraint firstItem="gCR-JV-PYe" firstAttribute="top" secondItem="Cqo-bk-zSA" secondAttribute="top" id="v1j-YQ-0Pu"/>
                             <constraint firstItem="VTc-Nm-zsO" firstAttribute="trailing" secondItem="Cqo-bk-zSA" secondAttribute="trailing" id="xnh-5C-wPj"/>
                             <constraint firstItem="wSh-cw-1Ex" firstAttribute="top" secondItem="VTc-Nm-zsO" secondAttribute="bottom" constant="16" id="yk3-Ah-8Rk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Cqo-bk-zSA"/>
                     </view>
+                    <connections>
+                        <outlet property="actionButton" destination="wSh-cw-1Ex" id="CEz-cN-J6a"/>
+                        <outlet property="bgImage" destination="S4D-GP-cZe" id="Tqc-Yh-L6r"/>
+                        <outlet property="navigationBar" destination="gCR-JV-PYe" id="CrE-F4-oyW"/>
+                        <outlet property="previousItem" destination="FE9-aK-OJV" id="ZNc-XG-DJb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VPs-UX-RdS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2417.3913043478265" y="-1411.6071428571429"/>
         </scene>
-        <!--Page View Controller-->
+        <!--New Product Page Controller-->
         <scene sceneID="kjA-IL-X14">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="CMb-cg-JYs" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="CMb-cg-JYs" customClass="NewProductPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oa1-h9-DdQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3248" y="-1173"/>
@@ -311,7 +339,7 @@
         <!--Tags Collection View Controller-->
         <scene sceneID="MMl-4V-KLd">
             <objects>
-                <collectionViewController id="rbz-u9-PR8" customClass="TagsCollectionViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="tagsCollectionVC" id="rbz-u9-PR8" customClass="TagsCollectionViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Fk3-5r-fEs" customClass="VerticalTagsCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,14 +364,31 @@
         <!--Link View Controller-->
         <scene sceneID="sRT-Og-HB7">
             <objects>
-                <viewController id="l6X-UI-Ogd" customClass="LinkViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="linkVC" id="l6X-UI-Ogd" customClass="LinkViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ksk-b6-hR8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T51-6c-MMf" customClass="CravySearchBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="8" y="60" width="398" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="htZ-yB-Mti"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="T51-6c-MMf" firstAttribute="trailing" secondItem="5Ve-MI-01T" secondAttribute="trailing" constant="-8" id="kXi-ZD-Zlz"/>
+                            <constraint firstItem="T51-6c-MMf" firstAttribute="top" secondItem="5Ve-MI-01T" secondAttribute="top" constant="16" id="muI-L2-lmn"/>
+                            <constraint firstItem="T51-6c-MMf" firstAttribute="leading" secondItem="5Ve-MI-01T" secondAttribute="leading" constant="8" id="rqz-ud-9kj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5Ve-MI-01T"/>
                     </view>
                     <navigationItem key="navigationItem" id="d9X-3J-KLr"/>
+                    <connections>
+                        <outlet property="searchBar" destination="T51-6c-MMf" id="RGp-3A-CH2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhE-x5-p4X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -473,22 +518,22 @@
         <!--Texts View Controller-->
         <scene sceneID="iIV-hD-b1v">
             <objects>
-                <viewController id="ua5-1n-zVW" customClass="TextsViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="textsVC" id="ua5-1n-zVW" customClass="TextsViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f0z-xy-hTo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Mwy-w2-Szn" customClass="TextStackView" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="8" y="273" width="398" height="350"/>
+                                <rect key="frame" x="8" y="60" width="398" height="350"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="lFg-tz-4NA"/>
+                                    <constraint firstAttribute="height" constant="350" id="Nmy-gI-X2r"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="AlJ-fq-xe2" firstAttribute="trailing" secondItem="Mwy-w2-Szn" secondAttribute="trailing" constant="8" id="G5i-ca-eSU"/>
-                            <constraint firstItem="Mwy-w2-Szn" firstAttribute="centerY" secondItem="f0z-xy-hTo" secondAttribute="centerY" id="VJ9-xp-byy"/>
+                            <constraint firstItem="Mwy-w2-Szn" firstAttribute="top" secondItem="AlJ-fq-xe2" secondAttribute="top" constant="16" id="diO-Xo-ZJC"/>
                             <constraint firstItem="Mwy-w2-Szn" firstAttribute="leading" secondItem="AlJ-fq-xe2" secondAttribute="leading" constant="8" id="sKT-BT-Bmo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AlJ-fq-xe2"/>

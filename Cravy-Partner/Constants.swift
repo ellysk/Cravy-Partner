@@ -63,6 +63,7 @@ struct K {
         static let loading = "Loading..."
         static let linkActionTitle = "Is this the web page you would like to use for linking your product?"
         static let addLink = "Add link"
+        static let linkSearchPlaceholder = "Enter a link or search"
     }
     
     struct Identifier {
@@ -101,6 +102,13 @@ struct K {
         
         struct Segue {
             static let toAlbumPageController = "toAlbumPageController"
+            static let toNewProductPageVC = "toNewProductPageVC"
+        }
+        
+        struct StoryboardID {
+            static let textsVC = "textsVC"
+            static let tagsCollectionVC = "tagsCollectionVC"
+            static let linkVC = "linkVC"
         }
     }
     
@@ -164,5 +172,15 @@ struct K {
         static let comingSoon: UIImage = UIImage(named: "comingsoon")!
         static let flashOn: UIImage = UIImage(systemName: "bolt.fill")!
         static let flashOff: UIImage = UIImage(systemName: "bolt.slash.fill")!
+    }
+    
+    struct StoryBoard {
+        static let main: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    }
+    
+    struct Controller {
+        static let textsViewController: TextsViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.textsVC) as! TextsViewController
+        static let tagsCollectionViewController: TagsCollectionViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.tagsCollectionVC) as! TagsCollectionViewController
+        static let linkViewController: LinkViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.linkVC) as! LinkViewController
     }
 }

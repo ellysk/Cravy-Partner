@@ -15,6 +15,8 @@
 		2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */; };
 		2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicTableCell.swift */; };
 		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
+		2B267EDD25A131E800478726 /* NewProductPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EDC25A131E800478726 /* NewProductPageController.swift */; };
+		2B267EDF25A13FE600478726 /* NewProductViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EDE25A13FE600478726 /* NewProductViewsController.swift */; };
 		2B61BE3E258E4AA200545E59 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE3D258E4AA200545E59 /* ProductController.swift */; };
 		2B61BE41258E653700545E59 /* WidgetCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE3F258E653700545E59 /* WidgetCollectionCell.swift */; };
 		2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */; };
@@ -113,6 +115,8 @@
 		2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionTableCell.xib; sourceTree = "<group>"; };
 		2B060A30258809E000F59CB5 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
+		2B267EDC25A131E800478726 /* NewProductPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductPageController.swift; sourceTree = "<group>"; };
+		2B267EDE25A13FE600478726 /* NewProductViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductViewsController.swift; sourceTree = "<group>"; };
 		2B61BE3D258E4AA200545E59 /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 		2B61BE3F258E653700545E59 /* WidgetCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCollectionCell.swift; sourceTree = "<group>"; };
 		2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetCollectionCell.xib; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 				2B823DCB259D1D420040E860 /* PopViewController.swift */,
 				2B823DCD259D37650040E860 /* LinkViewController.swift */,
 				2B823DCF259FFAFF0040E860 /* CravyWebViewController.swift */,
+				2B267EDC25A131E800478726 /* NewProductPageController.swift */,
+				2B267EDE25A13FE600478726 /* NewProductViewsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -692,6 +698,7 @@
 				2B61BE752593927B00545E59 /* NewProductController.swift in Sources */,
 				2B7DF492258A375100AA1337 /* CustomStackView.swift in Sources */,
 				2B61BE502590FA9500545E59 /* SettingsTableController.swift in Sources */,
+				2B267EDD25A131E800478726 /* NewProductPageController.swift in Sources */,
 				2B99FFB62574543A008302FA /* Constants.swift in Sources */,
 				2B62D9882588FC2B00C7E948 /* ToggleTableCell.swift in Sources */,
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
@@ -706,6 +713,7 @@
 				2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */,
 				2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */,
 				2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */,
+				2B267EDF25A13FE600478726 /* NewProductViewsController.swift in Sources */,
 				2BFC75172597BD57009A35AE /* AlbumPageController.swift in Sources */,
 				2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */,
 				2BC0C6A1257810C2004BA3CA /* CustomView.swift in Sources */,
