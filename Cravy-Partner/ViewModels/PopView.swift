@@ -53,7 +53,7 @@ class PopView: RoundView {
         }
     }
     
-    init(title: String?, detail: String, actionTitle: String = "CONFIRM") {
+    init(title: String?, detail: String, actionTitle: String = K.UIConstant.confirm) {
         super.init(frame: .zero, roundFactor: 10)
         self.title = title
         self.detail = detail

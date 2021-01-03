@@ -10,8 +10,8 @@ import UIKit
 
 /// A vertical stack view that displays two textfields that handle email input and password input respectively and a RoundButton to trigger action for the inputs provided all.
 class AuthStackView: UIStackView {
-    var emailTextField = RoundTextField(placeholder: "Email")
-    var passwordTextField = RoundTextField(placeholder: "Password")
+    var emailTextField = RoundTextField(placeholder: K.UIConstant.email)
+    var passwordTextField = RoundTextField(placeholder: K.UIConstant.password)
     private var authButton = RoundButton()
     
     init() {
@@ -50,7 +50,7 @@ class AuthStackView: UIStackView {
     }
     
     private func setAuthButton() {
-        authButton.setTitle("LOGIN", for: .normal)
+        authButton.setTitle(K.UIConstant.login, for: .normal)
         authButton.titleLabel?.font = UIFont.bold.medium
         authButton.setTitleColor(K.Color.light, for: .normal)
         authButton.backgroundColor = K.Color.primary

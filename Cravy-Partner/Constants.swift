@@ -10,6 +10,7 @@ import UIKit
 
 struct K {
     
+    //MARK:- UIConstant
     struct UIConstant {
         /// Returns "Search for your products..."
         static let searchProductsPlaceholder: String = "Search for your products..."
@@ -64,8 +65,16 @@ struct K {
         static let linkActionTitle = "Is this the web page you would like to use for linking your product?"
         static let addLink = "Add link"
         static let linkSearchPlaceholder = "Enter a link or search"
+        static let searches = "search appearances"
+        static let views = "views"
+        static let visits = "visits"
+        static let email = "Email"
+        static let password = "Passowrd"
+        static let login = "LOGIN"
+        static let confirm = "CONFIRM"
     }
     
+    //MARK:- Identifier
     struct Identifier {
         struct CollectionViewCell {
             /// A resuable identifier for the CraveCollectionCell
@@ -87,6 +96,7 @@ struct K {
             }
         }
         
+        //MARK:- TableViewCell
         struct TableViewCell {
             /// A reusable identifier for the GalleryTableCell
             static let galleryCell = "galleryCell"
@@ -100,11 +110,13 @@ struct K {
             static let toggleCell = "toggleCell"
         }
         
+        //MARK:- Segue
         struct Segue {
             static let toAlbumPageController = "toAlbumPageController"
             static let toNewProductPageVC = "toNewProductPageVC"
         }
         
+        //MARK:- StoryboardID
         struct StoryboardID {
             static let textsVC = "textsVC"
             static let tagsCollectionVC = "tagsCollectionVC"
@@ -112,6 +124,7 @@ struct K {
         }
     }
     
+    //MARK:- Collections
     struct Collections {
         /// Returns ["Cook", "Present", "Track"]
         static let introSections = ["Cook", "Present", "Track"]
@@ -135,6 +148,7 @@ struct K {
         static let twoFactorAuthenticationSettings = [Setting(title: "Send via Email", detail: nil), Setting(title: "Send via SMS", detail: nil), Setting(title: "Ask password", detail: "Asks you for the password every time the app goes in background for more than one minute.")]
     }
     
+    //MARK:- Color
     struct Color {
         static let primary: UIColor = UIColor(named: "primary") ?? .orange
         static let secondary: UIColor = UIColor(named: "secondary") ?? .orange
@@ -144,6 +158,7 @@ struct K {
         static let important: UIColor = UIColor(named: "important") ?? .red
     }
     
+    //MARK:- Size
     struct Size {
         /// Returns a size of 40
         static let CRAVY_SEARCH_BAR_HEIGHT: CGFloat = 40
@@ -151,6 +166,7 @@ struct K {
         static let CRAVY_TOOL_BAR_HEIGHT: CGFloat = 30
     }
     
+    //MARK:- ViewTag
     struct ViewTag {
         /// Returns a tag value of 11
         static let CRAVY_SEARCH_BAR: Int = 11
@@ -158,6 +174,7 @@ struct K {
         static let FLOATER_VIEW: Int = 22
     }
     
+    //MARK:- Image
     struct Image {
         static let ellipsisCricleFill: UIImage = UIImage(systemName: "ellipsis.circle.fill")!
         static let pencilCircleFill : UIImage = UIImage(systemName: "pencil.circle.fill")!
@@ -174,13 +191,18 @@ struct K {
         static let flashOff: UIImage = UIImage(systemName: "bolt.slash.fill")!
     }
     
+    //MARK:- StoryBoard
     struct StoryBoard {
         static let main: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        static let product: UIStoryboard = UIStoryboard(name: "Product", bundle: nil)
+        static let settings: UIStoryboard = UIStoryboard(name: "Settings", bundle: nil)
+        static let newProduct: UIStoryboard = UIStoryboard(name: "NewProduct", bundle: nil)
     }
     
+    //MARK:- Controller
     struct Controller {
-        static let textsViewController: TextsViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.textsVC) as! TextsViewController
-        static let tagsCollectionViewController: TagsCollectionViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.tagsCollectionVC) as! TagsCollectionViewController
-        static let linkViewController: LinkViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.linkVC) as! LinkViewController
+        static let textsViewController: TextsViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.textsVC) as! TextsViewController
+        static let tagsCollectionViewController: TagsCollectionViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.tagsCollectionVC) as! TagsCollectionViewController
+        static let linkViewController: LinkViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.linkVC) as! LinkViewController
     }
 }

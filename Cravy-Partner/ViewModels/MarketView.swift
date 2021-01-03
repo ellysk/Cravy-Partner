@@ -36,7 +36,7 @@ class MarketView: UIView {
     var numberOfSearches: Int {
         set {
             searches = newValue
-            searchContentView.content = "\(newValue) search appearances"
+            searchContentView.content = "\(newValue) \(K.UIConstant.searches)"
         }
         
         get {
@@ -46,7 +46,7 @@ class MarketView: UIView {
     /// The content related to number of views.
     var nuberOfViews: Int {
         set {
-            viewsContentView.content = "\(newValue) views"
+            viewsContentView.content = "\(newValue) \(K.UIConstant.views)"
         }
         
         get {
@@ -56,7 +56,7 @@ class MarketView: UIView {
     /// The content related to number of visits.
     var numberOfVisits: Int {
         set {
-            linksContentView.content = "\(newValue) visits"
+            linksContentView.content = "\(newValue) \(K.UIConstant.visits)"
         }
         
         get {

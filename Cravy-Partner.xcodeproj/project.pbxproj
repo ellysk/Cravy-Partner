@@ -17,6 +17,7 @@
 		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
 		2B267EDD25A131E800478726 /* NewProductPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EDC25A131E800478726 /* NewProductPageController.swift */; };
 		2B267EDF25A13FE600478726 /* NewProductViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EDE25A13FE600478726 /* NewProductViewsController.swift */; };
+		2B267EE125A1D74900478726 /* Album.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B267EE025A1D74900478726 /* Album.storyboard */; };
 		2B61BE3E258E4AA200545E59 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE3D258E4AA200545E59 /* ProductController.swift */; };
 		2B61BE41258E653700545E59 /* WidgetCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61BE3F258E653700545E59 /* WidgetCollectionCell.swift */; };
 		2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */; };
@@ -117,6 +118,7 @@
 		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
 		2B267EDC25A131E800478726 /* NewProductPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductPageController.swift; sourceTree = "<group>"; };
 		2B267EDE25A13FE600478726 /* NewProductViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductViewsController.swift; sourceTree = "<group>"; };
+		2B267EE025A1D74900478726 /* Album.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Album.storyboard; sourceTree = "<group>"; };
 		2B61BE3D258E4AA200545E59 /* ProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 		2B61BE3F258E653700545E59 /* WidgetCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCollectionCell.swift; sourceTree = "<group>"; };
 		2B61BE40258E653700545E59 /* WidgetCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetCollectionCell.xib; sourceTree = "<group>"; };
@@ -231,6 +233,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B267EE225A1D91200478726 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2B99FF832574309E008302FA /* SplashController.swift */,
+				2B7DF48D258A0C1400AA1337 /* IntroController.swift */,
+				2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */,
+				2B7DF493258A996200AA1337 /* CravyTabBarController.swift */,
+				2B7DF495258A99FF00AA1337 /* MyProductsController.swift */,
+				2B61BE742593927B00545E59 /* NewProductController.swift */,
+				2B61BE45258FF12100545E59 /* BusinessController.swift */,
+				2B823DCF259FFAFF0040E860 /* CravyWebViewController.swift */,
+				2B823DCB259D1D420040E860 /* PopViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2B267EE325A1D99100478726 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				2B61BE3D258E4AA200545E59 /* ProductController.swift */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		2B267EE425A1D9AF00478726 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2B61BE492590DA4D00545E59 /* SettingsController.swift */,
+				2B61BE4B2590DF7B00545E59 /* AccountController.swift */,
+				2B61BE4F2590FA9500545E59 /* SettingsTableController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2B267EE525A1D9CC00478726 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				2BFC75122597808C009A35AE /* AlbumCollectionViewController.swift */,
+				2BFC75162597BD57009A35AE /* AlbumPageController.swift */,
+				2BFC751A2597C1A5009A35AE /* AlbumController.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		2B267EE625A1DA2300478726 /* NewProduct */ = {
+			isa = PBXGroup;
+			children = (
+				2B823DBB259A03590040E860 /* ImageViewController.swift */,
+				2B823DBD259A497A0040E860 /* TextsViewController.swift */,
+				2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */,
+				2B823DCD259D37650040E860 /* LinkViewController.swift */,
+				2B267EDC25A131E800478726 /* NewProductPageController.swift */,
+				2B267EDE25A13FE600478726 /* NewProductViewsController.swift */,
+			);
+			path = NewProduct;
+			sourceTree = "<group>";
+		};
 		2B61BE5125911C9000545E59 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +298,7 @@
 				2B77137D258BD33E00C6C9F0 /* Product.storyboard */,
 				2B61BE472590D56400545E59 /* Settings.storyboard */,
 				2BFC75142597BB5B009A35AE /* NewProduct.storyboard */,
+				2B267EE025A1D74900478726 /* Album.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -352,28 +412,11 @@
 		2B99FFB8257457A8008302FA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2B99FF832574309E008302FA /* SplashController.swift */,
-				2B7DF48D258A0C1400AA1337 /* IntroController.swift */,
-				2B7DF48F258A1C0700AA1337 /* IntroPageController.swift */,
-				2B7DF493258A996200AA1337 /* CravyTabBarController.swift */,
-				2B7DF495258A99FF00AA1337 /* MyProductsController.swift */,
-				2B61BE3D258E4AA200545E59 /* ProductController.swift */,
-				2B61BE45258FF12100545E59 /* BusinessController.swift */,
-				2B61BE492590DA4D00545E59 /* SettingsController.swift */,
-				2B61BE4B2590DF7B00545E59 /* AccountController.swift */,
-				2B61BE4F2590FA9500545E59 /* SettingsTableController.swift */,
-				2B61BE742593927B00545E59 /* NewProductController.swift */,
-				2BFC75122597808C009A35AE /* AlbumCollectionViewController.swift */,
-				2BFC75162597BD57009A35AE /* AlbumPageController.swift */,
-				2BFC751A2597C1A5009A35AE /* AlbumController.swift */,
-				2B823DBB259A03590040E860 /* ImageViewController.swift */,
-				2B823DBD259A497A0040E860 /* TextsViewController.swift */,
-				2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */,
-				2B823DCB259D1D420040E860 /* PopViewController.swift */,
-				2B823DCD259D37650040E860 /* LinkViewController.swift */,
-				2B823DCF259FFAFF0040E860 /* CravyWebViewController.swift */,
-				2B267EDC25A131E800478726 /* NewProductPageController.swift */,
-				2B267EDE25A13FE600478726 /* NewProductViewsController.swift */,
+				2B267EE225A1D91200478726 /* Main */,
+				2B267EE325A1D99100478726 /* Product */,
+				2B267EE425A1D9AF00478726 /* Settings */,
+				2B267EE525A1D9CC00478726 /* Album */,
+				2B267EE625A1DA2300478726 /* NewProduct */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -543,6 +586,7 @@
 				2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */,
 				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
 				2BFC750D25977AB4009A35AE /* AlbumCollectionCell.xib in Resources */,
+				2B267EE125A1D74900478726 /* Album.storyboard in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
 				2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */,
 				2B823DC6259CD0E10040E860 /* NewCollectionCell.xib in Resources */,
