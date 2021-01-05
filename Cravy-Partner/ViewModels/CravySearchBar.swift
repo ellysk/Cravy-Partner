@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol CravySearchBarDelegate {
+    func willPresentFilterAlertController(alertController: UIAlertController)
+}
 
 /// A custom search bar view that lets you search and filter data.
 class CravySearchBar: UIView {
@@ -23,6 +26,7 @@ class CravySearchBar: UIView {
             return filterButton.isHidden
         }
     }
+    var delegate: CravySearchBarDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -47,6 +51,7 @@ class CravySearchBar: UIView {
     }
     
     private func setCravySearchBarView() {
+        filterButton.addTarget(self, action: #selector(showFilters(_:)), for: .touchUpInside)
         let hStackView = UIStackView(arrangedSubviews: [textField, filterButton])
         hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 0)
         filterButton.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +70,7 @@ class CravySearchBar: UIView {
         textField.leftViewMode = .always
         textField.setPlaceholder(K.UIConstant.searchProductsPlaceholder)
         textField.font = UIFont.regular.small
+        textField.returnKeyType = .search
         textField.textColor = K.Color.dark
         textField.tintColor = CSBTintColor
         
@@ -101,6 +107,6 @@ class CravySearchBar: UIView {
         
         alertController.pruneNegativeWidthConstraints()
         
-        //TODO
+        self.delegate?.willPresentFilterAlertController(alertController: alertController)
     }
 }

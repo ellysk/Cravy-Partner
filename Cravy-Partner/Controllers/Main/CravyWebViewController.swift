@@ -129,7 +129,6 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
     private func alert(title: String, description: String) {
         //TODO
         let popView = PopView(title: title, detail: description, actionTitle: K.UIConstant.OK)
-        popView.isTextFieldHidden = true
         let popViewController = PopViewController(popView: popView)
         self.present(popViewController, animated: true)
     }

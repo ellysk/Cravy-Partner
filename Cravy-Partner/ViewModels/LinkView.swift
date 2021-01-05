@@ -11,7 +11,7 @@ import UIKit
 /// A custom view that portrays a link to the related website.
 class LinkView: UIView {
     /// The button that is triggered when the user taps in this view
-    private var linkButton = RoundButton()
+    var linkButton = RoundButton()
     private var linkLabel = UILabel()
     private var linkImageView = UIImageView(image: UIImage(named: "go"))
     private var LINK_IMAGEVIEW_SIZE: CGFloat {

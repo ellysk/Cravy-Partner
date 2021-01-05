@@ -97,7 +97,9 @@ extension TagsCollectionViewController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
         //TODO
         let popV = PopView(title: K.UIConstant.newTag, detail: K.UIConstant.newTagDetail, actionTitle: K.UIConstant.add)
-        let popVC = PopViewController(popView: popV, animationView: AnimationView.ingredientsAnimation)
+        let popVC = PopViewController(popView: popV, animationView: AnimationView.ingredientsAnimation, actionHandler: {
+            print("add tag")
+        })
         present(popVC, animated: true, completion: nil)
     }
 }

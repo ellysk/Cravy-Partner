@@ -9,16 +9,37 @@
 import UIKit
 
 /// A vertical stack view that displays two textfields that handle email input and password input respectively and a RoundButton to trigger action for the inputs provided all.
-class AuthStackView: UIStackView {
-    var emailTextField = RoundTextField(placeholder: K.UIConstant.email)
-    var passwordTextField = RoundTextField(placeholder: K.UIConstant.password)
+class AuthStackView: UIStackView, UITextFieldDelegate {
+    private var emailTextField = RoundTextField(placeholder: K.UIConstant.email)
+    private var passwordTextField = RoundTextField(placeholder: K.UIConstant.password)
     private var authButton = RoundButton()
+    var beginResponder: Bool {
+        set {
+            if newValue {
+                emailTextField.becomeFirstResponder()
+            }
+        }
+        
+        get {
+            return emailTextField.isFirstResponder || passwordTextField.isFirstResponder
+        }
+    }
+    /// A boolean value that determines if the user has filled some inputs on both textfields.
+    var isFullFields: Bool {
+        if let email = emailTextField.text, let password = passwordTextField.text {
+            return email != "" && password != ""
+        } else {
+            return false
+        }
+    }
+    var authenticate: ()->() = {}
     
     init() {
         super.init(frame: .zero)
         self.set(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 24)
         setTextFieldsStackView()
         setAuthButton()
+        updateAuthButton()
     }
     
     required init(coder: NSCoder) {
@@ -26,6 +47,7 @@ class AuthStackView: UIStackView {
         self.set(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 24)
         setTextFieldsStackView()
         setAuthButton()
+        updateAuthButton()
     }
     
     private func setTextFieldsStackView() {
@@ -40,6 +62,8 @@ class AuthStackView: UIStackView {
     }
     
     private func setTextField(textField: UITextField, type: UIKeyboardType = .default, isSecure: Bool = false, returnType: UIReturnKeyType = .next) {
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.delegate = self
         textField.keyboardType = type
         textField.isSecureTextEntry = isSecure
         textField.returnKeyType = returnType
@@ -50,6 +74,7 @@ class AuthStackView: UIStackView {
     }
     
     private func setAuthButton() {
+        authButton.addTarget(self, action: #selector(auth(_:)), for: .touchUpInside)
         authButton.setTitle(K.UIConstant.login, for: .normal)
         authButton.titleLabel?.font = UIFont.bold.medium
         authButton.setTitleColor(K.Color.light, for: .normal)
@@ -57,6 +82,49 @@ class AuthStackView: UIStackView {
         self.addArrangedSubview(authButton)
         authButton.translatesAutoresizingMaskIntoConstraints = false
         authButton.sizeAnchorOf(width: 160, height: 45)
+    }
+    
+    private func updateAuthButton() {
+        authButton.isEnabled = isFullFields
+        authButton.backgroundColor = isFullFields ? K.Color.primary : K.Color.dark
+        authButton.alpha = isFullFields ? 1 : 0.5
+    }
+    
+    /// Checks to see which repsonder is first and resigns it. Makes sure there is no active responder.
+    func resignFirstResponders() {
+        if emailTextField.isFirstResponder {
+            emailTextField.resignFirstResponder()
+        } else if passwordTextField.isFirstResponder {
+            passwordTextField.resignFirstResponder()
+        }
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        updateAuthButton()
+    }
+    
+    @objc private func auth(_ sender: RoundButton) {
+        resignFirstResponders()
+        authenticate()
+    }
+    
+    //MARK:- UITextField Delegate
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == emailTextField {
+            return string != " "
+        } else {
+            return true
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
     }
 }
 

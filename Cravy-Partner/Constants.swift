@@ -23,7 +23,7 @@ struct K {
         static let subscribers = "Subscribers"
         static let offTheMarket = "Off the market"
         static let onTheMarket = "On the market"
-        static let post = "POST"
+        static let post = "Post"
         static let edit = "Edit"
         static let settings = "Settings"
         /// Returns "Important information regarding privacy and security rules will be alerted here"
@@ -69,9 +69,12 @@ struct K {
         static let views = "views"
         static let visits = "visits"
         static let email = "Email"
-        static let password = "Passowrd"
+        static let password = "Password"
         static let login = "LOGIN"
         static let confirm = "CONFIRM"
+        static let promote = "Promote"
+        static let promotionMessage = "Get this amazing product at the top of the feed so you can increase your chances of having more customers."
+        static let postMessage = "Put this product in the market for people around the area to see!"
     }
     
     //MARK:- Identifier
@@ -114,6 +117,8 @@ struct K {
         struct Segue {
             static let toAlbumPageController = "toAlbumPageController"
             static let toNewProductPageVC = "toNewProductPageVC"
+            static let splashToCravyTabBar = "SplashToCravyTabBar"
+            static let toProductsPageVC = "toProductsPageVC"
         }
         
         //MARK:- StoryboardID
@@ -204,5 +209,13 @@ struct K {
         static let textsViewController: TextsViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.textsVC) as! TextsViewController
         static let tagsCollectionViewController: TagsCollectionViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.tagsCollectionVC) as! TagsCollectionViewController
         static let linkViewController: LinkViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.linkVC) as! LinkViewController
+    }
+    
+    //MARK:- Predicate
+    struct Predicate {
+        private static let firstpart = "[A-Z0-9a-z]([A-Z0-9a-z._%+-]{0,30}[A-Z0-9a-z])?"
+        private static let serverpart = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
+        private static let emailRegex = firstpart + "@" + serverpart + "[A-Za-z]{2,8}"
+        static let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
     }
 }

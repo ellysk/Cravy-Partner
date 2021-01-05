@@ -31,8 +31,8 @@ class BusinessController: UIViewController {
     }
 }
 
-//MARK: - UITableView DataSource
-extension BusinessController: UITableViewDataSource {
+//MARK: - UITableView DataSource, CraveCollectionTableCell Delegate
+extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return K.Collections.businessSectionTitles.count
     }
@@ -53,6 +53,7 @@ extension BusinessController: UITableViewDataSource {
             return imageCell
         } else if indexPath.section == 1 {
             let craveCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.craveCell, for: indexPath) as! CraveCollectionTableCell
+            craveCell.delegate = self
             craveCell.setCraveCollectionTableCell(craves: ["one", "two"])
             
             return craveCell
@@ -63,6 +64,10 @@ extension BusinessController: UITableViewDataSource {
             
             return galleryCell
         }
+    }
+    
+    func willPresent(popViewController: PopViewController) {
+        self.present(popViewController, animated: true)
     }
 }
 

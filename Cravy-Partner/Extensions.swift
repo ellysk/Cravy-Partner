@@ -325,6 +325,10 @@ extension UIViewController {
         self.floaterView?.imageView.image = image
         self.floaterView?.titleLabel.text = title
     }
+    
+    @objc internal func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
 }
 
 //MARK: - UIStackView
@@ -713,8 +717,14 @@ extension Array where Element == String {
 
 //MARK: - String
 extension String {
+    var isValidEmail: Bool {
+        return K.Predicate.emailPredicate.evaluate(with: self)
+    }
     var removeLeadingAndTrailingSpaces: String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    var zeroSpaced: String {
+        return self.replacingOccurrences(of: " ", with: "")
     }
     
     func withFont(font: UIFont) -> NSMutableAttributedString {
@@ -841,6 +851,12 @@ extension AnimationView {
     }
     static var ingredientsAnimation: AnimationView {
         return AnimationView(name: "ingredients")
+    }
+    static var promoteAnimation: AnimationView {
+        return AnimationView(name: "promote")
+    }
+    static var postAnimation: AnimationView {
+        return AnimationView(name: "post")
     }
     
     /// Plays the animation at the speicified position on the screen.

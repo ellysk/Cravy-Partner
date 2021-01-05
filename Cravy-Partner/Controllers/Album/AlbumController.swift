@@ -21,16 +21,8 @@ class AlbumController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.toAlbumPageController {
             let albumPageController = segue.destination as! AlbumPageController
-            albumPageController.transitionDelegate = self
+            albumPageController.transitionDelegate = cravyToolBar
             cravyToolBar.delegate = albumPageController
         }
-    }
-}
-
-
-//MARK: - CravyPageController Delegate
-extension AlbumController: TransitionDelegate {
-    func didTranisitionToViewAt(index: Int) {
-        cravyToolBar.isSelectedItemAt(index: index)
     }
 }

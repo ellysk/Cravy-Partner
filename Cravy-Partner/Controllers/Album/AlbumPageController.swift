@@ -26,13 +26,3 @@ class AlbumPageController: CravyPageController {
     }
 }
 
-//MARK: - CravyToolBar Delegate
-extension AlbumPageController: CravyToolBarDelegate {
-    func itemSelected(at index: Int) {
-        let currentIndex = self.presentationIndex(for: self)
-        if index != currentIndex {
-            let direction: UIPageViewController.NavigationDirection = index > currentIndex ? .forward : .reverse
-            self.setViewControllers([pages[index]], direction: direction, animated: true, completion: nil)
-        }
-    }
-}

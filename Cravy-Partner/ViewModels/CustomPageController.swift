@@ -57,3 +57,34 @@ class CravyPageController: UIPageViewController, UIPageViewControllerDataSource,
         return pages.firstIndex(of: pageViewController.viewControllers![0])!
     }
 }
+
+//MARK: - CravyToolBar Delegate
+extension CravyPageController: CravyToolBarDelegate {
+    func itemSelected(at index: Int) {
+        let currentIndex = self.presentationIndex(for: self)
+        if index != currentIndex {
+            let direction: UIPageViewController.NavigationDirection = index > currentIndex ? .forward : .reverse
+            self.setViewControllers([pages[index]], direction: direction, animated: true) { (completed) in
+                if completed {
+                    self.transitionDelegate?.didTranisitionToViewAt(index: self.presentationIndex(for: self))
+                }
+            }
+        }
+    }
+}
+
+//MARK:- PageViewsTransition Delegate
+extension CravyPageController: PageViewsTransitionDelegate {
+    func goTo(direction: UIPageViewController.NavigationDirection) {
+        guard let currentIndex = pages.firstIndex(of: (self.viewControllers?.first)!) else {return}
+        var newIndex = currentIndex
+        if direction == .forward && currentIndex < pages.count - 1 {
+            newIndex+=1
+            self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
+        } else if direction == .reverse && currentIndex > 0 {
+            newIndex-=1
+            self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
+        }
+        self.transitionDelegate?.didTranisitionToViewAt(index: newIndex)
+    }
+}

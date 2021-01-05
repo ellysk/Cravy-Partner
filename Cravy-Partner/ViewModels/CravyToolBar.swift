@@ -120,3 +120,10 @@ class CravyToolBar: UIView {
         self.delegate?.itemSelected(at: sender.tag)
     }
 }
+
+//MARK:- Transition Delegate
+extension CravyToolBar: TransitionDelegate {
+    func didTranisitionToViewAt(index: Int) {
+        isSelectedItemAt(index: index)
+    }
+}

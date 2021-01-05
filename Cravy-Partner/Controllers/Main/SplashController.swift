@@ -26,6 +26,8 @@ class SplashController: UIViewController {
             getStartedButton.isHidden = newValue == .auth
             authStackView.isHidden = newValue == .intro
             noticeLabel.isHidden = newValue == .intro
+            
+            authStackView.beginResponder = !authStackView.isHidden
         }
         
         get {
@@ -39,7 +41,11 @@ class SplashController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         splash = .intro
+        authStackView.authenticate = {
+            self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
+        }
     }
     
     @IBAction func getStarted(_ sender: UIButton) {

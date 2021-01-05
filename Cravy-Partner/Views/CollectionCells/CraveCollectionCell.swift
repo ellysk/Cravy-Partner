@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 enum CRAVE_COLLECTION_STYLE {
     case contained
@@ -26,6 +27,10 @@ class CraveCollectionCell: UICollectionViewCell {
     private var craveTagsCollectionView: UICollectionView!
     private var tags: [String]?
     private var style: CRAVE_COLLECTION_STYLE!
+    var interactable: INTERACTABLE? {
+        return craveImageView.interactable
+    }
+    private var action: ()->() = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,6 +60,7 @@ class CraveCollectionCell: UICollectionViewCell {
         if style == .expanded {
             if toolBarStackView == nil && statLabel == nil {
                 let optionsButton = UIButton.optionsButton
+                optionsButton.addTarget(self, action: #selector(action(_:)), for: .touchUpInside)
                 optionsButton.imageEdgeInsets.left = 8
                 optionsButton.contentHorizontalAlignment = .left
                 
@@ -76,7 +82,7 @@ class CraveCollectionCell: UICollectionViewCell {
     
     private func setCraveView(image: UIImage? = nil, cravings: Int? = nil, title: String? = nil, recommendations: Int? = nil, tags: [String]? = nil) {
         if craveView == nil {
-            craveView = RoundView(roundFactor: 10)
+            craveView = RoundView(roundFactor: 15)
             craveView.backgroundColor = K.Color.secondary
             containerView.addArrangedSubview(craveView)
         }
@@ -87,9 +93,7 @@ class CraveCollectionCell: UICollectionViewCell {
     
     private func setCraveImageView(image: UIImage? = nil, cravings: Int? = nil) {
         if craveImageView == nil {
-            let interactable: INTERACTABLE = style == .expanded ? .link : .post
-            craveImageView = CraveImageView(image: image, cravings: cravings, interactable: interactable)
-            craveImageView.isInteractableHidden = style == .expanded
+            craveImageView = CraveImageView(image: image, cravings: cravings)
             
             craveView.addSubview(craveImageView)
             craveImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -165,6 +169,27 @@ class CraveCollectionCell: UICollectionViewCell {
                 craveTagsCollectionView.reloadData()
             }
         }
+    }
+    
+    /// Enables the view to have an interactable that initiate an action. This mainly includes a post button or link view.
+    func addInteractable(_ interactable: INTERACTABLE, presentationHandler: @escaping (PopViewController)->()) {
+        craveImageView.addInteractable(interactable) {
+            if interactable == .post {
+                let post = PostView(toPost: "Chicken Wings")
+                let popViewController = PopViewController(popView: post, animationView: AnimationView.postAnimation) {
+                    print("post")
+                }
+                presentationHandler(popViewController)
+            }
+        }
+    }
+    
+    func addAction(_ action: @escaping ()->()) {
+        self.action = action
+    }
+    
+    @objc func action(_ sender: UIButton) {
+        action()
     }
 }
 

@@ -13,8 +13,8 @@ class PopView: RoundView {
     private var popStackView: UIStackView!
     private var titleLabel = UILabel()
     private var detailLabel = UILabel()
-    private var textField = RoundTextField(roundFactor: 5, placeholder: nil)
-    private var actionButton = RoundButton()
+    private var textField: RoundTextField?
+    var actionButton = RoundButton()
     var title: String? {
         set {
             titleLabel.text = newValue
@@ -43,13 +43,13 @@ class PopView: RoundView {
             return actionButton.titleLabel!.text!
         }
     }
-    var isTextFieldHidden: Bool {
+    var popTintColor: UIColor? {
         set {
-            textField.isHidden = newValue
+            actionButton.backgroundColor = newValue
         }
         
         get {
-            return textField.isHidden
+            return actionButton.backgroundColor
         }
     }
     
@@ -59,6 +59,7 @@ class PopView: RoundView {
         self.detail = detail
         self.actionTitle = actionTitle
         setPopStackView()
+        actionButton.castShadow = true
     }
     
     required init?(coder: NSCoder) {
@@ -74,8 +75,7 @@ class PopView: RoundView {
         self.backgroundColor = K.Color.light
         setTitleLabel()
         setDetailLabel()
-        setTextField()
-        popStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel, textField, setActionButton()])
+        popStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel, setActionButton()])
         popStackView.set(axis: .vertical, alignment: .fill, distribution: .equalSpacing, spacing: 8)
         
         self.addSubview(popStackView)
@@ -87,6 +87,9 @@ class PopView: RoundView {
     private func setTitleLabel() {
         titleLabel.font = UIFont.bold.medium
         titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.7
         titleLabel.textColor = K.Color.primary
     }
     
@@ -97,9 +100,15 @@ class PopView: RoundView {
         detailLabel.textColor = K.Color.dark.withAlphaComponent(0.5)
     }
     
-    private func setTextField() {
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor(of: 40)
+    private func addTextField(textFieldHandler: (UITextField)->()) {
+        textField = RoundTextField(roundFactor: 5, placeholder: nil)
+        textField!.translatesAutoresizingMaskIntoConstraints = false
+        textField!.heightAnchor(of: 40)
+        
+        popStackView.insertArrangedSubview(textField!, at: 2)
+        textField!.becomeFirstResponder()
+        
+        textFieldHandler(textField!)
     }
     
     private func setActionButton() -> UIView {
@@ -118,5 +127,27 @@ class PopView: RoundView {
         actionButton.widthAnchor(of: 100)
         
         return containerView
+    }
+}
+
+/// Displays a pop view specifically for enabling a user to promote a product.
+class PromoView: PopView {
+    init(toPromote product: String) {
+        super.init(title: "\(K.UIConstant.promote) \(product)", detail: K.UIConstant.promotionMessage, actionTitle: K.UIConstant.promote.uppercased())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+/// Displays a pop view specifically for enabling the user to post a product.
+class PostView: PopView {
+    init(toPost product: String) {
+        super.init(title: "\(K.UIConstant.post) \(product)", detail: K.UIConstant.postMessage, actionTitle: K.UIConstant.post.uppercased())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
