@@ -12,14 +12,11 @@ import CropViewController
 
 /// Handles the diplsay of images from the user's photo library.
 class AlbumCollectionViewController: UICollectionViewController {
-    var albumCollectionView: AlbumCollectionView {
-        let albumCollectionView = self.collectionView as! AlbumCollectionView
-        return albumCollectionView
-    }
     private var result: PHFetchResult<PHAsset>!
     private var album: [String : [PHAsset]] = [:]
     private var creationDates: [String] = []
     private var selectedCell: AlbumCollectionCell?
+    var presentationDelegate: PresentaionDelegate?
     
     /// - Parameter result: The assets fetched from a particular album.
     init(result: PHFetchResult<PHAsset>) {
@@ -33,14 +30,15 @@ class AlbumCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        albumCollectionView.backgroundColor = .clear
+        self.collectionView.backgroundColor = .clear
         //Assign the result to the class fields so as the loaded and displayed in the collection view.
         result.splitByCreationDate { (album, creationDates) in
             self.album = album
             self.creationDates = creationDates
         }
         
-        albumCollectionView.register()
+        self.collectionView.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
+        self.collectionView.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
     }
 
     //MARK: - DataSource
@@ -76,6 +74,8 @@ class AlbumCollectionViewController: UICollectionViewController {
         asset.fetchImage { (HQImage, info) in
             guard let image = HQImage else {return}
             let cropVC = CropViewController(croppingStyle: .default, image: image)
+            cropVC.aspectRatioPickerButtonHidden = true
+            cropVC.doneButtonTitle = K.UIConstant.next
             cropVC.delegate = self
             cropVC.presentAnimatedFrom(self, fromView: cell, fromFrame: cell.frame, setup: nil, completion: nil)
         }
@@ -83,16 +83,11 @@ class AlbumCollectionViewController: UICollectionViewController {
 }
 
 extension AlbumCollectionViewController: CropViewControllerDelegate {
-    private func presentCropViewController(with image: UIImage) {
-        let cropViewController = CropViewController(image: image)
-        cropViewController.aspectRatioPickerButtonHidden = true
-        cropViewController.doneButtonTitle = K.UIConstant.next
-        cropViewController.delegate = self
-        self.present(cropViewController, animated: true, completion: nil)
-    }
-    
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        //TODO
+        guard let view = selectedCell else {return}
+        cropViewController.dismissAnimatedFrom(self, withCroppedImage: view.imageView?.image, toView: view, toFrame: view.frame, setup: nil) { () -> (Void) in
+            self.presentationDelegate?.willPresent(NewProductViewsController(), data: image)
+        }
     }
     
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {

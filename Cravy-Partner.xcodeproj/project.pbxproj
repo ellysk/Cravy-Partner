@@ -44,7 +44,6 @@
 		2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF493258A996200AA1337 /* CravyTabBarController.swift */; };
 		2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF495258A99FF00AA1337 /* MyProductsController.swift */; };
 		2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */; };
-		2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBB259A03590040E860 /* ImageViewController.swift */; };
 		2B823DBE259A497A0040E860 /* TextsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBD259A497A0040E860 /* TextsViewController.swift */; };
 		2B823DC0259B85D30040E860 /* TagsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */; };
 		2B823DC5259CD0E10040E860 /* NewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */; };
@@ -150,7 +149,6 @@
 		2B7DF493258A996200AA1337 /* CravyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyTabBarController.swift; sourceTree = "<group>"; };
 		2B7DF495258A99FF00AA1337 /* MyProductsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductsController.swift; sourceTree = "<group>"; };
 		2B7DF497258B9F4A00AA1337 /* CustomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
-		2B823DBB259A03590040E860 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		2B823DBD259A497A0040E860 /* TextsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsViewController.swift; sourceTree = "<group>"; };
 		2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewController.swift; sourceTree = "<group>"; };
 		2B823DC3259CD0E10040E860 /* NewCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCollectionCell.swift; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 		2B267EE625A1DA2300478726 /* NewProduct */ = {
 			isa = PBXGroup;
 			children = (
-				2B823DBB259A03590040E860 /* ImageViewController.swift */,
 				2B823DBD259A497A0040E860 /* TextsViewController.swift */,
 				2B823DBF259B85D30040E860 /* TagsCollectionViewController.swift */,
 				2B823DCD259D37650040E860 /* LinkViewController.swift */,
@@ -773,7 +770,6 @@
 				2BFC75132597808C009A35AE /* AlbumCollectionViewController.swift in Sources */,
 				2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */,
 				2B61BE4C2590DF7B00545E59 /* AccountController.swift in Sources */,
-				2B823DBC259A03590040E860 /* ImageViewController.swift in Sources */,
 				2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */,
 				2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */,
 				2B267EDF25A13FE600478726 /* NewProductViewsController.swift in Sources */,

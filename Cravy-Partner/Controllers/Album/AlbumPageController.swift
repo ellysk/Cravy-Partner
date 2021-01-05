@@ -11,9 +11,15 @@ import Photos
 
 /// Displays different collections of photos in the user's library.
 class AlbumPageController: CravyPageController {
+    var presentationDelegate: PresentaionDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pages = [AlbumCollectionViewController(result: PHFetchOptions().cravyPartnerAssets), AlbumCollectionViewController(result: PHFetchOptions().allPhotos)]
+        pages.forEach { (controller) in
+            let albumCollectionViewController = controller as! AlbumCollectionViewController
+            albumCollectionViewController.presentationDelegate = presentationDelegate
+        }
         self.setViewControllers([pages[0]], direction: .forward, animated: true)
         
         dataSource = self

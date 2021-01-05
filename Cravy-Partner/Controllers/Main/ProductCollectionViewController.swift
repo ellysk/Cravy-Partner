@@ -21,10 +21,10 @@ protocol ScrollViewDelegate {
 protocol PresentaionDelegate {
     /// Notifies that a view controller will be presented.
     /// - Parameter viewController: The view controller presented.
-    func willPresent(_ viewController: UIViewController)
-    /// Notifies that the user has selected a specific product in the collection view.
-    /// - Parameter product: The selected product
-    func shouldPresentProductControllerAfterSelecting(product: String)
+    func willPresent(_ viewController: UIViewController, data: Any?)
+//    /// Notifies that the user has selected a specific product in the collection view.
+//    /// - Parameter product: The selected product
+//    func shouldPresentProductControllerAfterSelecting(product: String)
 }
 
 /// Handles the display of the products that the user has created.
@@ -64,12 +64,12 @@ class ProductCollectionViewController: UICollectionViewController {
             let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation) {
                 //TODO
             }
-            self.presentationDelegate?.willPresent(popVC)
+            self.presentationDelegate?.willPresent(popVC, data: nil)
             self.present(popVC, animated: true)
         }
         if state == .inActive {
             cell.addInteractable(.post) { (popVC) in
-                self.presentationDelegate?.willPresent(popVC)
+                self.presentationDelegate?.willPresent(popVC, data: nil)
                 self.present(popVC, animated: true)
             }
         }
@@ -78,7 +78,7 @@ class ProductCollectionViewController: UICollectionViewController {
     
     //MARK:- UICollectionView Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presentationDelegate?.shouldPresentProductControllerAfterSelecting(product: "Chicken wings")
+        self.presentationDelegate?.willPresent(ProductController(), data: "Chicken wings")
     }
     
     //MARK:- UIScrollView Delegate

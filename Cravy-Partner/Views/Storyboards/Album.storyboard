@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ir9-sy-4O6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VPC-YN-Txw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,21 +10,32 @@
         <!--Album Controller-->
         <scene sceneID="Qkf-Hi-bgN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jpl-i2-Dug" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController id="Ir9-sy-4O6" customClass="AlbumController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="Ir9-sy-4O6" customClass="AlbumController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VJy-ut-9Vg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mpu-a6-aX3" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="60" width="414" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xQ-hY-lPL" customClass="CurtainView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mpu-a6-aX3" customClass="CravyToolBar" customModule="Cravy_Partner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="10" width="414" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="dwd-Ns-dIr"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="dwd-Ns-dIr"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mpu-a6-aX3" secondAttribute="trailing" id="BF7-rD-oem"/>
+                                    <constraint firstItem="Mpu-a6-aX3" firstAttribute="centerY" secondItem="9xQ-hY-lPL" secondAttribute="centerY" id="aNd-Do-qV2"/>
+                                    <constraint firstAttribute="height" constant="50" id="c4m-1m-ocs"/>
+                                    <constraint firstItem="Mpu-a6-aX3" firstAttribute="leading" secondItem="9xQ-hY-lPL" secondAttribute="leading" id="exk-vd-hCU"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RAy-Aa-xi6">
-                                <rect key="frame" x="0.0" y="106" width="414" height="790"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="758"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="rQI-6o-3DS" kind="embed" identifier="toAlbumPageController" id="rht-6W-pl0"/>
@@ -33,30 +44,61 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Mpu-a6-aX3" firstAttribute="leading" secondItem="zFe-pn-Eaz" secondAttribute="leading" id="ILa-Lm-Ike"/>
-                            <constraint firstItem="RAy-Aa-xi6" firstAttribute="top" secondItem="Mpu-a6-aX3" secondAttribute="bottom" constant="16" id="VvE-To-Sks"/>
+                            <constraint firstItem="9xQ-hY-lPL" firstAttribute="top" secondItem="zFe-pn-Eaz" secondAttribute="top" id="GoA-rV-4e4"/>
+                            <constraint firstAttribute="trailing" secondItem="9xQ-hY-lPL" secondAttribute="trailing" id="Ood-ph-3Mi"/>
                             <constraint firstItem="RAy-Aa-xi6" firstAttribute="leading" secondItem="zFe-pn-Eaz" secondAttribute="leading" id="WAw-KY-hl1"/>
-                            <constraint firstItem="Mpu-a6-aX3" firstAttribute="trailing" secondItem="zFe-pn-Eaz" secondAttribute="trailing" id="dJM-XZ-2Zs"/>
+                            <constraint firstItem="RAy-Aa-xi6" firstAttribute="top" secondItem="9xQ-hY-lPL" secondAttribute="bottom" id="Z9O-jm-0pH"/>
                             <constraint firstItem="RAy-Aa-xi6" firstAttribute="trailing" secondItem="zFe-pn-Eaz" secondAttribute="trailing" id="hOD-oJ-t1k"/>
                             <constraint firstAttribute="bottom" secondItem="RAy-Aa-xi6" secondAttribute="bottom" id="kag-f2-Ae0"/>
-                            <constraint firstItem="Mpu-a6-aX3" firstAttribute="top" secondItem="zFe-pn-Eaz" secondAttribute="top" constant="16" id="tZR-gg-6Sy"/>
+                            <constraint firstItem="9xQ-hY-lPL" firstAttribute="leading" secondItem="VJy-ut-9Vg" secondAttribute="leading" id="low-vS-iM9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zFe-pn-Eaz"/>
                     </view>
+                    <navigationItem key="navigationItem" id="B74-E5-9mZ"/>
                     <connections>
                         <outlet property="cravyToolBar" destination="Mpu-a6-aX3" id="Jzb-hF-sVA"/>
+                        <segue destination="fxF-23-N2j" kind="show" identifier="AlbumToNewProduct" id="ieP-aE-HgZ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jpl-i2-Dug" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2029" y="-1570"/>
+            <point key="canvasLocation" x="2939.130434782609" y="-1570.3125"/>
+        </scene>
+        <!--NewProduct-->
+        <scene sceneID="Cvw-ZM-Uhd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewProduct" id="fxF-23-N2j" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ZRX-d5-rqO"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vsi-lo-ujq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3491" y="-1971"/>
         </scene>
         <!--Album Page Controller-->
         <scene sceneID="tBj-jt-iah">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ll3-WC-SQ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="rQI-6o-3DS" customClass="AlbumPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ll3-WC-SQ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2852" y="-1570"/>
+            <point key="canvasLocation" x="3760.8695652173915" y="-1570.3125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ybX-RW-iqJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="VPC-YN-Txw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uim-zH-3Qc">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ir9-sy-4O6" kind="relationship" relationship="rootViewController" id="4bK-Gm-8dZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qFQ-cG-cpa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2028.985507246377" y="-1570.3125"/>
         </scene>
     </scenes>
 </document>

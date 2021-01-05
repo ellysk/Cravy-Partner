@@ -14,16 +14,17 @@ protocol PageViewsTransitionDelegate {
 
 /// Handles the transitions of the NewsPageController
 class NewProductViewsController: UIViewController, TransitionDelegate {
-    @IBOutlet weak var bgImage: UIImageView!
+    @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var previousItem: UIBarButtonItem!
     @IBOutlet weak var actionButton: RoundButton!
+    var bgImage: UIImage!
     var delegate: PageViewsTransitionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let blurView = bgImage.blurredImageView
-        self.view.insertSubview(blurView, at: 1)
+        bgImageView.image = bgImage
+        bgImageView.isBlurr = true
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         previousItem.isEnabled = false
         actionButton.castShadow = true

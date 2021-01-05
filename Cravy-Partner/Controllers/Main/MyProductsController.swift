@@ -63,12 +63,9 @@ extension MyProductsController: ScrollViewDelegate {
 
 //MARK:- Presentation Delegate
 extension MyProductsController: PresentaionDelegate {
-    func willPresent(_ viewController: UIViewController) {
+    func willPresent(_ viewController: UIViewController, data: Any?) {
         self.dismissKeyboard()
-    }
-    
-    func shouldPresentProductControllerAfterSelecting(product: String) {
-        self.dismissKeyboard()
+        guard let data = data, let product = data as? String else {return}
         selectedProduct = product
         self.performSegue(withIdentifier: K.Identifier.Segue.myProductsToProduct, sender: self)
     }

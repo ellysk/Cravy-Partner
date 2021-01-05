@@ -102,7 +102,7 @@
             </objects>
             <point key="canvasLocation" x="139" y="657"/>
         </scene>
-        <!--New product-->
+        <!--New Product Controller-->
         <scene sceneID="09j-UV-8uZ">
             <objects>
                 <viewController id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
@@ -151,36 +151,94 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xCq-x9-0yj" customClass="RoundBorderedImageView" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="20" y="96" width="60" height="50"/>
+                                <rect key="frame" x="20" y="91" width="60" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="00y-Ma-LLQ"/>
                                     <constraint firstAttribute="width" constant="60" id="6XD-lD-1Sr"/>
                                 </constraints>
                             </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbQ-zE-Jza" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="3" y="96" width="80" height="35"/>
+                                <color key="backgroundColor" name="light"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="5MA-pi-g7W"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="aiQ-Xs-obM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
+                                <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" name="primary"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="7yz-mq-re1"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BrX-Kq-K7q" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="3" y="770" width="40" height="40"/>
+                                <color key="backgroundColor" name="primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Fpl-1P-lEk"/>
+                                    <constraint firstAttribute="height" constant="40" id="JAu-EF-Qe3"/>
+                                </constraints>
+                                <color key="tintColor" name="light"/>
+                                <state key="normal" backgroundImage="square.and.arrow.down.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="saveToCravyPartnerAlbum:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="AFG-se-OKB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="BrX-Kq-K7q" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="3" id="5KP-oP-P0T"/>
+                            <constraint firstItem="ZOa-24-cPf" firstAttribute="bottom" secondItem="BrX-Kq-K7q" secondAttribute="bottom" constant="3" id="Bp7-Ja-mwY"/>
                             <constraint firstItem="ZOa-24-cPf" firstAttribute="trailing" secondItem="2dl-1v-W90" secondAttribute="trailing" constant="20" id="Cup-aI-it4"/>
+                            <constraint firstItem="tbQ-zE-Jza" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="NdZ-w3-rw2"/>
                             <constraint firstItem="2dl-1v-W90" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="TYA-PQ-wJk"/>
                             <constraint firstItem="ZOa-24-cPf" firstAttribute="bottom" secondItem="x2d-68-NhO" secondAttribute="bottom" constant="16" id="UgH-Nw-bnJ"/>
+                            <constraint firstItem="tbQ-zE-Jza" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="3" id="Wff-Wa-sOr"/>
                             <constraint firstItem="xCq-x9-0yj" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="20" id="Xjj-k5-3nS"/>
-                            <constraint firstItem="xCq-x9-0yj" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="lJc-rb-9KI"/>
+                            <constraint firstItem="xCq-x9-0yj" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="3" id="lJc-rb-9KI"/>
                             <constraint firstItem="x2d-68-NhO" firstAttribute="centerX" secondItem="PrR-T3-kWa" secondAttribute="centerX" id="rNn-D2-XkB"/>
+                            <constraint firstItem="2dl-1v-W90" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tbQ-zE-Jza" secondAttribute="trailing" constant="8" symbolic="YES" id="uMq-ZU-jKD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZOa-24-cPf"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="New product" image="newcrave" selectedImage="newcrave-filled" id="yHb-Cr-rcm"/>
+                    <navigationItem key="navigationItem" id="cQm-1D-T8i"/>
                     <connections>
+                        <outlet property="cancelButton" destination="tbQ-zE-Jza" id="eop-Qi-M0r"/>
                         <outlet property="captureButton" destination="x2d-68-NhO" id="ZZ6-sB-MgR"/>
                         <outlet property="flashButton" destination="vW0-ZK-4ri" id="3Tb-Os-zWS"/>
                         <outlet property="galleryImageView" destination="xCq-x9-0yj" id="5WL-6E-y3q"/>
+                        <outlet property="saveButton" destination="BrX-Kq-K7q" id="uVD-o1-lxY"/>
                         <outlet property="switchCameraButton" destination="rJU-OF-lm7" id="une-dT-ssP"/>
                         <outlet property="utilityStackView" destination="2dl-1v-W90" id="rTq-Ob-MMj"/>
+                        <segue destination="FVc-Kz-aXB" kind="presentation" identifier="NewProductToAlbum" id="dCe-On-TT1"/>
+                        <segue destination="pDY-cJ-w1W" kind="show" identifier="NewProductToNewProductViews" id="ulM-Xt-d8x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4378.2608695652179" y="129.91071428571428"/>
+            <point key="canvasLocation" x="5288.4057971014499" y="129.91071428571428"/>
+        </scene>
+        <!--NewProduct-->
+        <scene sceneID="YEU-WH-Fzy">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewProduct" id="pDY-cJ-w1W" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="EPL-Be-7NF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ozA-XV-PLY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5833" y="-63"/>
+        </scene>
+        <!--Album-->
+        <scene sceneID="TOb-hU-8nU">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Album" id="FVc-Kz-aXB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="tGo-7g-zCf"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Doj-Nq-oJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5831" y="280"/>
         </scene>
         <!--My business-->
         <scene sceneID="tmb-Ph-pte">
@@ -370,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xV5-Y7-VBa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6902.898550724638" y="-3.3482142857142856"/>
+            <point key="canvasLocation" x="5833" y="909"/>
         </scene>
         <!--My Products Controller-->
         <scene sceneID="LZ2-Eb-Czn">
@@ -473,7 +531,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="7zk-uP-A7t" kind="relationship" relationship="viewControllers" id="lC4-lC-0Gs"/>
-                        <segue destination="Y2e-x0-VIU" kind="relationship" relationship="viewControllers" id="jQ4-F5-k8S"/>
+                        <segue destination="FnF-pZ-5Ml" kind="relationship" relationship="viewControllers" id="jQ4-F5-k8S"/>
                         <segue destination="cGZ-m9-aba" kind="relationship" relationship="viewControllers" id="aKn-M6-UAD"/>
                     </connections>
                 </tabBarController>
@@ -516,6 +574,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JG7-Xp-7Mz">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="light"/>
+                        <color key="barTintColor" name="primary"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="light"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="light"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -525,6 +591,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ui1-Yz-N0c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2710.144927536232" y="-319.41964285714283"/>
+        </scene>
+        <!--New product-->
+        <scene sceneID="vyZ-Fk-5sA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FnF-pZ-5Ml" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="New product" image="newcrave" selectedImage="newcrave-filled" id="yHb-Cr-rcm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eNL-y8-OAe">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="primary"/>
+                        <color key="barTintColor" name="secondary"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="dark"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="dark"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y2e-x0-VIU" kind="relationship" relationship="rootViewController" id="zkv-DG-A85"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rjm-ai-kfY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4378.2608695652179" y="129.91071428571428"/>
         </scene>
     </scenes>
     <resources>
@@ -543,6 +636,7 @@
         <image name="newcrave" width="27.5" height="23"/>
         <image name="newcrave-filled" width="27.5" height="23"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

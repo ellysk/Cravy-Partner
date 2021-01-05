@@ -13,7 +13,6 @@ import Lottie
 /// Handles the display of the properties of a product.
 class ProductController: UIViewController {
     @IBOutlet weak var imageView: RoundImageView!
-    @IBOutlet weak var backNavButton: UIButton!
     @IBOutlet weak var linkView: LinkView!
     @IBOutlet weak var widgetCollectionView: WidgetCollectionView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -25,6 +24,8 @@ class ProductController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
+        self.title = "Chicken wings"
         imageView.image = UIImage(named: "bgimage")
         titleLabel.text = productTitle
         titleLabel.underline()
@@ -36,22 +37,7 @@ class ProductController: UIViewController {
         additionalSetup()
     }
     
-    private func setBackNavButton() {
-        //Get the image that is on the background of the back button
-        guard let image = imageView.image else {return}
-        //Extract the colors from the image
-        image.getColors { (colors) in
-            //Get the dominant background color of the image
-            guard let background = colors?.background else {return}
-            DispatchQueue.main.async {
-                //Set the tint color of the back button depending on the contrast of the dominant background color extracted from the image.
-                self.backNavButton.tintColor = background.isDarkColor ? K.Color.light : K.Color.dark
-            }
-        }
-    }
-    
     private func additionalSetup() {
-        setBackNavButton()
         self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
         widgetCollectionView.register()
         horizontalTagsCollectionView.register()

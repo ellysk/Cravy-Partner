@@ -294,7 +294,7 @@ extension UIViewController {
         } as? FloaterView
     }
     /// Initiliazes and displays a floater view.
-    var showsFloaterView: Bool {
+    private var showsFloaterView: Bool {
         set {
             floaterView?.isHidden = !newValue
             
@@ -469,7 +469,7 @@ extension UICollectionViewFlowLayout {
 
 //MARK: - UIImage
 extension UIImage {
-    func withInset(_ insets: UIEdgeInsets) -> UIImage? {
+    func withInset(_ insets: UIEdgeInsets, tintColor: UIColor = K.Color.light) -> UIImage? {
         let cgSize = CGSize(width: self.size.width + insets.left * self.scale + insets.right * self.scale,
                             height: self.size.height + insets.top * self.scale + insets.bottom * self.scale)
 
@@ -479,7 +479,7 @@ extension UIImage {
         let origin = CGPoint(x: insets.left * self.scale, y: insets.top * self.scale)
         self.draw(at: origin)
 
-        return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(self.renderingMode)
+        return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(self.renderingMode).withTintColor(tintColor)
     }
 }
 
@@ -545,13 +545,32 @@ extension UITableView {
 
 //MARK: - UIImageView
 extension UIImageView {
-    /// Returns a blurred image visual
-    var blurredImageView: UIVisualEffectView {
-        let blurEfffect = UIBlurEffect(style: .dark)
-        let blurredEffectView = UIVisualEffectView(effect: blurEfffect)
-        blurredEffectView.frame = self.bounds
+    var blurrView: UIVisualEffectView? {
+        return self.subviews.first { (subview) -> Bool in
+            subview.tag == K.ViewTag.BLURR_VIEW
+        } as? UIVisualEffectView
+    }
+    
+    var isBlurr: Bool {
+        set {
+            blurrView?.isHidden = !isBlurr
+            if newValue {
+                let blurEfffect = UIBlurEffect(style: .dark)
+                let blurredEffectView = UIVisualEffectView(effect: blurEfffect)
+                blurredEffectView.tag = K.ViewTag.BLURR_VIEW
+                blurredEffectView.frame = self.bounds
+                
+                self.insertSubview(blurredEffectView, at: 0)
+            }
+        }
         
-        return blurredEffectView
+        get {
+            if let view = blurrView {
+                return !view.isHidden
+            } else {
+                return false
+            }
+        }
     }
     
     /// Returns a view that contains the the image view.
@@ -576,7 +595,6 @@ extension UIImageView {
         
         return bgView
     }
-    
 }
 
 //MARK: - UIAlertController

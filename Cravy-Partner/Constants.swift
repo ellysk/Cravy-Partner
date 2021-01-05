@@ -123,6 +123,10 @@ struct K {
             static let splashToCravyTabBar = "SplashToCravyTabBar"
             static let toProductsPageVC = "toProductsPageVC"
             static let myProductsToProduct = "MyProductsToProduct"
+            static let newProductToAlbum = "NewProductToAlbum"
+            static let albumToNewProduct = "AlbumToNewProduct"
+            static let newProductToImageView = "NewProductToImageView"
+            static let newProductToNewProductViews = "NewProductToNewProductViews"
         }
         
         //MARK:- StoryboardID
@@ -184,6 +188,8 @@ struct K {
         static let FLOATER_VIEW: Int = 22
         /// Returns a tag value of 33
         static let BACK_BUTTON: Int = 33
+        /// Returns a tag value of 44
+        static let BLURR_VIEW: Int = 44
     }
     
     //MARK:- Image

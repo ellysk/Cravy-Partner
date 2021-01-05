@@ -11,9 +11,11 @@ import UIKit
 /// Handles the display of different types of collection of photos in the user's photo library.
 class AlbumController: UIViewController {
     @IBOutlet weak var cravyToolBar: CravyToolBar!
+    var selectedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         self.view.setCravyGradientBackground()
         cravyToolBar.titles = [K.UIConstant.albumTitle, K.UIConstant.cameraRoll]
     }
@@ -22,7 +24,20 @@ class AlbumController: UIViewController {
         if segue.identifier == K.Identifier.Segue.toAlbumPageController {
             let albumPageController = segue.destination as! AlbumPageController
             albumPageController.transitionDelegate = cravyToolBar
+            albumPageController.presentationDelegate = self
             cravyToolBar.delegate = albumPageController
+        } else if segue.identifier == K.Identifier.Segue.albumToNewProduct {
+            let newProductViewsController = segue.destination as! NewProductViewsController
+            newProductViewsController.bgImage = selectedImage
         }
+    }
+}
+
+//MARK:- Presentation Delegate
+extension AlbumController: PresentaionDelegate {
+    func willPresent(_ viewController: UIViewController, data: Any?) {
+        guard let data = data, let image = data as? UIImage else {return}
+        selectedImage = image
+        performSegue(withIdentifier: K.Identifier.Segue.albumToNewProduct, sender: self)
     }
 }
