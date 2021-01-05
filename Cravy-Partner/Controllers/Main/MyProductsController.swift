@@ -12,14 +12,15 @@ import UIKit
 class MyProductsController: UIViewController {
     @IBOutlet weak var searchBar: CravySearchBar!
     @IBOutlet weak var cravyToolBar: CravyToolBar!
+    var selectedProduct: String?
     var delegate: PageViewsTransitionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         searchBar.delegate = self
         self.view.setCravyGradientBackground()
         cravyToolBar.titles = [K.UIConstant.active, K.UIConstant.inactive]
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -29,6 +30,10 @@ class MyProductsController: UIViewController {
             productsPageVC.scrollDelegate = self
             productsPageVC.presentationDelegate = self
             cravyToolBar.delegate = productsPageVC
+        } else if segue.identifier == K.Identifier.Segue.myProductsToProduct {
+            guard let selected = selectedProduct else {return}
+            let productVC = segue.destination as! ProductController
+            productVC.productTitle = selected
         }
     }
 }
@@ -60,5 +65,11 @@ extension MyProductsController: ScrollViewDelegate {
 extension MyProductsController: PresentaionDelegate {
     func willPresent(_ viewController: UIViewController) {
         self.dismissKeyboard()
+    }
+    
+    func shouldPresentProductControllerAfterSelecting(product: String) {
+        self.dismissKeyboard()
+        selectedProduct = product
+        self.performSegue(withIdentifier: K.Identifier.Segue.myProductsToProduct, sender: self)
     }
 }

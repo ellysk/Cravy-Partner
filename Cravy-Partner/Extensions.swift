@@ -318,6 +318,41 @@ extension UIViewController {
             }
         }
     }
+    /// A button responsible for navogating to a previous view.
+    var backButton: RoundButton? {
+        return self.view.subviews.first { (subview) -> Bool in
+            return subview.tag == K.ViewTag.BACK_BUTTON
+        } as? RoundButton
+    }
+    /// Determines if the view should display a button responsible for navogating to a previous view.
+    var showsBackButton: Bool {
+        set {
+            backButton?.isHidden = !newValue
+            
+            if newValue {
+                if backButton == nil {
+                    let bb = RoundButton()
+                    bb.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+                    bb.setBackgroundImage(UIImage(systemName: "chevron.left.circle.fill"), for: .normal)
+                    bb.tag = K.ViewTag.BACK_BUTTON
+                    bb.tintColor = K.Color.light
+                    self.view.addSubview(bb)
+                    bb.translatesAutoresizingMaskIntoConstraints = false
+                    bb.topAnchor(to: self.view.safeAreaLayoutGuide, constant: 8)
+                    bb.leadingAnchor(to: self.view, constant: 8)
+                    bb.sizeAnchorOf(width: 30, height: 30)
+                }
+            }
+        }
+        
+        get {
+            if let backButton = backButton {
+                return !backButton.isHidden
+            } else {
+                return false
+            }
+        }
+    }
     
     /// Displays a floater view with the provided image and title.
     func setFloaterViewWith(image: UIImage, title: String) {
@@ -328,6 +363,10 @@ extension UIViewController {
     
     @objc internal func dismissKeyboard() {
         self.view.endEditing(true)
+    }
+    
+    @objc internal func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -558,6 +597,16 @@ extension UIAlertController {
             }
         }
     }
+    
+    static func takeProductOffMarket(actionHandler: @escaping ()->(), presentationHanler: (UIAlertController)->()) {
+        let alertController  = UIAlertController(title: K.UIConstant.takeProductOffMarket, message: K.UIConstant.takeProductOffMarketMessage, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: K.UIConstant.takeItOff, style: .destructive, handler: { (action) in
+            actionHandler()
+        }))
+        alertController.addAction(UIAlertAction.cancel)
+        alertController.pruneNegativeWidthConstraints()
+        presentationHanler(alertController)
+    }
 }
 
 //MARK: - UIAlertAction
@@ -579,6 +628,17 @@ extension UIAlertAction {
         }
         
         return settingsAction
+    }
+}
+
+//MARK: - UIColor
+extension UIColor {
+    var isDarkColor: Bool {
+        var r, g, b, a: CGFloat
+        (r, g, b, a) = (0, 0, 0, 0)
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        let lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        return  lum < 0.50
     }
 }
 
@@ -857,6 +917,9 @@ extension AnimationView {
     }
     static var postAnimation: AnimationView {
         return AnimationView(name: "post")
+    }
+    static var inactiveAnimation: AnimationView {
+        return AnimationView(name: "inactive")
     }
     
     /// Plays the animation at the speicified position on the screen.

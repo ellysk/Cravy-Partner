@@ -22,6 +22,9 @@ protocol PresentaionDelegate {
     /// Notifies that a view controller will be presented.
     /// - Parameter viewController: The view controller presented.
     func willPresent(_ viewController: UIViewController)
+    /// Notifies that the user has selected a specific product in the collection view.
+    /// - Parameter product: The selected product
+    func shouldPresentProductControllerAfterSelecting(product: String)
 }
 
 /// Handles the display of the products that the user has created.
@@ -47,7 +50,7 @@ class ProductCollectionViewController: UICollectionViewController {
         self.collectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
     }
     
-    //MARK: - UICollectionView DataSource
+    //MARK:- UICollectionView DataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -73,6 +76,12 @@ class ProductCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    //MARK:- UICollectionView Delegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.presentationDelegate?.shouldPresentProductControllerAfterSelecting(product: "Chicken wings")
+    }
+    
+    //MARK:- UIScrollView Delegate
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.scrollDelegate?.didScroll(scrollView: scrollView)
     }

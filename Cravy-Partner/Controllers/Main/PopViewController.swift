@@ -14,13 +14,18 @@ class PopViewController: UIViewController {
     private var popView: PopView
     private var animationView: AnimationView?
     private var action: (()->())?
+    private var dismiss: (()->())?
     
     /// - Parameters:
     ///   - popView: Holds the views that display the actual information
-    init(popView: PopView, animationView: AnimationView? = nil, actionHandler: (()->())? = nil) {
+    ///   - animationView: The view which displays the animation
+    ///   - actionHandler: Called when user taps on the button displayed.
+    ///   - dismissHandler: Called always when the view is dismissed.
+    init(popView: PopView, animationView: AnimationView? = nil, actionHandler: (()->())? = nil, dismissHandler: (()->())? = nil) {
         self.popView = popView
         self.animationView = animationView
         self.action = actionHandler
+        self.dismiss = dismissHandler
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .overFullScreen
         self.modalTransitionStyle = .crossDissolve
@@ -44,7 +49,7 @@ class PopViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         if touch.view == self.view {
-            self.dismiss(animated: true)
+            self.dismiss(animated: true, completion: dismiss)
         }
     }
     
@@ -68,6 +73,7 @@ class PopViewController: UIViewController {
     @objc func action(_ sender: UIButton) {
         self.dismiss(animated: true) {
             self.action?()
+            self.dismiss?()
         }
     }
 }

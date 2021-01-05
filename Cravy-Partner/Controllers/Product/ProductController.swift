@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import UIImageColors
+import Lottie
 
 /// Handles the display of the properties of a product.
 class ProductController: UIViewController {
     @IBOutlet weak var imageView: RoundImageView!
+    @IBOutlet weak var backNavButton: UIButton!
     @IBOutlet weak var linkView: LinkView!
     @IBOutlet weak var widgetCollectionView: WidgetCollectionView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,19 +21,70 @@ class ProductController: UIViewController {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var marketView: MarketView!
     var tags = ["Chicken", "Wings", "Street", "Spicy"]
+    var productTitle: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = UIImage(named: "bgimage")
-        titleLabel.text = "Chicken wings"
+        titleLabel.text = productTitle
         titleLabel.underline()
         detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
         marketView.numberOfSearches = 254
         marketView.nuberOfViews = 122
         marketView.numberOfVisits = 120
         // Do any additional setup after loading the view.
+        additionalSetup()
+    }
+    
+    private func setBackNavButton() {
+        //Get the image that is on the background of the back button
+        guard let image = imageView.image else {return}
+        //Extract the colors from the image
+        image.getColors { (colors) in
+            //Get the dominant background color of the image
+            guard let background = colors?.background else {return}
+            DispatchQueue.main.async {
+                //Set the tint color of the back button depending on the contrast of the dominant background color extracted from the image.
+                self.backNavButton.tintColor = background.isDarkColor ? K.Color.light : K.Color.dark
+            }
+        }
+    }
+    
+    private func additionalSetup() {
+        setBackNavButton()
         self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
         widgetCollectionView.register()
         horizontalTagsCollectionView.register()
+        marketView.addAction {
+            if self.marketView.state == .active {
+                UIAlertController.takeProductOffMarket(actionHandler: {
+                    //TODO
+                    self.marketView.state = .inActive
+                }) { (alertController) in
+                    self.present(alertController, animated: true)
+                }
+            } else {
+                let post = PostView(toPost: "Chicken Wings")
+                let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {
+                     print("post")
+                    self.marketView.state = .active
+                }) {
+                    self.marketView.playAnimation()
+                }
+                self.present(popVC, animated: true) {
+                    self.marketView.stopAnimation()
+                }
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        marketView.playAnimation()
+    }
+    
+    @IBAction func navigateBack(_ sender: UIButton) {
+        self.goBack()
     }
 }
 

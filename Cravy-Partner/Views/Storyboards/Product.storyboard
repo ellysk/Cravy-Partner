@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUC-OP-ezN">
-                                <rect key="frame" x="0.0" y="-48" width="414" height="944"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TIn-V5-xT9">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
@@ -126,12 +126,26 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ox2-Kb-4vm">
+                                        <rect key="frame" x="8" y="8.5" width="30" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="hmP-gS-IHc"/>
+                                            <constraint firstAttribute="width" constant="30" id="vqf-He-pSI"/>
+                                        </constraints>
+                                        <color key="tintColor" name="light"/>
+                                        <state key="normal" backgroundImage="chevron.left.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="navigateBack:" destination="D16-c9-Isv" eventType="touchUpInside" id="AGN-77-rpJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="TIn-V5-xT9" firstAttribute="bottom" secondItem="jVC-jj-hdA" secondAttribute="bottom" id="A5F-ai-5ER"/>
+                                    <constraint firstItem="TIn-V5-xT9" firstAttribute="bottom" secondItem="jVC-jj-hdA" secondAttribute="bottom" constant="-40" id="A5F-ai-5ER"/>
+                                    <constraint firstItem="Ox2-Kb-4vm" firstAttribute="leading" secondItem="jVC-jj-hdA" secondAttribute="leading" constant="8" id="FAv-Ek-ZAh"/>
                                     <constraint firstItem="jVC-jj-hdA" firstAttribute="top" secondItem="TIn-V5-xT9" secondAttribute="top" id="Uxe-DP-fAv"/>
                                     <constraint firstItem="TIn-V5-xT9" firstAttribute="trailing" secondItem="jVC-jj-hdA" secondAttribute="trailing" id="Yxa-KN-yRY"/>
                                     <constraint firstItem="TIn-V5-xT9" firstAttribute="leading" secondItem="jVC-jj-hdA" secondAttribute="leading" id="bnu-Yd-XRe"/>
+                                    <constraint firstItem="Ox2-Kb-4vm" firstAttribute="top" secondItem="dUC-OP-ezN" secondAttribute="top" constant="8" id="jN4-Fe-Dai"/>
                                     <constraint firstItem="TIn-V5-xT9" firstAttribute="width" secondItem="Luj-RB-fpu" secondAttribute="width" id="u0y-5q-aDp"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="jVC-jj-hdA"/>
@@ -146,11 +160,12 @@
                             <constraint firstItem="dUC-OP-ezN" firstAttribute="leading" secondItem="rqk-aF-KOC" secondAttribute="leading" id="OyH-Ed-2TY"/>
                             <constraint firstItem="dUC-OP-ezN" firstAttribute="trailing" secondItem="rqk-aF-KOC" secondAttribute="trailing" id="Xka-QH-hF1"/>
                             <constraint firstAttribute="bottom" secondItem="dUC-OP-ezN" secondAttribute="bottom" id="dMX-8V-7RP"/>
-                            <constraint firstItem="dUC-OP-ezN" firstAttribute="top" secondItem="pFi-9x-luv" secondAttribute="top" constant="-48" id="f3c-gD-Qm7"/>
+                            <constraint firstItem="dUC-OP-ezN" firstAttribute="top" secondItem="pFi-9x-luv" secondAttribute="top" id="f3c-gD-Qm7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rqk-aF-KOC"/>
                     </view>
                     <connections>
+                        <outlet property="backNavButton" destination="Ox2-Kb-4vm" id="05S-iR-idg"/>
                         <outlet property="detailLabel" destination="hZg-hC-0Qe" id="tPq-js-pCs"/>
                         <outlet property="horizontalTagsCollectionView" destination="Rw7-gr-TAw" id="Lhy-0a-OBC"/>
                         <outlet property="imageView" destination="DFz-xF-hwV" id="ENb-sY-rnU"/>
@@ -166,6 +181,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

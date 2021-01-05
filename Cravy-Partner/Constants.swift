@@ -75,6 +75,9 @@ struct K {
         static let promote = "Promote"
         static let promotionMessage = "Get this amazing product at the top of the feed so you can increase your chances of having more customers."
         static let postMessage = "Put this product in the market for people around the area to see!"
+        static let takeProductOffMarket = "Take this product off the market?"
+        static let takeProductOffMarketMessage = "People will no longer be able to see this product if you choose to take it off."
+        static let takeItOff = "Take it off"
     }
     
     //MARK:- Identifier
@@ -119,6 +122,7 @@ struct K {
             static let toNewProductPageVC = "toNewProductPageVC"
             static let splashToCravyTabBar = "SplashToCravyTabBar"
             static let toProductsPageVC = "toProductsPageVC"
+            static let myProductsToProduct = "MyProductsToProduct"
         }
         
         //MARK:- StoryboardID
@@ -161,6 +165,7 @@ struct K {
         static let dark: UIColor = UIColor(named: "dark") ?? .black
         static let link: UIColor = UIColor(named: "link") ?? .link
         static let important: UIColor = UIColor(named: "important") ?? .red
+        static let positive: UIColor = UIColor(named: "positive") ?? .green
     }
     
     //MARK:- Size
@@ -177,6 +182,8 @@ struct K {
         static let CRAVY_SEARCH_BAR: Int = 11
         /// Returns a tag value of 22
         static let FLOATER_VIEW: Int = 22
+        /// Returns a tag value of 33
+        static let BACK_BUTTON: Int = 33
     }
     
     //MARK:- Image

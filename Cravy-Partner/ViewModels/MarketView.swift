@@ -7,25 +7,37 @@
 //
 
 import UIKit
+import Lottie
 
 /// A custom class that displays content related to the information of whether the product is on the market or not. If product is on the market then the contents displayed include number of seach appearances, views and web visits.
 class MarketView: UIView {
-    private var marketStackView: UIStackView!
+    private var toolStackView: UIStackView!
     private var marketLabel = UILabel()
     private var optionsButton = UIButton.optionsButton
+    private var contentStackView: UIStackView?
     private let searchContentView = ContentView(contentImage: UIImage(systemName: "magnifyingglass"))
     private let viewsContentView = ContentView(contentImage: UIImage(systemName: "eye.fill"))
     private let linksContentView = ContentView(contentImage: UIImage(systemName: "link"))
-    var marketStatus: Int {
+    private var animationView: AnimationView?
+    var state: PRODUCT_STATE {
         set {
-            marketLabel.text = newValue == 0 ? K.UIConstant.offTheMarket : K.UIConstant.onTheMarket
+            contentStackView?.isHidden = newValue == .inActive
+            animationView?.isHidden = newValue == .active
+            marketLabel.text = newValue == .active ? K.UIConstant.onTheMarket : K.UIConstant.offTheMarket
+            marketLabel.textColor = newValue == .active ? K.Color.positive : K.Color.important
+            if newValue == .active {
+                animationView?.stop()
+                setContentStackView()
+            } else {
+                setAnimationView()
+            }
         }
         
         get {
-            if marketLabel.text == K.UIConstant.offTheMarket {
-                return 0
+            if contentStackView != nil && !contentStackView!.isHidden {
+                return .active
             } else {
-                return 1
+                return .inActive
             }
         }
     }
@@ -63,51 +75,78 @@ class MarketView: UIView {
             return links
         }
     }
+    private var action: (()->())?
     
-    init(frame: CGRect = .zero, marketStatus: Int = 0) {
+    init(frame: CGRect = .zero, state: PRODUCT_STATE = .inActive) {
         super.init(frame: frame)
         self.backgroundColor = .clear
-        self.marketStatus = marketStatus
-        setMarketStackView()
-        setTopView()
-        setContentStackView()
+        setToolStackView()
+        self.state = state
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.marketStatus = 0
-        setMarketStackView()
-        setTopView()
-        setContentStackView()
+        setToolStackView()
+        self.state = .inActive
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.heightAnchor(to: marketStackView)
-    }
-    
-    private func setMarketStackView() {
-        marketStackView = UIStackView()
-        marketStackView.set(axis: .vertical, alignment: .fill)
-        self.addSubview(marketStackView)
-        marketStackView.translatesAutoresizingMaskIntoConstraints = false
-        marketStackView.VHConstraint(to: self, HConstant: 8)
-    }
-    
-    private func setTopView() {
+    private func setToolStackView() {
         marketLabel.font = UIFont.demiBold.small
         marketLabel.textAlignment = .left
-        marketLabel.textColor = K.Color.dark.withAlphaComponent(0.5)
-        
-        let hStackView = UIStackView(arrangedSubviews: [marketLabel, optionsButton])
-        hStackView.set(axis: .horizontal, alignment: .center, spacing: 0)
-        marketStackView.addArrangedSubview(hStackView)
+        optionsButton.addTarget(self, action: #selector(action(_:)), for: .touchUpInside)
+        toolStackView = UIStackView(arrangedSubviews: [marketLabel, optionsButton])
+        toolStackView.set(axis: .horizontal, alignment: .center, spacing: 0)
+        self.addSubview(toolStackView)
+        toolStackView.translatesAutoresizingMaskIntoConstraints = false
+        toolStackView.topAnchor(to: self)
+        toolStackView.HConstraint(to: self, constant: 8)
     }
     
     private func setContentStackView() {
-        let vStackView = UIStackView(arrangedSubviews: [searchContentView, viewsContentView, linksContentView])
-        vStackView.set(axis: .vertical, alignment: .fill, distribution: .fillEqually)
-        marketStackView.addArrangedSubview(vStackView)
+        if contentStackView == nil {
+            contentStackView = UIStackView(arrangedSubviews: [searchContentView, viewsContentView, linksContentView])
+            contentStackView!.set(axis: .vertical, alignment: .fill, distribution: .fillEqually)
+            self.addSubview(contentStackView!)
+            contentStackView!.translatesAutoresizingMaskIntoConstraints = false
+            contentStackView!.topAnchor.constraint(equalTo: toolStackView.bottomAnchor, constant: 8).isActive = true
+            contentStackView!.bottomAnchor(to: self)
+            contentStackView!.HConstraint(to: self, constant: 8)
+        }
+    }
+    
+    private func setAnimationView() {
+        if animationView == nil {
+            animationView = AnimationView.inactiveAnimation
+            animationView!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(action(_:))))
+            self.addSubview(animationView!)
+            animationView!.translatesAutoresizingMaskIntoConstraints = false
+            animationView!.topAnchor.constraint(equalTo: toolStackView.bottomAnchor, constant: 8).isActive = true
+            animationView!.bottomAnchor(to: self)
+            animationView!.HConstraint(to: self, constant: 8)
+            playAnimation()
+        } else {
+            playAnimation()
+        }
+    }
+    
+    func playAnimation() {
+        guard let animation = animationView, !animation.isHidden else {return}
+        if !animation.isAnimationPlaying {
+            animation.play()
+            animation.loopMode = .loop
+        }
+    }
+    
+    func stopAnimation() {
+        animationView?.pause()
+    }
+    
+    func addAction(_ action: (()->())?) {
+        self.action = action
+    }
+    
+    @objc func action(_ sender: Any) {
+        action?()
     }
 }
 
