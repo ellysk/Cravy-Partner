@@ -126,7 +126,7 @@ struct K {
             static let newProductToAlbum = "NewProductToAlbum"
             static let albumToNewProduct = "AlbumToNewProduct"
             static let newProductToImageView = "NewProductToImageView"
-            static let newProductToNewProductViews = "NewProductToNewProductViews"
+            static let imageViewToNewProductViews = "ImageViewToNewProductViews"
         }
         
         //MARK:- StoryboardID

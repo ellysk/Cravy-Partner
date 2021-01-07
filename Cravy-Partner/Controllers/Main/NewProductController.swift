@@ -12,53 +12,16 @@ import Lottie
 import Photos
 import UIImageColors
 
-enum SESSION {
-    case running
-    case stop
-}
-
 /// Handles the media representing the product.
 class NewProductController: SwiftyCamViewController {
     @IBOutlet weak var galleryImageView: RoundImageView!
-    @IBOutlet weak var cancelButton: RoundButton!
     @IBOutlet weak var utilityStackView: UIStackView!
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var switchCameraButton: UIButton!
-    @IBOutlet weak var saveButton: RoundButton!
     @IBOutlet weak var captureButton: RoundBorderedButton!
     var capturedImage: UIImage?
-    var sessionState: SESSION {
-        set {
-            self.pinchToZoom = newValue == .running
-            self.tapToFocus = newValue == .running
-            galleryImageView.isHidden = newValue == .stop
-            cancelButton.isHidden = newValue == .running
-            utilityStackView.isHidden = newValue == .stop
-            saveButton.isHidden = newValue == .running
-            captureButton.isHidden = newValue == .stop
-            self.floaterView?.isHidden = newValue == .running
-            if newValue == .running {
-                if !self.session.isRunning {
-                    self.session.startRunning()
-                }
-            } else {
-                self.session.stopRunning()
-                self.setFloaterViewWith(image: UIImage(systemName: "arrow.right.circle.fill")!, title: K.UIConstant.next)
-                self.floaterView?.delegate = self
-            }
-        }
-        
-        get {
-            if self.session.isRunning {
-                return .running
-            } else {
-                return .stop
-            }
-        }
-    }
     /// The animation played when user focuses on a specific point by tapping on the view once.
     let focusAnimation = AnimationView.focusAnimation
-    private var cravyPartnerAlbum: PHAssetCollection? = PHFetchOptions().cravyPartnerAlbum
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +34,6 @@ class NewProductController: SwiftyCamViewController {
         galleryImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openGallery(_:))))
         galleryImageView.roundFactor = 3.3
     }
-    
     
     private func additionalSetup() {
         self.pinchToZoom = true
@@ -86,7 +48,6 @@ class NewProductController: SwiftyCamViewController {
                 }
             }
         }
-        saveButton.setBackgroundImage(UIImage(systemName: "square.and.arrow.down.fill")?.withInset(UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)), for: .normal)
     }
     
     /// Fetch an asset in the Cravy partner asset collection and assigns it to the gallery image view.
@@ -99,23 +60,9 @@ class NewProductController: SwiftyCamViewController {
         }
     }
     
-    private func saveImage() {
-        cravyPartnerAlbum!.addImage(capturedImage!) { (completed, error) in
-            if let e = error {
-                fatalError("Could not save image to album: Error -> \(e.localizedDescription)")
-            } else if completed {
-                //TODO
-            }
-        }
-    }
-    
     /// Opens the user's device photos application content.
     @objc func openGallery(_ sender: UIImageView) {
         performSegue(withIdentifier: K.Identifier.Segue.newProductToAlbum, sender: self)
-    }
-    
-    @IBAction func cancel(_ sender: UIButton) {
-        sessionState = .running
     }
     
     @IBAction func utilityAction(_ sender: UIButton) {
@@ -136,26 +83,11 @@ class NewProductController: SwiftyCamViewController {
         self.takePhoto()
     }
     
-    @IBAction func saveToCravyPartnerAlbum(_ sender: UIButton) {
-        if cravyPartnerAlbum != nil {
-            saveImage()
-        } else {
-            //Create Cravy Partner album
-            let photoLibrary = PHPhotoLibrary.shared()
-            photoLibrary.createAssetCollectionWithTitle(title: K.UIConstant.albumTitle) { (completed, error) in
-                if let e = error {
-                    fatalError("Could not make album: Error -> \(e.localizedDescription)")
-                } else if completed {
-                    self.saveImage()
-                }
-            }
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.Identifier.Segue.newProductToNewProductViews {
-            let newProductViewsController = segue.destination as! NewProductViewsController
-            newProductViewsController.bgImage = capturedImage
+        if segue.identifier == K.Identifier.Segue.newProductToImageView {
+            let nav = segue.destination as! UINavigationController
+            let imageViewController = nav.viewControllers.first as! ImageViewController
+            imageViewController.image = capturedImage
         }
     }
 }
@@ -168,13 +100,6 @@ extension NewProductController: SwiftyCamViewControllerDelegate {
     
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didTake photo: UIImage) {
         capturedImage = photo
-        sessionState = .stop
-    }
-}
-
-//MARK:- FloaterView Delegate
-extension NewProductController: FloaterViewDelegate {
-    func didTapFloaterButton(_ floaterView: FloaterView) {
-        performSegue(withIdentifier: K.Identifier.Segue.newProductToNewProductViews, sender: self)
+        self.performSegue(withIdentifier: K.Identifier.Segue.newProductToImageView, sender: self)
     }
 }

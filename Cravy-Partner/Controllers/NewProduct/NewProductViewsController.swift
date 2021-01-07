@@ -23,6 +23,7 @@ class NewProductViewsController: UIViewController, TransitionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         bgImageView.image = bgImage
         bgImageView.isBlurr = true
         navigationBar.setBackgroundImage(UIImage(), for: .default)

@@ -16,7 +16,7 @@ enum INTERACTABLE {
 /// A custom view that displays an imageview and extra views at the bottom such as a linkview, an imagview for the cravings icon and a label showing the number of cravings.
 class CraveImageView: UIView {
     private var imageView: RoundImageView
-    private var cravingsImageView = RoundImageView(image: UIImage(named: "cravings")?.withInset(UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)))
+    private var cravingsImageView = RoundImageView(image: UIImage(named: "cravings")?.withInset(UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1), tintColor: K.Color.primary))
     private var cravingsLabel = UILabel()
     /// The image displayed in the imageview
     var craveImage: UIImage? {

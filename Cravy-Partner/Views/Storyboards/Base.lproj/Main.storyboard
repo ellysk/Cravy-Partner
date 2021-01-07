@@ -105,7 +105,7 @@
         <!--New Product Controller-->
         <scene sceneID="09j-UV-8uZ">
             <objects>
-                <viewController id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PrR-T3-kWa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,63 +157,27 @@
                                     <constraint firstAttribute="width" constant="60" id="6XD-lD-1Sr"/>
                                 </constraints>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbQ-zE-Jza" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="3" y="96" width="80" height="35"/>
-                                <color key="backgroundColor" name="light"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="5MA-pi-g7W"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="aiQ-Xs-obM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
-                                <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" name="primary"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="7yz-mq-re1"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BrX-Kq-K7q" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="3" y="770" width="40" height="40"/>
-                                <color key="backgroundColor" name="primary"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="Fpl-1P-lEk"/>
-                                    <constraint firstAttribute="height" constant="40" id="JAu-EF-Qe3"/>
-                                </constraints>
-                                <color key="tintColor" name="light"/>
-                                <state key="normal" backgroundImage="square.and.arrow.down.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="saveToCravyPartnerAlbum:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="AFG-se-OKB"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="BrX-Kq-K7q" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="3" id="5KP-oP-P0T"/>
-                            <constraint firstItem="ZOa-24-cPf" firstAttribute="bottom" secondItem="BrX-Kq-K7q" secondAttribute="bottom" constant="3" id="Bp7-Ja-mwY"/>
                             <constraint firstItem="ZOa-24-cPf" firstAttribute="trailing" secondItem="2dl-1v-W90" secondAttribute="trailing" constant="20" id="Cup-aI-it4"/>
-                            <constraint firstItem="tbQ-zE-Jza" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="NdZ-w3-rw2"/>
                             <constraint firstItem="2dl-1v-W90" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="TYA-PQ-wJk"/>
                             <constraint firstItem="ZOa-24-cPf" firstAttribute="bottom" secondItem="x2d-68-NhO" secondAttribute="bottom" constant="16" id="UgH-Nw-bnJ"/>
-                            <constraint firstItem="tbQ-zE-Jza" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="3" id="Wff-Wa-sOr"/>
                             <constraint firstItem="xCq-x9-0yj" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="20" id="Xjj-k5-3nS"/>
                             <constraint firstItem="xCq-x9-0yj" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="3" id="lJc-rb-9KI"/>
                             <constraint firstItem="x2d-68-NhO" firstAttribute="centerX" secondItem="PrR-T3-kWa" secondAttribute="centerX" id="rNn-D2-XkB"/>
-                            <constraint firstItem="2dl-1v-W90" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tbQ-zE-Jza" secondAttribute="trailing" constant="8" symbolic="YES" id="uMq-ZU-jKD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZOa-24-cPf"/>
                     </view>
                     <navigationItem key="navigationItem" id="cQm-1D-T8i"/>
                     <connections>
-                        <outlet property="cancelButton" destination="tbQ-zE-Jza" id="eop-Qi-M0r"/>
                         <outlet property="captureButton" destination="x2d-68-NhO" id="ZZ6-sB-MgR"/>
                         <outlet property="flashButton" destination="vW0-ZK-4ri" id="3Tb-Os-zWS"/>
                         <outlet property="galleryImageView" destination="xCq-x9-0yj" id="5WL-6E-y3q"/>
-                        <outlet property="saveButton" destination="BrX-Kq-K7q" id="uVD-o1-lxY"/>
                         <outlet property="switchCameraButton" destination="rJU-OF-lm7" id="une-dT-ssP"/>
                         <outlet property="utilityStackView" destination="2dl-1v-W90" id="rTq-Ob-MMj"/>
                         <segue destination="FVc-Kz-aXB" kind="presentation" identifier="NewProductToAlbum" id="dCe-On-TT1"/>
-                        <segue destination="pDY-cJ-w1W" kind="show" identifier="NewProductToNewProductViews" id="ulM-Xt-d8x"/>
+                        <segue destination="26W-r7-VfX" kind="presentation" identifier="NewProductToImageView" id="Vg6-f9-mDL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -228,7 +192,51 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozA-XV-PLY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5833" y="-63"/>
+            <point key="canvasLocation" x="7929.7101449275369" y="129.91071428571428"/>
+        </scene>
+        <!--Nice shot!-->
+        <scene sceneID="54D-ZZ-TWg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="717-H7-6de" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="jIM-Z5-NFR" customClass="ImageViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="afM-f8-cli">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rJu-uv-Zaa">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" name="light"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rJu-uv-Zaa" secondAttribute="bottom" id="Fyb-70-IfW"/>
+                            <constraint firstItem="rJu-uv-Zaa" firstAttribute="leading" secondItem="VWL-pq-zgM" secondAttribute="leading" id="Pny-JE-qVh"/>
+                            <constraint firstItem="rJu-uv-Zaa" firstAttribute="top" secondItem="VWL-pq-zgM" secondAttribute="top" id="emU-xE-Qsf"/>
+                            <constraint firstItem="rJu-uv-Zaa" firstAttribute="trailing" secondItem="VWL-pq-zgM" secondAttribute="trailing" id="g6H-bC-wQm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VWL-pq-zgM"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Nice shot!" id="1LR-6l-PrL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Wjb-cX-Hdk">
+                            <color key="tintColor" name="primary"/>
+                            <connections>
+                                <action selector="cancel:" destination="jIM-Z5-NFR" id="Btl-yZ-QVM"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="square.and.arrow.down.fill" catalog="system" id="TOy-1o-YNV">
+                            <color key="tintColor" name="primary"/>
+                            <connections>
+                                <action selector="saveToPhotoLibrary:" destination="jIM-Z5-NFR" id="4NC-RG-iUB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="rJu-uv-Zaa" id="Gjr-3v-dMW"/>
+                        <segue destination="pDY-cJ-w1W" kind="show" identifier="ImageViewToNewProductViews" id="fhT-FW-zsN"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="7313.04347826087" y="129.91071428571428"/>
         </scene>
         <!--Album-->
         <scene sceneID="TOb-hU-8nU">
@@ -618,6 +626,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjm-ai-kfY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4378.2608695652179" y="129.91071428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NKA-Ct-Gj4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="26W-r7-VfX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pfc-1f-wa0">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="primary"/>
+                        <color key="barTintColor" name="secondary"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="dark"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="dark"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jIM-Z5-NFR" kind="relationship" relationship="rootViewController" id="8Lg-ai-Ltv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4dF-I2-lS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6402.898550724638" y="129.91071428571428"/>
         </scene>
     </scenes>
     <resources>
