@@ -12,14 +12,35 @@ protocol TransitionDelegate {
     func didTranisitionToViewAt(index: Int)
 }
 
+protocol CravyPageControllerDelegate {
+    func didFinishLoadingPages(pages: [UIViewController])
+}
+
 /// A custom page controller with pre defined properties and methods for handling a UIPageViewController.
 class CravyPageController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     /// The availabe view controllers that can be displayed.
     var pages: [UIViewController]!
+    var displayedController: UIViewController? {
+        return self.viewControllers?.first
+    }
     var transitionDelegate: TransitionDelegate?
+    var cravyPCDelegate: CravyPageControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func go(_ direction: UIPageViewController.NavigationDirection) {
+        guard let currentIndex = pages.firstIndex(of: (self.viewControllers?.first)!) else {return}
+        var newIndex = currentIndex
+        if direction == .forward && currentIndex < pages.count - 1 {
+            newIndex+=1
+            self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
+        } else if direction == .reverse && currentIndex > 0 {
+            newIndex-=1
+            self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
+        }
+        self.transitionDelegate?.didTranisitionToViewAt(index: newIndex)
     }
     
     //MARK: - UIPageController DataSource
@@ -76,15 +97,6 @@ extension CravyPageController: CravyToolBarDelegate {
 //MARK:- PageViewsTransition Delegate
 extension CravyPageController: PageViewsTransitionDelegate {
     func goTo(direction: UIPageViewController.NavigationDirection) {
-        guard let currentIndex = pages.firstIndex(of: (self.viewControllers?.first)!) else {return}
-        var newIndex = currentIndex
-        if direction == .forward && currentIndex < pages.count - 1 {
-            newIndex+=1
-            self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
-        } else if direction == .reverse && currentIndex > 0 {
-            newIndex-=1
-            self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
-        }
-        self.transitionDelegate?.didTranisitionToViewAt(index: newIndex)
+        go(direction)
     }
 }

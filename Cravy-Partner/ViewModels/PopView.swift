@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view that holds a vertical stack view which displays two labels, a textfield and a button.
-class PopView: RoundView {
+class PopView: RoundView, UITextFieldDelegate {
     private var popStackView: UIStackView!
     private var titleLabel = UILabel()
     private var detailLabel = UILabel()
@@ -50,6 +50,15 @@ class PopView: RoundView {
         
         get {
             return actionButton.backgroundColor
+        }
+    }
+    var beginResponder: Bool {
+        set {
+            textField?.becomeFirstResponder()
+        }
+        
+        get {
+            return textField?.isFirstResponder ?? false
         }
     }
     
@@ -100,8 +109,9 @@ class PopView: RoundView {
         detailLabel.textColor = K.Color.dark.withAlphaComponent(0.5)
     }
     
-    private func addTextField(textFieldHandler: (UITextField)->()) {
+    func addTextField(textFieldHandler: (UITextField)->()) {
         textField = RoundTextField(roundFactor: 5, placeholder: nil)
+        textField!.delegate = self
         textField!.translatesAutoresizingMaskIntoConstraints = false
         textField!.heightAnchor(of: 40)
         
@@ -127,6 +137,12 @@ class PopView: RoundView {
         actionButton.widthAnchor(of: 100)
         
         return containerView
+    }
+    
+    //MARK:- UITextfield Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

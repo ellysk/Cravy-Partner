@@ -78,6 +78,8 @@ struct K {
         static let takeProductOffMarket = "Take this product off the market?"
         static let takeProductOffMarketMessage = "People will no longer be able to see this product if you choose to take it off."
         static let takeItOff = "Take it off"
+        static let delete = "Delete"
+        static let deleteTagMessage = "Are you sure you want to delete this tag?"
     }
     
     //MARK:- Identifier
@@ -134,6 +136,7 @@ struct K {
             static let textsVC = "textsVC"
             static let tagsCollectionVC = "tagsCollectionVC"
             static let linkVC = "linkVC"
+            static let cravyWebVC = "CravyWebVC"
         }
     }
     
@@ -222,6 +225,7 @@ struct K {
         static let textsViewController: TextsViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.textsVC) as! TextsViewController
         static let tagsCollectionViewController: TagsCollectionViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.tagsCollectionVC) as! TagsCollectionViewController
         static let linkViewController: LinkViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.linkVC) as! LinkViewController
+        static let cravyWebViewController: CravyWebViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.cravyWebVC) as! CravyWebViewController
     }
     
     //MARK:- Predicate

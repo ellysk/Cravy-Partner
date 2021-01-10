@@ -10,12 +10,12 @@ import UIKit
 import Lottie
 
 /// Handles the display of the tags that the user can select and manage.
-class TagsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class TagsCollectionViewController: NPCollectionViewController, UICollectionViewDelegateFlowLayout {
     var tagsCollectionView: VerticalTagsCollectionView {
         let verticalTagsCollectionView = self.collectionView as! VerticalTagsCollectionView
         return verticalTagsCollectionView
     }
-    var tags: [String : [String]] = ["My tags" : ["Burger", "Beef burger", "Beef"], "Common tags" : ["Fish and Chips", "Halal", "Dessert", "Chicken wings", "Meat and Chips", "Fries", "Chicken", "Vegetarian", "Pizza", "Breakfast", "Lunch", "Dinner"]]
+    var tags: [String : [String]] = ["My tags" : [], "Common tags" : ["Fish and Chips", "Halal", "Dessert", "Chicken wings", "Meat and Chips", "Fries", "Chicken", "Vegetarian", "Pizza", "Breakfast", "Lunch", "Dinner", "Burger", "beef"]]
     private var sections: [String] = ["My tags", "Common tags"]
     
     override func viewDidLoad() {
@@ -23,6 +23,13 @@ class TagsCollectionViewController: UICollectionViewController, UICollectionView
         tagsCollectionView.register()
         tagsCollectionView.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
         tagsCollectionView.register(NewCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.newCell)
+    }
+    
+    override func confirmNewProductInput(confirmationHandler: (Bool) -> ()) {
+        confirmationHandler(!tags["My tags"]!.isEmpty)
+        if !tags.isEmpty {
+            UserDefaults.standard.addTags(tags["My tags"]!)
+        }
     }
 
     //MARK:- DataSource
@@ -73,8 +80,18 @@ class TagsCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //If user has tapped on an item in the second section, then reorder the collection view
-        if indexPath.section == 1 {
+        if indexPath.section == 0 && indexPath.item != tags["My tags"]!.count {
+            //Prompt if user wants to delete the item
+            let alertController = UIAlertController(title: tags[sections[indexPath.section]]![indexPath.item], message: K.UIConstant.deleteTagMessage, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: K.UIConstant.delete, style: .destructive, handler: { (action) in
+                self.tags[self.sections[indexPath.section]]!.remove(at: indexPath.item)
+                collectionView.deleteItems(at: [indexPath])
+            }))
+            alertController.addAction(UIAlertAction.cancel)
+            present(alertController, animated: true)
+        } else if indexPath.section == 1 {
+            //If user has tapped on an item in the second section, then reorder the collection view
+            
             //Update sturcture/model of tags.
             let tagToAdd = tags[sections[1]]![indexPath.item] //The tag being seleceted.
             tags[sections[0]]!.append(tagToAdd) //Add tag to the first section which represents the user's preference tags.
@@ -97,9 +114,17 @@ extension TagsCollectionViewController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
         //TODO
         let popV = PopView(title: K.UIConstant.newTag, detail: K.UIConstant.newTagDetail, actionTitle: K.UIConstant.add)
+        var actionTextField: UITextField!
+        popV.addTextField { (textfield) in
+            actionTextField = textfield
+        }
         let popVC = PopViewController(popView: popV, animationView: AnimationView.ingredientsAnimation, actionHandler: {
-            print("add tag")
+            guard let text = actionTextField.text, text.removeLeadingAndTrailingSpaces != "" else {return}
+            self.tags["My tags"]!.append(text.removeLeadingAndTrailingSpaces)
+            self.collectionView.reloadSections(IndexSet(arrayLiteral: 0))
         })
+        popVC.loopMode = .repeat(2)
+        
         present(popVC, animated: true, completion: nil)
     }
 }

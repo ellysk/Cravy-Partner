@@ -12,7 +12,7 @@ import WebKit
 protocol CravyWebViewControllerDelegate {
     /// Returns the link of the website the user is currently displaying
     /// - Parameter url: The url of the website displayed.
-    func didCommitLink(url: URL)
+    func didCommitLink(URL: URL)
 }
 
 /// Handles the display of the web content.
@@ -36,7 +36,7 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
         }
     }
     /// The string required to initiate the webview and load up the web content.
-    var URLString: String! = "Dribbble"
+    var URLString: String!
     /// Determines if the web contents will be able to load up.
     private var preLoadFailed: Bool = false
     private var connectionNotSecure: Bool = false
@@ -96,7 +96,7 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @IBAction func dismiss(_ sender: UIBarButtonItem) {
-        //TODO
+        self.dismiss(animated: true)
     }
     
     @IBAction func reload(_ sender: UIBarButtonItem) {
@@ -118,12 +118,14 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
         let alertController = UIAlertController(title: K.UIConstant.linkActionTitle, message: url.absoluteString, preferredStyle: .actionSheet)
         alertController.pruneNegativeWidthConstraints()
         let yesAction = UIAlertAction(title: K.UIConstant.addLink, style: .default) { (action) in
-            self.delegate?.didCommitLink(url: url)
+            self.dismiss(animated: true) {
+                self.delegate?.didCommitLink(URL: url)
+            }
         }
         alertController.addAction(yesAction)
         alertController.addAction(UIAlertAction.cancel)
         
-        present(alertController, animated: true)
+        self.present(alertController, animated: true)
     }
     
     private func alert(title: String, description: String) {

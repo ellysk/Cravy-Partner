@@ -32,7 +32,7 @@ class NewCollectionCell: UICollectionViewCell {
     
     private func setFloaterView() {
         if floaterView == nil {
-            floaterView = FloaterView()
+            floaterView = FloaterView(resizesToSubview: false)
             floaterView.backgroundColor = K.Color.link
             floaterView.imageView.image = UIImage(systemName: "plus.circle.fill")
             floaterView.titleLabel.text = K.UIConstant.addMyOwn

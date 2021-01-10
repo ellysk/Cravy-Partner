@@ -9,11 +9,12 @@
 import UIKit
 
 protocol CravySearchBarDelegate {
+    func didEnquireSearch(_ text: String)
     func willPresentFilterAlertController(alertController: UIAlertController)
 }
 
 /// A custom search bar view that lets you search and filter data.
-class CravySearchBar: UIView {
+class CravySearchBar: UIView, UITextFieldDelegate {
     private var textField = CravyTextField()
     private var filterButton = RoundButton(roundFactor: 5)
     private let CSBTintColor: UIColor = K.Color.primary
@@ -24,6 +25,28 @@ class CravySearchBar: UIView {
         
         get {
             return filterButton.isHidden
+        }
+    }
+    var beginResponder: Bool {
+        set {
+            if newValue {
+                textField.becomeFirstResponder()
+            } else {
+                textField.resignFirstResponder()
+            }
+        }
+        
+        get {
+            return textField.isFirstResponder
+        }
+    }
+    var textColor: UIColor? {
+        set {
+            textField.textColor = newValue
+        }
+        
+        get {
+            return textField.textColor
         }
     }
     var delegate: CravySearchBarDelegate?
@@ -66,6 +89,7 @@ class CravySearchBar: UIView {
     private func style() {
         let searchImageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         searchImageView.tintColor = CSBTintColor
+        textField.delegate = self
         textField.leftView = searchImageView
         textField.leftViewMode = .always
         textField.setPlaceholder(K.UIConstant.searchProductsPlaceholder)
@@ -82,6 +106,10 @@ class CravySearchBar: UIView {
     
     func setPlaceholder(_ placeholder: String, color: UIColor) {
         textField.setPlaceholder(placeholder, placeholderTextColor: color)
+    }
+    
+    func clear() {
+        textField.text = nil
     }
     
     @objc func showFilters(_ sender: UIButton) {
@@ -108,5 +136,13 @@ class CravySearchBar: UIView {
         alertController.pruneNegativeWidthConstraints()
         
         self.delegate?.willPresentFilterAlertController(alertController: alertController)
+    }
+    
+    //MARK:- UITextfield Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text, text.removeLeadingAndTrailingSpaces != "" else {return false}
+        textField.resignFirstResponder()
+        self.delegate?.didEnquireSearch(text)
+        return true
     }
 }

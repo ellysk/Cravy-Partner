@@ -22,9 +22,6 @@ protocol PresentaionDelegate {
     /// Notifies that a view controller will be presented.
     /// - Parameter viewController: The view controller presented.
     func willPresent(_ viewController: UIViewController, data: Any?)
-//    /// Notifies that the user has selected a specific product in the collection view.
-//    /// - Parameter product: The selected product
-//    func shouldPresentProductControllerAfterSelecting(product: String)
 }
 
 /// Handles the display of the products that the user has created.

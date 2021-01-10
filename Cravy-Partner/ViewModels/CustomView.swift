@@ -83,7 +83,8 @@ class FloaterView: RoundView {
         if resizesToSubview {
             resizeToSubview()
         } else {
-            floaterStackView.VHConstraint(to: self, VConstant: 5, HConstant: 5)
+            floaterStackView.HConstraint(to: self, constant: 5)
+            floaterStackView.centerYAnchor(to: self)
         }
     }
     

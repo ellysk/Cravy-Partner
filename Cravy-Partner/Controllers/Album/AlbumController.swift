@@ -36,8 +36,10 @@ class AlbumController: UIViewController {
 //MARK:- Presentation Delegate
 extension AlbumController: PresentaionDelegate {
     func willPresent(_ viewController: UIViewController, data: Any?) {
+        self.view.isUserInteractionEnabled = false //avoid user interacting with other views when preparing to perform segue
         guard let data = data, let image = data as? UIImage else {return}
         selectedImage = image
         performSegue(withIdentifier: K.Identifier.Segue.albumToNewProduct, sender: self)
+        self.view.isUserInteractionEnabled = true
     }
 }

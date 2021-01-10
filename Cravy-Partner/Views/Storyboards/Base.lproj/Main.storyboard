@@ -197,7 +197,6 @@
         <!--Nice shot!-->
         <scene sceneID="54D-ZZ-TWg">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="717-H7-6de" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="jIM-Z5-NFR" customClass="ImageViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="afM-f8-cli">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -235,6 +234,7 @@
                         <segue destination="pDY-cJ-w1W" kind="show" identifier="ImageViewToNewProductViews" id="fhT-FW-zsN"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="717-H7-6de" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7313.04347826087" y="129.91071428571428"/>
         </scene>
@@ -320,7 +320,7 @@
         <!--Cravy Web View Controller-->
         <scene sceneID="k22-AS-GiO">
             <objects>
-                <viewController id="Jel-R2-C5y" customClass="CravyWebViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CravyWebVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Jel-R2-C5y" customClass="CravyWebViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9bl-VQ-CCd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

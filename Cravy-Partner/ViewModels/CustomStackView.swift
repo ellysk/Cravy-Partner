@@ -173,10 +173,40 @@ class AccountStackView: UIStackView {
     }
 }
 
+protocol CravyTextDelegate {
+    func textDidChange(on textField: UITextField, newText: String)
+    func textDidChange(on textView: UITextView, newText: String)
+}
+
 /// A vertical stack view that displays a textfield and a textview.
-class TextStackView: UIStackView {
-    var textField: RoundTextField!
-    var textView: RoundTextView!
+class TextStackView: UIStackView, UITextFieldDelegate, UITextViewDelegate {
+    private var textField: RoundTextField!
+    private var textView: RoundTextView!
+    var beginResponder: Bool {
+        set {
+            if newValue {
+                textField.becomeFirstResponder()
+            } else {
+                if textField.isFirstResponder {
+                    textField.resignFirstResponder()
+                } else if textView.isFirstResponder {
+                    textView.resignFirstResponder()
+                }
+            }
+        }
+        
+        get {
+            return textField.isFirstResponder || textView.isFirstResponder
+        }
+    }
+    var isValid: Bool {
+        if let textFieldText = textField.text, !textView.textIsPlaceholder {
+            return textFieldText.removeLeadingAndTrailingSpaces != "" && textView.text.removeLeadingAndTrailingSpaces != ""
+        } else {
+            return false
+        }
+    }
+    var delegate: CravyTextDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -197,15 +227,46 @@ class TextStackView: UIStackView {
     
     private func setTextField() {
         textField = RoundTextField(roundFactor: 5, placeholder: K.UIConstant.titlePlaceholder)
-        textField.returnKeyType = .done
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor(of: 45)
     }
     
     private func setTextView() {
         textView = RoundTextView(roundFactor: 15, placeholder: K.UIConstant.descriptionPlaceholder)
+        textView.delegate = self
         textView.textAlignment = .left
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.heightAnchor(of: 200)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else {return}
+        self.delegate?.textDidChange(on: textField, newText: text.removeLeadingAndTrailingSpaces)
+    }
+    
+    //MARK:- UITextField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+            textView.isFirstResponder = true
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
+    //MARK:- UITextView Delegate
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.textView.isFirstResponder = true
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        self.delegate?.textDidChange(on: textView, newText: textView.text.removeLeadingAndTrailingSpaces)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.textView.isFirstResponder = false
     }
 }

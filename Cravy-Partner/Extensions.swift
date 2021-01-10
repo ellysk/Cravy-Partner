@@ -361,6 +361,16 @@ extension UIViewController {
         self.floaterView?.titleLabel.text = title
     }
     
+    /// Presents CravyWebViewController with a URLString that will be used to load web content.
+    func presentWebWith(URLString: String, cravyWebViewControllerHandler: @escaping (CravyWebViewController)->()) {
+        let cravyWebViewController = K.Controller.cravyWebViewController
+        cravyWebViewController.URLString = URLString
+        
+        present(cravyWebViewController, animated: true) {
+            cravyWebViewControllerHandler(cravyWebViewController)
+        }
+    }
+    
     @objc internal func dismissKeyboard() {
         self.view.endEditing(true)
     }
@@ -917,6 +927,29 @@ extension URLError.Code {
         default:
             return "Please check your internet connection"
         }
+    }
+}
+
+extension UserDefaults {
+    var isProductInfoComplete: Bool {
+        guard let _ = self.object(forKey: "title") as? String, let _ = self.object(forKey: "description") as? String, let _ = self.object(forKey: "tags") as? [String] else {return false}
+        return true
+    }
+    
+    func addTitle(_ title: String) {
+        self.set(title, forKey: "title")
+    }
+    
+    func addDescription(_ description: String) {
+        self.set(description, forKey: "description")
+    }
+    
+    func addTags(_ tags: [String]) {
+        self.set(tags, forKey: "tags")
+    }
+    
+    func addURL(_ URL: URL) {
+        self.set(URL, forKey: "url")
     }
 }
 

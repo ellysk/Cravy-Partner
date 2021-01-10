@@ -15,6 +15,7 @@ class PopViewController: UIViewController {
     private var animationView: AnimationView?
     private var action: (()->())?
     private var dismiss: (()->())?
+    var loopMode: LottieLoopMode = .loop
     
     /// - Parameters:
     ///   - popView: Holds the views that display the actual information
@@ -40,10 +41,15 @@ class PopViewController: UIViewController {
         additionalSetup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        popView.beginResponder = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animationView?.play()
-        animationView?.loopMode = .loop
+        animationView?.loopMode = loopMode
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
