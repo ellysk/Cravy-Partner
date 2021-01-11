@@ -105,7 +105,7 @@
         <!--New Product Controller-->
         <scene sceneID="09j-UV-8uZ">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewProductVC" modalTransitionStyle="crossDissolve" id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PrR-T3-kWa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -178,6 +178,7 @@
                         <outlet property="utilityStackView" destination="2dl-1v-W90" id="rTq-Ob-MMj"/>
                         <segue destination="FVc-Kz-aXB" kind="presentation" identifier="NewProductToAlbum" id="dCe-On-TT1"/>
                         <segue destination="26W-r7-VfX" kind="presentation" identifier="NewProductToImageView" id="Vg6-f9-mDL"/>
+                        <segue destination="nhA-wT-txu" kind="show" identifier="NewProductToProduct" id="Oct-iN-Ogb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -626,6 +627,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjm-ai-kfY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4378.2608695652179" y="129.91071428571428"/>
+        </scene>
+        <!--Product-->
+        <scene sceneID="CsS-zo-37T">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Product" id="nhA-wT-txu" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="VUR-9i-0oq"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zVv-PS-6oS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5869" y="-250"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NKA-Ct-Gj4">

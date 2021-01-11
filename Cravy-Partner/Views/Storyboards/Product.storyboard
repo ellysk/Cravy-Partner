@@ -11,7 +11,7 @@
         <!--Product Controller-->
         <scene sceneID="8KE-ZV-aGf">
             <objects>
-                <viewController id="D16-c9-Isv" customClass="ProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductVC" id="D16-c9-Isv" customClass="ProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pFi-9x-luv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

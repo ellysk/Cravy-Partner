@@ -931,25 +931,43 @@ extension URLError.Code {
 }
 
 extension UserDefaults {
+    static let imageKey = "image"
+    static let titleKey = "title"
+    static let descriptionKey = "description"
+    static let tagsKey = "tags"
+    static let URLKey = "url"
     var isProductInfoComplete: Bool {
-        guard let _ = self.object(forKey: "title") as? String, let _ = self.object(forKey: "description") as? String, let _ = self.object(forKey: "tags") as? [String] else {return false}
+        guard let _ = self.data(forKey: UserDefaults.imageKey), let _ = self.string(forKey: UserDefaults.titleKey), let _ = self.string(forKey: UserDefaults.descriptionKey), let _ = self.object(forKey: UserDefaults.tagsKey) as? [String] else {return false}
         return true
     }
     
+    func addImage(_ image: UIImage) {
+        self.set(image.jpegData(compressionQuality: 1.0), forKey: "image")
+    }
+    
     func addTitle(_ title: String) {
-        self.set(title, forKey: "title")
+        self.set(title, forKey: UserDefaults.titleKey)
     }
     
     func addDescription(_ description: String) {
-        self.set(description, forKey: "description")
+        self.set(description, forKey: UserDefaults.descriptionKey)
     }
     
     func addTags(_ tags: [String]) {
-        self.set(tags, forKey: "tags")
+        self.set(tags, forKey: UserDefaults.tagsKey)
     }
     
     func addURL(_ URL: URL) {
-        self.set(URL, forKey: "url")
+        self.set(URL, forKey: UserDefaults.URLKey)
+    }
+    
+    /// Deletes all the info that the user input for creating a new product.
+    func deleteProductInfo() {
+        self.removeObject(forKey: UserDefaults.imageKey)
+        self.removeObject(forKey: UserDefaults.titleKey)
+        self.removeObject(forKey: UserDefaults.descriptionKey)
+        self.removeObject(forKey: UserDefaults.tagsKey)
+        self.removeObject(forKey: UserDefaults.URLKey)
     }
 }
 

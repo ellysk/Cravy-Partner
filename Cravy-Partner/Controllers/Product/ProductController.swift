@@ -69,8 +69,9 @@ class ProductController: UIViewController {
         marketView.playAnimation()
     }
     
-    @IBAction func navigateBack(_ sender: UIButton) {
-        self.goBack()
+    
+    @objc func done(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true)
     }
 }
 
@@ -103,5 +104,13 @@ extension ProductController: UICollectionViewDataSource {
             
             return tagCell
         }
+    }
+}
+
+//MARK:- NewProductViewsController Delegate
+extension ProductController: NewProductViewsControllerDelegate {
+    func didCreateProduct() {
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(_:)))
     }
 }

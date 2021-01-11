@@ -12,6 +12,10 @@ protocol PageViewsTransitionDelegate {
     func goTo(direction: UIPageViewController.NavigationDirection)
 }
 
+protocol NewProductViewsControllerDelegate {
+    func didCreateProduct()
+}
+
 /// Handles the transitions of the NewsPageController
 class NewProductViewsController: UIViewController {
     @IBOutlet weak var bgImageView: UIImageView!
@@ -19,7 +23,8 @@ class NewProductViewsController: UIViewController {
     @IBOutlet weak var previousItem: UIBarButtonItem!
     @IBOutlet weak var nextItem: UIBarButtonItem!
     var bgImage: UIImage!
-    var delegate: PageViewsTransitionDelegate?
+    var transitionDelegate: PageViewsTransitionDelegate?
+    var delegate: NewProductViewsControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,28 +37,40 @@ class NewProductViewsController: UIViewController {
     
     @IBAction func navigate(_ sender: UIBarButtonItem) {
         if sender.tag == -1 {
-            self.delegate?.goTo(direction: .reverse)
+            self.transitionDelegate?.goTo(direction: .reverse)
         } else if sender.tag == 1 {
-            self.delegate?.goTo(direction: .forward)
+            self.transitionDelegate?.goTo(direction: .forward)
         }
     }
     
     @objc func create(_ sender: UIBarButtonItem) {
-        let userDefault = UserDefaults.standard
-        if userDefault.isProductInfoComplete {
-            //TODO
+        UserDefaults.standard.addImage(bgImage)
+        if UserDefaults.standard.isProductInfoComplete {
+            performSegue(withIdentifier: K.Identifier.Segue.newProductToProduct, sender: self)
+            self.delegate?.didCreateProduct()
         }
     }
     
     @IBAction func cancel(_ sender: RoundButton) {
-        self.dismiss(animated: true)
+        dismissNewProductViewsController()
+    }
+    
+    private func dismissNewProductViewsController(dismissHandler: (()->())? = nil) {
+        self.dismiss(animated: true) {
+            dismissHandler?()
+            UserDefaults.standard.deleteProductInfo()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.toNewProductPageVC {
             let newProductPageVC = segue.destination as! NewProductPageController
-            self.delegate = newProductPageVC
+            self.transitionDelegate = newProductPageVC
             newProductPageVC.transitionDelegate = self
+        } else if segue.identifier == K.Identifier.Segue.newProductToProduct {
+            let productVC = segue.destination as! ProductController
+            self.delegate = productVC
+            productVC.productTitle = UserDefaults.standard.string(forKey: UserDefaults.titleKey)
         }
     }
 }
@@ -63,7 +80,7 @@ extension NewProductViewsController: TransitionDelegate {
     func didTranisitionToViewAt(index: Int) {
         //If index greater than 0, then user can go to previous view controller.
         previousItem.isEnabled = index > 0
-        nextItem.title =  index < 2 ? K.UIConstant.next : "Create"
+        nextItem.title =  index < 2 ? K.UIConstant.next : K.UIConstant.create
         nextItem.action = index < 2 ? #selector(navigate(_:)) : #selector(create(_:))
     }
 }

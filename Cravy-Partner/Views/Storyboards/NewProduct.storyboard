@@ -33,6 +33,16 @@
             </objects>
             <point key="canvasLocation" x="4183" y="-729"/>
         </scene>
+        <!--Product-->
+        <scene sceneID="6RQ-r7-x7z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Product" id="Vz3-GA-p8D" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="gPq-XH-4dK"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GG0-kr-USf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4671" y="-1782"/>
+        </scene>
         <!--New Product Page Controller-->
         <scene sceneID="abb-HL-dNn">
             <objects>
@@ -192,6 +202,7 @@
                         <outlet property="navigationBar" destination="xFT-6W-UnX" id="qVI-32-P7R"/>
                         <outlet property="nextItem" destination="R9x-nQ-Jky" id="S87-tP-Rcb"/>
                         <outlet property="previousItem" destination="xkh-AU-WAU" id="VDE-U5-ZMd"/>
+                        <segue destination="Vz3-GA-p8D" kind="show" identifier="NewProductToProduct" id="Rmx-Qr-v1C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKh-Hv-jEE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
