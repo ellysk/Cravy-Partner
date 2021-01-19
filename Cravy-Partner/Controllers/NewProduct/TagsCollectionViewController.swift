@@ -9,6 +9,10 @@
 import UIKit
 import Lottie
 
+protocol TagsCollectionViewControllerDelegate {
+    func didUpdateTags(tags: [String])
+}
+
 /// Handles the display of the tags that the user can select and manage.
 class TagsCollectionViewController: NPCollectionViewController, UICollectionViewDelegateFlowLayout {
     var tagsCollectionView: VerticalTagsCollectionView {
@@ -17,6 +21,7 @@ class TagsCollectionViewController: NPCollectionViewController, UICollectionView
     }
     var tags: [String : [String]] = ["My tags" : [], "Common tags" : ["Fish and Chips", "Halal", "Dessert", "Chicken wings", "Meat and Chips", "Fries", "Chicken", "Vegetarian", "Pizza", "Breakfast", "Lunch", "Dinner", "Burger", "beef"]]
     private var sections: [String] = ["My tags", "Common tags"]
+    var delegate: TagsCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +91,7 @@ class TagsCollectionViewController: NPCollectionViewController, UICollectionView
             alertController.addAction(UIAlertAction(title: K.UIConstant.delete, style: .destructive, handler: { (action) in
                 self.tags[self.sections[indexPath.section]]!.remove(at: indexPath.item)
                 collectionView.deleteItems(at: [indexPath])
+                self.delegate?.didUpdateTags(tags: self.tags[self.sections[indexPath.section]]!)
             }))
             alertController.addAction(UIAlertAction.cancel)
             present(alertController, animated: true)
@@ -95,7 +101,7 @@ class TagsCollectionViewController: NPCollectionViewController, UICollectionView
             //Update sturcture/model of tags.
             let tagToAdd = tags[sections[1]]![indexPath.item] //The tag being seleceted.
             tags[sections[0]]!.append(tagToAdd) //Add tag to the first section which represents the user's preference tags.
-            
+            self.delegate?.didUpdateTags(tags: self.tags[self.sections[0]]!)
             //Reorder the collection view
             collectionView.performBatchUpdates({
                 let item = collectionView.numberOfItems(inSection: 0) - 1
@@ -120,7 +126,8 @@ extension TagsCollectionViewController: FloaterViewDelegate {
         }
         let popVC = PopViewController(popView: popV, animationView: AnimationView.ingredientsAnimation, actionHandler: {
             guard let text = actionTextField.text, text.removeLeadingAndTrailingSpaces != "" else {return}
-            self.tags["My tags"]!.append(text.removeLeadingAndTrailingSpaces)
+            self.tags[self.sections[0]]!.append(text.removeLeadingAndTrailingSpaces)
+            self.delegate?.didUpdateTags(tags: self.tags[self.sections[0]]!)
             self.collectionView.reloadSections(IndexSet(arrayLiteral: 0))
         })
         popVC.loopMode = .repeat(2)

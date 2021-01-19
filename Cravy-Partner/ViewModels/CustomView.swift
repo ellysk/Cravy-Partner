@@ -9,7 +9,7 @@
 import UIKit
 
 class RoundView: UIView {
-    private var roundFactor: CGFloat?
+    var roundFactor: CGFloat?
     var isBordered: Bool = false
     /// A boolean that determines if the view should have a shadow layer.
     var castShadow: Bool = false
@@ -20,7 +20,6 @@ class RoundView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        self.roundFactor = 5
         super.init(coder: coder)
     }
     
@@ -52,12 +51,30 @@ class FloaterView: RoundView {
     var imageView = RoundImageView(frame: .zero)
     var titleLabel = UILabel()
     /// Adjust the width and height of the view depending on the size of the subviews.
-    private var resizesToSubview: Bool
+    private var resizesToSubview: Bool = false
+    var image: UIImage? {
+        set {
+            imageView.image = newValue
+        }
+        
+        get {
+            return imageView.image
+        }
+    }
+    var title: String? {
+        set {
+            titleLabel.text = newValue
+        }
+        
+        get {
+            return titleLabel.text
+        }
+    }
     var delegate: FloaterViewDelegate?
     
     init(resizesToSubview: Bool = false) {
-        self.resizesToSubview = resizesToSubview
         super.init(frame: .zero)
+        self.resizesToSubview = resizesToSubview
         self.backgroundColor = K.Color.primary
         setFloaterStackView()
         setButton()
@@ -65,7 +82,11 @@ class FloaterView: RoundView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        resizesToSubview = true
+        setFloaterStackView()
+        setButton()
+        self.sendSubviewToBack(floaterStackView)
     }
     
     override func layoutSubviews() {
@@ -97,6 +118,7 @@ class FloaterView: RoundView {
     
     private func setTitleLabel() {
         titleLabel.font = UIFont.demiBold.small
+        titleLabel.textAlignment = .center
         titleLabel.textColor = K.Color.light
     }
     
@@ -111,7 +133,7 @@ class FloaterView: RoundView {
     private func resizeToSubview() {
         floaterStackView.centerXYAnchor(to: self)
         self.widthAnchor(to: floaterStackView, multiplier: 1.2)
-        self.heightAnchor(to: floaterStackView, multiplier: 1.2)
+        self.heightAnchor(of: 40)
     }
     
     @objc func tap(_ sender: RoundButton) {

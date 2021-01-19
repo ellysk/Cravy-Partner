@@ -10,6 +10,15 @@ import UIKit
 
 /// A subclass of UITextField that overrides the textRect and editingRect to have a larger inset value.
 class CravyTextField: UITextField {
+    var isBordered: Bool = false
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isBordered {
+            self.makeBordered()
+        }
+    }
+    
     private var leftInset: CGFloat {
         let left: CGFloat = self.leftView == nil ? 8 : 24
         return left
@@ -32,7 +41,7 @@ class CravyTextField: UITextField {
 
 /// A subclass of CravyTextField that gives rounded corners and is bordered.
 class RoundTextField: CravyTextField {
-    private var roundFactor: CGFloat?
+    var roundFactor: CGFloat?
     
     init(roundFactor: CGFloat? = nil, placeholder: String? = nil) {
         super.init(frame: .zero)
@@ -43,20 +52,17 @@ class RoundTextField: CravyTextField {
         self.textColor = K.Color.dark
         self.tintColor = K.Color.primary
         self.roundFactor = roundFactor
-        self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        self.tintColor = K.Color.primary
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if let factor = roundFactor {
             self.makeRounded(roundFactor: factor)
-        } else {
-            self.makeRounded()
         }
-        self.makeBordered()
     }
 }

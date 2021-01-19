@@ -11,7 +11,7 @@ import UIKit
 /// Handles the display of products of different states.
 class ProductsPageController: CravyPageController {
     var scrollDelegate: ScrollViewDelegate?
-    var presentationDelegate: PresentaionDelegate?
+    var presentationDelegate: PresentationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

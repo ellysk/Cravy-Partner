@@ -26,6 +26,8 @@ class ProductController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         self.title = "Chicken wings"
+        imageView.roundFactor = 15
+        imageView.cornerMask = UIView.bottomCornerMask
         imageView.image = UIImage(named: "bgimage")
         titleLabel.text = productTitle
         titleLabel.underline()
@@ -39,6 +41,7 @@ class ProductController: UIViewController {
     
     private func additionalSetup() {
         self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
+        floaterView?.delegate = self
         widgetCollectionView.register()
         horizontalTagsCollectionView.register()
         marketView.addAction {
@@ -72,6 +75,20 @@ class ProductController: UIViewController {
     
     @objc func done(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Identifier.Segue.productToEditProduct {
+            let editProductVC = segue.destination as! EditProductController
+            //store default image
+            editProductVC.defaultValues.updateValue(imageView.image!, forKey: UserDefaults.imageKey)
+            //store default title
+            editProductVC.defaultValues.updateValue(productTitle!, forKey: UserDefaults.titleKey)
+            //store default description
+            editProductVC.defaultValues.updateValue(detailLabel.text!, forKey: UserDefaults.descriptionKey)
+            //store default tags
+            editProductVC.defaultValues.updateValue(tags, forKey: UserDefaults.tagsKey)
+        }
     }
 }
 
@@ -112,5 +129,12 @@ extension ProductController: NewProductViewsControllerDelegate {
     func didCreateProduct() {
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(_:)))
+    }
+}
+
+//MARK:- FloaterView Delegate
+extension ProductController: FloaterViewDelegate {
+    func didTapFloaterButton(_ floaterView: FloaterView) {
+        self.performSegue(withIdentifier: K.Identifier.Segue.productToEditProduct, sender: self)
     }
 }

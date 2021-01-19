@@ -62,7 +62,7 @@ class PopView: RoundView, UITextFieldDelegate {
         }
     }
     
-    init(title: String?, detail: String, actionTitle: String = K.UIConstant.confirm) {
+    init(title: String?, detail: String, actionTitle: String = K.UIConstant.confirm.uppercased()) {
         super.init(frame: .zero, roundFactor: 10)
         self.title = title
         self.detail = detail
@@ -111,6 +111,8 @@ class PopView: RoundView, UITextFieldDelegate {
     
     func addTextField(textFieldHandler: (UITextField)->()) {
         textField = RoundTextField(roundFactor: 5, placeholder: nil)
+        textField!.textAlignment = .center
+        textField!.backgroundColor = K.Color.secondary
         textField!.delegate = self
         textField!.translatesAutoresizingMaskIntoConstraints = false
         textField!.heightAnchor(of: 40)

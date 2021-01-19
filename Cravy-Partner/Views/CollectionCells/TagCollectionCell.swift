@@ -17,10 +17,12 @@ enum TAG_COLLECTION_STYLE {
 class TagCollectionCell: UICollectionViewCell {
     override var isSelected: Bool {
         set {
-            if allowsSelection {
-                self.backgroundColor = newValue ? K.Color.primary : defaultBackgroundColor
-            } else {
-                self.backgroundColor = defaultBackgroundColor
+            if style == .filled {
+                if allowsSelection {
+                    self.backgroundColor = newValue ? K.Color.primary : defaultBackgroundColor
+                } else {
+                    self.backgroundColor = defaultBackgroundColor
+                }
             }
         }
         
@@ -34,15 +36,15 @@ class TagCollectionCell: UICollectionViewCell {
     var allowsSelection: Bool = true
     private var tagStackView: UIStackView!
     var tagLabel: UILabel!
-    private var separator: UIView!
+    private var separator: UIView?
     /// Hides the separator in this particular cell.
     var isSeparatorHidden: Bool {
         set {
-            separator.isHidden = newValue
+            separator?.isHidden = newValue
         }
         
         get {
-            return separator.isHidden
+            return separator?.isHidden ?? true
         }
     }
     private var style: TAG_COLLECTION_STYLE {
@@ -58,7 +60,7 @@ class TagCollectionCell: UICollectionViewCell {
         }
         
         get {
-            if tagLabel.font == UIFont.medium.small && tagLabel.textAlignment == .center && isSeparatorHidden {
+            if isSeparatorHidden {
                 return .filled
             } else {
                 return .none_filled
@@ -101,11 +103,11 @@ class TagCollectionCell: UICollectionViewCell {
         
         if tagStackView == nil && separator == nil {
             separator = RoundView()
-            separator.backgroundColor = K.Color.primary
-            separator.translatesAutoresizingMaskIntoConstraints = false
-            separator.sizeAnchorOf(width: 5, height: 5)
+            separator!.backgroundColor = K.Color.primary
+            separator!.translatesAutoresizingMaskIntoConstraints = false
+            separator!.sizeAnchorOf(width: 5, height: 5)
             
-            tagStackView  = UIStackView(arrangedSubviews: [tagLabel, separator])
+            tagStackView  = UIStackView(arrangedSubviews: [tagLabel, separator!])
             tagStackView.set(axis: .horizontal, alignment: .center, spacing: 8)
             self.addSubview(tagStackView)
             tagStackView.translatesAutoresizingMaskIntoConstraints = false

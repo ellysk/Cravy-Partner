@@ -16,7 +16,7 @@ class AlbumCollectionViewController: UICollectionViewController {
     private var album: [String : [PHAsset]] = [:]
     private var creationDates: [String] = []
     private var selectedCell: AlbumCollectionCell?
-    var presentationDelegate: PresentaionDelegate?
+    var presentationDelegate: PresentationDelegate?
     
     /// - Parameter result: The assets fetched from a particular album.
     init(result: PHFetchResult<PHAsset>) {
@@ -75,7 +75,7 @@ class AlbumCollectionViewController: UICollectionViewController {
             guard let image = HQImage else {return}
             let cropVC = CropViewController(croppingStyle: .default, image: image)
             cropVC.aspectRatioPickerButtonHidden = true
-            cropVC.doneButtonTitle = K.UIConstant.next
+            cropVC.doneButtonTitle = K.UIConstant.confirm
             cropVC.delegate = self
             cropVC.presentAnimatedFrom(self, fromView: cell, fromFrame: cell.frame, setup: nil, completion: nil)
         }
@@ -86,7 +86,7 @@ extension AlbumCollectionViewController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         guard let view = selectedCell else {return}
         cropViewController.dismissAnimatedFrom(self, withCroppedImage: view.imageView?.image, toView: view, toFrame: view.frame, setup: nil) { () -> (Void) in
-            self.presentationDelegate?.willPresent(NewProductViewsController(), data: image)
+            self.presentationDelegate?.willPresent(nil, data: image)
         }
     }
     

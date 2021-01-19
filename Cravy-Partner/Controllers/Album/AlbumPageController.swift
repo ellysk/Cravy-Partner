@@ -11,7 +11,7 @@ import Photos
 
 /// Displays different collections of photos in the user's library.
 class AlbumPageController: CravyPageController {
-    var presentationDelegate: PresentaionDelegate?
+    var presentationDelegate: PresentationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

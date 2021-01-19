@@ -9,17 +9,34 @@
 import UIKit
 import Photos
 
+protocol ImageViewControllerDelegate {
+    func didConfirmImage(_ image: UIImage)
+}
+
 class ImageViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: RoundImageView!
+    @IBOutlet weak var confirmButton: FloaterView!
     var image: UIImage!
+    var dismissAfterConfirmAction: Bool = false
     private var cravyPartnerAlbum: PHAssetCollection? = PHFetchOptions().cravyPartnerAlbum
+    var isLandscape: Bool = false
+    var delegate: ImageViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.isNavigationBarHidden = true
+        if isLandscape {
+            imageView.contentMode = .scaleAspectFit
+        } else {
+            imageView.contentMode = .scaleAspectFill
+        }
         imageView.image = image
-        self.setFloaterViewWith(image: UIImage(systemName: "arrow.right.circle.fill")!, title: K.UIConstant.next)
-        self.floaterView?.delegate = self
+        imageView.roundFactor = 30
+        imageView.cornerMask = UIView.bottomCornerMask
+        confirmButton.image = UIImage(systemName: "checkmark.circle.fill")
+        confirmButton.title = K.UIConstant.confirm
+        confirmButton.delegate = self
     }
     
     private func saveImage() {
@@ -32,12 +49,12 @@ class ImageViewController: UIViewController {
         }
     }
     
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
+    @IBAction func cancel(_ sender: UIButton) {
         //TODO
         self.dismiss(animated: true)
     }
     
-    @IBAction func saveToPhotoLibrary(_ sender: UIBarButtonItem) {
+    @IBAction func saveToPhotoLibrary(_ sender: UIButton) {
         if cravyPartnerAlbum != nil {
             saveImage()
         } else {
@@ -64,6 +81,12 @@ class ImageViewController: UIViewController {
 //MARK:- FloaterView Delegate
 extension ImageViewController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
-        performSegue(withIdentifier: K.Identifier.Segue.imageViewToNewProductViews, sender: self)
+        if dismissAfterConfirmAction {
+            self.dismiss(animated: true) {
+                self.delegate?.didConfirmImage(self.image)
+            }
+        } else {
+            self.performSegue(withIdentifier: K.Identifier.Segue.imageViewToNewProductViews, sender: self)
+        }
     }
 }

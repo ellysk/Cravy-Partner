@@ -105,7 +105,7 @@
         <!--New Product Controller-->
         <scene sceneID="09j-UV-8uZ">
             <objects>
-                <viewController storyboardIdentifier="NewProductVC" modalTransitionStyle="crossDissolve" id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewProductVC" modalPresentationStyle="fullScreen" id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PrR-T3-kWa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,20 +157,37 @@
                                     <constraint firstAttribute="width" constant="60" id="6XD-lD-1Sr"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xp-KF-mGY">
+                                <rect key="frame" x="20" y="88" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="61F-XN-CQK"/>
+                                    <constraint firstAttribute="width" constant="30" id="67Q-Hq-jd9"/>
+                                </constraints>
+                                <color key="tintColor" name="dark"/>
+                                <state key="normal" image="xmark" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="Y2e-x0-VIU" eventType="touchUpInside" id="CPi-eJ-fgS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZOa-24-cPf" firstAttribute="trailing" secondItem="2dl-1v-W90" secondAttribute="trailing" constant="20" id="Cup-aI-it4"/>
+                            <constraint firstItem="4Xp-KF-mGY" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="20" id="HRl-nw-jTO"/>
                             <constraint firstItem="2dl-1v-W90" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="8" id="TYA-PQ-wJk"/>
                             <constraint firstItem="ZOa-24-cPf" firstAttribute="bottom" secondItem="x2d-68-NhO" secondAttribute="bottom" constant="16" id="UgH-Nw-bnJ"/>
                             <constraint firstItem="xCq-x9-0yj" firstAttribute="leading" secondItem="ZOa-24-cPf" secondAttribute="leading" constant="20" id="Xjj-k5-3nS"/>
                             <constraint firstItem="xCq-x9-0yj" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" constant="3" id="lJc-rb-9KI"/>
                             <constraint firstItem="x2d-68-NhO" firstAttribute="centerX" secondItem="PrR-T3-kWa" secondAttribute="centerX" id="rNn-D2-XkB"/>
+                            <constraint firstItem="4Xp-KF-mGY" firstAttribute="top" secondItem="ZOa-24-cPf" secondAttribute="top" id="zPg-cO-rgx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZOa-24-cPf"/>
                     </view>
                     <navigationItem key="navigationItem" id="cQm-1D-T8i"/>
                     <connections>
+                        <outlet property="cancelButton" destination="4Xp-KF-mGY" id="AZt-dJ-8fg"/>
                         <outlet property="captureButton" destination="x2d-68-NhO" id="ZZ6-sB-MgR"/>
                         <outlet property="flashButton" destination="vW0-ZK-4ri" id="3Tb-Os-zWS"/>
                         <outlet property="galleryImageView" destination="xCq-x9-0yj" id="5WL-6E-y3q"/>
@@ -183,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5288.4057971014499" y="129.91071428571428"/>
+            <point key="canvasLocation" x="5413" y="130"/>
         </scene>
         <!--NewProduct-->
         <scene sceneID="YEU-WH-Fzy">
@@ -203,35 +220,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rJu-uv-Zaa">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fCP-ML-IbN" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="806"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKS-Na-8Rf">
+                                <rect key="frame" x="0.0" y="806" width="414" height="56"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="168" translatesAutoresizingMaskIntoConstraints="NO" id="ceK-Sw-eHZ">
+                                        <rect key="frame" x="20" y="8" width="374" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajh-ao-Wmv" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
+                                                <color key="backgroundColor" name="dark"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="n0b-Ah-LRg"/>
+                                                </constraints>
+                                                <color key="tintColor" name="light"/>
+                                                <state key="normal" image="square.and.arrow.down" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="saveToPhotoLibrary:" destination="jIM-Z5-NFR" eventType="touchUpInside" id="7Ep-4I-G1E"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aar-X1-xkR" customClass="FloaterView" customModule="Cravy_Partner" customModuleProvider="target">
+                                                <rect key="frame" x="248" y="0.0" width="126" height="40"/>
+                                                <color key="backgroundColor" name="primary"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Mg0-QI-Yx4"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ceK-Sw-eHZ" firstAttribute="leading" secondItem="fKS-Na-8Rf" secondAttribute="leading" constant="20" id="Uab-2V-i8M"/>
+                                    <constraint firstItem="ceK-Sw-eHZ" firstAttribute="centerY" secondItem="fKS-Na-8Rf" secondAttribute="centerY" id="esD-bJ-fBx"/>
+                                    <constraint firstAttribute="trailing" secondItem="ceK-Sw-eHZ" secondAttribute="trailing" constant="20" id="fWW-oT-GqL"/>
+                                    <constraint firstItem="ceK-Sw-eHZ" firstAttribute="bottom" secondItem="fKS-Na-8Rf" secondAttribute="bottomMargin" id="oEN-Sc-XtS"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ZO-iE-RQS">
+                                <rect key="frame" x="20" y="88" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="Awe-J8-7cH"/>
+                                    <constraint firstAttribute="height" constant="30" id="QEO-UG-gD7"/>
+                                </constraints>
+                                <color key="tintColor" name="dark"/>
+                                <state key="normal" image="xmark" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="jIM-Z5-NFR" eventType="touchUpInside" id="v72-mG-dWS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="light"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="rJu-uv-Zaa" secondAttribute="bottom" id="Fyb-70-IfW"/>
-                            <constraint firstItem="rJu-uv-Zaa" firstAttribute="leading" secondItem="VWL-pq-zgM" secondAttribute="leading" id="Pny-JE-qVh"/>
-                            <constraint firstItem="rJu-uv-Zaa" firstAttribute="top" secondItem="VWL-pq-zgM" secondAttribute="top" id="emU-xE-Qsf"/>
-                            <constraint firstItem="rJu-uv-Zaa" firstAttribute="trailing" secondItem="VWL-pq-zgM" secondAttribute="trailing" id="g6H-bC-wQm"/>
+                            <constraint firstItem="fKS-Na-8Rf" firstAttribute="bottom" secondItem="VWL-pq-zgM" secondAttribute="bottom" id="1fF-kM-hFh"/>
+                            <constraint firstItem="8ZO-iE-RQS" firstAttribute="leading" secondItem="VWL-pq-zgM" secondAttribute="leading" constant="20" id="2c2-dL-gwn"/>
+                            <constraint firstItem="fKS-Na-8Rf" firstAttribute="trailing" secondItem="VWL-pq-zgM" secondAttribute="trailing" id="IBP-OW-sEZ"/>
+                            <constraint firstItem="fCP-ML-IbN" firstAttribute="top" secondItem="afM-f8-cli" secondAttribute="top" id="Q6A-OU-EmQ"/>
+                            <constraint firstItem="fCP-ML-IbN" firstAttribute="trailing" secondItem="VWL-pq-zgM" secondAttribute="trailing" id="bAo-m7-aUK"/>
+                            <constraint firstItem="fKS-Na-8Rf" firstAttribute="leading" secondItem="VWL-pq-zgM" secondAttribute="leading" id="cgY-gJ-Xjr"/>
+                            <constraint firstItem="fCP-ML-IbN" firstAttribute="leading" secondItem="VWL-pq-zgM" secondAttribute="leading" id="dPS-9O-fXH"/>
+                            <constraint firstItem="fKS-Na-8Rf" firstAttribute="top" secondItem="fCP-ML-IbN" secondAttribute="bottom" id="kAM-Ww-TMc"/>
+                            <constraint firstItem="8ZO-iE-RQS" firstAttribute="top" secondItem="VWL-pq-zgM" secondAttribute="top" id="vwY-6r-kdo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VWL-pq-zgM"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Nice shot!" id="1LR-6l-PrL">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Wjb-cX-Hdk">
-                            <color key="tintColor" name="primary"/>
-                            <connections>
-                                <action selector="cancel:" destination="jIM-Z5-NFR" id="Btl-yZ-QVM"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="square.and.arrow.down.fill" catalog="system" id="TOy-1o-YNV">
-                            <color key="tintColor" name="primary"/>
-                            <connections>
-                                <action selector="saveToPhotoLibrary:" destination="jIM-Z5-NFR" id="4NC-RG-iUB"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Nice shot!" id="1LR-6l-PrL"/>
                     <connections>
-                        <outlet property="imageView" destination="rJu-uv-Zaa" id="Gjr-3v-dMW"/>
+                        <outlet property="confirmButton" destination="Aar-X1-xkR" id="Aww-NU-nkA"/>
+                        <outlet property="imageView" destination="fCP-ML-IbN" id="nJu-md-TpJ"/>
                         <segue destination="pDY-cJ-w1W" kind="show" identifier="ImageViewToNewProductViews" id="fhT-FW-zsN"/>
                     </connections>
                 </viewController>
@@ -247,7 +309,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Doj-Nq-oJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5831" y="280"/>
+            <point key="canvasLocation" x="5936" y="283"/>
         </scene>
         <!--My business-->
         <scene sceneID="tmb-Ph-pte">
@@ -343,7 +405,7 @@
                                 <items>
                                     <navigationItem title="The longest word i can think of is not even the longest word i can think of" id="zmf-XB-ebS">
                                         <leftBarButtonItems>
-                                            <barButtonItem image="xmark" catalog="system" style="done" id="tVZ-t4-l5w">
+                                            <barButtonItem title="Item" image="xmark" catalog="system" style="done" id="tVZ-t4-l5w">
                                                 <color key="tintColor" name="primary"/>
                                                 <connections>
                                                     <action selector="dismiss:" destination="Jel-R2-C5y" id="aKu-if-XmT"/>
@@ -427,6 +489,7 @@
                     <connections>
                         <outlet property="backLinkButton" destination="onB-mc-qbB" id="Tx6-bZ-Wlt"/>
                         <outlet property="cravyWebView" destination="9YV-JY-eVi" id="g2Q-Bv-N91"/>
+                        <outlet property="dismissItem" destination="tVZ-t4-l5w" id="WYd-tf-Q0r"/>
                         <outlet property="forwardLinkButton" destination="pyd-dM-yBg" id="65s-zP-rRr"/>
                         <outlet property="linkButton" destination="VZv-9H-PBa" id="bA1-vj-xbv"/>
                         <outlet property="navigationBar" destination="TAG-ah-rRO" id="5wa-Ce-G7k"/>
@@ -681,7 +744,7 @@
         <image name="newcrave" width="27.5" height="23"/>
         <image name="newcrave-filled" width="27.5" height="23"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
+        <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

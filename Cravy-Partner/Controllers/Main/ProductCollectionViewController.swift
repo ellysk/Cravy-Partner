@@ -18,10 +18,10 @@ protocol ScrollViewDelegate {
     func didScroll(scrollView: UIScrollView)
 }
 
-protocol PresentaionDelegate {
+protocol PresentationDelegate {
     /// Notifies that a view controller will be presented.
     /// - Parameter viewController: The view controller presented.
-    func willPresent(_ viewController: UIViewController, data: Any?)
+    func willPresent(_ viewController: UIViewController?, data: Any?)
 }
 
 /// Handles the display of the products that the user has created.
@@ -29,7 +29,7 @@ class ProductCollectionViewController: UICollectionViewController {
     private var craves: [String] = []
     private var state: PRODUCT_STATE
     var scrollDelegate: ScrollViewDelegate?
-    var presentationDelegate: PresentaionDelegate?
+    var presentationDelegate: PresentationDelegate?
     
     init(craves: [String] = [], state: PRODUCT_STATE) {
         self.craves = craves
@@ -75,7 +75,7 @@ class ProductCollectionViewController: UICollectionViewController {
     
     //MARK:- UICollectionView Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presentationDelegate?.willPresent(ProductController(), data: "Chicken wings")
+        self.presentationDelegate?.willPresent(nil, data: "Chicken wings")
     }
     
     //MARK:- UIScrollView Delegate

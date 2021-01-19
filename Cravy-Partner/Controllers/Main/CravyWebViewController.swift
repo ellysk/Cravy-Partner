@@ -18,6 +18,7 @@ protocol CravyWebViewControllerDelegate {
 /// Handles the display of the web content.
 class CravyWebViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet var dismissItem: UIBarButtonItem!
     @IBOutlet weak var securityItem: UIBarButtonItem!
     @IBOutlet weak var reloadItem: UIBarButtonItem!
     @IBOutlet weak var progressView: UIProgressView!
@@ -37,6 +38,7 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
     }
     /// The string required to initiate the webview and load up the web content.
     var URLString: String!
+    private let defaultURLString: String = "https://www.google.com"
     /// Determines if the web contents will be able to load up.
     private var preLoadFailed: Bool = false
     private var connectionNotSecure: Bool = false
@@ -57,14 +59,31 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.isModalInPresentation {
+            dismissItem.image = UIImage(systemName: "xmark")
+        } else {
+            dismissItem.image = UIImage(systemName: "arrow.left")
+        }
         reloadItem.isEnabled = false
         linkButton.castShadow = true
         cravyWebView.navigationDelegate = self
+        if URLString == nil {
+            URLString = defaultURLString
+        }
+        load(URLString)
+        addObservers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    private func load(_ URLString: String) {
         cravyWebView.load(URLString) { (isCompleted, URLErrorCode) in
             self.preLoadFailed = !isCompleted
             self.connectionNotSecure = URLErrorCode != nil && URLErrorCode! == .appTransportSecurityRequiresSecureConnection
         }
-        addObservers()
     }
     
     private func addObservers() {
@@ -95,8 +114,17 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
         preLoadFailed = false
     }
     
+    private func dismissCravyWebVC(completion: (()->())? = nil) {
+        if self.isModalInPresentation {
+            self.dismiss(animated: true, completion: completion)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+            completion?()
+        }
+    }
+    
     @IBAction func dismiss(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true)
+        dismissCravyWebVC()
     }
     
     @IBAction func reload(_ sender: UIBarButtonItem) {
@@ -118,7 +146,7 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
         let alertController = UIAlertController(title: K.UIConstant.linkActionTitle, message: url.absoluteString, preferredStyle: .actionSheet)
         alertController.pruneNegativeWidthConstraints()
         let yesAction = UIAlertAction(title: K.UIConstant.addLink, style: .default) { (action) in
-            self.dismiss(animated: true) {
+            self.dismissCravyWebVC {
                 self.delegate?.didCommitLink(URL: url)
             }
         }

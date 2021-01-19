@@ -71,7 +71,7 @@ struct K {
         static let email = "Email"
         static let password = "Password"
         static let login = "LOGIN"
-        static let confirm = "CONFIRM"
+        static let confirm = "Confirm"
         static let promote = "Promote"
         static let promotionMessage = "Get this amazing product at the top of the feed so you can increase your chances of having more customers."
         static let postMessage = "Put this product in the market for people around the area to see!"
@@ -81,6 +81,13 @@ struct K {
         static let delete = "Delete"
         static let deleteTagMessage = "Are you sure you want to delete this tag?"
         static let create = "Create"
+        static let noLinkProvided = "No link provided"
+        static let addPhoto = "Add photo"
+        static let addPhotoMessage = "The photo represents your product and is what will be displayed to the customers"
+        static let photoLibrary = "Photo Library"
+        static let camera = "Camera"
+        static let addNewLink = "Add new link"
+        static let deleteLink = "Delete link"
     }
     
     //MARK:- Identifier
@@ -131,6 +138,9 @@ struct K {
             static let newProductToImageView = "NewProductToImageView"
             static let imageViewToNewProductViews = "ImageViewToNewProductViews"
             static let newProductToProduct = "NewProductToProduct"
+            static let productToEditProduct = "ProductToEditProduct"
+            static let toTagsCollectionVC = "toTagsCollectionVC"
+            static let editProductToEditTags = "EditProductToEditTags"
         }
         
         //MARK:- StoryboardID
@@ -141,6 +151,7 @@ struct K {
             static let cravyWebVC = "CravyWebVC"
             static let newProductVC = "NewProductVC"
             static let productVC = "ProductVC"
+            static let albumVC = "AlbumVC"
         }
     }
     
@@ -197,6 +208,10 @@ struct K {
         static let BACK_BUTTON: Int = 33
         /// Returns a tag value of 44
         static let BLURR_VIEW: Int = 44
+        /// Returns a tag value of 55
+        static let PLACEHOLDER_VIEW: Int = 55
+        /// Returns a tag value of 66
+        static let DISMISS_BUTTON: Int = 66
     }
     
     //MARK:- Image
@@ -222,6 +237,7 @@ struct K {
         static let product: UIStoryboard = UIStoryboard(name: "Product", bundle: nil)
         static let settings: UIStoryboard = UIStoryboard(name: "Settings", bundle: nil)
         static let newProduct: UIStoryboard = UIStoryboard(name: "NewProduct", bundle: nil)
+        static let album: UIStoryboard = UIStoryboard(name: "Album", bundle: nil)
     }
     
     //MARK:- Controller
@@ -232,6 +248,7 @@ struct K {
         static let cravyWebViewController: CravyWebViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.cravyWebVC) as! CravyWebViewController
         static let newProductController: NewProductController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.newProductVC) as! NewProductController
         static let productController: ProductController = StoryBoard.product.instantiateViewController(withIdentifier: Identifier.StoryboardID.productVC) as! ProductController
+        static let albumController: AlbumController = StoryBoard.album.instantiateViewController(withIdentifier: K.Identifier.StoryboardID.albumVC) as! AlbumController
     }
     
     //MARK:- Predicate

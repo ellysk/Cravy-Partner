@@ -155,9 +155,9 @@ class AccountStackView: UIStackView {
     
     private func setAccountStackView() {
         logoImageView = RoundImageView(image: nil, roundfactor: 5)
-        let logoView = logoImageView.withPlaceholderView()
-        logoView.translatesAutoresizingMaskIntoConstraints = false
-        logoView.sizeAnchorOf(width: 100, height: 100)
+        logoImageView.showsPlaceholder = true
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.sizeAnchorOf(width: 100, height: 100)
         
         nameTextField = textField
         nameTextField.keyboardType = .default
@@ -166,7 +166,7 @@ class AccountStackView: UIStackView {
         numberTextField = textField
         numberTextField.keyboardType = .phonePad
         
-        self.addArrangedSubview(logoView.withSectionTitle(K.UIConstant.addBusinessLogo, alignment: .leading))
+        self.addArrangedSubview(logoImageView.withSectionTitle(K.UIConstant.addBusinessLogo, alignment: .leading))
         self.addArrangedSubview(nameTextField.withSectionTitle(K.UIConstant.changeBusinessName))
         self.addArrangedSubview(emailTextField.withSectionTitle(K.UIConstant.changeBusinessEmail))
         self.addArrangedSubview(numberTextField.withSectionTitle(K.UIConstant.changePhoneNumber))
@@ -227,6 +227,8 @@ class TextStackView: UIStackView, UITextFieldDelegate, UITextViewDelegate {
     
     private func setTextField() {
         textField = RoundTextField(roundFactor: 5, placeholder: K.UIConstant.titlePlaceholder)
+        textField.isBordered = true
+        textField.backgroundColor = K.Color.light.withAlphaComponent(0.8)
         textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.returnKeyType = .next

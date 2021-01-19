@@ -31,7 +31,7 @@ class RoundTextView: UITextView {
             return super.isFirstResponder
         }
     }
-    private var roundFactor: CGFloat?
+    var roundFactor: CGFloat?
     private var placeholder: String?
     var textIsPlaceholder: Bool {
         return self.text == placeholder
@@ -43,26 +43,30 @@ class RoundTextView: UITextView {
         self.placeholder = placeholder
         self.text = placeholder
         self.font = UIFont.regular.small
-        self.addKeyboardToolbarWithTarget(target: self, titleText: nil, rightBarButtonConfiguration: IQBarButtonItemConfiguration(title: "Done", action: #selector(resign(_:))))
-        self.keyboardToolbar.doneBarButton.tintColor = K.Color.primary
         self.textColor = K.Color.dark.withAlphaComponent(0.5)
-        self.textContainerInset.top = 16
-        self.textContainerInset.bottom = 16
+        self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
+        additionalSetup()
+        
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        additionalSetup()
+    }
+    
+    private func additionalSetup() {
+        self.addKeyboardToolbarWithTarget(target: self, titleText: nil, rightBarButtonConfiguration: IQBarButtonItemConfiguration(title: "Done", action: #selector(resign(_:))))
+        self.keyboardToolbar.doneBarButton.tintColor = K.Color.primary
+        self.textContainerInset.top = 16
+        self.textContainerInset.bottom = 16
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if let factor = roundFactor {
             self.makeRounded(roundFactor: factor)
-        } else {
-            self.makeRounded()
         }
         self.makeBordered()
-        self.backgroundColor = K.Color.light.withAlphaComponent(0.8)
     }
     
     @objc func resign(_ sender: Any) {

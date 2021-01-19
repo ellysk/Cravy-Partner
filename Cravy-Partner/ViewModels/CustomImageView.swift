@@ -10,6 +10,7 @@ import UIKit
 
 class RoundImageView: UIImageView {
     var roundFactor: CGFloat?
+    var cornerMask: CACornerMask?
     
     init(frame: CGRect = .zero, roundfactor: CGFloat? = nil) {
         self.roundFactor = roundfactor
@@ -23,15 +24,14 @@ class RoundImageView: UIImageView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        roundFactor = 10
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if let factor = roundFactor {
-            self.makeRounded(roundFactor: factor)
+            self.makeRounded(roundFactor: factor, cornerMask: cornerMask)
         } else {
-            self.makeRounded()
+            self.makeRounded(cornerMask: cornerMask)
         }
     }
 }

@@ -114,11 +114,17 @@ extension UIView {
             return self.backgroundColor == .clear
         }
     }
+    static var bottomCornerMask: CACornerMask {
+        return [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
     /// Gives the view rounded corners
     /// - Parameter roundFactor: The factor which determines how curved the view's corner will be. The lower the factor the mroe the curved the view's corners will be. The default value is 2 which makes the corners form a full curve.
-    func makeRounded(roundFactor: CGFloat = 2) {
+    func makeRounded(roundFactor: CGFloat = 2, cornerMask: CACornerMask? = nil) {
         self.layer.cornerRadius = self.frame.height / roundFactor
         self.clipsToBounds = true
+        if let mask = cornerMask {
+            self.layer.maskedCorners = mask
+        }
     }
     
     func removeRounded() {
@@ -353,6 +359,41 @@ extension UIViewController {
             }
         }
     }
+    var dismissButton: RoundButton? {
+        return self.view.subviews.first { (subview) -> Bool in
+            return subview.tag == K.ViewTag.BACK_BUTTON
+        } as? RoundButton
+    }
+    var showsDismissButton: Bool {
+        set {
+            dismissButton?.isHidden = !newValue
+            
+            if newValue {
+                if dismissButton == nil {
+                    let db = RoundButton()
+                    db.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+                    db.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                    db.tag = K.ViewTag.DISMISS_BUTTON
+                    db.castShadow = true
+                    db.tintColor = K.Color.light
+                    db.backgroundColor = K.Color.primary
+                    self.view.addSubview(db)
+                    db.translatesAutoresizingMaskIntoConstraints = false
+                    db.bottomAnchor(to: self.view.safeAreaLayoutGuide, constant: 8)
+                    db.leadingAnchor(to: self.view, constant: 8)
+                    db.sizeAnchorOf(width: 30, height: 30)
+                }
+            }
+        }
+        
+        get {
+            if let dismissButton = dismissButton {
+                return !dismissButton.isHidden
+            } else {
+                return false
+            }
+        }
+    }
     
     /// Displays a floater view with the provided image and title.
     func setFloaterViewWith(image: UIImage, title: String) {
@@ -377,6 +418,10 @@ extension UIViewController {
     
     @objc internal func goBack() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc internal func dismissVC() {
+        self.dismiss(animated: true)
     }
 }
 
@@ -560,7 +605,6 @@ extension UIImageView {
             subview.tag == K.ViewTag.BLURR_VIEW
         } as? UIVisualEffectView
     }
-    
     var isBlurr: Bool {
         set {
             blurrView?.isHidden = !isBlurr
@@ -582,28 +626,35 @@ extension UIImageView {
             }
         }
     }
-    
-    /// Returns a view that contains the the image view.
-    func withPlaceholderView(placeholderBackgroundColor: UIColor = K.Color.dark) -> UIView {
-        self.alpha = 0.5
+    var showsPlaceholder: Bool {
+        set {
+            placeholderView?.isHidden = !newValue
+            
+            if newValue {
+                if placeholderView == nil {
+                    let pv = UIView(frame: self.frame)
+                    pv.tag = K.ViewTag.PLACEHOLDER_VIEW
+                    pv.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    pv.clipsToBounds = true
+                    let placeholderImage = UIImageView(image: UIImage(systemName: "camera.circle.fill"))
+                    placeholderImage.tintColor = K.Color.light
+                    pv.addSubview(placeholderImage)
+                    placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+                    placeholderImage.centerXYAnchor(to: pv)
+                    placeholderImage.sizeAnchorOf(width: 50, height: 50)
+                    self.addSubview(pv)
+                }
+            }
+        }
         
-        let roundImageView = self as? RoundImageView
-        let bgView = RoundView(frame: self.frame, roundFactor: roundImageView?.roundFactor)
-        bgView.isBordered = true
-        bgView.backgroundColor = placeholderBackgroundColor
-        bgView.addSubview(self)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.VHConstraint(to: bgView)
-        
-        let placeholder = UIImageView(image: UIImage(systemName: "camera.circle.fill"))
-        placeholder.tintColor = K.Color.light
-        bgView.addSubview(placeholder)
-        placeholder.translatesAutoresizingMaskIntoConstraints = false
-        placeholder.centerXYAnchor(to: bgView)
-        placeholder.heightAnchor(of: 50)
-        placeholder.widthAnchor(of: 50)
-        
-        return bgView
+        get {
+            return placeholderView != nil && !placeholderView!.isHidden
+        }
+    }
+    var placeholderView: UIView? {
+        return self.subviews.first { (subview) -> Bool in
+            return subview.tag == K.ViewTag.PLACEHOLDER_VIEW
+        }
     }
 }
 
@@ -930,6 +981,7 @@ extension URLError.Code {
     }
 }
 
+//MARK:- UserDefaults
 extension UserDefaults {
     static let imageKey = "image"
     static let titleKey = "title"
