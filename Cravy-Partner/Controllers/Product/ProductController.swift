@@ -19,16 +19,17 @@ class ProductController: UIViewController {
     @IBOutlet weak var horizontalTagsCollectionView: HorizontalTagsCollectionView!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var marketView: MarketView!
+    var link: String?
     var tags = ["Chicken", "Wings", "Street", "Spicy"]
     var productTitle: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
         self.title = "Chicken wings"
         imageView.roundFactor = 15
         imageView.cornerMask = UIView.bottomCornerMask
         imageView.image = UIImage(named: "bgimage")
+        linkView.linkButton.addTarget(self, action: #selector(openWebVC(_:)), for: .touchUpInside)
         titleLabel.text = productTitle
         titleLabel.underline()
         detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
@@ -67,11 +68,36 @@ class ProductController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         marketView.playAnimation()
     }
     
+    @objc func openWebVC(_ sender: UIButton) {
+        func goToCravyWebVC(isVisiting: Bool, link: String?) {
+            let cravyWebVC = K.Controller.cravyWebViewController
+            cravyWebVC.delegate = self
+            cravyWebVC.URLString = link
+            cravyWebVC.isVisiting = isVisiting
+            self.navigationController?.pushViewController(cravyWebVC, animated: true)
+        }
+        if let link = link {
+            goToCravyWebVC(isVisiting: true, link: link)
+        } else {
+            let alertController = UIAlertController(title: K.UIConstant.oops, message: K.UIConstant.noLinkMessage, preferredStyle: .alert)
+            let addLinkAction = UIAlertAction(title: K.UIConstant.addLink, style: .default) { (action) in
+                goToCravyWebVC(isVisiting: false, link: nil)
+            }
+            alertController.addAction(addLinkAction)
+            alertController.addAction(UIAlertAction.cancel)
+            present(alertController, animated: true)
+        }
+    }
     
     @objc func done(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true)
@@ -136,5 +162,13 @@ extension ProductController: NewProductViewsControllerDelegate {
 extension ProductController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
         self.performSegue(withIdentifier: K.Identifier.Segue.productToEditProduct, sender: self)
+    }
+}
+
+//MARK:- CravyWebViewController Delegate
+extension ProductController: CravyWebViewControllerDelegate {
+    func didCommitLink(URL: URL) {
+        link = URL.absoluteString
+        print("commited!")
     }
 }

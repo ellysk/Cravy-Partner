@@ -10,7 +10,7 @@ import WebKit
 
 /// A WKWebView that handles https requests.
 class CravyWebView: WKWebView, WKNavigationDelegate {
-    private let BASE_URL: String = "https://www.google.com/"
+    let BASE_URL: String = "https://www.google.com/"
     private var queryURL: String {
         return BASE_URL + "search?q="
     }
@@ -77,4 +77,13 @@ class CravyWebView: WKWebView, WKNavigationDelegate {
             errorHandler(.unknown)
         }
     }
+    
+//    func clearHistory() {
+//        // First we make sure the webview is on the earliest item in the history
+//        if self.canGoBack {
+//            self.go(to: self.backForwardList.backList.first!)
+//        }
+//        // Then we navigate to our urlB so that we destroy the old "forward" stack
+//        self.load(URLRequest(url: URL(string: BASE_URL)!))
+//    }
 }

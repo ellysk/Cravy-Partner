@@ -26,6 +26,8 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var backLinkButton: UIBarButtonItem!
     @IBOutlet weak var linkButton: RoundButton!
     @IBOutlet weak var forwardLinkButton: UIBarButtonItem!
+    /// A boolean value that determines if the user is visiting a provided link or trying to add a new link
+    var isVisiting: Bool = false
     /// The title displayed on the navigation bar
     var webTitle: String? {
         set {
@@ -38,20 +40,10 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
     }
     /// The string required to initiate the webview and load up the web content.
     var URLString: String!
-    private let defaultURLString: String = "https://www.google.com"
     /// Determines if the web contents will be able to load up.
     private var preLoadFailed: Bool = false
     private var connectionNotSecure: Bool = false
     var delegate: CravyWebViewControllerDelegate?
-    
-    init(URLString: String) {
-        super.init(nibName: nil, bundle: nil)
-        self.URLString = URLString
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     deinit {
         removeObservers()
@@ -65,13 +57,14 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
             dismissItem.image = UIImage(systemName: "arrow.left")
         }
         reloadItem.isEnabled = false
-        linkButton.castShadow = true
+        linkButton.isHidden = isVisiting
+        linkButton.castShadow = !linkButton.isHidden
         cravyWebView.navigationDelegate = self
+        addObservers()
         if URLString == nil {
-            URLString = defaultURLString
+            URLString = self.cravyWebView.BASE_URL
         }
         load(URLString)
-        addObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,6 +141,7 @@ class CravyWebViewController: UIViewController, WKNavigationDelegate {
         let yesAction = UIAlertAction(title: K.UIConstant.addLink, style: .default) { (action) in
             self.dismissCravyWebVC {
                 self.delegate?.didCommitLink(URL: url)
+//                self.cravyWebView.clearHistory()
             }
         }
         alertController.addAction(yesAction)

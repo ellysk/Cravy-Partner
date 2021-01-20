@@ -163,7 +163,7 @@
                                     <constraint firstAttribute="height" constant="30" id="61F-XN-CQK"/>
                                     <constraint firstAttribute="width" constant="30" id="67Q-Hq-jd9"/>
                                 </constraints>
-                                <color key="tintColor" name="dark"/>
+                                <color key="tintColor" name="light"/>
                                 <state key="normal" image="xmark" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                 </state>

@@ -88,6 +88,9 @@ struct K {
         static let camera = "Camera"
         static let addNewLink = "Add new link"
         static let deleteLink = "Delete link"
+        static let fillAlertMessage = "Please make sure you have filled in the required information."
+        static let noLinkMessage = "This product does not have any link that it's associated with."
+        static let oops = "Oops!"
     }
     
     //MARK:- Identifier
