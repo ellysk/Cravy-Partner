@@ -54,7 +54,6 @@
 		2B823DCA259D112F0040E860 /* PopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DC9259D112F0040E860 /* PopView.swift */; };
 		2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DCB259D1D420040E860 /* PopViewController.swift */; };
 		2B823DCE259D37650040E860 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DCD259D37650040E860 /* LinkViewController.swift */; };
-		2B823DD0259FFAFF0040E860 /* CravyWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DCF259FFAFF0040E860 /* CravyWebViewController.swift */; };
 		2B823DD225A007880040E860 /* CravyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B823DD125A007880040E860 /* CravyWebView.swift */; };
 		2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE78257BBCD6002A626A /* MarketView.swift */; };
 		2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B84AE7A257BF1C8002A626A /* CustomTextView.swift */; };
@@ -82,6 +81,7 @@
 		2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */; };
 		2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */; };
 		2BC7378D25A799B2005D7853 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7378C25A799B2005D7853 /* ImageViewController.swift */; };
+		2BDBE82625B8B207005556B0 /* CravyWebKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDBE82525B8B207005556B0 /* CravyWebKitController.swift */; };
 		2BE371BE2580EEC700B38D30 /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE371BC2580EEC700B38D30 /* ImageCollectionCell.swift */; };
 		2BE371BF2580EEC700B38D30 /* ImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */; };
 		2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEBCE63257D34B300B11C66 /* BusinessView.swift */; };
@@ -162,7 +162,6 @@
 		2B823DC9259D112F0040E860 /* PopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopView.swift; sourceTree = "<group>"; };
 		2B823DCB259D1D420040E860 /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		2B823DCD259D37650040E860 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
-		2B823DCF259FFAFF0040E860 /* CravyWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyWebViewController.swift; sourceTree = "<group>"; };
 		2B823DD125A007880040E860 /* CravyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyWebView.swift; sourceTree = "<group>"; };
 		2B84AE78257BBCD6002A626A /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		2B84AE7A257BF1C8002A626A /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -196,6 +195,7 @@
 		2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionCell.swift; sourceTree = "<group>"; };
 		2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionCell.xib; sourceTree = "<group>"; };
 		2BC7378C25A799B2005D7853 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		2BDBE82525B8B207005556B0 /* CravyWebKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyWebKitController.swift; sourceTree = "<group>"; };
 		2BE371BC2580EEC700B38D30 /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionCell.xib; sourceTree = "<group>"; };
 		2BEBCE63257D34B300B11C66 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
@@ -257,11 +257,11 @@
 				2B7DF495258A99FF00AA1337 /* MyProductsController.swift */,
 				2B61BE742593927B00545E59 /* NewProductController.swift */,
 				2B61BE45258FF12100545E59 /* BusinessController.swift */,
-				2B823DCF259FFAFF0040E860 /* CravyWebViewController.swift */,
 				2B823DCB259D1D420040E860 /* PopViewController.swift */,
 				2B267EE725A1FE4000478726 /* ProductCollectionViewController.swift */,
 				2B267EE925A2011D00478726 /* ProductsPageController.swift */,
 				2BC7378C25A799B2005D7853 /* ImageViewController.swift */,
+				2BDBE82525B8B207005556B0 /* CravyWebKitController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -739,7 +739,6 @@
 				2B75890525B6122200203346 /* EditProductController.swift in Sources */,
 				2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */,
 				2B99FFBB25745B17008302FA /* CustomTextField.swift in Sources */,
-				2B823DD0259FFAFF0040E860 /* CravyWebViewController.swift in Sources */,
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
 				2B61BE44258E89B100545E59 /* CustomLabel.swift in Sources */,
 				2B75890725B733E400203346 /* EditTagsController.swift in Sources */,
@@ -763,6 +762,7 @@
 				2B823DCE259D37650040E860 /* LinkViewController.swift in Sources */,
 				2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */,
 				2BFC75192597BF08009A35AE /* CustomPageController.swift in Sources */,
+				2BDBE82625B8B207005556B0 /* CravyWebKitController.swift in Sources */,
 				2B823DCA259D112F0040E860 /* PopView.swift in Sources */,
 				2B823DD225A007880040E860 /* CravyWebView.swift in Sources */,
 				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,

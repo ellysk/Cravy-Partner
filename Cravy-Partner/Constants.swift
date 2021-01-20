@@ -248,7 +248,6 @@ struct K {
         static let textsViewController: TextsViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.textsVC) as! TextsViewController
         static let tagsCollectionViewController: TagsCollectionViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.tagsCollectionVC) as! TagsCollectionViewController
         static let linkViewController: LinkViewController = StoryBoard.newProduct.instantiateViewController(withIdentifier: Identifier.StoryboardID.linkVC) as! LinkViewController
-        static let cravyWebViewController: CravyWebViewController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.cravyWebVC) as! CravyWebViewController
         static let newProductController: NewProductController = StoryBoard.main.instantiateViewController(withIdentifier: Identifier.StoryboardID.newProductVC) as! NewProductController
         static let productController: ProductController = StoryBoard.product.instantiateViewController(withIdentifier: Identifier.StoryboardID.productVC) as! ProductController
         static let albumController: AlbumController = StoryBoard.album.instantiateViewController(withIdentifier: K.Identifier.StoryboardID.albumVC) as! AlbumController

@@ -402,16 +402,6 @@ extension UIViewController {
         self.floaterView?.titleLabel.text = title
     }
     
-    /// Presents CravyWebViewController with a URLString that will be used to load web content.
-    func presentWebWith(URLString: String, cravyWebViewControllerHandler: @escaping (CravyWebViewController)->()) {
-        let cravyWebViewController = K.Controller.cravyWebViewController
-        cravyWebViewController.URLString = URLString
-        
-        present(cravyWebViewController, animated: true) {
-            cravyWebViewControllerHandler(cravyWebViewController)
-        }
-    }
-    
     @objc internal func dismissKeyboard() {
         self.view.endEditing(true)
     }
@@ -421,7 +411,11 @@ extension UIViewController {
     }
     
     @objc internal func dismissVC() {
-        self.dismiss(animated: true)
+        if self.isModalInPresentation {
+            self.dismiss(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -718,6 +712,24 @@ extension UIColor {
         self.getRed(&r, green: &g, blue: &b, alpha: &a)
         let lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
         return  lum < 0.50
+    }
+}
+
+//MARK: - UIBarButtonItem
+extension UIBarButtonItem {
+    static var flexibleSpace: UIBarButtonItem {
+        // Flexible Space
+        let flexibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        return flexibleSpace
+    }
+    
+    static func fixedSpace(_ width: CGFloat) -> UIBarButtonItem {
+        // Fixed Space
+        let fixedSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = width
+        
+        return fixedSpace
     }
 }
 

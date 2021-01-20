@@ -80,9 +80,8 @@ class ProductController: UIViewController {
     
     @objc func openWebVC(_ sender: UIButton) {
         func goToCravyWebVC(isVisiting: Bool, link: String?) {
-            let cravyWebVC = K.Controller.cravyWebViewController
+            let cravyWebVC = CravyWebKitController(URLString: link)
             cravyWebVC.delegate = self
-            cravyWebVC.URLString = link
             cravyWebVC.isVisiting = isVisiting
             self.navigationController?.pushViewController(cravyWebVC, animated: true)
         }

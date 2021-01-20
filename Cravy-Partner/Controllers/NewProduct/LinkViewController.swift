@@ -37,9 +37,12 @@ class LinkViewController: UIViewController {
 //MARK:- CravySearchBar Delegate
 extension LinkViewController: CravySearchBarDelegate {
     func didEnquireSearch(_ text: String) {
-        self.presentWebWith(URLString: text) { (cravyWebVC) in
-            cravyWebVC.delegate = self
-        }
+        let cravyWebVC = CravyWebKitController(URLString: text)
+        cravyWebVC.delegate = self
+        cravyWebVC.modalPresentationStyle = .fullScreen
+        cravyWebVC.modalTransitionStyle = .crossDissolve
+        
+        present(cravyWebVC, animated: true)
     }
     
     func willPresentFilterAlertController(alertController: UIAlertController) {}
