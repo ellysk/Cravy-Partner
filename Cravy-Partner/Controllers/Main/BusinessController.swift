@@ -13,13 +13,16 @@ class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
     @IBOutlet weak var businessTableView: UITableView!
+    /// The first layout of the gallery
     private var galleryLayout: GALLERY_LAYOUT = .uzumaki
+    var link: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         businessView.image = UIImage(named: "bgimage")
         businessView.name = "EAT Restaurant & Cafe"
         businessView.email = "eat@restcafe.co.uk"
+        businessView.linkButton.addTarget(self, action: #selector(openWebKit(_:)), for: .touchUpInside)
         businessStatView.recommendations = 608
         businessStatView.subscribers = 130
         // Do any additional setup after loading the view.
@@ -28,6 +31,21 @@ class BusinessController: UIViewController {
         businessTableView.register(ImageCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.imageCell)
         businessTableView.register(CraveCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.craveCell)
         businessTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
+    }
+    
+    @objc func openWebKit(_ sender: UIButton) {
+        self.openCravyWebKit(link: link, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
+            cravyWK.delegate = self
+            self.navigationController?.pushViewController(cravyWK, animated: true)
+        }
+    }
+}
+
+//MARK: - CravyWebKitController Delegate
+extension BusinessController: CravyWebViewControllerDelegate {
+    func didCommitLink(URL: URL) {
+        //TODO
+        link = URL.absoluteString
     }
 }
 

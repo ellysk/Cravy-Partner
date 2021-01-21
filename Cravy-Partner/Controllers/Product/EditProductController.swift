@@ -18,6 +18,7 @@ class EditProductController: UIViewController {
     @IBOutlet weak var linkLabel: UILabel!
     @IBOutlet weak var tagsStackView: UIStackView!
     @IBOutlet weak var linkStackView: UIStackView!
+    @IBOutlet weak var deleteButton: UIButton!
     private var productImage: UIImage {
         set {
             imageView.image = newValue
@@ -108,6 +109,8 @@ class EditProductController: UIViewController {
         tagsStackView.addGestureRecognizer(navGesture)
         linkStackView.addGestureRecognizer(navGesture)
         setUpDefaultValues()
+        deleteButton.setTitle("\(K.UIConstant.delete) \(productTitle)", for: .normal)
+        deleteButton.titleLabel?.numberOfLines = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,6 +186,10 @@ class EditProductController: UIViewController {
     }
     
     @IBAction func saveChanges(_ sender: UIBarButtonItem) {
+        //TODO
+    }
+    
+    @IBAction func deleteProduct(_ sender: UIButton) {
         //TODO
     }
     

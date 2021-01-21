@@ -49,6 +49,7 @@ class CravyWebKitController: UIViewController {
     init(URLString: String?) {
         super.init(nibName: nil, bundle: nil)
         self.URLString = URLString
+        isVisiting = URLString != nil
         setCravyWebKitLayout()
         addObservers()
     }

@@ -90,6 +90,7 @@ struct K {
         static let deleteLink = "Delete link"
         static let fillAlertMessage = "Please make sure you have filled in the required information."
         static let noLinkMessage = "This product does not have any link that it's associated with."
+        static let noBusinessLinkMessage = "Looks like you have not provided your business website link."
         static let oops = "Oops!"
     }
     

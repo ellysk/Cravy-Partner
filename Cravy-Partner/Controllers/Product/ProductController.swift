@@ -29,7 +29,7 @@ class ProductController: UIViewController {
         imageView.roundFactor = 15
         imageView.cornerMask = UIView.bottomCornerMask
         imageView.image = UIImage(named: "bgimage")
-        linkView.linkButton.addTarget(self, action: #selector(openWebVC(_:)), for: .touchUpInside)
+        linkView.linkButton.addTarget(self, action: #selector(openWebKit(_:)), for: .touchUpInside)
         titleLabel.text = productTitle
         titleLabel.underline()
         detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
@@ -77,23 +77,10 @@ class ProductController: UIViewController {
         marketView.playAnimation()
     }
     
-    @objc func openWebVC(_ sender: UIButton) {
-        func goToCravyWebVC(isVisiting: Bool, link: String?) {
-            let cravyWebVC = CravyWebKitController(URLString: link)
-            cravyWebVC.delegate = self
-            cravyWebVC.isVisiting = isVisiting
-            self.navigationController?.pushViewController(cravyWebVC, animated: true)
-        }
-        if let link = link {
-            goToCravyWebVC(isVisiting: true, link: link)
-        } else {
-            let alertController = UIAlertController(title: K.UIConstant.oops, message: K.UIConstant.noLinkMessage, preferredStyle: .alert)
-            let addLinkAction = UIAlertAction(title: K.UIConstant.addLink, style: .default) { (action) in
-                goToCravyWebVC(isVisiting: false, link: nil)
-            }
-            alertController.addAction(addLinkAction)
-            alertController.addAction(UIAlertAction.cancel)
-            present(alertController, animated: true)
+    @objc func openWebKit(_ sender: UIButton) {
+        self.openCravyWebKit(link: link) { (cravyWK) in
+            cravyWK.delegate = self
+            self.navigationController?.pushViewController(cravyWK, animated: true)
         }
     }
     
@@ -166,6 +153,7 @@ extension ProductController: FloaterViewDelegate {
 //MARK:- CravyWebViewController Delegate
 extension ProductController: CravyWebViewControllerDelegate {
     func didCommitLink(URL: URL) {
+        //TODO
         link = URL.absoluteString
     }
 }

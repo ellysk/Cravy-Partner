@@ -178,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-ZI-2CK">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="877"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="927"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZaM-Y6-0aw" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="277.5"/>
@@ -324,6 +324,17 @@
                                                     <constraint firstAttribute="trailing" secondItem="tWf-M5-L4E" secondAttribute="trailing" constant="20" id="v1t-nR-8Hq"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhn-Sj-bB3">
+                                                <rect key="frame" x="0.0" y="893" width="414" height="34"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
+                                                <color key="tintColor" name="important"/>
+                                                <state key="normal" title="Delete this product">
+                                                    <color key="titleColor" name="important"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="deleteProduct:" destination="lFB-3c-nso" eventType="touchUpInside" id="MLM-8E-6YT"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -356,6 +367,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteButton" destination="nhn-Sj-bB3" id="dBi-9Z-NiO"/>
                         <outlet property="descriptionTextView" destination="P8s-A1-oqb" id="ix5-oD-Pbc"/>
                         <outlet property="horizontalTagsCollectionView" destination="i49-ex-Eje" id="0Vx-Qd-AIe"/>
                         <outlet property="imageView" destination="ZaM-Y6-0aw" id="k7H-TF-8Jf"/>
@@ -475,6 +487,9 @@
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="important">
+            <color red="0.98039215686274506" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="light">
             <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

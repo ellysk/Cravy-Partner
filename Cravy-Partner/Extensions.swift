@@ -402,6 +402,28 @@ extension UIViewController {
         self.floaterView?.titleLabel.text = title
     }
     
+    /// Initialises the CravyWebKitController for display.
+    /// - Parameters:
+    ///   - isVisiting: Determines the state of the CravyWebKitController, if user is visiting then there is no action to add link.
+    ///   - link: The first content for the web to load, if not provided then CravyWebKitController uses the default base url.
+    func openCravyWebKit(link: String?, alertTitle: String = K.UIConstant.noLinkMessage, completion: @escaping (CravyWebKitController)->()) {
+        func goToCravyWebVC(link: String?) {
+            let cravyWebVC = CravyWebKitController(URLString: link)
+            completion(cravyWebVC)
+        }
+        if let link = link {
+            goToCravyWebVC(link: link)
+        } else {
+            let alertController = UIAlertController(title: K.UIConstant.oops, message: alertTitle, preferredStyle: .alert)
+            let addLinkAction = UIAlertAction(title: K.UIConstant.addLink, style: .default) { (action) in
+                goToCravyWebVC(link: nil)
+            }
+            alertController.addAction(addLinkAction)
+            alertController.addAction(UIAlertAction.cancel)
+            present(alertController, animated: true)
+        }
+    }
+    
     @objc internal func dismissKeyboard() {
         self.view.endEditing(true)
     }
