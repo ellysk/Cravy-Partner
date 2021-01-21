@@ -10,15 +10,34 @@ import UIKit
 
 /// Handles the display and editing of the product's information
 class EditProductController: UIViewController {
-    @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var imageView: RoundImageView!
-    @IBOutlet weak var titleTextField: RoundTextField!
-    @IBOutlet weak var descriptionTextView: RoundTextView!
-    @IBOutlet weak var horizontalTagsCollectionView: HorizontalTagsCollectionView!
-    @IBOutlet weak var linkLabel: UILabel!
-    @IBOutlet weak var tagsStackView: UIStackView!
-    @IBOutlet weak var linkStackView: UIStackView!
-    @IBOutlet weak var deleteButton: UIButton!
+    var saveItem: UIBarButtonItem {
+        return navigationItem.rightBarButtonItem!
+    }
+    var imageView: RoundImageView {
+        return productEditView.imageView
+    }
+    var titleTextField: RoundTextField {
+        return productEditView.titleTextField
+    }
+    var descriptionTextView: RoundTextView {
+        return productEditView.descriptionTextView
+    }
+    var horizontalTagsCollectionView: HorizontalTagsCollectionView {
+        return productEditView.horizontalTagsCollectionView
+    }
+    var linkLabel: UILabel {
+        return productEditView.linkLabel
+    }
+    var tagsStackView: UIStackView {
+        return productEditView.tagsStackView
+    }
+    var linkStackView: UIStackView {
+        return productEditView.linkStackView
+    }
+    var deleteButton: UIButton {
+        return productEditView.deleteButton
+    }
+    let productEditView: ProductEditView = Bundle.main.loadNibNamed("ProductEditView", owner: nil, options: nil)?.first as! ProductEditView
     private var productImage: UIImage {
         set {
             imageView.image = newValue
@@ -99,23 +118,32 @@ class EditProductController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.roundFactor = 15
-        imageView.cornerMask = UIView.bottomCornerMask
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editPhotoAction(_:))))
-        titleTextField.isBordered = true
-        titleTextField.roundFactor = 5
-        descriptionTextView.roundFactor = 20
-        horizontalTagsCollectionView.register()
-        tagsStackView.addGestureRecognizer(navGesture)
-        linkStackView.addGestureRecognizer(navGesture)
         setUpDefaultValues()
-        deleteButton.setTitle("\(K.UIConstant.delete) \(productTitle)", for: .normal)
-        deleteButton.titleLabel?.numberOfLines = 0
+        additionalSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    private func additionalSetup() {
+        navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges(_:))), animated: true)
+        saveItem.isEnabled = false
+        self.view.addSubview(productEditView)
+        productEditView.translatesAutoresizingMaskIntoConstraints = false
+        productEditView.topAnchor(to: self.view.safeAreaLayoutGuide)
+        productEditView.bottomAnchor(to: self.view)
+        productEditView.HConstraint(to: self.view)
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editPhotoAction(_:))))
+        horizontalTagsCollectionView.register()
+        horizontalTagsCollectionView.dataSource = self
+        horizontalTagsCollectionView.delegate = self
+        tagsStackView.addGestureRecognizer(navGesture)
+        linkStackView.addGestureRecognizer(navGesture)
+        deleteButton.addTarget(self, action: #selector(deleteProduct(_:)), for: .touchUpInside)
+        deleteButton.setTitle("\(K.UIConstant.delete) \(productTitle)", for: .normal)
+        deleteButton.titleLabel?.numberOfLines = 0
     }
     
     /// Assign the variables to the default values.
@@ -128,7 +156,7 @@ class EditProductController: UIViewController {
     }
         
     private func reloadEditable() {
-        saveButton.isEnabled = isProductEdited
+        saveItem.isEnabled = isProductEdited
     }
     
     @objc func editPhotoAction(_ gesture: UITapGestureRecognizer) {
@@ -185,11 +213,11 @@ class EditProductController: UIViewController {
         }
     }
     
-    @IBAction func saveChanges(_ sender: UIBarButtonItem) {
+    @objc func saveChanges(_ sender: UIBarButtonItem) {
         //TODO
     }
     
-    @IBAction func deleteProduct(_ sender: UIButton) {
+    @objc func deleteProduct(_ sender: UIButton) {
         //TODO
     }
     

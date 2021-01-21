@@ -11,7 +11,9 @@ import UIKit
 /// Handles the display and editing of the product's tags information.
 class EditTagsController: UIViewController {
     @IBOutlet weak var blurrImageView: UIImageView!
-    @IBOutlet weak var doneButton: UIBarButtonItem!
+    var doneItem: UIBarButtonItem {
+        return navigationItem.rightBarButtonItem!
+    }
     var backgroundImage: UIImage!
     var tags: [String]!
     var defaultTags: [String]!
@@ -21,7 +23,8 @@ class EditTagsController: UIViewController {
         super.viewDidLoad()
         blurrImageView.image = backgroundImage
         blurrImageView.isBlurr = true
-        doneButton.isEnabled = false
+        navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(_:))), animated: true)
+        doneItem.isEnabled = false
         defaultTags = tags
     }
     
@@ -33,7 +36,7 @@ class EditTagsController: UIViewController {
         }
     }
     
-    @IBAction func done(_ sender: UIBarButtonItem) {
+    @objc func done(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
         self.delegate?.didUpdateTags(tags: tags)
     }
@@ -42,7 +45,7 @@ class EditTagsController: UIViewController {
 //MARK:- TagsCollectionViewController Delegate
 extension EditTagsController: TagsCollectionViewControllerDelegate {
     func didUpdateTags(tags: [String]) {
-        doneButton.isEnabled = defaultTags != tags
+        doneItem.isEnabled = defaultTags != tags
         self.tags = tags
     }
 }
