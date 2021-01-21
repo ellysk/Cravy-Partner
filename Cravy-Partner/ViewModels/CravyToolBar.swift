@@ -123,7 +123,7 @@ class CravyToolBar: UIView {
 
 //MARK:- Transition Delegate
 extension CravyToolBar: TransitionDelegate {
-    func didTranisitionToViewAt(index: Int) {
+    func didTranisitionToViewAt(index: Int, pages: Int) {
         isSelectedItemAt(index: index)
     }
 }

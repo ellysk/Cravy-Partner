@@ -9,7 +9,11 @@
 import UIKit
 
 protocol TransitionDelegate {
-    func didTranisitionToViewAt(index: Int)
+    /// Called when the page view has successfully transitioned to another view controller(page)
+    /// - Parameters:
+    ///   - index: The index of the current page displayed.
+    ///   - pages: The total number of pages the page view controller is able to display.
+    func didTranisitionToViewAt(index: Int, pages: Int)
 }
 
 protocol CravyPageControllerDelegate {
@@ -40,7 +44,7 @@ class CravyPageController: UIPageViewController, UIPageViewControllerDataSource,
             newIndex-=1
             self.setViewControllers([pages[newIndex]], direction: direction, animated: true)
         }
-        self.transitionDelegate?.didTranisitionToViewAt(index: newIndex)
+        self.transitionDelegate?.didTranisitionToViewAt(index: newIndex, pages: pages.count)
     }
     
     //MARK: - UIPageController DataSource
@@ -66,7 +70,7 @@ class CravyPageController: UIPageViewController, UIPageViewControllerDataSource,
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
-            self.transitionDelegate?.didTranisitionToViewAt(index: self.presentationIndex(for: pageViewController))
+            self.transitionDelegate?.didTranisitionToViewAt(index: self.presentationIndex(for: pageViewController), pages: pages.count)
         }
     }
     
@@ -87,7 +91,7 @@ extension CravyPageController: CravyToolBarDelegate {
             let direction: UIPageViewController.NavigationDirection = index > currentIndex ? .forward : .reverse
             self.setViewControllers([pages[index]], direction: direction, animated: true) { (completed) in
                 if completed {
-                    self.transitionDelegate?.didTranisitionToViewAt(index: self.presentationIndex(for: self))
+                    self.transitionDelegate?.didTranisitionToViewAt(index: self.presentationIndex(for: self), pages: self.pages.count)
                 }
             }
         }

@@ -61,7 +61,7 @@ class AuthStackView: UIStackView, UITextFieldDelegate {
         vStackView.widthAnchor(to: self)
     }
     
-    private func setTextField(textField: UITextField, type: UIKeyboardType = .default, isSecure: Bool = false, returnType: UIReturnKeyType = .next) {
+    private func setTextField(textField: RoundTextField, type: UIKeyboardType = .default, isSecure: Bool = false, returnType: UIReturnKeyType = .next) {
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.delegate = self
         textField.keyboardType = type
@@ -69,6 +69,8 @@ class AuthStackView: UIStackView, UITextFieldDelegate {
         textField.returnKeyType = returnType
         textField.font = UIFont.regular.medium
         textField.textAlignment = .center
+        textField.isBordered = true
+        textField.backgroundColor = K.Color.light.withAlphaComponent(0.8)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor(of: 60)
     }

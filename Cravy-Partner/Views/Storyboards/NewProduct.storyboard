@@ -31,7 +31,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j6e-ma-86E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4183" y="-729"/>
+            <point key="canvasLocation" x="4141" y="-13"/>
         </scene>
         <!--Product-->
         <scene sceneID="6RQ-r7-x7z">
@@ -41,7 +41,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GG0-kr-USf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4671" y="-1782"/>
+            <point key="canvasLocation" x="4862" y="-1121"/>
         </scene>
         <!--New Product Page Controller-->
         <scene sceneID="abb-HL-dNn">
@@ -49,7 +49,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Qp4-e4-loL" customClass="NewProductPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4x-Vl-Ugk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5055.072463768116" y="-1412.6116071428571"/>
+            <point key="canvasLocation" x="5103" y="-1601"/>
         </scene>
         <!--Texts View Controller-->
         <scene sceneID="64h-HN-9Cw">
@@ -80,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asE-4g-1Px" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5967" y="-1412"/>
+            <point key="canvasLocation" x="4143" y="-707"/>
         </scene>
         <!--Link View Controller-->
         <scene sceneID="OM9-1e-4Uv">
@@ -123,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fL8-sx-6S6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4182.608695652174" y="-3.3482142857142856"/>
+            <point key="canvasLocation" x="4143" y="695"/>
         </scene>
         <!--New Product Views Controller-->
         <scene sceneID="dXs-Fz-rsb">

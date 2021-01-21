@@ -443,7 +443,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUU-2j-h8a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2650.7246376811595" y="-654.24107142857144"/>
+            <point key="canvasLocation" x="2649" y="-654"/>
         </scene>
         <!--Tags Collection View Controller-->
         <scene sceneID="wpX-iR-dLB">

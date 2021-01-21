@@ -77,10 +77,11 @@ class NewProductViewsController: UIViewController {
 
 //MARK:- Transition Delegate
 extension NewProductViewsController: TransitionDelegate {
-    func didTranisitionToViewAt(index: Int) {
+    func didTranisitionToViewAt(index: Int, pages: Int) {
         //If index greater than 0, then user can go to previous view controller.
         previousItem.isEnabled = index > 0
-        nextItem.title =  index < 2 ? K.UIConstant.next : K.UIConstant.create
-        nextItem.action = index < 2 ? #selector(navigate(_:)) : #selector(create(_:))
+        let maxPageCount = pages - 1
+        nextItem.title =  index < maxPageCount ? K.UIConstant.next : K.UIConstant.create
+        nextItem.action = index < maxPageCount ? #selector(navigate(_:)) : #selector(create(_:))
     }
 }

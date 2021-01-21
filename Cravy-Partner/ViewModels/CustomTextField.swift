@@ -63,6 +63,8 @@ class RoundTextField: CravyTextField {
         super.layoutSubviews()
         if let factor = roundFactor {
             self.makeRounded(roundFactor: factor)
+        } else {
+            self.makeRounded()
         }
     }
 }

@@ -18,7 +18,6 @@ class AlbumController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
         self.showsDismissButton = true
         self.view.setCravyGradientBackground()
         cravyToolBar.titles = [K.UIConstant.albumTitle, K.UIConstant.cameraRoll]

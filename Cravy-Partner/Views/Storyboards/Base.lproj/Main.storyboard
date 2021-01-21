@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wZH-WR-uWE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M3M-Mw-wDI">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -102,7 +102,7 @@
             </objects>
             <point key="canvasLocation" x="139" y="657"/>
         </scene>
-        <!--New Product Controller-->
+        <!--New product-->
         <scene sceneID="09j-UV-8uZ">
             <objects>
                 <viewController storyboardIdentifier="NewProductVC" modalPresentationStyle="fullScreen" id="Y2e-x0-VIU" customClass="NewProductController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
@@ -185,6 +185,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZOa-24-cPf"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="New product" image="newcrave" selectedImage="newcrave-filled" id="WDt-qJ-wdf"/>
                     <navigationItem key="navigationItem" id="cQm-1D-T8i"/>
                     <connections>
                         <outlet property="cancelButton" destination="4Xp-KF-mGY" id="AZt-dJ-8fg"/>
@@ -200,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-zV-tht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5413" y="130"/>
+            <point key="canvasLocation" x="3707" y="130"/>
         </scene>
         <!--NewProduct-->
         <scene sceneID="YEU-WH-Fzy">
@@ -210,7 +211,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozA-XV-PLY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7929.7101449275369" y="129.91071428571428"/>
+            <point key="canvasLocation" x="7402" y="130"/>
         </scene>
         <!--Nice shot!-->
         <scene sceneID="54D-ZZ-TWg">
@@ -299,7 +300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="717-H7-6de" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7313.04347826087" y="129.91071428571428"/>
+            <point key="canvasLocation" x="6448" y="130"/>
         </scene>
         <!--Album-->
         <scene sceneID="TOb-hU-8nU">
@@ -309,7 +310,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Doj-Nq-oJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5936" y="283"/>
+            <point key="canvasLocation" x="4353" y="421"/>
         </scene>
         <!--My business-->
         <scene sceneID="tmb-Ph-pte">
@@ -380,7 +381,7 @@
             </objects>
             <point key="canvasLocation" x="2710.144927536232" y="643.52678571428567"/>
         </scene>
-        <!--My Products Controller-->
+        <!--My products-->
         <scene sceneID="LZ2-Eb-Czn">
             <objects>
                 <viewController id="1lT-8r-Gu6" customClass="MyProductsController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
@@ -439,6 +440,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eSj-Uw-l1v"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="My products" image="myproducts" selectedImage="myproducts-filled" id="LYe-xP-FI8"/>
                     <navigationItem key="navigationItem" id="KbG-YX-hav"/>
                     <connections>
                         <outlet property="cravyToolBar" destination="bFp-jO-0xf" id="mFi-Zd-dnh"/>
@@ -448,7 +450,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PqH-CZ-uhs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3620.289855072464" y="-319.41964285714283"/>
+            <point key="canvasLocation" x="2710" y="-327"/>
         </scene>
         <!--Products Page Controller-->
         <scene sceneID="ebi-lu-7CB">
@@ -456,7 +458,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Yfy-g4-QcR" customClass="ProductsPageController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnR-yl-Mjs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4376.811594202899" y="-569.19642857142856"/>
+            <point key="canvasLocation" x="3707" y="-449"/>
         </scene>
         <!--Product-->
         <scene sceneID="55T-DO-qZ0">
@@ -466,7 +468,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRz-0s-vG0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4134.057971014493" y="-250.44642857142856"/>
+            <point key="canvasLocation" x="3464" y="-816"/>
         </scene>
         <!--Cravy Tab Bar Controller-->
         <scene sceneID="aan-Rh-LJF">
@@ -480,9 +482,9 @@
                         <color key="selectedImageTintColor" name="primary"/>
                     </tabBar>
                     <connections>
-                        <segue destination="7zk-uP-A7t" kind="relationship" relationship="viewControllers" id="lC4-lC-0Gs"/>
-                        <segue destination="FnF-pZ-5Ml" kind="relationship" relationship="viewControllers" id="jQ4-F5-k8S"/>
-                        <segue destination="cGZ-m9-aba" kind="relationship" relationship="viewControllers" id="aKn-M6-UAD"/>
+                        <segue destination="1lT-8r-Gu6" kind="relationship" relationship="viewControllers" id="kRD-h9-aIa"/>
+                        <segue destination="Y2e-x0-VIU" kind="relationship" relationship="viewControllers" id="a2q-Lv-OVY"/>
+                        <segue destination="cGZ-m9-aba" kind="relationship" relationship="viewControllers" id="Srn-Qj-1As"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D05-iH-MMV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -497,13 +499,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eU4-z2-Vpb">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="primary"/>
-                        <color key="barTintColor" name="secondary"/>
+                        <color key="tintColor" name="light"/>
+                        <color key="barTintColor" name="primary"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" name="dark"/>
+                            <color key="textColor" name="light"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" name="dark"/>
+                            <color key="textColor" name="light"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -515,13 +517,22 @@
             </objects>
             <point key="canvasLocation" x="139.13043478260872" y="129.91071428571428"/>
         </scene>
-        <!--My products-->
-        <scene sceneID="h5P-cp-Xd8">
+        <!--Product-->
+        <scene sceneID="CsS-zo-37T">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7zk-uP-A7t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My products" image="myproducts" selectedImage="myproducts-filled" id="yja-Q6-LkR"/>
+                <viewControllerPlaceholder storyboardName="Product" id="nhA-wT-txu" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="VUR-9i-0oq"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zVv-PS-6oS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4360" y="-250"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NKA-Ct-Gj4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="26W-r7-VfX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JG7-Xp-7Mz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pfc-1f-wa0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="light"/>
@@ -535,75 +546,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="1lT-8r-Gu6" kind="relationship" relationship="rootViewController" id="OAk-Oi-rgX"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ui1-Yz-N0c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2710.144927536232" y="-319.41964285714283"/>
-        </scene>
-        <!--New product-->
-        <scene sceneID="vyZ-Fk-5sA">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FnF-pZ-5Ml" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New product" image="newcrave" selectedImage="newcrave-filled" id="yHb-Cr-rcm"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eNL-y8-OAe">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="primary"/>
-                        <color key="barTintColor" name="secondary"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" name="dark"/>
-                        </textAttributes>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" name="dark"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Y2e-x0-VIU" kind="relationship" relationship="rootViewController" id="zkv-DG-A85"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rjm-ai-kfY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4378.2608695652179" y="129.91071428571428"/>
-        </scene>
-        <!--Product-->
-        <scene sceneID="CsS-zo-37T">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Product" id="nhA-wT-txu" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="VUR-9i-0oq"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zVv-PS-6oS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5869" y="-250"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="NKA-Ct-Gj4">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="26W-r7-VfX" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pfc-1f-wa0">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="primary"/>
-                        <color key="barTintColor" name="secondary"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" name="dark"/>
-                        </textAttributes>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" name="dark"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
                         <segue destination="jIM-Z5-NFR" kind="relationship" relationship="rootViewController" id="8Lg-ai-Ltv"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4dF-I2-lS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6402.898550724638" y="129.91071428571428"/>
+            <point key="canvasLocation" x="5262" y="130"/>
         </scene>
     </scenes>
     <resources>
@@ -627,9 +575,6 @@
         </namedColor>
         <namedColor name="primary">
             <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="secondary">
-            <color red="1" green="0.91764705882352937" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -56,7 +56,6 @@ class ProductController: UIViewController {
             } else {
                 let post = PostView(toPost: "Chicken Wings")
                 let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {
-                     print("post")
                     self.marketView.state = .active
                 }) {
                     self.marketView.playAnimation()
@@ -168,6 +167,5 @@ extension ProductController: FloaterViewDelegate {
 extension ProductController: CravyWebViewControllerDelegate {
     func didCommitLink(URL: URL) {
         link = URL.absoluteString
-        print("commited!")
     }
 }

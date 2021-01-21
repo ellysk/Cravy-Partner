@@ -17,7 +17,6 @@ class MyProductsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         searchBar.delegate = self
         self.view.setCravyGradientBackground()
         cravyToolBar.titles = [K.UIConstant.active, K.UIConstant.inactive]
@@ -50,7 +49,7 @@ extension MyProductsController: CravySearchBarDelegate {
 
 //MARK:- Transition Delegate
 extension MyProductsController: TransitionDelegate {
-    func didTranisitionToViewAt(index: Int) {
+    func didTranisitionToViewAt(index: Int, pages: Int) {
         self.dismissKeyboard()
         cravyToolBar.isSelectedItemAt(index: index)
     }
