@@ -13,10 +13,19 @@ protocol CraveCollectionTableCellDelegate {
 }
 
 /// A Table cell that contains a collection view registered to CraveCollectionCell.
-class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    private var craveCollectionView: UICollectionView!
+class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource {
+    private var craveCollectionView: CraveCollectionView!
     var craves: [String] = []
     var delegate: CraveCollectionTableCellDelegate?
+    var collectionViewDelegate: UICollectionViewDelegate? {
+        set {
+            craveCollectionView.delegate = newValue
+        }
+        
+        get {
+            return craveCollectionView.delegate
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,17 +39,15 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     
     private func setCraveCollectionView() {
         if craveCollectionView == nil {
-            let layout = UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout
-            craveCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            craveCollectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
+            craveCollectionView = CraveCollectionView(scrollDirection: .horizontal)
+            craveCollectionView.register()
             craveCollectionView.dataSource = self
-            craveCollectionView.delegate = self
             craveCollectionView.showsHorizontalScrollIndicator = false
             craveCollectionView.backgroundColor = .clear
             self.addSubview(craveCollectionView)
             craveCollectionView.translatesAutoresizingMaskIntoConstraints = false
             craveCollectionView.VHConstraint(to: self)
-            craveCollectionView.heightAnchor(of: layout.itemSize.height)
+            craveCollectionView.heightAnchor(of: UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout.itemSize.height)
         } else {
             craveCollectionView.reloadData()
         }
@@ -59,9 +66,5 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
         }
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected!!")
     }
 }

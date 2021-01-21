@@ -176,9 +176,9 @@ class CraveCollectionCell: UICollectionViewCell {
         craveImageView.addInteractable(interactable) {
             if interactable == .post {
                 let post = PostView(toPost: "Chicken Wings")
-                let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation) {
-                    print("post")
-                }
+                let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {
+                    //TODO
+                })
                 presentationHandler(popVC)
             }
         }

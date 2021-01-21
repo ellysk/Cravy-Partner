@@ -375,11 +375,22 @@
                         <outlet property="businessStatView" destination="R9b-pg-Y74" id="qzI-az-Ts4"/>
                         <outlet property="businessTableView" destination="gVn-Qw-ojZ" id="DYK-mj-aQY"/>
                         <outlet property="businessView" destination="CMK-s2-PYW" id="gIF-pC-RQe"/>
+                        <segue destination="KKx-KE-enj" kind="show" identifier="BusinessToProduct" id="xW7-G0-605"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EjI-qe-M4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2710.144927536232" y="643.52678571428567"/>
+        </scene>
+        <!--Product-->
+        <scene sceneID="erO-fP-WYh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Product" id="KKx-KE-enj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="faF-fk-yoC"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wJI-Ye-5cu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3463" y="644"/>
         </scene>
         <!--My products-->
         <scene sceneID="LZ2-Eb-Czn">

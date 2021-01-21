@@ -66,6 +66,7 @@ class ProductCollectionViewController: UICollectionViewController {
         }
         if state == .inActive {
             cell.addInteractable(.post) { (popVC) in
+                //Notifies so as to dismiss any first responders.
                 self.presentationDelegate?.willPresent(popVC, data: nil)
                 self.present(popVC, animated: true)
             }

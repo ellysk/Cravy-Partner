@@ -11,18 +11,18 @@ import UIKit
 /// A collection view responisible for handling CraveCollectionCell.
 class CraveCollectionView: UICollectionView {
     
-    init(layout: UICollectionViewFlowLayout, scrollDirection: UICollectionView.ScrollDirection) {
+    init(scrollDirection: UICollectionView.ScrollDirection) {
         let layout = scrollDirection == .vertical ? UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout : UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout
         super.init(frame: .zero, collectionViewLayout: layout)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.setCollectionViewLayout(UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout, animated: true)
     }
     
     /// Registers the CraveCollectionCell to this CollectionView
     func register() {
+        self.tag = K.ViewTag.CRAVE_COLLECTION_VIEW
         self.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
     }
 }
@@ -77,18 +77,33 @@ class WidgetCollectionView: UICollectionView {
 
 /// A collection view responsible for handling AlbumCollectionCell
 class AlbumCollectionView: UICollectionView {
-    init(layout: UICollectionViewFlowLayout, scrollDirection: UICollectionView.ScrollDirection) {
+    init() {
         super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.albumCollectionViewFlowLayout)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.setCollectionViewLayout(UICollectionViewFlowLayout.albumCollectionViewFlowLayout, animated: true)
     }
     
     /// Registers the AlbumCollectionCell to this CollectionView
     func register() {
         self.register(AlbumCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.albumCell)
         self.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
+    }
+}
+
+/// A collectionView responsible for handling ImageCollectionCell
+class ImageCollectionView: UICollectionView {
+    init() {
+        super.init(frame: .zero, collectionViewLayout:  UICollectionViewFlowLayout.imageCollectionViewFlowLayout)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func register() {
+        self.tag = K.ViewTag.IMAGE_COLLECTION_VIEW
+        self.register(ImageCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.imageCell)
     }
 }

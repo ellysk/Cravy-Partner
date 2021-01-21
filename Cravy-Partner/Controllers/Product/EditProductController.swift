@@ -37,7 +37,7 @@ class EditProductController: UIViewController {
     var deleteButton: UIButton {
         return productEditView.deleteButton
     }
-    let productEditView: ProductEditView = Bundle.main.loadNibNamed("ProductEditView", owner: nil, options: nil)?.first as! ProductEditView
+    let productEditView: ProductEditView = Bundle.main.loadNibNamed(K.Identifier.NibName.productEditView, owner: nil, options: nil)?.first as! ProductEditView
     private var productImage: UIImage {
         set {
             imageView.image = newValue

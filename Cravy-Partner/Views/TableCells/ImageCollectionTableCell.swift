@@ -9,9 +9,18 @@
 import UIKit
 
 /// A Table cell that contains a Collection View registered to ImageCollectionCell.
-class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    private var imageCollectionView: UICollectionView!
+class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource {
+    private var imageCollectionView: ImageCollectionView!
     var images: [UIImage] = []
+    var delegate: UICollectionViewDelegate? {
+        set{
+            imageCollectionView.delegate = newValue
+        }
+        
+        get {
+            return imageCollectionView.delegate
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,11 +34,9 @@ class ImageCollectionTableCell: UITableViewCell, UICollectionViewDataSource, UIC
     
     private func setImageCollectionView() {
         if imageCollectionView == nil {
-            let layout = UICollectionViewFlowLayout.imageCollectionViewFlowLayout
-            imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            imageCollectionView.register(ImageCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.imageCell)
+            imageCollectionView = ImageCollectionView()
+            imageCollectionView.register()
             imageCollectionView.dataSource = self
-            imageCollectionView.delegate = self
             imageCollectionView.showsHorizontalScrollIndicator = false
             imageCollectionView.backgroundColor = .clear
             self.addSubview(imageCollectionView)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 /// Handles the display of the business/restaurant/owner/cook properties.
 class BusinessController: UIViewController {
@@ -39,6 +40,13 @@ class BusinessController: UIViewController {
             self.navigationController?.pushViewController(cravyWK, animated: true)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Identifier.Segue.businessToProduct {
+            let productVC = segue.destination as! ProductController
+            productVC.productTitle = "Chicken wings"
+        }
+    }
 }
 
 //MARK: - CravyWebKitController Delegate
@@ -65,20 +73,27 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            //IMAGE CELL
             let imageCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.imageCell, for: indexPath) as! ImageCollectionTableCell
             imageCell.setImageCollectionTableCell(images: K.Collections.businessStandoutImages)
+            imageCell.delegate = self
             
             return imageCell
         } else if indexPath.section == 1 {
+            //CRAVE CELL
             let craveCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.craveCell, for: indexPath) as! CraveCollectionTableCell
-            craveCell.delegate = self
             craveCell.setCraveCollectionTableCell(craves: ["one", "two"])
+            craveCell.delegate = self
+            craveCell.collectionViewDelegate = self
             
             return craveCell
         } else {
+            //GALLERY CELL
             let galleryCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
+            galleryCell.tag = indexPath.row
             galleryCell.setGalleryTableCell(layout: galleryLayout, images: Array(repeating: UIImage(named: "bgimage")!, count: 5))
             galleryLayout.change()
+            galleryCell.delegate = self
             
             return galleryCell
         }
@@ -91,6 +106,10 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
 
 //MARK: - UITableView Delegate
 extension BusinessController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return tableView.sectionWithTitle(K.Collections.businessSectionTitles[section])
     }
@@ -110,5 +129,36 @@ extension BusinessController: UITableViewDelegate {
         } else {
             return UITableView.automaticDimension
         }
+    }
+}
+
+//MARK: - UICollectionView Delegate
+extension BusinessController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == K.ViewTag.IMAGE_COLLECTION_VIEW {
+            //User selected an item in the ImageCollectionTableCell
+            if indexPath.item == 0 {
+                //TODO
+                //PROMOTE
+            } else if indexPath.item == 1 {
+                //COMING SOON
+                let popV = PopView(title: K.UIConstant.comingSoonTitle, detail: K.UIConstant.comingSoonMessage, actionTitle: K.UIConstant.doIt)
+                let popVC = PopViewController(popView: popV, animationView: AnimationView.comingSoonAnimation, actionHandler: {
+                    //TODO
+                })
+                present(popVC, animated: true)
+            }
+        } else if collectionView.tag == K.ViewTag.CRAVE_COLLECTION_VIEW {
+            //User selected an item in the CraveCollectionTableCell
+            self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)
+        }
+    }
+}
+
+//MARK: - GalleryTableCell Delegate
+extension BusinessController: GalleryTableCellDelegate {
+    func didTapOnImageAt(indexPath: IndexPath, tappedImage: UIImage) {
+        print("did tap on image at position \(indexPath.row) in row \(indexPath.section)")
+        //TODO
     }
 }

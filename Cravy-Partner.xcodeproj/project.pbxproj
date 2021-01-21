@@ -77,8 +77,8 @@
 		2BB7FE6D25B9B61700900495 /* CravyWebKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */; };
 		2BB7FE6E25B9B61700900495 /* CravyWebKitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */; };
 		2BB7FE7325B9C6C700900495 /* ProductEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE7225B9C6C700900495 /* ProductEditView.xib */; };
-		2BB7FE7525B9C8CC00900495 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7FE7425B9C8CC00900495 /* TempViewController.swift */; };
 		2BB7FE7725B9CAC100900495 /* ProductEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7FE7625B9CAC100900495 /* ProductEditView.swift */; };
+		2BB7FE7925B9EE2800900495 /* comingsoon.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE7825B9EE2700900495 /* comingsoon.json */; };
 		2BC0C69B25779D87004BA3CA /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C69A25779D87004BA3CA /* LinkView.swift */; };
 		2BC0C69E25780053004BA3CA /* CraveCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C69C25780053004BA3CA /* CraveCollectionCell.swift */; };
 		2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C69D25780053004BA3CA /* CraveCollectionCell.xib */; };
@@ -195,8 +195,8 @@
 		2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyWebKitViewController.swift; sourceTree = "<group>"; };
 		2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CravyWebKitViewController.xib; sourceTree = "<group>"; };
 		2BB7FE7225B9C6C700900495 /* ProductEditView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductEditView.xib; sourceTree = "<group>"; };
-		2BB7FE7425B9C8CC00900495 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		2BB7FE7625B9CAC100900495 /* ProductEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditView.swift; sourceTree = "<group>"; };
+		2BB7FE7825B9EE2700900495 /* comingsoon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comingsoon.json; sourceTree = "<group>"; };
 		2BC0C69A25779D87004BA3CA /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		2BC0C69C25780053004BA3CA /* CraveCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveCollectionCell.swift; sourceTree = "<group>"; };
 		2BC0C69D25780053004BA3CA /* CraveCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionCell.xib; sourceTree = "<group>"; };
@@ -269,7 +269,6 @@
 				2B267EE725A1FE4000478726 /* ProductCollectionViewController.swift */,
 				2B267EE925A2011D00478726 /* ProductsPageController.swift */,
 				2BC7378C25A799B2005D7853 /* ImageViewController.swift */,
-				2BB7FE7425B9C8CC00900495 /* TempViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -406,6 +405,7 @@
 				2B267EEB25A2212800478726 /* promote.json */,
 				2B267EEF25A285AC00478726 /* post.json */,
 				2B89AAD725A495EE00F65F16 /* inactive.json */,
+				2BB7FE7825B9EE2700900495 /* comingsoon.json */,
 			);
 			path = "Cravy-Partner";
 			sourceTree = "<group>";
@@ -637,6 +637,7 @@
 				2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B61BE772593ADED00545E59 /* focus.json in Resources */,
+				2BB7FE7925B9EE2800900495 /* comingsoon.json in Resources */,
 				2B89AAD825A495EF00F65F16 /* inactive.json in Resources */,
 				2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */,
 				2BFC751125977ED7009A35AE /* BasicReusableView.xib in Resources */,
@@ -804,7 +805,6 @@
 				2BFC751B2597C1A5009A35AE /* AlbumController.swift in Sources */,
 				2BFC75132597808C009A35AE /* AlbumCollectionViewController.swift in Sources */,
 				2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */,
-				2BB7FE7525B9C8CC00900495 /* TempViewController.swift in Sources */,
 				2B61BE4C2590DF7B00545E59 /* AccountController.swift in Sources */,
 				2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */,
 				2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */,

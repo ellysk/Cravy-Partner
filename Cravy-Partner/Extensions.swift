@@ -1076,6 +1076,9 @@ extension AnimationView {
     static var inactiveAnimation: AnimationView {
         return AnimationView(name: "inactive")
     }
+    static var comingSoonAnimation: AnimationView {
+        return AnimationView(name: "comingsoon")
+    }
     
     /// Plays the animation at the speicified position on the screen.
     func play(at position: CGPoint) {

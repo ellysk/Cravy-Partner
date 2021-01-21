@@ -92,6 +92,9 @@ struct K {
         static let noLinkMessage = "This product does not have any link that it's associated with."
         static let noBusinessLinkMessage = "Looks like you have not provided your business website link."
         static let oops = "Oops!"
+        static let comingSoonTitle = "Got a new product?"
+        static let comingSoonMessage = "Let the people know as early as possible so they can save the date and be notified when you post it for the first time."
+        static let doIt = "Let's do it!"
     }
     
     //MARK:- Identifier
@@ -145,6 +148,7 @@ struct K {
             static let productToEditProduct = "ProductToEditProduct"
             static let toTagsCollectionVC = "toTagsCollectionVC"
             static let editProductToEditTags = "EditProductToEditTags"
+            static let businessToProduct = "BusinessToProduct"
         }
         
         //MARK:- StoryboardID
@@ -161,6 +165,7 @@ struct K {
         //MARK:- NibName
         struct NibName {
             static let cravyWebKitViewController = "CravyWebKitViewController"
+            static let productEditView = "ProductEditView"
         }
     }
     
@@ -221,6 +226,10 @@ struct K {
         static let PLACEHOLDER_VIEW: Int = 55
         /// Returns a tag value of 66
         static let DISMISS_BUTTON: Int = 66
+        /// Returns a tag value of 77
+        static let IMAGE_COLLECTION_VIEW: Int = 77
+        /// Returns a tag value of 88
+        static let CRAVE_COLLECTION_VIEW: Int = 88
     }
     
     //MARK:- Image
