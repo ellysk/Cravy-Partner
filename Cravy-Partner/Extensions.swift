@@ -406,9 +406,9 @@ extension UIViewController {
     /// - Parameters:
     ///   - isVisiting: Determines the state of the CravyWebKitController, if user is visiting then there is no action to add link.
     ///   - link: The first content for the web to load, if not provided then CravyWebKitController uses the default base url.
-    func openCravyWebKit(link: String?, alertTitle: String = K.UIConstant.noLinkMessage, completion: @escaping (CravyWebKitController)->()) {
+    func openCravyWebKit(link: String?, alertTitle: String = K.UIConstant.noLinkMessage, completion: @escaping (CravyWebKitViewController)->()) {
         func goToCravyWebVC(link: String?) {
-            let cravyWebVC = CravyWebKitController(URLString: link)
+            let cravyWebVC = CravyWebKitViewController(URLString: link)
             completion(cravyWebVC)
         }
         if let link = link {

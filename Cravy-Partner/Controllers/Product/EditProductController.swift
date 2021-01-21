@@ -157,7 +157,7 @@ class EditProductController: UIViewController {
         guard let v =  gesture.view else {return}
         
         func goToCravyWebVC() {
-            let cravyWebVC = CravyWebKitController(URLString: productLink)
+            let cravyWebVC = CravyWebKitViewController(URLString: productLink)
             cravyWebVC.delegate = self
             self.navigationController?.pushViewController(cravyWebVC, animated: true)
         }

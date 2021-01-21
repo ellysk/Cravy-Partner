@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CravyWebKitViewController" customModule="Cravy_Partner" customModuleProvider="target">
+            <connections>
+                <outlet property="backItem" destination="ax4-tm-2k7" id="dfN-dc-YhG"/>
+                <outlet property="cravyWebView" destination="awo-EH-WWO" id="49v-cX-t6L"/>
+                <outlet property="dismissItem" destination="nSp-R9-gXz" id="USU-ig-kXV"/>
+                <outlet property="forwardItem" destination="1ZN-ae-Db8" id="vJ1-9A-VlS"/>
+                <outlet property="linkButton" destination="IQa-gy-Bui" id="eYr-jl-2MN"/>
+                <outlet property="progressView" destination="PfG-N0-lX4" id="Tir-cA-JOh"/>
+                <outlet property="reloadItem" destination="hM5-Gx-BvR" id="jPG-6k-gaf"/>
+                <outlet property="topItem" destination="7HZ-S5-brA" id="HWX-lp-hz2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2a-ef-wcP">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <color key="tintColor" name="primary"/>
+                    <color key="barTintColor" name="secondary"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" name="dark"/>
+                    </textAttributes>
+                    <textAttributes key="largeTitleTextAttributes">
+                        <color key="textColor" name="dark"/>
+                    </textAttributes>
+                    <items>
+                        <navigationItem title="Title" id="7HZ-S5-brA">
+                            <leftBarButtonItems>
+                                <barButtonItem image="xmark" catalog="system" id="nSp-R9-gXz"/>
+                                <barButtonItem image="lock.fill" catalog="system" id="KRL-Th-dnQ">
+                                    <color key="tintColor" name="positive"/>
+                                </barButtonItem>
+                            </leftBarButtonItems>
+                            <barButtonItem key="rightBarButtonItem" image="arrow.clockwise" catalog="system" style="done" id="hM5-Gx-BvR"/>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUz-uC-uIh">
+                    <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                    <items>
+                        <barButtonItem width="50" style="plain" systemItem="fixedSpace" id="MRR-dv-DWt"/>
+                        <barButtonItem tag="-1" image="chevron.left" catalog="system" style="done" id="ax4-tm-2k7">
+                            <connections>
+                                <action selector="navigate:" destination="-1" id="VrY-AI-vex"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="sWv-Hd-QOC"/>
+                        <barButtonItem tag="1" image="chevron.right" catalog="system" style="done" id="1ZN-ae-Db8">
+                            <connections>
+                                <action selector="navigate:" destination="-1" id="QWA-BI-D2h"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="50" systemItem="fixedSpace" id="6ZU-QQ-zdD"/>
+                    </items>
+                    <color key="tintColor" red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="barTintColor" name="secondary"/>
+                </toolbar>
+                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awo-EH-WWO" customClass="CravyWebView" customModule="Cravy_Partner" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="90" width="414" height="723"/>
+                    <color key="backgroundColor" name="light"/>
+                    <wkWebViewConfiguration key="configuration">
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                        <wkPreferences key="preferences"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PfG-N0-lX4">
+                    <rect key="frame" x="0.0" y="88" width="414" height="2"/>
+                    <color key="progressTintColor" name="primary"/>
+                    <color key="trackTintColor" name="secondary"/>
+                </progressView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQa-gy-Bui" customClass="RoundButton" customModule="Cravy_Partner" customModuleProvider="target">
+                    <rect key="frame" x="177" y="802.5" width="60" height="59"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="j9w-qE-Mg1"/>
+                        <constraint firstAttribute="width" constant="60" id="nSN-aq-ruu"/>
+                    </constraints>
+                    <color key="tintColor" name="primary"/>
+                    <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
+                    <connections>
+                        <action selector="linkAction:" destination="-1" eventType="touchUpInside" id="sCc-zt-5fs"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" name="secondary"/>
+            <constraints>
+                <constraint firstItem="yUz-uC-uIh" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="0MJ-1D-7A0"/>
+                <constraint firstItem="yUz-uC-uIh" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1QH-DX-LwL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="IQa-gy-Bui" secondAttribute="bottom" id="4Cf-yO-YD9"/>
+                <constraint firstItem="PfG-N0-lX4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5Zr-3b-Wfz"/>
+                <constraint firstItem="IQa-gy-Bui" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5by-Qe-A2t"/>
+                <constraint firstAttribute="trailing" secondItem="PfG-N0-lX4" secondAttribute="trailing" id="Ctp-xd-Qgw"/>
+                <constraint firstItem="I2a-ef-wcP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="DSC-Dg-ClE"/>
+                <constraint firstItem="yUz-uC-uIh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FTz-WX-FAr"/>
+                <constraint firstItem="yUz-uC-uIh" firstAttribute="top" secondItem="awo-EH-WWO" secondAttribute="bottom" id="QNA-cS-EM8"/>
+                <constraint firstItem="awo-EH-WWO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TRZ-iE-cMM"/>
+                <constraint firstItem="awo-EH-WWO" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="UsR-uS-mLf"/>
+                <constraint firstItem="I2a-ef-wcP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Wtt-CZ-mG6"/>
+                <constraint firstItem="PfG-N0-lX4" firstAttribute="top" secondItem="I2a-ef-wcP" secondAttribute="bottom" id="b8C-lQ-f5P"/>
+                <constraint firstItem="awo-EH-WWO" firstAttribute="top" secondItem="PfG-N0-lX4" secondAttribute="bottom" id="r4S-dw-7mb"/>
+                <constraint firstItem="I2a-ef-wcP" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ueb-pO-0hn"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="121.875"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="lock.fill" catalog="system" width="128" height="128"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="dark">
+            <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="light">
+            <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="positive">
+            <color red="0.12156862745098039" green="0.70588235294117652" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary">
+            <color red="1" green="0.91764705882352937" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

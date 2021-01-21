@@ -157,6 +157,11 @@ struct K {
             static let productVC = "ProductVC"
             static let albumVC = "AlbumVC"
         }
+        
+        //MARK:- NibName
+        struct NibName {
+            static let cravyWebKitViewController = "CravyWebKitViewController"
+        }
     }
     
     //MARK:- Collections
