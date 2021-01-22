@@ -45,7 +45,7 @@ class EditTagsController: UIViewController {
 //MARK:- TagsCollectionViewController Delegate
 extension EditTagsController: TagsCollectionViewControllerDelegate {
     func didUpdateTags(tags: [String]) {
-        doneItem.isEnabled = defaultTags != tags
         self.tags = tags
+        doneItem.isEnabled = defaultTags != tags && !tags.isEmpty
     }
 }

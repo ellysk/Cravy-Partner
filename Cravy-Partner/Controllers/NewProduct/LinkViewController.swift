@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 /// Handles the input of a website link.
-class LinkViewController: UIViewController {
+class LinkViewController: NPViewController {
     @IBOutlet weak var searchBar: CravySearchBar!
     @IBOutlet weak var linkLabel: UILabel!
     
@@ -54,6 +54,6 @@ extension LinkViewController: CravyWebViewControllerDelegate {
         searchBar.clear()
         searchBar.beginResponder = false
         linkLabel.text = URL.absoluteString
-        UserDefaults.standard.addURL(URL)
+        self.productInfoDelegate?.didConfirmProductLink(URL.absoluteString)
     }
 }

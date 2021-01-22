@@ -142,10 +142,25 @@ class AccountStackView: UIStackView {
     var numberTextField: RoundTextField!
     private var textField: RoundTextField {
         let field = RoundTextField(roundFactor: 5)
+        field.isBordered = true
         field.returnKeyType = .done
         field.translatesAutoresizingMaskIntoConstraints = false
         field.heightAnchor(of: 45)
         return field
+    }
+    private var emailWithSectionTitleView: UIStackView!
+    /// Use this variable to warn user incase of a wrong email format.
+    var emailSectionTitle: String? {
+        set {
+            let label = emailWithSectionTitleView.arrangedSubviews[0] as! UILabel
+            label.text = newValue == nil ? K.UIConstant.changeBusinessEmail : newValue
+            label.textColor = newValue == nil ? K.Color.dark.withAlphaComponent(0.5) : K.Color.important
+        }
+        
+        get {
+            let label = emailWithSectionTitleView.arrangedSubviews[0] as! UILabel
+            return label.text
+        }
     }
     
     init() {
@@ -161,6 +176,8 @@ class AccountStackView: UIStackView {
     
     private func setAccountStackView() {
         logoImageView = RoundImageView(image: nil, roundfactor: 5)
+        logoImageView.contentMode = .redraw
+        logoImageView.isUserInteractionEnabled = true
         logoImageView.showsPlaceholder = true
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.sizeAnchorOf(width: 100, height: 100)
@@ -170,11 +187,14 @@ class AccountStackView: UIStackView {
         emailTextField = textField
         emailTextField.keyboardType = .emailAddress
         numberTextField = textField
+        numberTextField.addDoneOnKeyboardWithTarget(numberTextField, action: #selector(numberTextField.resignFirstResponder))
+        numberTextField.keyboardToolbar.doneBarButton.tintColor = K.Color.primary
         numberTextField.keyboardType = .phonePad
         
-        self.addArrangedSubview(logoImageView.withSectionTitle(K.UIConstant.addBusinessLogo, alignment: .leading))
+        self.addArrangedSubview(logoImageView.withSectionTitle(K.UIConstant.changeBusinessLogo, alignment: .leading))
         self.addArrangedSubview(nameTextField.withSectionTitle(K.UIConstant.changeBusinessName))
-        self.addArrangedSubview(emailTextField.withSectionTitle(K.UIConstant.changeBusinessEmail))
+        emailWithSectionTitleView = emailTextField.withSectionTitle(K.UIConstant.changeBusinessEmail)
+        self.addArrangedSubview(emailWithSectionTitleView)
         self.addArrangedSubview(numberTextField.withSectionTitle(K.UIConstant.changePhoneNumber))
     }
 }

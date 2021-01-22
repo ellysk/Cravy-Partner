@@ -33,7 +33,7 @@ class TagsCollectionViewController: NPCollectionViewController, UICollectionView
     override func confirmNewProductInput(confirmationHandler: (Bool) -> ()) {
         confirmationHandler(!tags["My tags"]!.isEmpty)
         if !tags.isEmpty {
-            UserDefaults.standard.addTags(tags["My tags"]!)
+            self.productInfoDelegate?.didConfirmProductTags(tags["My tags"]!)
         }
     }
 

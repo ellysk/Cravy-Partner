@@ -90,23 +90,23 @@ class EditProductController: UIViewController {
     }
     var defaultValues: [String:Any] = [:]
     var isImageEdited: Bool {
-        guard let defaultImage = defaultValues[UserDefaults.imageKey] as? UIImage else {return false}
+        guard let defaultImage = defaultValues[K.Key.image] as? UIImage else {return false}
         return defaultImage != productImage
     }
     var isTitleEdited: Bool {
-        guard let defaultTitle = defaultValues[UserDefaults.titleKey] as? String else {return false}
+        guard let defaultTitle = defaultValues[K.Key.title] as? String else {return false}
         return defaultTitle != productTitle
     }
     var isDescriptionEdited: Bool {
-        guard let defaultDescription = defaultValues[UserDefaults.descriptionKey] as? String else {return false}
+        guard let defaultDescription = defaultValues[K.Key.description] as? String else {return false}
         return defaultDescription != productDescription
     }
     var isTagsEdited: Bool {
-        guard let defaultTags = defaultValues[UserDefaults.tagsKey] as? [String] else {return false}
+        guard let defaultTags = defaultValues[K.Key.tags] as? [String] else {return false}
         return defaultTags != productTags
     }
     var isLinkEdited: Bool {
-        let defaultLink = defaultValues[UserDefaults.URLKey] as? String
+        let defaultLink = defaultValues[K.Key.url] as? String
         return defaultLink != productLink
     }
     var isProductEdited: Bool {
@@ -119,6 +119,8 @@ class EditProductController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDefaultValues()
+        titleTextField.delegate = self
+        descriptionTextView.delegate = self
         additionalSetup()
     }
     
@@ -148,11 +150,11 @@ class EditProductController: UIViewController {
     
     /// Assign the variables to the default values.
     private func setUpDefaultValues() {
-        productImage = defaultValues[UserDefaults.imageKey] as! UIImage
-        productTitle = defaultValues[UserDefaults.titleKey] as! String
-        productDescription = defaultValues[UserDefaults.descriptionKey] as! String
-        productTags = (defaultValues[UserDefaults.tagsKey] as! [String])
-        productLink = defaultValues[UserDefaults.URLKey] as? String
+        productImage = defaultValues[K.Key.image] as! UIImage
+        productTitle = defaultValues[K.Key.title] as! String
+        productDescription = defaultValues[K.Key.description] as! String
+        productTags = (defaultValues[K.Key.tags] as! [String])
+        productLink = defaultValues[K.Key.url] as? String
     }
         
     private func reloadEditable() {
@@ -160,26 +162,9 @@ class EditProductController: UIViewController {
     }
     
     @objc func editPhotoAction(_ gesture: UITapGestureRecognizer) {
-        let alertController = UIAlertController(title: K.UIConstant.addPhoto, message: K.UIConstant.addPhotoMessage, preferredStyle: .actionSheet)
-        let photoLibraryAction = UIAlertAction(title: K.UIConstant.photoLibrary, style: .default) { (action) in
-            let albumVC = K.Controller.albumController
-            albumVC.isUserEditingProduct = true
-            albumVC.imageViewDelegate = self
-            self.present(albumVC, animated: true)
-        }
-        let cameraAction = UIAlertAction(title: K.UIConstant.camera, style: .default) { (action) in
-            let newProductVC = K.Controller.newProductController
-            newProductVC.isUserEditingProduct = true
-            newProductVC.imageViewDelegate = self
-            self.present(newProductVC, animated: true)
-        }
-        alertController.addAction(photoLibraryAction)
-        alertController.addAction(cameraAction)
-        alertController.addAction(UIAlertAction.cancel)
-        
-        alertController.pruneNegativeWidthConstraints()
-        self.present(alertController, animated: true)
+        self.presentEditPhotoAlert(in: self, message: K.UIConstant.addProductPhotoMessage)
     }
+    
     
     @objc func navigateTo(_ gesture: UITapGestureRecognizer) {
         guard let v =  gesture.view else {return}
@@ -241,8 +226,11 @@ extension EditProductController: ImageViewControllerDelegate {
 //MARK:- UITextField Delegate
 extension EditProductController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text, text.removeLeadingAndTrailingSpaces != "" else {return}
-        productTitle = text.removeLeadingAndTrailingSpaces
+        if let text = textField.text, text.removeLeadingAndTrailingSpaces != "" {
+            productTitle = text.removeLeadingAndTrailingSpaces
+        } else {
+            productTitle = defaultValues[K.Key.title] as! String
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -256,6 +244,8 @@ extension EditProductController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.removeLeadingAndTrailingSpaces != "" {
             productDescription = textView.text.removeLeadingAndTrailingSpaces
+        } else {
+            productDescription = defaultValues[K.Key.description] as! String
         }
     }
 }

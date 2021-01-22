@@ -16,7 +16,7 @@ class BusinessController: UIViewController {
     @IBOutlet weak var businessTableView: UITableView!
     /// The first layout of the gallery
     private var galleryLayout: GALLERY_LAYOUT = .uzumaki
-    var link: String?
+    var businessInfo: [String:Any] = [:] //TODO
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,14 @@ class BusinessController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.setCravyGradientBackground()
         self.setFloaterViewWith(image: K.Image.ellipsisCricleFill, title: K.UIConstant.settings)
+        self.floaterView?.delegate = self
         businessTableView.register(ImageCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.imageCell)
         businessTableView.register(CraveCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.craveCell)
         businessTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
     }
     
     @objc func openWebKit(_ sender: UIButton) {
-        self.openCravyWebKit(link: link, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
+        self.openCravyWebKit(link: businessInfo[K.Key.url] as? String, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
             cravyWK.delegate = self
             self.navigationController?.pushViewController(cravyWK, animated: true)
         }
@@ -53,7 +54,7 @@ class BusinessController: UIViewController {
 extension BusinessController: CravyWebViewControllerDelegate {
     func didCommitLink(URL: URL) {
         //TODO
-        link = URL.absoluteString
+        businessInfo.updateValue(URL.absoluteString, forKey: K.Key.url)
     }
 }
 
@@ -160,5 +161,13 @@ extension BusinessController: GalleryTableCellDelegate {
     func didTapOnImageAt(indexPath: IndexPath, tappedImage: UIImage) {
         print("did tap on image at position \(indexPath.row) in row \(indexPath.section)")
         //TODO
+    }
+}
+
+//MARK: - FloaterView Delegate
+extension BusinessController: FloaterViewDelegate {
+    func didTapFloaterButton(_ floaterView: FloaterView) {
+        //Go to settings
+        self.performSegue(withIdentifier: K.Identifier.Segue.businessToSettings, sender: self)
     }
 }

@@ -7,13 +7,29 @@
 //
 
 import UIKit
+/// Called to notify that the user has completed the new information about the product.
+protocol ProductInfoDelegate {
+    func didConfirmProductTitle(_ title: String)
+    func didConfirmProductDescription(_ description: String)
+    func didConfirmProductTags(_ tags: [String])
+    func didConfirmProductLink(_ link: String?)
+}
 
 /// Handles the display of view controllers that allow user to input product information.
 class NewProductPageController: CravyPageController {
+    var productInfoDelegate: ProductInfoDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pages = [K.Controller.textsViewController, K.Controller.tagsCollectionViewController, K.Controller.linkViewController]
+        //Set the delegates
+        pages.forEach { (viewController) in
+            if let NPController = viewController as? NPViewController {
+                NPController.productInfoDelegate = productInfoDelegate
+            } else if let NPCollectionController = viewController as? NPCollectionViewController {
+                NPCollectionController.productInfoDelegate = productInfoDelegate
+            }
+        }
         self.cravyPCDelegate?.didFinishLoadingPages(pages: pages)
         self.setViewControllers([pages[0]], direction: .forward, animated: true)
         
@@ -58,12 +74,16 @@ class NewProductPageController: CravyPageController {
 }
 
 class NPViewController: UIViewController {
+    var productInfoDelegate: ProductInfoDelegate?
+    
     func confirmNewProductInput(confirmationHandler: (Bool)->()) {
         confirmationHandler(true)
     }
 }
 
 class NPCollectionViewController: UICollectionViewController {
+    var productInfoDelegate: ProductInfoDelegate?
+    
     func confirmNewProductInput(confirmationHandler: (Bool)->()) {
         confirmationHandler(true)
     }

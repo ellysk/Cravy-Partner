@@ -376,6 +376,7 @@
                         <outlet property="businessTableView" destination="gVn-Qw-ojZ" id="DYK-mj-aQY"/>
                         <outlet property="businessView" destination="CMK-s2-PYW" id="gIF-pC-RQe"/>
                         <segue destination="KKx-KE-enj" kind="show" identifier="BusinessToProduct" id="xW7-G0-605"/>
+                        <segue destination="WYF-bO-zgR" kind="show" identifier="BusinessToSettings" id="uFV-HV-3p4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EjI-qe-M4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -391,6 +392,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJI-Ye-5cu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3463" y="644"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="fIz-FD-f82">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="WYF-bO-zgR" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="RRt-Xd-hNL"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4a9-rb-prC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3466" y="749"/>
         </scene>
         <!--My products-->
         <scene sceneID="LZ2-Eb-Czn">
@@ -516,7 +527,7 @@
                             <color key="textColor" name="light"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" name="light"/>
+                            <color key="textColor" name="dark"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>

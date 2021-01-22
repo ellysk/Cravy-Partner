@@ -36,10 +36,9 @@ class BasicTableCell: UITableViewCell {
     private func setStackView(image: UIImage, title: String) {
         setBasicImageView(image: image)
         setBasicLabel(title: title)
+        setAcessoryView()
         
         if stackView == nil {
-            self.accessoryType = .disclosureIndicator
-            self.tintColor = K.Color.dark
             stackView = UIStackView(arrangedSubviews: [basicImageView, basicLabel])
             stackView.set(axis: .horizontal, alignment: .center, distribution: .fillProportionally, spacing: 16)
             self.addSubview(stackView)
@@ -70,6 +69,14 @@ class BasicTableCell: UITableViewCell {
             basicLabel.textColor = K.Color.dark
         } else {
             basicLabel.text = title
+        }
+    }
+    
+    private func setAcessoryView() {
+        if self.accessoryView == nil {
+            let imageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+            imageView.tintColor = K.Color.dark
+            self.accessoryView = imageView
         }
     }
 }

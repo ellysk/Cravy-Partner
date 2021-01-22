@@ -36,7 +36,7 @@ struct K {
         static let filtersMessage = "Choose a filter"
         static let removeFilter = "Remove Filter"
         static let cancel = "Cancel"
-        static let addBusinessLogo = "Change business logo"
+        static let changeBusinessLogo = "Change business logo"
         static let changeBusinessName = "Change business name"
         static let changeBusinessEmail = "Change business email"
         static let changePhoneNumber = "Change business phone number"
@@ -83,7 +83,8 @@ struct K {
         static let create = "Create"
         static let noLinkProvided = "No link provided"
         static let addPhoto = "Add photo"
-        static let addPhotoMessage = "The photo represents your product and is what will be displayed to the customers"
+        static let addProductPhotoMessage = "The photo added will represent your product and is what will be displayed to the customers"
+        static let addBusinessLogoMessage = "A photo of your company/business logo"
         static let photoLibrary = "Photo Library"
         static let camera = "Camera"
         static let addNewLink = "Add new link"
@@ -95,6 +96,8 @@ struct K {
         static let comingSoonTitle = "Got a new product?"
         static let comingSoonMessage = "Let the people know as early as possible so they can save the date and be notified when you post it for the first time."
         static let doIt = "Let's do it!"
+        static let account = "Account"
+        static let emailFormatAlert = "Please check the format of the email you entered."
     }
     
     //MARK:- Identifier
@@ -149,6 +152,8 @@ struct K {
             static let toTagsCollectionVC = "toTagsCollectionVC"
             static let editProductToEditTags = "EditProductToEditTags"
             static let businessToProduct = "BusinessToProduct"
+            static let businessToSettings = "BusinessToSettings"
+            static let settingsToAccount = "SettingsToAccount"
         }
         
         //MARK:- StoryboardID
@@ -274,5 +279,18 @@ struct K {
         private static let serverpart = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
         private static let emailRegex = firstpart + "@" + serverpart + "[A-Za-z]{2,8}"
         static let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+    }
+    
+    //MARK:- Key
+    struct Key {
+        //PRODUCT INFO KEYS
+        static let image = "image"
+        static let title = "title"
+        static let description = "description"
+        static let tags = "tags"
+        static let url = "url"
+        static let name = "name"
+        static let email = "email"
+        static let number = "number"
     }
 }

@@ -74,6 +74,7 @@
                         <outlet property="noticeView" destination="syC-rR-43c" id="UAa-sk-SUv"/>
                         <outlet property="policyButton" destination="sod-hf-d9n" id="vW2-pA-AC9"/>
                         <outlet property="settingsTableView" destination="4PI-aV-F3G" id="cUa-dv-Ard"/>
+                        <segue destination="sGN-Zo-nhf" kind="show" identifier="SettingsToAccount" id="0Gj-fK-iyj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPm-Ea-FKP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -85,31 +86,42 @@
             <objects>
                 <viewController id="sGN-Zo-nhf" customClass="AccountController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nox-aV-B9a">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kZU-vK-tJz" customClass="AccountStackView" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="20" y="44" width="374" height="400"/>
+                                <rect key="frame" x="20" y="0.0" width="374" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="kth-Bq-wd1"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOI-fh-Xh4">
+                                <rect key="frame" x="178.5" y="496" width="57" height="50"/>
+                                <state key="normal" image="logout"/>
+                                <connections>
+                                    <action selector="logOut:" destination="sGN-Zo-nhf" eventType="touchUpInside" id="mAY-Ab-Sqc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="light"/>
                         <constraints>
+                            <constraint firstItem="TOI-fh-Xh4" firstAttribute="top" secondItem="kZU-vK-tJz" secondAttribute="bottom" constant="96" id="3oG-4k-ZXP"/>
                             <constraint firstItem="eJo-Ab-i63" firstAttribute="trailing" secondItem="kZU-vK-tJz" secondAttribute="trailing" constant="20" id="AqI-FM-8fC"/>
                             <constraint firstItem="kZU-vK-tJz" firstAttribute="leading" secondItem="eJo-Ab-i63" secondAttribute="leading" constant="20" id="ak7-3O-Ogu"/>
+                            <constraint firstItem="TOI-fh-Xh4" firstAttribute="centerX" secondItem="Nox-aV-B9a" secondAttribute="centerX" id="lUz-0X-AB7"/>
                             <constraint firstItem="kZU-vK-tJz" firstAttribute="top" secondItem="eJo-Ab-i63" secondAttribute="top" id="pOm-9x-GvS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eJo-Ab-i63"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Yyg-ZH-oRc"/>
                     <connections>
                         <outlet property="accountStackView" destination="kZU-vK-tJz" id="9Si-PL-7I7"/>
+                        <outlet property="logOutButton" destination="TOI-fh-Xh4" id="NNU-Pd-w9v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zwl-ni-K6b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="611.59420289855075" y="-103.125"/>
+            <point key="canvasLocation" x="703" y="-105"/>
         </scene>
         <!--Settings Table Controller-->
         <scene sceneID="o7Q-QV-oBI">
@@ -131,6 +143,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="logout" width="57" height="50"/>
         <namedColor name="dark">
             <color red="0.019607843137254902" green="0.019607843137254902" blue="0.027450980392156862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

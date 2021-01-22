@@ -12,10 +12,6 @@ protocol PageViewsTransitionDelegate {
     func goTo(direction: UIPageViewController.NavigationDirection)
 }
 
-protocol NewProductViewsControllerDelegate {
-    func didCreateProduct()
-}
-
 /// Handles the transitions of the NewsPageController
 class NewProductViewsController: UIViewController {
     @IBOutlet weak var bgImageView: UIImageView!
@@ -23,12 +19,18 @@ class NewProductViewsController: UIViewController {
     @IBOutlet weak var previousItem: UIBarButtonItem!
     @IBOutlet weak var nextItem: UIBarButtonItem!
     var bgImage: UIImage!
+    var isProductInfoComplete: Bool {
+        guard let _ = productInfo[K.Key.image] as? UIImage, let _ = productInfo[K.Key.title] as? String, let _ = productInfo[K.Key.description] as? String, let _ = productInfo[K.Key.tags] as? [String] else {return false}
+        return true
+    }
+    var productInfo: [String:Any]!
     var transitionDelegate: PageViewsTransitionDelegate?
-    var delegate: NewProductViewsControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        //set the first info of the product [image]
+        productInfo = [K.Key.image : bgImage!]
         bgImageView.image = bgImage
         bgImageView.isBlurr = true
         navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -44,34 +46,47 @@ class NewProductViewsController: UIViewController {
     }
     
     @objc func create(_ sender: UIBarButtonItem) {
-        UserDefaults.standard.addImage(bgImage)
-        if UserDefaults.standard.isProductInfoComplete {
+        if isProductInfoComplete {
             performSegue(withIdentifier: K.Identifier.Segue.newProductToProduct, sender: self)
-            self.delegate?.didCreateProduct()
         }
     }
     
     @IBAction func cancel(_ sender: RoundButton) {
-        dismissNewProductViewsController()
-    }
-    
-    private func dismissNewProductViewsController(dismissHandler: (()->())? = nil) {
-        self.dismiss(animated: true) {
-            dismissHandler?()
-            UserDefaults.standard.deleteProductInfo()
-        }
+        self.dismissVC()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.toNewProductPageVC {
             let newProductPageVC = segue.destination as! NewProductPageController
             self.transitionDelegate = newProductPageVC
+            newProductPageVC.productInfoDelegate = self
             newProductPageVC.transitionDelegate = self
         } else if segue.identifier == K.Identifier.Segue.newProductToProduct {
             let productVC = segue.destination as! ProductController
-            self.delegate = productVC
-            productVC.productTitle = UserDefaults.standard.string(forKey: UserDefaults.titleKey)
+            productVC.navigationItem.setHidesBackButton(true, animated: true)
+            productVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: productVC, action: #selector(productVC.done(_:)))
+            productVC.productTitle = productInfo[K.Key.title] as? String
         }
+    }
+}
+
+//MARK:- ProductInfo Delegate
+extension NewProductViewsController: ProductInfoDelegate {
+    func didConfirmProductTitle(_ title: String) {
+        productInfo.updateValue(title, forKey: K.Key.title)
+    }
+    
+    func didConfirmProductDescription(_ description: String) {
+        productInfo.updateValue(description, forKey: K.Key.description)
+    }
+    
+    func didConfirmProductTags(_ tags: [String]) {
+        productInfo.updateValue(tags, forKey: K.Key.tags)
+    }
+    
+    func didConfirmProductLink(_ link: String?) {
+        guard let link = link else {return}
+        productInfo.updateValue(link, forKey: K.Key.url)
     }
 }
 

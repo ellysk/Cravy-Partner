@@ -31,9 +31,9 @@ class TextsViewController: NPViewController {
     override func confirmNewProductInput(confirmationHandler: (Bool) -> ()) {
         confirmationHandler(textStackView.isValid)
         guard let title = productTitle, let description = productDescription else {return}
-        //Store the title and description data temporarily.
-        UserDefaults.standard.addTitle(title)
-        UserDefaults.standard.addDescription(description)
+        //Call the delegate to confirm about the input
+        self.productInfoDelegate?.didConfirmProductTitle(title)
+        self.productInfoDelegate?.didConfirmProductDescription(description)
     }
 }
 

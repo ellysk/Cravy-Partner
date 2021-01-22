@@ -91,14 +91,14 @@ class ProductController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.productToEditProduct {
             let editProductVC = segue.destination as! EditProductController
-            //store default image
-            editProductVC.defaultValues.updateValue(imageView.image!, forKey: UserDefaults.imageKey)
-            //store default title
-            editProductVC.defaultValues.updateValue(productTitle!, forKey: UserDefaults.titleKey)
-            //store default description
-            editProductVC.defaultValues.updateValue(detailLabel.text!, forKey: UserDefaults.descriptionKey)
-            //store default tags
-            editProductVC.defaultValues.updateValue(tags, forKey: UserDefaults.tagsKey)
+            //assign default image
+            editProductVC.defaultValues.updateValue(imageView.image!, forKey: K.Key.image)
+            //assign default title
+            editProductVC.defaultValues.updateValue(productTitle!, forKey: K.Key.title)
+            //assign default description
+            editProductVC.defaultValues.updateValue(detailLabel.text!, forKey: K.Key.description)
+            //assign default tags
+            editProductVC.defaultValues.updateValue(tags, forKey: K.Key.tags)
         }
     }
 }
@@ -132,14 +132,6 @@ extension ProductController: UICollectionViewDataSource {
             
             return tagCell
         }
-    }
-}
-
-//MARK:- NewProductViewsController Delegate
-extension ProductController: NewProductViewsControllerDelegate {
-    func didCreateProduct() {
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done(_:)))
     }
 }
 

@@ -230,6 +230,7 @@ extension UIView {
         sectionLabel.text = title
         sectionLabel.font = titleFont
         sectionLabel.textAlignment = .left
+        sectionLabel.adjustsFontSizeToFitWidth = true
         sectionLabel.textColor = titleColor
         
         let vStackView = UIStackView(arrangedSubviews: [sectionLabel, self])
@@ -422,6 +423,29 @@ extension UIViewController {
             alertController.addAction(UIAlertAction.cancel)
             present(alertController, animated: true)
         }
+    }
+    
+    /// Presents an action sheet that asks the user to add photo either by opening up the camera or the photo library.
+    func presentEditPhotoAlert(in responder: ImageViewControllerDelegate, message: String) {
+        let alertController = UIAlertController(title: K.UIConstant.addPhoto, message: message, preferredStyle: .actionSheet)
+        let photoLibraryAction = UIAlertAction(title: K.UIConstant.photoLibrary, style: .default) { (action) in
+            let albumVC = K.Controller.albumController
+            albumVC.isUserEditingProduct = true
+            albumVC.imageViewDelegate = responder
+            self.present(albumVC, animated: true)
+        }
+        let cameraAction = UIAlertAction(title: K.UIConstant.camera, style: .default) { (action) in
+            let newProductVC = K.Controller.newProductController
+            newProductVC.isUserEditingProduct = true
+            newProductVC.imageViewDelegate = responder
+            self.present(newProductVC, animated: true)
+        }
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(cameraAction)
+        alertController.addAction(UIAlertAction.cancel)
+        
+        alertController.pruneNegativeWidthConstraints()
+        self.present(alertController, animated: true)
     }
     
     @objc internal func dismissKeyboard() {
@@ -648,7 +672,7 @@ extension UIImageView {
             
             if newValue {
                 if placeholderView == nil {
-                    let pv = UIView(frame: self.frame)
+                    let pv = UIView()
                     pv.tag = K.ViewTag.PLACEHOLDER_VIEW
                     pv.backgroundColor = UIColor.black.withAlphaComponent(0.5)
                     pv.clipsToBounds = true
@@ -659,6 +683,8 @@ extension UIImageView {
                     placeholderImage.centerXYAnchor(to: pv)
                     placeholderImage.sizeAnchorOf(width: 50, height: 50)
                     self.addSubview(pv)
+                    pv.translatesAutoresizingMaskIntoConstraints = false
+                    pv.VHConstraint(to: self)
                 }
             }
         }
@@ -1012,48 +1038,6 @@ extension URLError.Code {
         default:
             return "Please check your internet connection"
         }
-    }
-}
-
-//MARK:- UserDefaults
-extension UserDefaults {
-    static let imageKey = "image"
-    static let titleKey = "title"
-    static let descriptionKey = "description"
-    static let tagsKey = "tags"
-    static let URLKey = "url"
-    var isProductInfoComplete: Bool {
-        guard let _ = self.data(forKey: UserDefaults.imageKey), let _ = self.string(forKey: UserDefaults.titleKey), let _ = self.string(forKey: UserDefaults.descriptionKey), let _ = self.object(forKey: UserDefaults.tagsKey) as? [String] else {return false}
-        return true
-    }
-    
-    func addImage(_ image: UIImage) {
-        self.set(image.jpegData(compressionQuality: 1.0), forKey: "image")
-    }
-    
-    func addTitle(_ title: String) {
-        self.set(title, forKey: UserDefaults.titleKey)
-    }
-    
-    func addDescription(_ description: String) {
-        self.set(description, forKey: UserDefaults.descriptionKey)
-    }
-    
-    func addTags(_ tags: [String]) {
-        self.set(tags, forKey: UserDefaults.tagsKey)
-    }
-    
-    func addURL(_ URL: URL) {
-        self.set(URL, forKey: UserDefaults.URLKey)
-    }
-    
-    /// Deletes all the info that the user input for creating a new product.
-    func deleteProductInfo() {
-        self.removeObject(forKey: UserDefaults.imageKey)
-        self.removeObject(forKey: UserDefaults.titleKey)
-        self.removeObject(forKey: UserDefaults.descriptionKey)
-        self.removeObject(forKey: UserDefaults.tagsKey)
-        self.removeObject(forKey: UserDefaults.URLKey)
     }
 }
 
