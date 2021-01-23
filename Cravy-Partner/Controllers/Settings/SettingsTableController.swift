@@ -13,9 +13,9 @@ struct Setting {
     var title: String
     var detail: String?
     
-    enum SETTING {
-        case notifications
-        case privacyAndSecurity
+    enum SETTING: String {
+        case notifications = "Notifications"
+        case privacyAndSecurity = "Privacy & Security"
     }
 }
 
@@ -29,7 +29,7 @@ class SettingsTableController: UITableViewController {
             if newValue == .notifications {
                 settingsSections = K.Collections.notificationSectionTitles
                 settings = [settingsSections[0]: K.Collections.notificationSettings, settingsSections[1] : K.Collections.notificationSettings]
-            } else {
+            } else if newValue == .privacyAndSecurity {
                 settingsSections = [K.UIConstant.twoFactorAuth]
                 settings = [settingsSections[0] : K.Collections.twoFactorAuthenticationSettings]
             }
@@ -46,7 +46,7 @@ class SettingsTableController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setting = .notifications
+        self.title = setting.rawValue
         self.tableView.register(ToggleTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.toggleCell)
     }
 

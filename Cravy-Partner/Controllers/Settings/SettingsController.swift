@@ -14,6 +14,7 @@ class SettingsController: UIViewController {
     @IBOutlet weak var noticeLabel: UILabel!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var policyButton: UIButton!
+    var selectedSetting: Setting.SETTING?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,13 @@ class SettingsController: UIViewController {
         noticeLabel.text = K.UIConstant.settingsAlertMessage
         policyButton.titleLabel?.text = K.UIConstant.termsAndAgreement
         policyButton.titleLabel?.underline()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Identifier.Segue.settingsToSettingsTable {
+            let settingsTableVC = segue.destination as! SettingsTableController
+            settingsTableVC.setting = selectedSetting!
+        }
     }
 }
 
@@ -71,6 +79,14 @@ extension SettingsController: UITableViewDelegate {
         if indexPath.row == 0 {
             //User tapped account
             self.performSegue(withIdentifier: K.Identifier.Segue.settingsToAccount, sender: self)
+        } else if indexPath.row == 1 {
+            //User tapped notifications
+            selectedSetting = .notifications
+            self.performSegue(withIdentifier: K.Identifier.Segue.settingsToSettingsTable, sender: self)
+        } else if indexPath.row == 2 {
+            //User tapped privacy & security
+            selectedSetting = .privacyAndSecurity
+            self.performSegue(withIdentifier: K.Identifier.Segue.settingsToSettingsTable, sender: self)
         }
     }
 }

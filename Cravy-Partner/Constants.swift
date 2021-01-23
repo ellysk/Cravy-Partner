@@ -154,6 +154,7 @@ struct K {
             static let businessToProduct = "BusinessToProduct"
             static let businessToSettings = "BusinessToSettings"
             static let settingsToAccount = "SettingsToAccount"
+            static let settingsToSettingsTable = "SettingsToSettingsTable"
         }
         
         //MARK:- StoryboardID
