@@ -10,7 +10,6 @@ import UIKit
 import SwiftyCam
 import Lottie
 import Photos
-import UIImageColors
 
 /// Handles the media representing the product.
 class NewProductController: SwiftyCamViewController {

@@ -121,7 +121,16 @@ class AccountController: UIViewController {
     }
 }
 
+//MARK:- UITextField Delegate
 extension AccountController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == accountStackView.emailTextField {
+            return string != " "
+        } else {
+            return true
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text, text.removeLeadingAndTrailingSpaces != "" {
             if textField == accountStackView.nameTextField {

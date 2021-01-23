@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TransitionButton
 
 /// A subclass of UIButton that gives the button rounded corners.
 class RoundButton: UIButton {
@@ -42,5 +43,33 @@ class RoundBorderedButton: RoundButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.makeBordered()
+    }
+}
+
+class RoundTransitionButton: TransitionButton {
+    var roundFactor: CGFloat?
+    var castShadow: Bool = false
+    
+    init(frame: CGRect = .zero, roundFactor: CGFloat? = nil) {
+        self.roundFactor = roundFactor
+        super.init(frame: frame)
+        self.spinnerColor = K.Color.light
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.spinnerColor = K.Color.light
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let factor = roundFactor {
+            self.makeRounded(roundFactor: factor)
+        } else {
+            self.makeRounded()
+        }
+        if castShadow {
+            self.setShadow()
+        }
     }
 }

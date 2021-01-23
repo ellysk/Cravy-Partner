@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UIImageColors
 import Lottie
 
 /// Handles the display of the properties of a product.

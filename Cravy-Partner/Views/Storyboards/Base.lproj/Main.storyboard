@@ -87,7 +87,7 @@
                         <outlet property="getStartedButton" destination="Wwq-xq-xhM" id="8Or-7k-8CW"/>
                         <outlet property="noticeLabel" destination="dKr-yL-Gy3" id="6iL-fs-Hp8"/>
                         <outlet property="pageController" destination="dVx-mk-ATv" id="g6C-Mb-uwW"/>
-                        <segue destination="wZH-WR-uWE" kind="show" identifier="SplashToCravyTabBar" id="fqM-zv-h4y"/>
+                        <segue destination="wZH-WR-uWE" kind="show" identifier="SplashToCravyTabBar" animates="NO" id="fqM-zv-h4y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

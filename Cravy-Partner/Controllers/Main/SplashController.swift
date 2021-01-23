@@ -43,12 +43,56 @@ class SplashController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         splash = .intro
-        authStackView.authenticate = {
-            self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
-        }
+        authStackView.emailTextField.delegate = self
+        authStackView.passwordTextField.delegate = self
+        authStackView.authButton.addTarget(self, action: #selector(auth(_:)), for: .touchUpInside)
     }
     
     @IBAction func getStarted(_ sender: UIButton) {
         splash = .auth
+    }
+    
+    @objc private func auth(_ sender: RoundTransitionButton) {
+        authStackView.resignFirstResponders()
+        if !authStackView.isFullFields {
+            sender.shake()
+        } else {
+            //TODO
+            sender.startAnimation()
+            DispatchQueue.main.asyncAfter(wallDeadline: .now() + 3) {
+                sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
+                     self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
+                }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Identifier.Segue.splashToCravyTabBar {
+            let transition: CATransition = CATransition()
+            transition.type = CATransitionType.fade
+            navigationController?.view.layer.add(transition, forKey: nil)
+        }
+    }
+}
+
+//MARK:- UITextField Delegate
+extension SplashController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == authStackView.emailTextField {
+            return string != " "
+        } else {
+            return true
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.returnKeyType == .next {
+            authStackView.passwordTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
     }
 }
