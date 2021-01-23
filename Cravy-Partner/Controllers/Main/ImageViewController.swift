@@ -55,6 +55,7 @@ class ImageViewController: UIViewController {
     }
     
     @IBAction func saveToPhotoLibrary(_ sender: UIButton) {
+        sender.flash()
         if cravyPartnerAlbum != nil {
             saveImage()
         } else {

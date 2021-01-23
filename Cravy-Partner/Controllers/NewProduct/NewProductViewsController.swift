@@ -52,7 +52,7 @@ class NewProductViewsController: UIViewController {
     }
     
     @IBAction func cancel(_ sender: RoundButton) {
-        self.dismissVC()
+        self.dismissView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

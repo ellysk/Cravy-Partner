@@ -137,6 +137,7 @@ class FloaterView: RoundView {
     }
     
     @objc func tap(_ sender: RoundButton) {
+        self.pulse()
         self.delegate?.didTapFloaterButton(self)
     }
 }

@@ -132,7 +132,7 @@ class CraveImageView: UIView {
     private func setLinkView() {
         if linkView == nil {
             linkView = LinkView()
-            linkView!.linkButton.addTarget(self, action: #selector(interact(_:)), for: .touchUpInside)
+            linkView!.delegate = self
             self.addSubview(linkView!)
             linkView!.translatesAutoresizingMaskIntoConstraints = false
             linkView!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
@@ -170,6 +170,14 @@ class CraveImageView: UIView {
     }
     
     @objc func interact(_ sender: UIButton) {
+        sender.pulse()
+        interaction?()
+    }
+}
+
+//MARK: - LinkView Delegate
+extension CraveImageView: LinkViewDelegate {
+    func didTapOnLinkView(_ linkView: LinkView) {
         interaction?()
     }
 }

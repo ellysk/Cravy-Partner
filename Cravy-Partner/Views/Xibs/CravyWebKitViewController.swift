@@ -61,7 +61,7 @@ class CravyWebKitViewController: UIViewController {
         super.viewDidLoad()
         navTitle = cravyWebView.BASE_URL
         addObservers()
-        dismissItem.action = #selector(dismissVC)
+        dismissItem.action = isModalInPresentation ? #selector(dismissView) : #selector(goBack)
         dismissItem.image = isModalInPresentation ? UIImage(systemName: "xmark") : UIImage(systemName: "arrow.left")
         linkButton.isHidden = isVisiting
         linkButton.castShadow = !linkButton.isHidden

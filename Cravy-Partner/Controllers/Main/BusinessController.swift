@@ -23,7 +23,7 @@ class BusinessController: UIViewController {
         businessView.image = UIImage(named: "bgimage")
         businessView.name = "EAT Restaurant & Cafe"
         businessView.email = "eat@restcafe.co.uk"
-        businessView.linkButton.addTarget(self, action: #selector(openWebKit(_:)), for: .touchUpInside)
+        businessView.delegate = self
         businessStatView.recommendations = 608
         businessStatView.subscribers = 130
         // Do any additional setup after loading the view.
@@ -35,17 +35,20 @@ class BusinessController: UIViewController {
         businessTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
     }
     
-    @objc func openWebKit(_ sender: UIButton) {
-        self.openCravyWebKit(link: businessInfo[K.Key.url] as? String, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
-            cravyWK.delegate = self
-            self.navigationController?.pushViewController(cravyWK, animated: true)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.businessToProduct {
             let productVC = segue.destination as! ProductController
             productVC.productTitle = "Chicken wings"
+        }
+    }
+}
+
+//MARK: - LinkView Delegate
+extension BusinessController: LinkViewDelegate {
+    func didTapOnLinkView(_ linkView: LinkView) {
+        self.openCravyWebKit(link: businessInfo[K.Key.url] as? String, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
+            cravyWK.delegate = self
+            self.navigationController?.pushViewController(cravyWK, animated: true)
         }
     }
 }

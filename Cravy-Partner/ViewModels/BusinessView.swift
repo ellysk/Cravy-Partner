@@ -16,8 +16,14 @@ class BusinessView: UIView {
     private var nameLabel = UILabel()
     private var emailLabel = UILabel()
     private var linkView = LinkView()
-    var linkButton: RoundButton {
-        return linkView.linkButton
+    var delegate: LinkViewDelegate? {
+        set {
+            linkView.delegate = newValue
+        }
+        
+        get {
+            return linkView.delegate
+        }
     }
     /// The company logo or any image that represents the business.
     var image: UIImage? {

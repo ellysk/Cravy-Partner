@@ -276,6 +276,16 @@ extension UIView {
         pulse.damping = 5.0
         self.layer.add(pulse, forKey: "pulse")
     }
+    
+    func flash() {
+        let flash = CABasicAnimation(keyPath: "opacity")
+        flash.duration = 0.3
+        flash.fromValue = 1
+        flash.toValue = 0.5
+        flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        flash.autoreverses = true
+        self.layer.add(flash, forKey: nil)
+    }
 }
 
 
@@ -390,7 +400,7 @@ extension UIViewController {
             if newValue {
                 if dismissButton == nil {
                     let db = RoundButton()
-                    db.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
+                    db.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
                     db.setImage(UIImage(systemName: "chevron.down"), for: .normal)
                     db.tag = K.ViewTag.DISMISS_BUTTON
                     db.castShadow = true
@@ -474,12 +484,8 @@ extension UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc internal func dismissVC() {
-        if self.isModalInPresentation {
-            self.dismiss(animated: true)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
+    @objc internal func dismissView() {
+        self.dismiss(animated: true)
     }
 }
 

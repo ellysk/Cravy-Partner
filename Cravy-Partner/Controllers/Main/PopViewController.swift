@@ -77,6 +77,7 @@ class PopViewController: UIViewController {
     }
     
     @objc func action(_ sender: UIButton) {
+        sender.pulse()
         self.dismiss(animated: true) {
             self.action?()
             self.dismiss?()

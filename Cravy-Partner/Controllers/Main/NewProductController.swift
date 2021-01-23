@@ -97,6 +97,7 @@ class NewProductController: SwiftyCamViewController {
     
     /// Triggered when user initiates the action of taking a photo
     @IBAction func capture(_ sender: UIButton) {
+        sender.pulse()
         self.takePhoto()
     }
     

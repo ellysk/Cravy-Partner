@@ -8,27 +8,28 @@
 
 import UIKit
 
+protocol LinkViewDelegate {
+    func didTapOnLinkView(_ linkView: LinkView)
+}
+
 /// A custom view that portrays a link to the related website.
 class LinkView: UIView {
-    /// The button that is triggered when the user taps in this view
-    var linkButton = RoundButton()
     private var linkLabel = UILabel()
     private var linkImageView = UIImageView(image: UIImage(named: "go"))
     private var LINK_IMAGEVIEW_SIZE: CGFloat {
         return self.frame.height * 0.78
     }
+    var delegate: LinkViewDelegate?
     
     init() {
         super.init(frame: .zero)
         self.backgroundColor = K.Color.link
         setLinkView()
-        setLinkButton()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setLinkView()
-        setLinkButton()
     }
     
     override func layoutSubviews() {
@@ -39,6 +40,9 @@ class LinkView: UIView {
     }
     
     private func setLinkView() {
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(linkViewTapped(_:))))
+        
         linkLabel.text = K.UIConstant.visit
         linkLabel.adjustsFontSizeToFitWidth = true
         linkLabel.font = UIFont.demiBold.medium
@@ -56,10 +60,8 @@ class LinkView: UIView {
         hStackView.centerXYAnchor(to: self)
     }
     
-    private func setLinkButton() {
-        linkButton.backgroundColor = .clear
-        self.addSubview(linkButton)
-        linkButton.translatesAutoresizingMaskIntoConstraints = false
-        linkButton.VHConstraint(to: self)
+    @objc func linkViewTapped(_ gesture: UITapGestureRecognizer) {
+        self.flash()
+        self.delegate?.didTapOnLinkView(self)
     }
 }
