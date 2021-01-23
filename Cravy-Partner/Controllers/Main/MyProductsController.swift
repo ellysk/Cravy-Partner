@@ -39,7 +39,9 @@ class MyProductsController: UIViewController {
 
 //MARK:- CravySearchBar Delegate
 extension MyProductsController: CravySearchBarDelegate {
-    func didEnquireSearch(_ text: String) {}
+    func didEnquireSearch(_ text: String) {
+        //TODO
+    }
     
     func willPresentFilterAlertController(alertController: UIAlertController) {
         self.dismissKeyboard()

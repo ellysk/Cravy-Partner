@@ -266,6 +266,16 @@ extension UIView {
         animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
         self.layer.add(animation, forKey: "shake")
     }
+    
+    func pulse() {
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.duration = 0.3
+        pulse.fromValue = 0.95
+        pulse.toValue = 1.0
+        pulse.initialVelocity = 0.5
+        pulse.damping = 5.0
+        self.layer.add(pulse, forKey: "pulse")
+    }
 }
 
 

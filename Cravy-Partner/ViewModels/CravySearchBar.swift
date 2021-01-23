@@ -113,6 +113,8 @@ class CravySearchBar: UIView, UITextFieldDelegate {
     }
     
     @objc func showFilters(_ sender: UIButton) {
+        sender.pulse()
+        
         let filterByTitle = UIAlertAction(title: K.UIConstant.byTitle, style: .default) { (action) in
             //TODO
         }
