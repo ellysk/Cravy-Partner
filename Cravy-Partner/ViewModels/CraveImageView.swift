@@ -11,6 +11,7 @@ import UIKit
 enum INTERACTABLE {
     case link
     case post
+    case promote
 }
 
 /// A custom view that displays an imageview and extra views at the bottom such as a linkview, an imagview for the cravings icon and a label showing the number of cravings.
@@ -29,7 +30,19 @@ class CraveImageView: UIView {
         }
     }
     private var linkView: LinkView?
+    var interactableButton: RoundButton {
+        let button = RoundButton()
+        button.addTarget(self, action: #selector(interact(_:)), for: .touchUpInside)
+        button.castShadow = true
+        button.titleLabel?.font = UIFont.demiBold.small
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.setTitleColor(K.Color.light, for: .normal)
+        button.backgroundColor = K.Color.primary
+        
+        return button
+    }
     private var postButton: RoundButton?
+    private var promoteButton: RoundButton?
     var cravings: Int? {
         set {
             if let cravings = newValue {
@@ -53,10 +66,11 @@ class CraveImageView: UIView {
         set {
             linkView?.isHidden = newValue
             postButton?.isHidden = newValue
+            promoteButton?.isHidden = newValue
         }
         
         get {
-            return linkView?.isHidden ?? postButton?.isHidden ?? true
+            return linkView?.isHidden ?? postButton?.isHidden ?? promoteButton?.isHidden ?? true
         }
     }
     /// Changes the background color of the cravings image view, default color is secondary color.
@@ -134,28 +148,32 @@ class CraveImageView: UIView {
             linkView = LinkView()
             linkView!.delegate = self
             self.addSubview(linkView!)
-            linkView!.translatesAutoresizingMaskIntoConstraints = false
-            linkView!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
-            linkView!.leadingAnchor(to: self, constant: 8)
-            linkView!.sizeAnchorOf(width: interactableSize.width, height: interactableSize.height)
+            layoutInteractable(linkView!)
         }
     }
     
     private func setPostButton() {
         if postButton == nil {
-            postButton = RoundButton()
-            postButton?.addTarget(self, action: #selector(interact(_:)), for: .touchUpInside)
-            postButton!.castShadow = true
+            postButton = interactableButton
             postButton!.setTitle(K.UIConstant.post.uppercased(), for: .normal)
-            postButton!.titleLabel?.font = UIFont.demiBold.small
-            postButton!.setTitleColor(K.Color.light, for: .normal)
-            postButton!.backgroundColor = K.Color.primary
-            self.addSubview(postButton!)
-            postButton!.translatesAutoresizingMaskIntoConstraints = false
-            postButton!.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
-            postButton!.leadingAnchor(to: self, constant: 8)
-            postButton!.sizeAnchorOf(width: interactableSize.width, height: interactableSize.height)
+            layoutInteractable(postButton!)
         }
+    }
+    
+    private func setPromoteButton() {
+        if promoteButton == nil {
+            promoteButton = interactableButton
+            promoteButton!.setTitle(K.UIConstant.promote.uppercased(), for: .normal)
+            layoutInteractable(promoteButton!)
+        }
+    }
+    
+    private func layoutInteractable(_ interactable: UIView) {
+        self.addSubview(interactable)
+        interactable.translatesAutoresizingMaskIntoConstraints = false
+        interactable.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -(interactableSize.height/2)).isActive = true
+        interactable.leadingAnchor(to: self, constant: 8)
+        interactable.sizeAnchorOf(width: interactableSize.width, height: interactableSize.height)
     }
     
     /// Adds a button at the bottom left of the image view that performs an action depending on the interactable provided.
@@ -166,6 +184,8 @@ class CraveImageView: UIView {
             setLinkView()
         case .post:
             setPostButton()
+        case .promote:
+            setPromoteButton()
         }
     }
     

@@ -179,8 +179,16 @@ class CraveCollectionCell: UICollectionViewCell {
     func addInteractable(_ interactable: INTERACTABLE, presentationHandler: @escaping (PopViewController)->()) {
         craveImageView.addInteractable(interactable) {
             if interactable == .post {
+                //A post button interaction to allow user to post the product to the market
                 let post = PostView(toPost: "Chicken Wings")
                 let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {
+                    //TODO
+                })
+                presentationHandler(popVC)
+            } else if interactable == .promote {
+                //A promote button interaction to allow user to promote the product on the market
+                let promo = PromoView(toPromote: "Chicken Wings")
+                let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation, actionHandler: {
                     //TODO
                 })
                 presentationHandler(popVC)

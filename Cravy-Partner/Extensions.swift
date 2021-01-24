@@ -286,6 +286,15 @@ extension UIView {
         flash.autoreverses = true
         self.layer.add(flash, forKey: nil)
     }
+    
+    func startLoadingAnimation() {
+        self.isSkeletonable = true
+        self.showAnimatedSkeleton(usingColor: K.Color.light, animation: nil, transition: .none)
+    }
+    
+    func stopLoadingAnimation() {
+        self.hideSkeleton()
+    }
 }
 
 

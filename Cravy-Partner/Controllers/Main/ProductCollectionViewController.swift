@@ -72,12 +72,12 @@ class ProductCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.craveCell, for: indexPath) as! CraveCollectionCell
-        if isLoadingCraves {
+        if isLoadingCraves && indexPath.item >= craves.count {
+            //Show loading animation to this cell
             cell.setCraveCollectionCell()
-            cell.isSkeletonable = true
-            cell.showAnimatedSkeleton(usingColor: K.Color.light, animation: nil, transition: .none)
+            cell.startLoadingAnimation()
         } else {
-            cell.hideSkeleton()
+            cell.stopLoadingAnimation()
             cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 56, tags: ["Chicken", "Wings", "Street", "Spicy", "Fast food"])
         }
         cell.addAction {

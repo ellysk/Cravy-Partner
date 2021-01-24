@@ -14,29 +14,74 @@ class ProductController: UIViewController {
     @IBOutlet weak var imageView: RoundImageView!
     @IBOutlet weak var linkView: LinkView!
     @IBOutlet weak var widgetCollectionView: WidgetCollectionView!
+    @IBOutlet weak var titleTagsStackView: UIStackView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var horizontalTagsCollectionView: HorizontalTagsCollectionView!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var marketView: MarketView!
     var link: String?
-    var tags = ["Chicken", "Wings", "Street", "Spicy"]
+    var tags: [String] = []
     var productTitle: String!
+    var recomm: Int = 0
+    var cravings: Int = 0
+    var isLoadingStats: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Chicken wings"
         imageView.roundFactor = 15
         imageView.cornerMask = UIView.bottomCornerMask
-        imageView.image = UIImage(named: "bgimage")
         linkView.delegate = self
-        titleLabel.text = productTitle
-        titleLabel.underline()
-        detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
-        marketView.numberOfSearches = 254
-        marketView.nuberOfViews = 122
-        marketView.numberOfVisits = 120
+        loadProductInfo()
         // Do any additional setup after loading the view.
         additionalSetup()
+        
+    }
+    
+    private func startLoadingAnimation() {
+        imageView.startLoadingAnimation()
+        linkView.isHidden = true
+        titleTagsStackView.startLoadingAnimation()
+        detailLabel.startLoadingAnimation()
+        marketView.startLoadingAnimation()
+    }
+    
+    private func loadProductInfo() {
+        //TODO CACHE
+        startLoadingAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            //load image
+            self.imageView.stopLoadingAnimation()
+            self.imageView.image = UIImage(named: "bgimage")
+            
+            //Load link
+            self.linkView.isHidden = false
+            
+            //load product stats
+            self.recomm = 120
+            self.cravings = 344
+            self.isLoadingStats = false
+            self.widgetCollectionView.reloadData()
+            
+            //load basic info
+            self.detailLabel.stopLoadingAnimation()
+            self.titleLabel.text = self.productTitle
+            self.titleLabel.underline()
+            self.detailLabel.numberOfLines = 0
+            self.detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
+            
+            //load tags
+            self.titleTagsStackView.stopLoadingAnimation()
+            self.tags = ["Chicken", "Wings", "Street", "Spicy"]
+            self.horizontalTagsCollectionView.reloadData()
+            
+            //load market stats
+            self.marketView.stopLoadingAnimation()
+            self.marketView.state = .inActive
+//            self.marketView.numberOfSearches = 254
+//            self.marketView.nuberOfViews = 122
+//            self.marketView.numberOfVisits = 120
+        }
     }
     
     private func additionalSetup() {
@@ -129,9 +174,15 @@ extension ProductController: UICollectionViewDataSource {
             let widgetCell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.widgetCell, for: indexPath) as! WidgetCollectionCell
             
             let widget: UIImage = indexPath.item == 0 ? K.Image.thumbsUp : K.Image.cravings
-            let widgetTitle: NSMutableAttributedString? = indexPath.item == 0 ? 120.represent(unit: K.UIConstant.recommendations, size: .small) : 344.represent(unit: K.UIConstant.cravings, size: .small)
+            let widgetTitle: NSMutableAttributedString? = indexPath.item == 0 ? recomm.represent(unit: K.UIConstant.recommendations, size: .small) : cravings.represent(unit: K.UIConstant.cravings, size: .small)
             
             widgetCell.setWidgetCell(image: widget, title: widgetTitle)
+            
+            if isLoadingStats {
+                widgetCell.startLoadingAnimation()
+            } else {
+                widgetCell.stopLoadingAnimation()
+            }
             
             return widgetCell
         } else {

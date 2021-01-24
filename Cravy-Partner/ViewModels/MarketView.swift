@@ -87,7 +87,6 @@ class MarketView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setToolStackView()
-        self.state = .inActive
     }
     
     private func setToolStackView() {

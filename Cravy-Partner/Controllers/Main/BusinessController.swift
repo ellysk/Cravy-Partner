@@ -20,19 +20,31 @@ class BusinessController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        businessView.image = UIImage(named: "bgimage")
-        businessView.name = "EAT Restaurant & Cafe"
-        businessView.email = "eat@restcafe.co.uk"
-        businessView.delegate = self
-        businessStatView.recommendations = 608
-        businessStatView.subscribers = 130
+        loadBusinessInfo()
         // Do any additional setup after loading the view.
+        businessView.delegate = self
         self.view.setCravyGradientBackground()
         self.setFloaterViewWith(image: K.Image.ellipsisCricleFill, title: K.UIConstant.settings)
         self.floaterView?.delegate = self
         businessTableView.register(ImageCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.imageCell)
         businessTableView.register(CraveCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.craveCell)
         businessTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
+    }
+    
+    private func loadBusinessInfo() {
+        //TODO
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            //load business info
+            self.businessView.stopLoadingAnimation()
+            self.businessView.image = UIImage(named: "bgimage")
+            self.businessView.name = "EAT Restaurant & Cafe"
+            self.businessView.email = "eat@restcafe.co.uk"
+            
+            //load business stat
+            self.businessStatView.stopLoadingAnimation()
+            self.businessStatView.recommendations = 608
+            self.businessStatView.subscribers = 130
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,7 +98,7 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
         } else if indexPath.section == 1 {
             //CRAVE CELL
             let craveCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.craveCell, for: indexPath) as! CraveCollectionTableCell
-            craveCell.setCraveCollectionTableCell(craves: ["one", "two"])
+            craveCell.setCraveCollectionTableCell()
             craveCell.delegate = self
             craveCell.collectionViewDelegate = self
             

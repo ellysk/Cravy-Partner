@@ -26,15 +26,34 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource {
             return craveCollectionView.delegate
         }
     }
+    var state: PRODUCT_STATE!
+    var isLoadingCraves: Bool = true
+    private let dummyCount: Int = 3
+    private var dataCount: Int {
+        if isLoadingCraves {
+            return craves.count + dummyCount
+        } else {
+            return craves.count
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func setCraveCollectionTableCell(craves: [String]) {
-        self.craves = craves
-        setCraveCollectionView()
+    private func loadCraves() {
+        //CACHE TODO
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.craves = ["one", "two"]
+            self.isLoadingCraves = false
+            self.craveCollectionView.reloadData()
+        }
+    }
+    
+    func setCraveCollectionTableCell(state: PRODUCT_STATE = .inActive) {
         self.isTransparent = true
+        self.state = state
+        setCraveCollectionView()
     }
     
     private func setCraveCollectionView() {
@@ -48,6 +67,7 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource {
             craveCollectionView.translatesAutoresizingMaskIntoConstraints = false
             craveCollectionView.VHConstraint(to: self)
             craveCollectionView.heightAnchor(of: UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout.itemSize.height)
+            loadCraves()
         } else {
             craveCollectionView.reloadData()
         }
@@ -55,14 +75,29 @@ class CraveCollectionTableCell: UITableViewCell, UICollectionViewDataSource {
     
     //MARK: - UICollectionView DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return craves.count
+        return dataCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.craveCell, for: indexPath) as! CraveCollectionCell
-        cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 54, tags: ["Chicken", "Wings", "Street food", "Spicy"], style: .contained)
-        cell.addInteractable(.post) { (popVC) in
-            self.delegate?.willPresent(popViewController: popVC)
+        if isLoadingCraves && indexPath.item >= craves.count {
+            cell.setCraveCollectionCell(style: .contained)
+            cell.startLoadingAnimation()
+        } else {
+            cell.stopLoadingAnimation()
+            cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 54, tags: ["Chicken", "Wings", "Street food", "Spicy"], style: .contained)
+        }
+        
+        if state == .active {
+            //Enable user to promote
+            cell.addInteractable(.promote) { (popVC) in
+                self.delegate?.willPresent(popViewController: popVC)
+            }
+        } else if state == .inActive {
+            //Enable user to post them
+            cell.addInteractable(.post) { (popVC) in
+                self.delegate?.willPresent(popViewController: popVC)
+            }
         }
         
         return cell
