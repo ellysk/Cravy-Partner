@@ -20,7 +20,7 @@ class CraveCollectionCell: UICollectionViewCell {
     private var toolBarStackView: UIStackView!
     private var statLabel: UILabel!
     private var craveView: RoundView!
-    private var craveImageView: CraveImageView!
+    var craveImageView: CraveImageView!
     private var craveTitleRecommendationStackView: UIStackView!
     private var craveTitleLabel: UILabel!
     private var craveRecommendationLabel: UILabel!
@@ -36,21 +36,26 @@ class CraveCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.makeRounded(roundFactor: 15, cornerMask: nil)
+    }
+    
     /// Initializes the subviews in this cell while optionally populating them with the related data.
     ///   - style: Determines the layout style of the cell. The default is expanded whereby all the view are visible except the interactable view inside a CraveImageView. contained style does not show the TagsCollectionView and displays a UIButton inside the CraveImageView.
     func setCraveCollectionCell(image: UIImage? = nil, cravings: Int? = nil, title: String? = nil, recommendations: Int? = nil, tags: [String]? = nil, stat: String? = nil, style: CRAVE_COLLECTION_STYLE = .expanded) {
         self.style = style
+        self.isTransparent = true
         setContainerView()
         setToolBarView(stat: stat)
         setCraveView(image: image, cravings: cravings, title: title, recommendations: recommendations, tags: tags)
-        self.isTransparent = true
     }
     
     private func setContainerView() {
         if containerView == nil {
             containerView = UIStackView()
             containerView.set(axis: .vertical, spacing: 0)
-            self.addSubview(containerView)
+            self.contentView.addSubview(containerView)
             containerView.translatesAutoresizingMaskIntoConstraints = false
             containerView.VHConstraint(to: self)
         }
@@ -94,7 +99,6 @@ class CraveCollectionCell: UICollectionViewCell {
     private func setCraveImageView(image: UIImage? = nil, cravings: Int? = nil) {
         if craveImageView == nil {
             craveImageView = CraveImageView(image: image, cravings: cravings)
-            
             craveView.addSubview(craveImageView)
             craveImageView.translatesAutoresizingMaskIntoConstraints = false
             craveImageView.topAnchor(to: craveView)

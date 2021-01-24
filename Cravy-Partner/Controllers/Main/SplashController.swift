@@ -59,7 +59,7 @@ class SplashController: UIViewController {
         } else {
             //TODO
             sender.startAnimation()
-            DispatchQueue.main.asyncAfter(wallDeadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
                 sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
                      self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
                 }

@@ -10,7 +10,6 @@ import UIKit
 
 protocol CravySearchBarDelegate {
     func didEnquireSearch(_ text: String)
-    func willPresentFilterAlertController(alertController: UIAlertController)
 }
 
 /// A custom search bar view that lets you search and filter data.
@@ -49,6 +48,7 @@ class CravySearchBar: UIView, UITextFieldDelegate {
             return textField.textColor
         }
     }
+    var presentationDelegate: PresentationDelegate?
     var delegate: CravySearchBarDelegate?
     
     init() {
@@ -137,7 +137,7 @@ class CravySearchBar: UIView, UITextFieldDelegate {
         
         alertController.pruneNegativeWidthConstraints()
         
-        self.delegate?.willPresentFilterAlertController(alertController: alertController)
+        self.presentationDelegate?.willPresent(alertController, data: nil)
     }
     
     //MARK:- UITextfield Delegate

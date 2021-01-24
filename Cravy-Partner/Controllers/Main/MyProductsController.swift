@@ -17,7 +17,7 @@ class MyProductsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
+        searchBar.presentationDelegate = self
         self.view.setCravyGradientBackground()
         cravyToolBar.titles = [K.UIConstant.active, K.UIConstant.inactive]
     }
@@ -28,24 +28,13 @@ class MyProductsController: UIViewController {
             productsPageVC.transitionDelegate = self
             productsPageVC.scrollDelegate = self
             productsPageVC.presentationDelegate = self
+            searchBar.delegate = productsPageVC
             cravyToolBar.delegate = productsPageVC
         } else if segue.identifier == K.Identifier.Segue.myProductsToProduct {
             guard let selected = selectedProduct else {return}
             let productVC = segue.destination as! ProductController
             productVC.productTitle = selected
         }
-    }
-}
-
-//MARK:- CravySearchBar Delegate
-extension MyProductsController: CravySearchBarDelegate {
-    func didEnquireSearch(_ text: String) {
-        //TODO
-    }
-    
-    func willPresentFilterAlertController(alertController: UIAlertController) {
-        self.dismissKeyboard()
-        self.present(alertController, animated: true)
     }
 }
 
@@ -67,9 +56,13 @@ extension MyProductsController: ScrollViewDelegate {
 //MARK:- Presentation Delegate
 extension MyProductsController: PresentationDelegate {
     func willPresent(_ viewController: UIViewController?, data: Any?) {
-        self.dismissKeyboard()
-        guard let data = data, let product = data as? String else {return}
-        selectedProduct = product
-        self.performSegue(withIdentifier: K.Identifier.Segue.myProductsToProduct, sender: self)
+         self.dismissKeyboard()
+        if let alertController = viewController as? UIAlertController {
+            self.present(alertController, animated: true)
+        } else {
+            guard let data = data, let product = data as? String else {return}
+            selectedProduct = product
+            self.performSegue(withIdentifier: K.Identifier.Segue.myProductsToProduct, sender: self)
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import SkeletonView
 
 enum PRODUCT_STATE {
     case active
@@ -26,13 +27,21 @@ protocol PresentationDelegate {
 
 /// Handles the display of the products that the user has created.
 class ProductCollectionViewController: UICollectionViewController {
-    private var craves: [String] = []
-    private var state: PRODUCT_STATE
+    var craves: [String] = []
+    var state: PRODUCT_STATE
     var scrollDelegate: ScrollViewDelegate?
     var presentationDelegate: PresentationDelegate?
+    private let dummyCount: Int = 10
+    private var isLoadingCraves: Bool = true
+    var dataCount: Int {
+        if isLoadingCraves {
+            return craves.count + dummyCount
+        } else {
+            return craves.count
+        }
+    }
     
-    init(craves: [String] = [], state: PRODUCT_STATE) {
-        self.craves = craves
+    init(state: PRODUCT_STATE) {
         self.state = state
         super.init(collectionViewLayout: UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout)
     }
@@ -43,19 +52,34 @@ class ProductCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.isTransparent = true
         self.collectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
+        self.collectionView.isTransparent = true
+        loadCraves()
+    }
+    
+    func loadCraves() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.craves = ["1", "2", "3", "4", "5"]
+            self.isLoadingCraves = false
+            self.collectionView.reloadData()
+        }
     }
     
     //MARK:- UICollectionView DataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return dataCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.craveCell, for: indexPath) as! CraveCollectionCell
-        
-        cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 56, tags: ["Chicken", "Wings", "Street", "Spicy", "Fast food"])
+        if isLoadingCraves {
+            cell.setCraveCollectionCell()
+            cell.isSkeletonable = true
+            cell.showAnimatedSkeleton(usingColor: K.Color.light, animation: nil, transition: .none)
+        } else {
+            cell.hideSkeleton()
+            cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 56, tags: ["Chicken", "Wings", "Street", "Spicy", "Fast food"])
+        }
         cell.addAction {
             let promo = PromoView(toPromote: "Chicken Wings")
             let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation) {

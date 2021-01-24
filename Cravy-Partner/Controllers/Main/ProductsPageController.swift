@@ -32,3 +32,10 @@ class ProductsPageController: CravyPageController {
         return 0
     }
 }
+
+extension ProductsPageController: CravySearchBarDelegate {
+    func didEnquireSearch(_ text: String) {
+//        guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
+        //TODO
+    }
+}
