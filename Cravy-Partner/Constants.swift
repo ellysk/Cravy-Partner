@@ -105,6 +105,8 @@ struct K {
         static let savePhotoSuccessTitle = "Photo saved in your library"
         static let savePhotoFailTitle = "Could not save the photo, please check your settings"
         static let saveChangesSuccessTitle = "Changes have been saved"
+        static let newProductTitle = "Congrats on the new added product!"
+        static let newProductMessage = "Put your product on the market so as to attract customers to your business. You can do so by wakening up the sleeping fox with a simple touch."
     }
     
     //MARK:- Identifier

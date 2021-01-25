@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotificationBannerSwift
 
 protocol PageViewsTransitionDelegate {
     func goTo(direction: UIPageViewController.NavigationDirection)
@@ -75,6 +76,7 @@ class NewProductViewsController: UIViewController {
             productVC.navigationItem.setHidesBackButton(true, animated: true)
             productVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: productVC, action: #selector(productVC.done(_:)))
             productVC.productTitle = productInfo[K.Key.title] as? String
+            productVC.showFloaterBanner = true
         }
     }
 }

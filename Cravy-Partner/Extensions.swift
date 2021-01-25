@@ -491,6 +491,15 @@ extension UIViewController {
         banner.show()
     }
     
+    func showFloaterBarNotification(title: String, subtitle: String, completion: (FloatingNotificationBanner)->()) {
+        let floatingBanner = FloatingNotificationBanner(title: title, subtitle: subtitle, titleFont: UIFont.demiBold.medium, titleColor: nil, titleTextAlign: nil, subtitleFont: UIFont.regular.small, subtitleColor: nil, subtitleTextAlign: nil
+            , leftView: nil, rightView: nil, style: .success, colors: nil, iconPosition: .top)
+        floatingBanner.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil, edgeInsets: UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3), cornerRadius: 10, shadowColor: K.Color.dark, shadowOpacity: 0.7, shadowBlurRadius: UIScreen.main.bounds.width / 2, shadowCornerRadius: 10, shadowOffset: .zero, shadowEdgeInsets: nil)
+        floatingBanner.autoDismiss = false
+        floatingBanner.dismissOnSwipeUp = true
+        completion(floatingBanner)
+    }
+    
     /// Saves the image provided to a Cravy Partner Album.
     func saveImageToCravyPartnerAlbum(_ image: UIImage) {
         /// Add image asset to the album.

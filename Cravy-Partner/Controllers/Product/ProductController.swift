@@ -20,12 +20,15 @@ class ProductController: UIViewController {
     @IBOutlet weak var horizontalTagsCollectionView: HorizontalTagsCollectionView!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var marketView: MarketView!
+    private var banner: FloatingNotificationBanner?
     var link: String?
     var tags: [String] = []
     var productTitle: String!
     var recomm: Int = 0
     var cravings: Int = 0
     var isLoadingStats: Bool = true
+    /// Shows a notification banner notifying the user that the product can be put on the market.
+    var showFloaterBanner: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,12 @@ class ProductController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         marketView.playAnimation()
+        if showFloaterBanner {
+            self.showFloaterBarNotification(title: K.UIConstant.newProductTitle, subtitle: K.UIConstant.newProductMessage) { (banner) in
+                self.banner = banner
+                self.showFloaterBanner = false
+            }
+        }
     }
     
     private func startLoadingAnimation() {
@@ -59,37 +68,47 @@ class ProductController: UIViewController {
     
     private func loadProductInfo() {
         //TODO CACHE
-        startLoadingAnimation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            //load image
-            self.imageView.stopLoadingAnimation()
-            self.imageView.image = UIImage(named: "bgimage")
-            
-            //Load link
-            self.linkView.isHidden = false
-            
-            //load product stats
-            self.recomm = 120
-            self.cravings = 344
-            self.isLoadingStats = false
-            self.widgetCollectionView.reloadData()
-            
-            //load basic info
-            self.detailLabel.stopLoadingAnimation()
-            self.titleLabel.text = self.productTitle
-            self.titleLabel.underline()
-            self.detailLabel.numberOfLines = 0
-            self.detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
-            
-            //load tags
-            self.titleTagsStackView.stopLoadingAnimation()
-            self.tags = ["Chicken", "Wings", "Street", "Spicy"]
-            self.horizontalTagsCollectionView.reloadData()
-            
-            //load market stats
-            self.marketView.stopLoadingAnimation()
-            self.marketView.state = .inActive
+        if showFloaterBanner {
+            isLoadingStats = false
+            assignLoadedData()
+        } else {
+            startLoadingAnimation()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                self.assignLoadedData()
+            }
         }
+    }
+    
+    //TEMP
+    private func assignLoadedData() {
+        //load image
+        self.imageView.stopLoadingAnimation()
+        self.imageView.image = UIImage(named: "bgimage")
+        
+        //Load link
+        self.linkView.isHidden = false
+        
+        //load product stats
+        self.recomm = 120
+        self.cravings = 344
+        self.isLoadingStats = false
+        self.widgetCollectionView.reloadData()
+        
+        //load basic info
+        self.detailLabel.stopLoadingAnimation()
+        self.titleLabel.text = self.productTitle
+        self.titleLabel.underline()
+        self.detailLabel.numberOfLines = 0
+        self.detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
+        
+        //load tags
+        self.titleTagsStackView.stopLoadingAnimation()
+        self.tags = ["Chicken", "Wings", "Street", "Spicy"]
+        self.horizontalTagsCollectionView.reloadData()
+        
+        //load market stats
+        self.marketView.stopLoadingAnimation()
+        self.marketView.state = .inActive
     }
     
     private func additionalSetup() {
@@ -222,5 +241,15 @@ extension ProductController: UICollectionViewDataSource {
 extension ProductController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
         self.performSegue(withIdentifier: K.Identifier.Segue.productToEditProduct, sender: self)
+    }
+}
+
+//MARK:- UIScrollView Delegate
+extension ProductController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let banner = banner {
+            banner.dismiss()
+            self.banner = nil
+        }
     }
 }
