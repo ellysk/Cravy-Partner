@@ -172,6 +172,8 @@ struct K {
         struct NibName {
             static let cravyWebKitViewController = "CravyWebKitViewController"
             static let productEditView = "ProductEditView"
+            static let uzumakiView = "UzumakiView"
+            static let uchihaView = "UchihaView"
         }
     }
     

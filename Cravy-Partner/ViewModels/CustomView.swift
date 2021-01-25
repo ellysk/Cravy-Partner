@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- Round View
 class RoundView: UIView {
     var roundFactor: CGFloat?
     var isBordered: Bool = false
@@ -44,6 +45,7 @@ protocol FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView)
 }
 
+//MARK:- Floater View
 /// Displays a rounded image view and a label.
 class FloaterView: RoundView {
     private var button = RoundButton()
@@ -142,6 +144,7 @@ class FloaterView: RoundView {
     }
 }
 
+//MARK:- Curtain View
 /// A view with a gradient background and shadow at the bottom.
 class CurtainView: UIView {
     override init(frame: CGRect) {
@@ -165,4 +168,38 @@ class CurtainView: UIView {
         self.layer.shadowColor = K.Color.primary.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
+}
+
+//MARK:- Gallery View
+/// Displays a collection of image views in different layouts.
+class GalleryView: UIView {
+    var gallery: [RoundImageView] {
+        return []
+    }
+    var images: [UIImage] {
+        set {
+            for i in 0..<gallery.count {
+                if i < newValue.count {
+                    //assign availabel images
+                    gallery[i].image = newValue[i]
+                }
+                gallery[i].roundFactor = 15
+                gallery[i].isHidden = i >= newValue.count
+            }
+            reloadVisible()
+        }
+        
+        get {
+            var imageArray: [UIImage] = []
+            gallery.forEach { (imageView) in
+                if let image = imageView.image, !imageView.isHidden {
+                    imageArray.append(image)
+                }
+            }
+            return imageArray
+        }
+    }
+    
+    /// This method is called when images are set to the image views. use it to update visibillity of image views.
+    internal func reloadVisible() {}
 }

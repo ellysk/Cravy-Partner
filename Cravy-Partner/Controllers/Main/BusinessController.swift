@@ -14,8 +14,7 @@ class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
     @IBOutlet weak var businessTableView: UITableView!
-    /// The first layout of the gallery
-    private var galleryLayout: GALLERY_LAYOUT = .uzumaki
+    var savedLayouts: [GALLERY_LAYOUT] = [.uzumaki, .uchiha, .uzumaki, .uchiha, .uzumaki]
     var businessInfo: [String:Any] = [:] //TODO
     
     override func viewDidLoad() {
@@ -81,7 +80,7 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
-            return 2
+            return 5
         } else {
             return 1
         }
@@ -107,8 +106,7 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
             //GALLERY CELL
             let galleryCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
             galleryCell.tag = indexPath.row
-            galleryCell.setGalleryTableCell(layout: galleryLayout, images: Array(repeating: UIImage(named: "bgimage")!, count: 5))
-            galleryLayout.change()
+            galleryCell.setGalleryTableCell(layout: savedLayouts[indexPath.row], images: Array(repeating: UIImage(named: "bgimage")!, count: 5))
             galleryCell.delegate = self
             
             return galleryCell
@@ -142,6 +140,8 @@ extension BusinessController: UITableViewDelegate {
         if indexPath.section == 0 {
             let layout = UICollectionViewFlowLayout.imageCollectionViewFlowLayout
             return layout.itemSize.height
+        } else if indexPath.section == 2 {
+            return 300
         } else {
             return UITableView.automaticDimension
         }

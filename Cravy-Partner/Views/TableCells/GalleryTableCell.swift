@@ -32,9 +32,46 @@ protocol GalleryTableCellDelegate {
 
 /// Displays a collection of RoundImageViews arranged in mutiple stackviews with a layout that is dynamic.
 class GalleryTableCell: UITableViewCell {
-    private var containerView: UIView!
-    private var galleryView: GalleryView?
-    var layout: GALLERY_LAYOUT!
+    private var galleryView: GalleryView!
+    var layout: GALLERY_LAYOUT {
+        set {
+            func removeCurrentGalleryLayout() {
+                galleryView.removeFromSuperview()
+                galleryView = nil
+            }
+            
+            func updateGalleryLayout() {
+                if newValue == .uzumaki {
+                    galleryView = Bundle.main.loadNibNamed(K.Identifier.NibName.uzumakiView, owner: nil, options: nil)?.first as! UzumakiView
+                } else if newValue == .uchiha {
+                    galleryView = Bundle.main.loadNibNamed(K.Identifier.NibName.uchihaView, owner: nil, options: nil)?.first as! UchihaView
+                }
+            }
+            
+            func addGalleryToView() {
+                self.addSubview(galleryView)
+                galleryView.translatesAutoresizingMaskIntoConstraints = false
+                galleryView.VHConstraint(to: self)
+            }
+            
+            if galleryView == nil {
+                updateGalleryLayout()
+                addGalleryToView()
+            } else {
+                removeCurrentGalleryLayout()
+                updateGalleryLayout()
+                addGalleryToView()
+            }
+        }
+        
+        get {
+            if let _ = galleryView as? UzumakiView {
+                return .uzumaki
+            } else {
+                return .uchiha
+            }
+        }
+    }
     var gesture: UITapGestureRecognizer {
         return UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
     }
@@ -49,34 +86,8 @@ class GalleryTableCell: UITableViewCell {
     ///   - images: The images that will be displayed. The maximum number of images displayed is 5.
     func setGalleryTableCell(layout: GALLERY_LAYOUT = .uzumaki, images: [UIImage] = []) {
         self.layout = layout
-        setContainerView()
-        setGalleryView(images: images)
         self.isTransparent = true
-    }
-    
-    private func setContainerView() {
-        if containerView == nil {
-            containerView = UIView()
-            containerView.backgroundColor = .clear
-            self.addSubview(containerView)
-            containerView.translatesAutoresizingMaskIntoConstraints = false
-            containerView.VHConstraint(to: self)
-        }
-    }
-    
-    private func setGalleryView(images: [UIImage]) {
-        if galleryView == nil {
-            galleryView = GalleryView(layout: layout, images: images)
-            containerView.addSubview(galleryView!)
-            galleryView!.translatesAutoresizingMaskIntoConstraints = false
-            galleryView!.VConstraint(to: containerView, constant: 1.5)
-            galleryView!.HConstraint(to: containerView, constant: 8)
-        } else {
-            galleryView?.images = images
-            galleryView?.setGalleryStackView(layout: layout)
-        }
-        
-        setGestureRecognizers()
+        galleryView.images = images
     }
     
     private func setGestureRecognizers() {

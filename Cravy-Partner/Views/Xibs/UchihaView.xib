@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UchihaView" customModule="Cravy_Partner" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="fma-sG-8PZ">
+                    <rect key="frame" x="3" y="45.5" width="408" height="815"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Yr3-zb-1AJ">
+                            <rect key="frame" x="0.0" y="0.0" width="408" height="570.5"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sgp-yp-5AY" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="204" height="570.5"/>
+                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="3dB-cS-rg6">
+                                    <rect key="frame" x="207" y="0.0" width="201" height="570.5"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N6M-ie-S10" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="201" height="284"/>
+                                        </imageView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VDx-kz-afI" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="287" width="201" height="283.5"/>
+                                        </imageView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="Sgp-yp-5AY" firstAttribute="width" secondItem="Yr3-zb-1AJ" secondAttribute="width" multiplier="0.5" priority="999" id="aLN-jH-0Y1"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="1l8-PO-ilQ">
+                            <rect key="frame" x="0.0" y="573.5" width="408" height="241.5"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="grI-Sv-IP8" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="285.5" height="241.5"/>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kb1-jB-cvI" customClass="RoundImageView" customModule="Cravy_Partner" customModuleProvider="target">
+                                    <rect key="frame" x="288.5" y="0.0" width="119.5" height="241.5"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="grI-Sv-IP8" firstAttribute="width" secondItem="1l8-PO-ilQ" secondAttribute="width" multiplier="0.7" priority="999" id="rBs-5e-Qry"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Yr3-zb-1AJ" firstAttribute="height" secondItem="fma-sG-8PZ" secondAttribute="height" multiplier="0.7" priority="999" id="70z-Ky-aCh"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fma-sG-8PZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="3" id="GIb-Z1-gzK"/>
+                <constraint firstItem="fma-sG-8PZ" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-1.5" id="cjy-km-z20"/>
+                <constraint firstItem="fma-sG-8PZ" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-3" id="mjU-5K-UH9"/>
+                <constraint firstItem="fma-sG-8PZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="1.5" id="sH4-Ro-mQI"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="fourFiveHorizontalStackView" destination="1l8-PO-ilQ" id="T3M-Bp-gKy"/>
+                <outlet property="imageViewFive" destination="Kb1-jB-cvI" id="JUx-YJ-g3q"/>
+                <outlet property="imageViewFour" destination="grI-Sv-IP8" id="E52-KW-UUx"/>
+                <outlet property="imageViewOne" destination="Sgp-yp-5AY" id="hli-TN-IAh"/>
+                <outlet property="imageViewThree" destination="VDx-kz-afI" id="50o-HG-mGk"/>
+                <outlet property="imageViewTwo" destination="N6M-ie-S10" id="bcW-20-3KG"/>
+                <outlet property="twoThreeVerticalStackView" destination="3dB-cS-rg6" id="qWB-4f-PxT"/>
+            </connections>
+            <point key="canvasLocation" x="105.79710144927537" y="114.50892857142857"/>
+        </view>
+    </objects>
+</document>

@@ -15,6 +15,10 @@
 		2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */; };
 		2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicTableCell.swift */; };
 		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
+		2B21265425BE5E1F00B5F023 /* UzumakiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B21265325BE5E1F00B5F023 /* UzumakiView.xib */; };
+		2B21265625BE61B600B5F023 /* UzumakiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B21265525BE61B600B5F023 /* UzumakiView.swift */; };
+		2B21265A25BE6C9100B5F023 /* UchihaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B21265925BE6C9100B5F023 /* UchihaView.xib */; };
+		2B21265C25BE6E1000B5F023 /* UchihaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B21265B25BE6E1000B5F023 /* UchihaView.swift */; };
 		2B267EDD25A131E800478726 /* NewProductPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EDC25A131E800478726 /* NewProductPageController.swift */; };
 		2B267EDF25A13FE600478726 /* NewProductViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EDE25A13FE600478726 /* NewProductViewsController.swift */; };
 		2B267EE125A1D74900478726 /* Album.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B267EE025A1D74900478726 /* Album.storyboard */; };
@@ -127,6 +131,10 @@
 		2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionTableCell.xib; sourceTree = "<group>"; };
 		2B060A30258809E000F59CB5 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
+		2B21265325BE5E1F00B5F023 /* UzumakiView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UzumakiView.xib; sourceTree = "<group>"; };
+		2B21265525BE61B600B5F023 /* UzumakiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UzumakiView.swift; sourceTree = "<group>"; };
+		2B21265925BE6C9100B5F023 /* UchihaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UchihaView.xib; sourceTree = "<group>"; };
+		2B21265B25BE6E1000B5F023 /* UchihaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UchihaView.swift; sourceTree = "<group>"; };
 		2B267EDC25A131E800478726 /* NewProductPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductPageController.swift; sourceTree = "<group>"; };
 		2B267EDE25A13FE600478726 /* NewProductViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductViewsController.swift; sourceTree = "<group>"; };
 		2B267EE025A1D74900478726 /* Album.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Album.storyboard; sourceTree = "<group>"; };
@@ -472,6 +480,8 @@
 				2B823DC9259D112F0040E860 /* PopView.swift */,
 				2B823DD125A007880040E860 /* CravyWebView.swift */,
 				2BB7FE7625B9CAC100900495 /* ProductEditView.swift */,
+				2B21265525BE61B600B5F023 /* UzumakiView.swift */,
+				2B21265B25BE6E1000B5F023 /* UchihaView.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -482,6 +492,8 @@
 				2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */,
 				2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */,
 				2BB7FE7225B9C6C700900495 /* ProductEditView.xib */,
+				2B21265325BE5E1F00B5F023 /* UzumakiView.xib */,
+				2B21265925BE6C9100B5F023 /* UchihaView.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -624,6 +636,7 @@
 				2B823DC8259D01790040E860 /* ingredients.json in Resources */,
 				2BFC75152597BB5B009A35AE /* NewProduct.storyboard in Resources */,
 				2BC0C69F25780053004BA3CA /* CraveCollectionCell.xib in Resources */,
+				2B21265A25BE6C9100B5F023 /* UchihaView.xib in Resources */,
 				2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */,
 				2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */,
 				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
@@ -644,6 +657,7 @@
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
 				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
 				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
+				2B21265425BE5E1F00B5F023 /* UzumakiView.xib in Resources */,
 				2B267EEC25A2212900478726 /* promote.json in Resources */,
 				2B61BE482590D56400545E59 /* Settings.storyboard in Resources */,
 			);
@@ -764,6 +778,7 @@
 				2B99FFBB25745B17008302FA /* CustomTextField.swift in Sources */,
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,
 				2B61BE44258E89B100545E59 /* CustomLabel.swift in Sources */,
+				2B21265625BE61B600B5F023 /* UzumakiView.swift in Sources */,
 				2B75890725B733E400203346 /* EditTagsController.swift in Sources */,
 				2B84AE79257BBCD6002A626A /* MarketView.swift in Sources */,
 				2BB7FE7725B9CAC100900495 /* ProductEditView.swift in Sources */,
@@ -797,6 +812,7 @@
 				2B99FFB62574543A008302FA /* Constants.swift in Sources */,
 				2B62D9882588FC2B00C7E948 /* ToggleTableCell.swift in Sources */,
 				2B267EE825A1FE4000478726 /* ProductCollectionViewController.swift in Sources */,
+				2B21265C25BE6E1000B5F023 /* UchihaView.swift in Sources */,
 				2B99FF822574309E008302FA /* SceneDelegate.swift in Sources */,
 				2B823DC0259B85D30040E860 /* TagsCollectionViewController.swift in Sources */,
 				2B61BE3E258E4AA200545E59 /* ProductController.swift in Sources */,
