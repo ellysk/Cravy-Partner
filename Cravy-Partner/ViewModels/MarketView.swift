@@ -47,6 +47,9 @@ class MarketView: UIView {
     private var searches: Int = 0
     private var views: Int = 0
     private var links: Int = 0
+    var statTitle: String? {
+        return marketLabel.text
+    }
     /// The content related to number of searches.
     var numberOfSearches: Int {
         set {

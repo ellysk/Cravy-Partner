@@ -102,6 +102,9 @@ struct K {
         static let deleteProductMessage = "Are you sure you want to delete this product?"
         static let logoutMessage = "Logout of Cravy Partner?"
         static let logout = "Logout"
+        static let savePhotoSuccessTitle = "Photo saved in your library"
+        static let savePhotoFailTitle = "Could not save the photo, please check your settings"
+        static let saveChangesSuccessTitle = "Changes have been saved"
     }
     
     //MARK:- Identifier

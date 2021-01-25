@@ -39,16 +39,6 @@ class ImageViewController: UIViewController {
         confirmButton.delegate = self
     }
     
-    private func saveImage() {
-        cravyPartnerAlbum!.addImage(image) { (completed, error) in
-            if let e = error {
-                fatalError("Could not save image to album: Error -> \(e.localizedDescription)")
-            } else if completed {
-                //TODO
-            }
-        }
-    }
-    
     @IBAction func cancel(_ sender: UIButton) {
         //TODO
         self.dismiss(animated: true)
@@ -56,19 +46,7 @@ class ImageViewController: UIViewController {
     
     @IBAction func saveToPhotoLibrary(_ sender: UIButton) {
         sender.flash()
-        if cravyPartnerAlbum != nil {
-            saveImage()
-        } else {
-            //Create Cravy Partner album
-            let photoLibrary = PHPhotoLibrary.shared()
-            photoLibrary.createAssetCollectionWithTitle(title: K.UIConstant.albumTitle) { (completed, error) in
-                if let e = error {
-                    fatalError("Could not make album: Error -> \(e.localizedDescription)")
-                } else if completed {
-                    self.saveImage()
-                }
-            }
-        }
+        self.saveImageToCravyPartnerAlbum(image)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

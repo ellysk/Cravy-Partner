@@ -118,7 +118,8 @@ class AccountController: UIViewController {
         self.present(loaderVC, animated: true) {
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 loaderVC.stopLoader {
-                    print("save changes")
+                    self.navigationController?.popViewController(animated: true)
+                    self.showStatusBarNotification(title: K.UIConstant.saveChangesSuccessTitle, style: .success)
                 }
             }
         }

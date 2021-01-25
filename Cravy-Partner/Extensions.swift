@@ -10,6 +10,7 @@ import UIKit
 import Lottie
 import SwiftyCam
 import Photos
+import NotificationBannerSwift
 
 /* -------------- UIKIT EXTENSIONS -------------- */
 
@@ -485,6 +486,45 @@ extension UIViewController {
         self.present(alertController, animated: true)
     }
     
+    func showStatusBarNotification(title: String, style: BannerStyle) {
+        let banner = StatusBarNotificationBanner(title: title, style: style)
+        banner.show()
+    }
+    
+    /// Saves the image provided to a Cravy Partner Album.
+    func saveImageToCravyPartnerAlbum(_ image: UIImage) {
+        /// Add image asset to the album.
+        func saveImage(_ album: PHAssetCollection) {
+            album.addImage(image) { (completed, error) in
+                DispatchQueue.main.async {
+                    if let _ = error {
+                        self.showStatusBarNotification(title: K.UIConstant.savePhotoFailTitle, style: .danger)
+                    } else if completed {
+                        //TODO
+                        self.showStatusBarNotification(title: K.UIConstant.savePhotoSuccessTitle, style: .success)
+                    }
+                }
+            }
+        }
+        
+        if let album = PHFetchOptions().cravyPartnerAlbum  {
+            saveImage(album)
+        } else {
+            //Create Cravy Partner album
+            let photoLibrary = PHPhotoLibrary.shared()
+            photoLibrary.createAssetCollectionWithTitle(title: K.UIConstant.albumTitle) { (completed, error) in
+                if let _ = error {
+                    DispatchQueue.main.async {
+                        self.showStatusBarNotification(title: K.UIConstant.savePhotoFailTitle, style: .danger)
+                    }
+                } else if completed {
+                    guard let album = PHFetchOptions().cravyPartnerAlbum else {return}
+                    saveImage(album)
+                }
+            }
+        }
+    }
+    
     @objc internal func dismissKeyboard() {
         self.view.endEditing(true)
     }
@@ -952,6 +992,12 @@ extension Array where Element == String {
 
 //MARK: - String
 extension String {
+    var deleteFormat: String {
+        return "\(self) has been deleted"
+    }
+    var editFormat: String {
+        return "\(self) has been edited"
+    }
     var isValidEmail: Bool {
         return K.Predicate.emailPredicate.evaluate(with: self)
     }

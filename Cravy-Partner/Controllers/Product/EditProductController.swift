@@ -204,7 +204,8 @@ class EditProductController: UIViewController {
         self.present(loaderVC, animated: true) {
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                 loaderVC.stopLoader {
-                    print("changes saved!")
+                    self.navigationController?.popViewController(animated: true)
+                    self.showStatusBarNotification(title: self.productTitle.editFormat, style: .success)
                 }
             }
         }
@@ -218,7 +219,14 @@ class EditProductController: UIViewController {
             self.present(loaderVC, animated: true) {
                 DispatchQueue.main.asyncAfter(deadline: .now()+3) {
                     loaderVC.stopLoader {
-                        print("deleted!")
+                        guard let nav = self.navigationController else {return}
+                        for viewController in nav.viewControllers {
+                            if let cravyTabBarController = viewController as? CravyTabBarController {
+                                print(nav.viewControllers.firstIndex(of: viewController)!)
+                                nav.popToViewController(cravyTabBarController, animated: true)
+                            }
+                        }
+                        self.showStatusBarNotification(title: (self.defaultValues[K.Key.title] as! String).deleteFormat, style: .danger)
                     }
                 }
             }

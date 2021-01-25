@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import NotificationBannerSwift
 
 /// Handles the display of the properties of a product.
 class ProductController: UIViewController {
@@ -36,6 +37,16 @@ class ProductController: UIViewController {
         // Do any additional setup after loading the view.
         additionalSetup()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        marketView.playAnimation()
     }
     
     private func startLoadingAnimation() {
@@ -117,6 +128,8 @@ class ProductController: UIViewController {
             } else {
                 self.marketView.state = state
             }
+            let style: BannerStyle = state == .active ? .success : .danger
+            self.showStatusBarNotification(title: "\(self.productTitle!) is \(self.marketView.statTitle!.lowercased())!", style: style)
         }
     }
     
@@ -127,16 +140,6 @@ class ProductController: UIViewController {
         self.marketView.numberOfVisits = 120
         
         self.marketView.state = .active
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        marketView.playAnimation()
     }
     
     @objc func done(_ sender: UIBarButtonItem) {
