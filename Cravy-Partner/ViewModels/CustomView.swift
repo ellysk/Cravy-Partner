@@ -183,7 +183,9 @@ class GalleryView: UIView {
                     //assign availabel images
                     gallery[i].image = newValue[i]
                 }
+                gallery[i].tag = i
                 gallery[i].roundFactor = 15
+                gallery[i].isUserInteractionEnabled = true
                 gallery[i].isHidden = i >= newValue.count
             }
             reloadVisible()

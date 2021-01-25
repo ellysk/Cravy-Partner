@@ -14,12 +14,23 @@ class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
     @IBOutlet weak var businessTableView: UITableView!
-    var savedLayouts: [GALLERY_LAYOUT] = [.uzumaki, .uchiha, .uzumaki, .uchiha, .uzumaki]
     var businessInfo: [String:Any] = [:] //TODO
+    var savedLayouts: [GALLERY_LAYOUT] = [.uzumaki, .uchiha, .uzumaki, .uchiha, .uzumaki] //TODO
+    var isLoadingKitchen: Bool = true
+    var kitchen: [UIImage]?
+    private let kitchenDummyCount: Int = 1
+    var kitchenCount: Int {
+        if isLoadingKitchen {
+            return kitchen?.chunked(into: 5).count ?? 0 + kitchenDummyCount
+        } else {
+            return kitchen?.chunked(into: 5).count ?? 0
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadBusinessInfo()
+        loadKitchen()
         // Do any additional setup after loading the view.
         businessView.delegate = self
         self.view.setCravyGradientBackground()
@@ -43,6 +54,15 @@ class BusinessController: UIViewController {
             self.businessStatView.stopLoadingAnimation()
             self.businessStatView.recommendations = 608
             self.businessStatView.subscribers = 130
+        }
+    }
+    
+    private func loadKitchen() {
+        //TODO
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.isLoadingKitchen = false
+            self.kitchen = Array(repeating: UIImage(named: "bgimage")!, count: 5)
+            self.businessTableView.reloadSections(IndexSet(integer: 2), with: .none)
         }
     }
     
@@ -80,7 +100,7 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
-            return 5
+            return kitchenCount
         } else {
             return 1
         }
@@ -105,10 +125,19 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
         } else {
             //GALLERY CELL
             let galleryCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
-            galleryCell.tag = indexPath.row
-            galleryCell.setGalleryTableCell(layout: savedLayouts[indexPath.row], images: Array(repeating: UIImage(named: "bgimage")!, count: 5))
-            galleryCell.delegate = self
-            
+            if isLoadingKitchen && indexPath.row >= kitchen?.count ?? 0 {
+                galleryCell.setGalleryTableCell()
+                galleryCell.startLoadingAnimation()
+            } else {
+                galleryCell.stopLoadingAnimation()
+                if let myKitchen = kitchen {
+                    galleryCell.setGalleryTableCell(layout: savedLayouts[indexPath.row], images: myKitchen)
+                    galleryCell.tag = indexPath.row
+                    galleryCell.delegate = self
+                } else {
+                    //TODO
+                }
+            }
             return galleryCell
         }
     }
@@ -120,10 +149,6 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
 
 //MARK: - UITableView Delegate
 extension BusinessController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return tableView.sectionWithTitle(K.Collections.businessSectionTitles[section])
     }

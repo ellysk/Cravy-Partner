@@ -46,6 +46,7 @@ class GalleryTableCell: UITableViewCell {
                 } else if newValue == .uchiha {
                     galleryView = Bundle.main.loadNibNamed(K.Identifier.NibName.uchihaView, owner: nil, options: nil)?.first as! UchihaView
                 }
+                setGestureRecognizers()
             }
             
             func addGalleryToView() {
