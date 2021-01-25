@@ -768,6 +768,9 @@ extension UIAlertAction {
     static var cancel: UIAlertAction {
         return UIAlertAction(title: K.UIConstant.cancel, style: .cancel)
     }
+    static var no: UIAlertAction {
+        return UIAlertAction(title: K.UIConstant.no, style: .default)
+    }
     
     /// Redirects the device to open settings.
     static var goToSettings: UIAlertAction {
@@ -1095,6 +1098,9 @@ extension AnimationView {
     }
     static var comingSoonAnimation: AnimationView {
         return AnimationView(name: "comingsoon")
+    }
+    static var loaderAnimation: AnimationView {
+        return AnimationView(name: "loader")
     }
     
     /// Plays the animation at the speicified position on the screen.

@@ -78,9 +78,6 @@ class ProductController: UIViewController {
             //load market stats
             self.marketView.stopLoadingAnimation()
             self.marketView.state = .inActive
-//            self.marketView.numberOfSearches = 254
-//            self.marketView.nuberOfViews = 122
-//            self.marketView.numberOfVisits = 120
         }
     }
     
@@ -92,15 +89,14 @@ class ProductController: UIViewController {
         marketView.addAction {
             if self.marketView.state == .active {
                 UIAlertController.takeProductOffMarket(actionHandler: {
-                    //TODO
-                    self.marketView.state = .inActive
+                    self.updateProductState(to: .inActive)
                 }) { (alertController) in
                     self.present(alertController, animated: true)
                 }
             } else {
                 let post = PostView(toPost: "Chicken Wings")
                 let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {
-                    self.marketView.state = .active
+                    self.updateProductState(to: .active)
                 }) {
                     self.marketView.playAnimation()
                 }
@@ -109,6 +105,28 @@ class ProductController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func updateProductState(to state: PRODUCT_STATE) {
+        //TODO
+        marketView.startLoader()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.marketView.stopAnimation()
+            if state == .active {
+                self.loadProductStats()
+            } else {
+                self.marketView.state = state
+            }
+        }
+    }
+    
+    private func loadProductStats() {
+        //TODO
+        self.marketView.numberOfSearches = 254
+        self.marketView.nuberOfViews = 122
+        self.marketView.numberOfVisits = 120
+        
+        self.marketView.state = .active
     }
     
     override func viewWillAppear(_ animated: Bool) {

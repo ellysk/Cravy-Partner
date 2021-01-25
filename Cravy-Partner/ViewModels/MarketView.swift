@@ -19,10 +19,13 @@ class MarketView: UIView {
     private let viewsContentView = ContentView(contentImage: UIImage(systemName: "eye.fill"))
     private let linksContentView = ContentView(contentImage: UIImage(systemName: "link"))
     private var animationView: AnimationView?
+    private let loaderAnimation = AnimationView.loaderAnimation
     var state: PRODUCT_STATE {
         set {
+            toolStackView.isHidden = false
             contentStackView?.isHidden = newValue == .inActive
             animationView?.isHidden = newValue == .active
+            loaderAnimation.isHidden = true
             marketLabel.text = newValue == .active ? K.UIConstant.onTheMarket : K.UIConstant.offTheMarket
             marketLabel.textColor = newValue == .active ? K.Color.positive : K.Color.important
             if newValue == .active {
@@ -80,13 +83,15 @@ class MarketView: UIView {
     init(frame: CGRect = .zero, state: PRODUCT_STATE = .inActive) {
         super.init(frame: frame)
         self.backgroundColor = .clear
-        setToolStackView()
         self.state = state
+        setToolStackView()
+        setLoaderAnimation()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setToolStackView()
+        setLoaderAnimation()
     }
     
     private func setToolStackView() {
@@ -128,6 +133,15 @@ class MarketView: UIView {
         }
     }
     
+    private func setLoaderAnimation() {
+        self.insertSubview(loaderAnimation, at: 0)
+        loaderAnimation.translatesAutoresizingMaskIntoConstraints = false
+        loaderAnimation.centerXYAnchor(to: self)
+        loaderAnimation.sizeAnchorOf(width: 50, height: 50)
+    }
+    
+    
+    /// Plays the sleeping fox animation showing that there is no activity to this product as it is off the market
     func playAnimation() {
         guard let animation = animationView, !animation.isHidden else {return}
         if !animation.isAnimationPlaying {
@@ -136,10 +150,25 @@ class MarketView: UIView {
         }
     }
     
+    /// Stops any animation playing in this view
     func stopAnimation() {
-        animationView?.pause()
+        if let isPlaying = animationView?.isAnimationPlaying, isPlaying {
+            animationView?.pause()
+        } else if loaderAnimation.isAnimationPlaying {
+            loaderAnimation.stop()
+        }
     }
     
+    /// Starts to play the loading animation indicating the market view is fetching data.
+    func startLoader() {
+        toolStackView.isHidden = true
+        contentStackView?.isHidden = true
+        animationView?.isHidden = true
+        loaderAnimation.isHidden = false
+        loaderAnimation.play()
+        loaderAnimation.loopMode = .loop
+    }
+        
     func addAction(_ action: (()->())?) {
         self.action = action
     }

@@ -46,8 +46,17 @@ class NewProductViewsController: UIViewController {
     }
     
     @objc func create(_ sender: UIBarButtonItem) {
+        //TODO
         if isProductInfoComplete {
-            performSegue(withIdentifier: K.Identifier.Segue.newProductToProduct, sender: self)
+            let loaderVC = LoaderViewController()
+            self.present(loaderVC, animated: true) {
+                self.dismissKeyboard()
+                DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+                    loaderVC.stopLoader {
+                        self.performSegue(withIdentifier: K.Identifier.Segue.newProductToProduct, sender: self)
+                    }
+                }
+            }
         }
     }
     

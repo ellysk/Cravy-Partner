@@ -15,6 +15,8 @@
 		2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */; };
 		2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicTableCell.swift */; };
 		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
+		2B1BD66125BEFFD200DA0C63 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B1BD66025BEFFD200DA0C63 /* loader.json */; };
+		2B1BD66325BF0B0400DA0C63 /* LoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1BD66225BF0B0400DA0C63 /* LoaderViewController.swift */; };
 		2B21265425BE5E1F00B5F023 /* UzumakiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B21265325BE5E1F00B5F023 /* UzumakiView.xib */; };
 		2B21265625BE61B600B5F023 /* UzumakiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B21265525BE61B600B5F023 /* UzumakiView.swift */; };
 		2B21265A25BE6C9100B5F023 /* UchihaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B21265925BE6C9100B5F023 /* UchihaView.xib */; };
@@ -131,6 +133,8 @@
 		2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionTableCell.xib; sourceTree = "<group>"; };
 		2B060A30258809E000F59CB5 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
+		2B1BD66025BEFFD200DA0C63 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
+		2B1BD66225BF0B0400DA0C63 /* LoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderViewController.swift; sourceTree = "<group>"; };
 		2B21265325BE5E1F00B5F023 /* UzumakiView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UzumakiView.xib; sourceTree = "<group>"; };
 		2B21265525BE61B600B5F023 /* UzumakiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UzumakiView.swift; sourceTree = "<group>"; };
 		2B21265925BE6C9100B5F023 /* UchihaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UchihaView.xib; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 				2B267EE725A1FE4000478726 /* ProductCollectionViewController.swift */,
 				2B267EE925A2011D00478726 /* ProductsPageController.swift */,
 				2BC7378C25A799B2005D7853 /* ImageViewController.swift */,
+				2B1BD66225BF0B0400DA0C63 /* LoaderViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 				2B267EEF25A285AC00478726 /* post.json */,
 				2B89AAD725A495EE00F65F16 /* inactive.json */,
 				2BB7FE7825B9EE2700900495 /* comingsoon.json */,
+				2B1BD66025BEFFD200DA0C63 /* loader.json */,
 			);
 			path = "Cravy-Partner";
 			sourceTree = "<group>";
@@ -655,6 +661,7 @@
 				2B62D9892588FC2B00C7E948 /* ToggleTable.xib in Resources */,
 				2BFC751125977ED7009A35AE /* BasicReusableView.xib in Resources */,
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
+				2B1BD66125BEFFD200DA0C63 /* loader.json in Resources */,
 				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
 				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
 				2B21265425BE5E1F00B5F023 /* UzumakiView.xib in Resources */,
@@ -774,6 +781,7 @@
 				2BE371BE2580EEC700B38D30 /* ImageCollectionCell.swift in Sources */,
 				2B7DF494258A996200AA1337 /* CravyTabBarController.swift in Sources */,
 				2B75890525B6122200203346 /* EditProductController.swift in Sources */,
+				2B1BD66325BF0B0400DA0C63 /* LoaderViewController.swift in Sources */,
 				2B84AE7B257BF1C8002A626A /* CustomTextView.swift in Sources */,
 				2B99FFBB25745B17008302FA /* CustomTextField.swift in Sources */,
 				2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */,

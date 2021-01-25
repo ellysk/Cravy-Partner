@@ -114,10 +114,33 @@ class AccountController: UIViewController {
     
     @objc func saveChanges(_ sender: UIBarButtonItem) {
         //TODO
+        let loaderVC = LoaderViewController()
+        self.present(loaderVC, animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                loaderVC.stopLoader {
+                    print("save changes")
+                }
+            }
+        }
     }
     
     @IBAction func logOut(_ sender: UIButton) {
         //TODO
+        let alertController = UIAlertController(title: K.UIConstant.logoutMessage, message: nil, preferredStyle: .alert)
+        let logOutAction = UIAlertAction(title: K.UIConstant.logout, style: .destructive) { (action) in
+            let loaderVC = LoaderViewController()
+            self.present(loaderVC, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                    loaderVC.stopLoader {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+            }
+        }
+        alertController.addAction(UIAlertAction.no)
+        alertController.addAction(logOutAction)
+        
+        present(alertController, animated: true)
     }
 }
 

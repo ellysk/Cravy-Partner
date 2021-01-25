@@ -98,6 +98,10 @@ struct K {
         static let doIt = "Let's do it!"
         static let account = "Account"
         static let emailFormatAlert = "Please check the format of the email you entered."
+        static let no = "No"
+        static let deleteProductMessage = "Are you sure you want to delete this product?"
+        static let logoutMessage = "Logout of Cravy Partner?"
+        static let logout = "Logout"
     }
     
     //MARK:- Identifier

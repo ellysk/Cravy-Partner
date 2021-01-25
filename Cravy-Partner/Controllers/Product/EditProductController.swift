@@ -200,10 +200,33 @@ class EditProductController: UIViewController {
     
     @objc func saveChanges(_ sender: UIBarButtonItem) {
         //TODO
+        let loaderVC = LoaderViewController()
+        self.present(loaderVC, animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                loaderVC.stopLoader {
+                    print("changes saved!")
+                }
+            }
+        }
     }
     
     @objc func deleteProduct(_ sender: UIButton) {
         //TODO
+        let alertController = UIAlertController(title: defaultValues[K.Key.title] as? String, message: K.UIConstant.deleteProductMessage, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: K.UIConstant.delete, style: .destructive) { (action) in
+            let loaderVC = LoaderViewController()
+            self.present(loaderVC, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+                    loaderVC.stopLoader {
+                        print("deleted!")
+                    }
+                }
+            }
+        }
+        alertController.addAction(UIAlertAction.no)
+        alertController.addAction(deleteAction)
+        
+        present(alertController, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

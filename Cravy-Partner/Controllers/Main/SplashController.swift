@@ -41,11 +41,15 @@ class SplashController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         splash = .intro
         authStackView.emailTextField.delegate = self
         authStackView.passwordTextField.delegate = self
         authStackView.authButton.addTarget(self, action: #selector(auth(_:)), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func getStarted(_ sender: UIButton) {
