@@ -1,27 +1,35 @@
 //
-//  TagsCollectionViewController.swift
+//  TagsInputController.swift
 //  Cravy-Partner
 //
-//  Created by Cravy on 29/12/2020.
-//  Copyright © 2020 Cravy. All rights reserved.
+//  Created by Cravy on 26/01/2021.
+//  Copyright © 2021 Cravy. All rights reserved.
 //
 
 import UIKit
 import Lottie
 
-protocol TagsCollectionViewControllerDelegate {
+protocol TagsInputDelegate {
     func didUpdateTags(tags: [String])
 }
 
 /// Handles the display of the tags that the user can select and manage.
-class TagsCollectionViewController: NPCollectionViewController, UICollectionViewDelegateFlowLayout {
+class TagsInputController: NPCollectionViewController, UICollectionViewDelegateFlowLayout {
     var tagsCollectionView: VerticalTagsCollectionView {
         let verticalTagsCollectionView = self.collectionView as! VerticalTagsCollectionView
         return verticalTagsCollectionView
     }
     var tags: [String : [String]] = ["My tags" : [], "Common tags" : ["Fish and Chips", "Halal", "Dessert", "Chicken wings", "Meat and Chips", "Fries", "Chicken", "Vegetarian", "Pizza", "Breakfast", "Lunch", "Dinner", "Burger", "beef"]]
     private var sections: [String] = ["My tags", "Common tags"]
-    var delegate: TagsCollectionViewControllerDelegate?
+    var delegate: TagsInputDelegate?
+    
+    init() {
+        super.init(nibName: K.Identifier.NibName.tagsInputController, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +124,7 @@ class TagsCollectionViewController: NPCollectionViewController, UICollectionView
 }
 
 //MARK:- FloaterView Delegate
-extension TagsCollectionViewController: FloaterViewDelegate {
+extension TagsInputController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
         //TODO
         let popV = PopView(title: K.UIConstant.newTag, detail: K.UIConstant.newTagDetail, actionTitle: K.UIConstant.add)

@@ -282,7 +282,7 @@ extension EditProductController: UITextViewDelegate {
 }
 
 //MARK:- TagsCollectionViewController Delegate
-extension EditProductController: TagsCollectionViewControllerDelegate {
+extension EditProductController: TagsInputDelegate {
     func didUpdateTags(tags: [String]) {
         productTags = tags
         reloadEditable()

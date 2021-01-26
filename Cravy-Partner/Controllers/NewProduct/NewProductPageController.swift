@@ -21,7 +21,7 @@ class NewProductPageController: CravyPageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pages = [K.Controller.textsViewController, K.Controller.tagsCollectionViewController, K.Controller.linkViewController]
+        pages = [TextInputController(), TagsInputController(), LinkInputController()]
         //Set the delegates
         pages.forEach { (viewController) in
             if let NPController = viewController as? NPViewController {

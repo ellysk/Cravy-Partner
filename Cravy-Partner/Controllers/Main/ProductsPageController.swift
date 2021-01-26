@@ -38,4 +38,8 @@ extension ProductsPageController: CravySearchBarDelegate {
 //        guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
         //TODO
     }
+    
+    func didCancelSearch(_ searchBar: CravySearchBar) {
+        //TODO
+    }
 }

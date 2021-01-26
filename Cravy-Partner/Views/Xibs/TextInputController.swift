@@ -1,18 +1,25 @@
 //
-//  TextsViewController.swift
+//  TextInputController.swift
 //  Cravy-Partner
 //
-//  Created by Cravy on 28/12/2020.
-//  Copyright © 2020 Cravy. All rights reserved.
+//  Created by Cravy on 26/01/2021.
+//  Copyright © 2021 Cravy. All rights reserved.
 //
 
 import UIKit
 
-/// Handles the display of a textfield and a textview.
-class TextsViewController: NPViewController {
+class TextInputController: NPViewController {
     @IBOutlet weak var textStackView: TextStackView!
     private var productTitle: String?
     private var productDescription: String?
+    
+    init() {
+        super.init(nibName: "TextInputController", bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +34,7 @@ class TextsViewController: NPViewController {
             self.textStackView.beginResponder = true
         }
     }
-        
+    
     override func confirmNewProductInput(confirmationHandler: (Bool) -> ()) {
         confirmationHandler(textStackView.isValid)
         guard let title = productTitle, let description = productDescription else {return}
@@ -38,7 +45,7 @@ class TextsViewController: NPViewController {
 }
 
 //MARK:- CravyTextDelegate
-extension TextsViewController: CravyTextDelegate {
+extension TextInputController: CravyTextDelegate {
     func textDidChange(on textField: UITextField, newText: String) {
         productTitle = newText
     }

@@ -17,7 +17,7 @@ class EditTagsController: UIViewController {
     var backgroundImage: UIImage!
     var tags: [String]!
     var defaultTags: [String]!
-    var delegate: TagsCollectionViewControllerDelegate?
+    var delegate: TagsInputDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class EditTagsController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.toTagsCollectionVC {
-            let tagsCollectionVC = segue.destination as! TagsCollectionViewController
+            let tagsCollectionVC = segue.destination as! TagsInputController
             tagsCollectionVC.tags["My tags"] = tags
             tagsCollectionVC.delegate = self
         }
@@ -43,7 +43,7 @@ class EditTagsController: UIViewController {
 }
 
 //MARK:- TagsCollectionViewController Delegate
-extension EditTagsController: TagsCollectionViewControllerDelegate {
+extension EditTagsController: TagsInputDelegate {
     func didUpdateTags(tags: [String]) {
         self.tags = tags
         doneItem.isEnabled = defaultTags != tags && !tags.isEmpty

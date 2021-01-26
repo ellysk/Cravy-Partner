@@ -10,6 +10,7 @@ import UIKit
 
 protocol CravySearchBarDelegate {
     func didEnquireSearch(_ text: String)
+    func didCancelSearch(_ searchBar: CravySearchBar)
 }
 
 /// A custom search bar view that lets you search and filter data.
@@ -95,6 +96,8 @@ class CravySearchBar: UIView, UITextFieldDelegate {
         textField.setPlaceholder(K.UIConstant.searchProductsPlaceholder)
         textField.font = UIFont.regular.small
         textField.returnKeyType = .search
+        textField.addRightButtonOnKeyboardWithText(K.UIConstant.cancel, target: self, action: #selector(cancel))
+        textField.keyboardToolbar.tintColor = K.Color.primary
         textField.textColor = K.Color.dark
         textField.tintColor = CSBTintColor
         
@@ -140,11 +143,17 @@ class CravySearchBar: UIView, UITextFieldDelegate {
         self.presentationDelegate?.willPresent(alertController, data: nil)
     }
     
+    @objc private func cancel() {
+        textField.resignFirstResponder()
+        clear()
+        self.delegate?.didCancelSearch(self)
+    }
+    
     //MARK:- UITextfield Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text, text.removeLeadingAndTrailingSpaces != "" else {return false}
-        textField.resignFirstResponder()
         self.delegate?.didEnquireSearch(text)
+        textField.resignFirstResponder()
         return true
     }
 }

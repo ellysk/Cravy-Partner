@@ -231,10 +231,10 @@
             </objects>
             <point key="canvasLocation" x="5335" y="-654"/>
         </scene>
-        <!--Tags Collection View Controller-->
+        <!--Tags Input Controller-->
         <scene sceneID="wpX-iR-dLB">
             <objects>
-                <collectionViewController id="NNE-yo-W50" customClass="TagsCollectionViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="NNE-yo-W50" customClass="TagsInputController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Ge2-lm-yM5" customClass="VerticalTagsCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

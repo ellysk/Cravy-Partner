@@ -8,31 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tags Collection View Controller-->
-        <scene sceneID="As3-lB-Eh1">
-            <objects>
-                <collectionViewController storyboardIdentifier="tagsCollectionVC" id="7rW-GC-6Vu" customClass="TagsCollectionViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Zt2-hI-OEp" customClass="VerticalTagsCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="282-gT-Zqq">
-                            <size key="itemSize" width="128" height="128"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="7rW-GC-6Vu" id="Gdl-lg-ol7"/>
-                            <outlet property="delegate" destination="7rW-GC-6Vu" id="Uc6-cp-Dy0"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j6e-ma-86E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4141" y="-13"/>
-        </scene>
         <!--Product-->
         <scene sceneID="6RQ-r7-x7z">
             <objects>
@@ -50,80 +25,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4x-Vl-Ugk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5103" y="-1601"/>
-        </scene>
-        <!--Texts View Controller-->
-        <scene sceneID="64h-HN-9Cw">
-            <objects>
-                <viewController storyboardIdentifier="textsVC" id="QZh-eG-4vP" customClass="TextsViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Rwp-YR-eG4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="06w-ek-JWf" customClass="TextStackView" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="8" y="60" width="398" height="350"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="u2b-FU-wiQ"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="06w-ek-JWf" firstAttribute="top" secondItem="x2W-ls-uSb" secondAttribute="top" constant="16" id="AcT-kz-3u0"/>
-                            <constraint firstItem="x2W-ls-uSb" firstAttribute="trailing" secondItem="06w-ek-JWf" secondAttribute="trailing" constant="8" id="vhQ-TL-bbH"/>
-                            <constraint firstItem="06w-ek-JWf" firstAttribute="leading" secondItem="x2W-ls-uSb" secondAttribute="leading" constant="8" id="zVG-en-bil"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="x2W-ls-uSb"/>
-                    </view>
-                    <connections>
-                        <outlet property="textStackView" destination="06w-ek-JWf" id="3Pu-Yx-pyg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="asE-4g-1Px" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4143" y="-707"/>
-        </scene>
-        <!--Link View Controller-->
-        <scene sceneID="OM9-1e-4Uv">
-            <objects>
-                <viewController storyboardIdentifier="linkVC" id="a52-5d-Wxs" customClass="LinkViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ALz-dL-Qcc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFA-1A-LKZ" customClass="CravySearchBar" customModule="Cravy_Partner" customModuleProvider="target">
-                                <rect key="frame" x="8" y="60" width="398" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="NIx-cU-Yt7"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEY-2H-xeP">
-                                <rect key="frame" x="8" y="448" width="398" height="0.0"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-MediumItalic" family="Avenir Next" pointSize="24"/>
-                                <color key="textColor" name="link"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="BiK-PQ-bfT" firstAttribute="trailing" secondItem="gEY-2H-xeP" secondAttribute="trailing" constant="8" id="6jT-Wv-yA5"/>
-                            <constraint firstItem="zFA-1A-LKZ" firstAttribute="leading" secondItem="BiK-PQ-bfT" secondAttribute="leading" constant="8" id="Dft-Md-dXP"/>
-                            <constraint firstItem="zFA-1A-LKZ" firstAttribute="trailing" secondItem="BiK-PQ-bfT" secondAttribute="trailing" constant="-8" id="IDS-wI-a0R"/>
-                            <constraint firstItem="gEY-2H-xeP" firstAttribute="leading" secondItem="BiK-PQ-bfT" secondAttribute="leading" constant="8" id="hiN-gV-cO3"/>
-                            <constraint firstItem="zFA-1A-LKZ" firstAttribute="top" secondItem="BiK-PQ-bfT" secondAttribute="top" constant="16" id="q6G-dm-cnb"/>
-                            <constraint firstItem="gEY-2H-xeP" firstAttribute="centerY" secondItem="ALz-dL-Qcc" secondAttribute="centerY" id="qMe-Zv-CcW"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="BiK-PQ-bfT"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="k2z-Zc-V3C"/>
-                    <connections>
-                        <outlet property="linkLabel" destination="gEY-2H-xeP" id="UhG-HE-ZJA"/>
-                        <outlet property="searchBar" destination="zFA-1A-LKZ" id="UYj-2j-zV7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fL8-sx-6S6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4143" y="695"/>
         </scene>
         <!--New Product Views Controller-->
         <scene sceneID="dXs-Fz-rsb">
@@ -217,9 +118,6 @@
         </namedColor>
         <namedColor name="light">
             <color red="0.98431372549019602" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="link">
-            <color red="0.12549019607843137" green="0.63529411764705879" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primary">
             <color red="0.95686274509803926" green="0.49019607843137253" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
