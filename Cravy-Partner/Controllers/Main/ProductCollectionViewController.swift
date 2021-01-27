@@ -92,6 +92,17 @@ class ProductCollectionViewController: UICollectionViewController {
             cell.addInteractable(.post) { (popVC) in
                 //Notifies so as to dismiss any first responders.
                 self.presentationDelegate?.willPresent(popVC, data: nil)
+                let loaderVC = LoaderViewController()
+                popVC.action = {
+                    //TODO
+                    self.present(loaderVC, animated: true) {
+                        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                            loaderVC.stopLoader {
+                                print("posted!")
+                            }
+                        }
+                    }
+                }
                 self.present(popVC, animated: true)
             }
         }

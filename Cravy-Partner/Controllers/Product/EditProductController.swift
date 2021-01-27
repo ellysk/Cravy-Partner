@@ -13,6 +13,7 @@ class EditProductController: UIViewController {
     var saveItem: UIBarButtonItem {
         return navigationItem.rightBarButtonItem!
     }
+    let productEditView: ProductEditView = Bundle.main.loadNibNamed(K.Identifier.NibName.productEditView, owner: nil, options: nil)?.first as! ProductEditView
     var imageView: RoundImageView {
         return productEditView.imageView
     }
@@ -37,7 +38,6 @@ class EditProductController: UIViewController {
     var deleteButton: UIButton {
         return productEditView.deleteButton
     }
-    let productEditView: ProductEditView = Bundle.main.loadNibNamed(K.Identifier.NibName.productEditView, owner: nil, options: nil)?.first as! ProductEditView
     private var productImage: UIImage {
         set {
             imageView.image = newValue

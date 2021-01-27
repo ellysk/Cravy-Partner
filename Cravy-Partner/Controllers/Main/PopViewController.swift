@@ -13,8 +13,10 @@ import Lottie
 class PopViewController: UIViewController {
     private var popView: PopView
     private var animationView: AnimationView?
-    private var action: (()->())?
-    private var dismiss: (()->())?
+    /// A function triggered when the user taps on the button presented by this controller.
+    var action: (()->())?
+    /// A function triggered when the controller has been dismissed.
+    var dismiss: (()->())?
     var loopMode: LottieLoopMode = .loop
     
     /// - Parameters:

@@ -92,8 +92,8 @@ extension BusinessController: CravyWebViewControllerDelegate {
     }
 }
 
-//MARK: - UITableView DataSource, CraveCollectionTableCell Delegate
-extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDelegate {
+//MARK: - UITableView DataSource
+extension BusinessController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return K.Collections.businessSectionTitles.count
     }
@@ -141,10 +141,6 @@ extension BusinessController: UITableViewDataSource, CraveCollectionTableCellDel
             return galleryCell
         }
     }
-    
-    func willPresent(popViewController: PopViewController) {
-        self.present(popViewController, animated: true)
-    }
 }
 
 //MARK: - UITableView Delegate
@@ -170,6 +166,24 @@ extension BusinessController: UITableViewDelegate {
         } else {
             return UITableView.automaticDimension
         }
+    }
+}
+
+//MARK: - CraveCollectionTableCell Delegate
+extension BusinessController: CraveCollectionTableCellDelegate {
+    func willPresent(popViewController: PopViewController) {
+        popViewController.action = {
+            //TODO
+            let loaderVC = LoaderViewController()
+            self.present(loaderVC, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                    loaderVC.stopLoader {
+                        print("posted!")
+                    }
+                }
+            }
+        }
+        self.present(popViewController, animated: true)
     }
 }
 
