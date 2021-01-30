@@ -115,6 +115,34 @@ extension UIView {
             return self.backgroundColor == .clear
         }
     }
+    var emptyView: EmptyView? {
+        return self.subviews.first { (subview) -> Bool in
+            return subview.tag == K.ViewTag.EMPTY_VIEW
+        } as? EmptyView
+    }
+    var isEmptyView: Bool {
+        set {
+            emptyView?.isHidden = !newValue
+            if newValue {
+                if emptyView == nil {
+                    let ev = Bundle.main.loadNibNamed(K.Identifier.NibName.emptyView, owner: nil, options: nil)?.first as! EmptyView
+                    ev.tag = K.ViewTag.EMPTY_VIEW
+                    ev.createButton.castShadow = true
+                    self.addSubview(ev)
+                    ev.translatesAutoresizingMaskIntoConstraints = false
+                    ev.VHConstraint(to: self)
+                }
+            }
+        }
+        
+        get {
+            if let emptyView = emptyView {
+                return !emptyView.isHidden
+            } else {
+                return false
+            }
+        }
+    }
     static var bottomCornerMask: CACornerMask {
         return [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
@@ -531,6 +559,13 @@ extension UIViewController {
                     saveImage(album)
                 }
             }
+        }
+    }
+    
+    func startLoader(for task: @escaping (LoaderViewController)->()) {
+        let loaderVC = LoaderViewController()
+        self.present(loaderVC, animated: true) {
+            task(loaderVC)
         }
     }
     

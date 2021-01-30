@@ -140,7 +140,7 @@ class CravySearchBar: UIView, UITextFieldDelegate {
         
         alertController.pruneNegativeWidthConstraints()
         
-        self.presentationDelegate?.willPresent(alertController, data: nil)
+        self.presentationDelegate?.presentation(alertController, data: nil)
     }
     
     @objc private func cancel() {

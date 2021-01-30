@@ -107,6 +107,8 @@ struct K {
         static let saveChangesSuccessTitle = "Changes have been saved"
         static let newProductTitle = "Congrats on the new added product!"
         static let newProductMessage = "Put your product on the market so as to attract customers to your business. You can do so by wakening up the sleeping fox with a simple touch."
+        static let emptyProductsTitle = "You do not have any products to display."
+        static let emptyGalleryTitle = "The kitchen is empty."
     }
     
     //MARK:- Identifier
@@ -137,8 +139,6 @@ struct K {
             static let galleryCell = "galleryCell"
             /// A reusable identifier for the ImageCollectionTableCell
             static let imageCell = "imageCell"
-            /// A resuable identifier for the CraveCollectionTableCell
-            static let craveCell = "craveCell"
             /// A reusable identifier for the BasicTableCell
             static let basicCell = "basicCell"
             /// A reusable identifier for the ToggleTableCell
@@ -164,6 +164,8 @@ struct K {
             static let businessToSettings = "BusinessToSettings"
             static let settingsToAccount = "SettingsToAccount"
             static let settingsToSettingsTable = "SettingsToSettingsTable"
+            static let toGalleryTableVC = "toGalleryTableVC"
+            static let toPRCollectionVC = "toPRCollectionVC"
         }
         
         //MARK:- StoryboardID
@@ -186,6 +188,7 @@ struct K {
             static let textInputController = "TextInputController"
             static let tagsInputController = "TagsInputController"
             static let linkInputController = "LinkInputController"
+            static let emptyView = "EmptyView"
         }
     }
     
@@ -250,6 +253,8 @@ struct K {
         static let IMAGE_COLLECTION_VIEW: Int = 77
         /// Returns a tag value of 88
         static let CRAVE_COLLECTION_VIEW: Int = 88
+        /// Returns a tag value of 99
+        static let EMPTY_VIEW: Int = 99
     }
     
     //MARK:- Image

@@ -39,7 +39,7 @@ class AlbumController: UIViewController {
 
 //MARK:- Presentation Delegate
 extension AlbumController: PresentationDelegate {
-    func willPresent(_ viewController: UIViewController?, data: Any?) {
+    func presentation(_ viewController: UIViewController.Type, data: Any?) {
         self.view.isUserInteractionEnabled = false //avoid user interacting with other views when preparing to perform segue
         guard let data = data, let image = data as? UIImage else {return}
         if isUserEditingProduct {
@@ -52,4 +52,6 @@ extension AlbumController: PresentationDelegate {
         }
         self.view.isUserInteractionEnabled = true
     }
+    
+    func presentation(_ viewController: UIViewController, data: Any?) {}
 }

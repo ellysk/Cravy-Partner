@@ -55,14 +55,21 @@ extension MyProductsController: ScrollViewDelegate {
 
 //MARK:- Presentation Delegate
 extension MyProductsController: PresentationDelegate {
-    func willPresent(_ viewController: UIViewController?, data: Any?) {
-         self.dismissKeyboard()
+    func presentation(_ viewController: UIViewController, data: Any?) {
+        self.dismissKeyboard()
         if let alertController = viewController as? UIAlertController {
             self.present(alertController, animated: true)
-        } else {
+        }
+    }
+    
+    func presentation(_ viewController: UIViewController.Type, data: Any?) {
+        if viewController == ProductController.self {
             guard let data = data, let product = data as? String else {return}
             selectedProduct = product
             self.performSegue(withIdentifier: K.Identifier.Segue.myProductsToProduct, sender: self)
+        } else if viewController == CravyTabBarController.self {
+            guard let tab = self.tabBarController as? CravyTabBarController else {return}
+            tab.selectedIndex = 1
         }
     }
 }

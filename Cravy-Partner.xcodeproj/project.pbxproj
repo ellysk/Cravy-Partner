@@ -9,10 +9,7 @@
 /* Begin PBXBuildFile section */
 		0FF39B370194015FAA539722 /* Pods_Cravy_Partner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B959F1B9C04B45B46A6E58A /* Pods_Cravy_Partner.framework */; };
 		14AB48C4DE7A4D0B95FEC08F /* Pods_Cravy_PartnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A869FCE7609881B8424AB01B /* Pods_Cravy_PartnerTests.framework */; };
-		2B060A282586CF5100F59CB5 /* ImageCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A262586CF5100F59CB5 /* ImageCollectionTableCell.swift */; };
-		2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */; };
-		2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */; };
-		2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */; };
+		2B01E6AA25C5C53C0067C6EF /* congrats.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B01E6A925C5C53C0067C6EF /* congrats.json */; };
 		2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicTableCell.swift */; };
 		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
 		2B1BD66125BEFFD200DA0C63 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B1BD66025BEFFD200DA0C63 /* loader.json */; };
@@ -95,6 +92,10 @@
 		2BC0C6A42578FF24004BA3CA /* TagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */; };
 		2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */; };
 		2BC7378D25A799B2005D7853 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7378C25A799B2005D7853 /* ImageViewController.swift */; };
+		2BCF7FE725C235F9005629C9 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BCF7FE625C235F9005629C9 /* EmptyView.xib */; };
+		2BCF7FE925C238C3005629C9 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF7FE825C238C3005629C9 /* EmptyView.swift */; };
+		2BCF7FEB25C45F98005629C9 /* PRCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF7FEA25C45F98005629C9 /* PRCollectionViewController.swift */; };
+		2BCF7FED25C4690D005629C9 /* GalleryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF7FEC25C4690D005629C9 /* GalleryTableViewController.swift */; };
 		2BE371BE2580EEC700B38D30 /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE371BC2580EEC700B38D30 /* ImageCollectionCell.swift */; };
 		2BE371BF2580EEC700B38D30 /* ImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */; };
 		2BEBCE64257D34B300B11C66 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEBCE63257D34B300B11C66 /* BusinessView.swift */; };
@@ -130,10 +131,7 @@
 /* Begin PBXFileReference section */
 		07AD9DE0F70648D7482D0723 /* Pods-Cravy-PartnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cravy-PartnerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Cravy-PartnerUITests/Pods-Cravy-PartnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		28A403A3999D88A5ABD71A3A /* Pods_Cravy_PartnerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cravy_PartnerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B060A262586CF5100F59CB5 /* ImageCollectionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionTableCell.swift; sourceTree = "<group>"; };
-		2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionTableCell.xib; sourceTree = "<group>"; };
-		2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveCollectionTableCell.swift; sourceTree = "<group>"; };
-		2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CraveCollectionTableCell.xib; sourceTree = "<group>"; };
+		2B01E6A925C5C53C0067C6EF /* congrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = congrats.json; sourceTree = "<group>"; };
 		2B060A30258809E000F59CB5 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
 		2B1BD66025BEFFD200DA0C63 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
@@ -222,6 +220,10 @@
 		2BC0C6A22578FF24004BA3CA /* TagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionCell.swift; sourceTree = "<group>"; };
 		2BC0C6A32578FF24004BA3CA /* TagCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionCell.xib; sourceTree = "<group>"; };
 		2BC7378C25A799B2005D7853 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		2BCF7FE625C235F9005629C9 /* EmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
+		2BCF7FE825C238C3005629C9 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		2BCF7FEA25C45F98005629C9 /* PRCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRCollectionViewController.swift; sourceTree = "<group>"; };
+		2BCF7FEC25C4690D005629C9 /* GalleryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTableViewController.swift; sourceTree = "<group>"; };
 		2BE371BC2580EEC700B38D30 /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		2BE371BD2580EEC700B38D30 /* ImageCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionCell.xib; sourceTree = "<group>"; };
 		2BEBCE63257D34B300B11C66 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
@@ -288,6 +290,8 @@
 				2B267EE925A2011D00478726 /* ProductsPageController.swift */,
 				2BC7378C25A799B2005D7853 /* ImageViewController.swift */,
 				2B1BD66225BF0B0400DA0C63 /* LoaderViewController.swift */,
+				2BCF7FEA25C45F98005629C9 /* PRCollectionViewController.swift */,
+				2BCF7FEC25C4690D005629C9 /* GalleryTableViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -370,10 +374,6 @@
 			children = (
 				2B7315DC2583891D00E9A198 /* GalleryTableCell.swift */,
 				2B7315DD2583891D00E9A198 /* GalleryTableCell.xib */,
-				2B060A262586CF5100F59CB5 /* ImageCollectionTableCell.swift */,
-				2B060A272586CF5100F59CB5 /* ImageCollectionTableCell.xib */,
-				2B060A2A2586D1F300F59CB5 /* CraveCollectionTableCell.swift */,
-				2B060A2B2586D1F300F59CB5 /* CraveCollectionTableCell.xib */,
 				2B060A30258809E000F59CB5 /* BasicTableCell.swift */,
 				2B060A31258809E000F59CB5 /* BasicTableCell.xib */,
 				2B62D9862588FC2A00C7E948 /* ToggleTableCell.swift */,
@@ -423,6 +423,7 @@
 				2B89AAD725A495EE00F65F16 /* inactive.json */,
 				2BB7FE7825B9EE2700900495 /* comingsoon.json */,
 				2B1BD66025BEFFD200DA0C63 /* loader.json */,
+				2B01E6A925C5C53C0067C6EF /* congrats.json */,
 			);
 			path = "Cravy-Partner";
 			sourceTree = "<group>";
@@ -489,8 +490,6 @@
 				2B823DC9259D112F0040E860 /* PopView.swift */,
 				2B823DD125A007880040E860 /* CravyWebView.swift */,
 				2BB7FE7625B9CAC100900495 /* ProductEditView.swift */,
-				2B21265525BE61B600B5F023 /* UzumakiView.swift */,
-				2B21265B25BE6E1000B5F023 /* UchihaView.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -501,7 +500,9 @@
 				2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */,
 				2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */,
 				2BB7FE7225B9C6C700900495 /* ProductEditView.xib */,
+				2B21265525BE61B600B5F023 /* UzumakiView.swift */,
 				2B21265325BE5E1F00B5F023 /* UzumakiView.xib */,
+				2B21265B25BE6E1000B5F023 /* UchihaView.swift */,
 				2B21265925BE6C9100B5F023 /* UchihaView.xib */,
 				2B5071C025C0593500F9715F /* TextInputController.swift */,
 				2B5071C125C0593500F9715F /* TextInputController.xib */,
@@ -509,6 +510,8 @@
 				2B5071C525C05ED800F9715F /* TagsInputController.xib */,
 				2B5071C825C063F800F9715F /* LinkInputController.swift */,
 				2B5071C925C063F800F9715F /* LinkInputController.xib */,
+				2BCF7FE625C235F9005629C9 /* EmptyView.xib */,
+				2BCF7FE825C238C3005629C9 /* EmptyView.swift */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				2B21265A25BE6C9100B5F023 /* UchihaView.xib in Resources */,
 				2B61BE42258E653700545E59 /* WidgetCollectionCell.xib in Resources */,
 				2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */,
+				2BCF7FE725C235F9005629C9 /* EmptyView.xib in Resources */,
 				2BC0C6A52578FF24004BA3CA /* TagCollectionCell.xib in Resources */,
 				2BB7FE7325B9C6C700900495 /* ProductEditView.xib in Resources */,
 				2BB7FE6E25B9B61700900495 /* CravyWebKitViewController.xib in Resources */,
@@ -661,9 +665,9 @@
 				2BFC750D25977AB4009A35AE /* AlbumCollectionCell.xib in Resources */,
 				2B267EE125A1D74900478726 /* Album.storyboard in Resources */,
 				2B99FF8C257430A0008302FA /* LaunchScreen.storyboard in Resources */,
+				2B01E6AA25C5C53C0067C6EF /* congrats.json in Resources */,
 				2B7315DF2583891D00E9A198 /* GalleryTableCell.xib in Resources */,
 				2B823DC6259CD0E10040E860 /* NewCollectionCell.xib in Resources */,
-				2B060A2D2586D1F300F59CB5 /* CraveCollectionTableCell.xib in Resources */,
 				2B99FF89257430A0008302FA /* Assets.xcassets in Resources */,
 				2B5071C325C0593500F9715F /* TextInputController.xib in Resources */,
 				2B61BE772593ADED00545E59 /* focus.json in Resources */,
@@ -675,7 +679,6 @@
 				2B5071CB25C063F900F9715F /* LinkInputController.xib in Resources */,
 				2B1BD66125BEFFD200DA0C63 /* loader.json in Resources */,
 				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
-				2B060A292586CF5100F59CB5 /* ImageCollectionTableCell.xib in Resources */,
 				2B21265425BE5E1F00B5F023 /* UzumakiView.xib in Resources */,
 				2B267EEC25A2212900478726 /* promote.json in Resources */,
 				2B61BE482590D56400545E59 /* Settings.storyboard in Resources */,
@@ -805,14 +808,15 @@
 				2BB7FE7725B9CAC100900495 /* ProductEditView.swift in Sources */,
 				2B5071C225C0593500F9715F /* TextInputController.swift in Sources */,
 				2B823DC5259CD0E10040E860 /* NewCollectionCell.swift in Sources */,
-				2B060A282586CF5100F59CB5 /* ImageCollectionTableCell.swift in Sources */,
+				2BCF7FED25C4690D005629C9 /* GalleryTableViewController.swift in Sources */,
 				2B61BE41258E653700545E59 /* WidgetCollectionCell.swift in Sources */,
-				2B060A2C2586D1F300F59CB5 /* CraveCollectionTableCell.swift in Sources */,
 				2BFC750C25977AB4009A35AE /* AlbumCollectionCell.swift in Sources */,
+				2BCF7FE925C238C3005629C9 /* EmptyView.swift in Sources */,
 				2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */,
 				2B99FFB425745277008302FA /* CustomButton.swift in Sources */,
 				2BC7378D25A799B2005D7853 /* ImageViewController.swift in Sources */,
 				2B7DF490258A1C0700AA1337 /* IntroPageController.swift in Sources */,
+				2BCF7FEB25C45F98005629C9 /* PRCollectionViewController.swift in Sources */,
 				2B99FFB2257441B2008302FA /* Extensions.swift in Sources */,
 				2BB7FE6D25B9B61700900495 /* CravyWebKitViewController.swift in Sources */,
 				2B99FFC125751AEE008302FA /* CravyToolBar.swift in Sources */,

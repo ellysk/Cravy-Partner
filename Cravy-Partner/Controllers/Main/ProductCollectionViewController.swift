@@ -20,9 +20,10 @@ protocol ScrollViewDelegate {
 }
 
 protocol PresentationDelegate {
-    /// Notifies that a view controller will be presented.
+    /// Notifies that a view controller wth the provided data can be presented.
     /// - Parameter viewController: The view controller presented.
-    func willPresent(_ viewController: UIViewController?, data: Any?)
+    func presentation(_ viewController: UIViewController.Type, data: Any?)
+    func presentation(_ viewController: UIViewController, data: Any?)
 }
 
 /// Handles the display of the products that the user has created.
@@ -59,10 +60,18 @@ class ProductCollectionViewController: UICollectionViewController {
     
     func loadCraves() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.craves = ["1", "2", "3", "4", "5"]
+            self.craves = []
             self.isLoadingCraves = false
             self.collectionView.reloadData()
+            self.view.isEmptyView = self.craves.isEmpty
+            self.view.emptyView?.createButton.addTarget(self, action: #selector(self.startCreating(_:)), for: .touchUpInside)
+            self.view.emptyView?.title = K.UIConstant.emptyProductsTitle
         }
+    }
+    
+    @objc func startCreating(_ sender: RoundButton) {
+        sender.pulse()
+        self.presentationDelegate?.presentation(CravyTabBarController.self, data: nil)
     }
     
     //MARK:- UICollectionView DataSource
@@ -85,13 +94,14 @@ class ProductCollectionViewController: UICollectionViewController {
             let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation) {
                 //TODO
             }
-            self.presentationDelegate?.willPresent(popVC, data: nil)
+            //Notifies so as to dismiss any first responders.
+            self.presentationDelegate?.presentation(PopViewController.self, data: nil)
             self.present(popVC, animated: true)
         }
         if state == .inActive {
             cell.addInteractable(.post) { (popVC) in
                 //Notifies so as to dismiss any first responders.
-                self.presentationDelegate?.willPresent(popVC, data: nil)
+                self.presentationDelegate?.presentation(PopViewController.self, data: nil)
                 let loaderVC = LoaderViewController()
                 popVC.action = {
                     //TODO
@@ -111,7 +121,7 @@ class ProductCollectionViewController: UICollectionViewController {
     
     //MARK:- UICollectionView Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presentationDelegate?.willPresent(nil, data: "Chicken wings")
+        self.presentationDelegate?.presentation(ProductController.self, data: "Chicken wings")
     }
     
     //MARK:- UIScrollView Delegate

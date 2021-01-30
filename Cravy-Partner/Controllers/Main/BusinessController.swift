@@ -13,32 +13,29 @@ import Lottie
 class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
-    @IBOutlet weak var businessTableView: UITableView!
+    @IBOutlet weak var imageCollectionView: ImageCollectionView!
+    @IBOutlet weak var PRCollectionViewContainer: UIView!
+    @IBOutlet weak var galleryTableViewContainer: UIView!
+    var PRCollectionVC: PRCollectionViewController!
     var businessInfo: [String:Any] = [:] //TODO
-    var savedLayouts: [GALLERY_LAYOUT] = [.uzumaki, .uchiha, .uzumaki, .uchiha, .uzumaki] //TODO
-    var isLoadingKitchen: Bool = true
-    var kitchen: [UIImage]?
-    private let kitchenDummyCount: Int = 1
-    var kitchenCount: Int {
-        if isLoadingKitchen {
-            return kitchen?.chunked(into: 5).count ?? 0 + kitchenDummyCount
-        } else {
-            return kitchen?.chunked(into: 5).count ?? 0
-        }
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadBusinessInfo()
-        loadKitchen()
         // Do any additional setup after loading the view.
         businessView.delegate = self
         self.view.setCravyGradientBackground()
         self.setFloaterViewWith(image: K.Image.ellipsisCricleFill, title: K.UIConstant.settings)
         self.floaterView?.delegate = self
-        businessTableView.register(ImageCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.imageCell)
-        businessTableView.register(CraveCollectionTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.craveCell)
-        businessTableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
+        imageCollectionView.register(ImageCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.imageCell)
+        imageCollectionView.register(BasicReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifier.CollectionViewCell.ReusableView.basicView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        imageCollectionView.heightAnchor(of: UICollectionViewFlowLayout.imageCollectionViewFlowLayout.itemSize.height)
+        PRCollectionViewContainer.heightAnchor(of: UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout.itemSize.height)
     }
     
     private func loadBusinessInfo() {
@@ -57,17 +54,15 @@ class BusinessController: UIViewController {
         }
     }
     
-    private func loadKitchen() {
-        //TODO
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.isLoadingKitchen = false
-            self.kitchen = Array(repeating: UIImage(named: "bgimage")!, count: 5)
-            self.businessTableView.reloadSections(IndexSet(integer: 2), with: .none)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.Identifier.Segue.businessToProduct {
+        if segue.identifier == K.Identifier.Segue.toPRCollectionVC {
+            let PRCollectionVC = segue.destination as! PRCollectionViewController
+            PRCollectionVC.delegate = self
+            self.PRCollectionVC = PRCollectionVC
+        } else if segue.identifier == K.Identifier.Segue.toGalleryTableVC {
+            let galleryTableVC = segue.destination as! GalleryTableViewController
+            galleryTableVC.layoutDelegate = self
+        } else if segue.identifier == K.Identifier.Segue.businessToProduct {
             let productVC = segue.destination as! ProductController
             productVC.productTitle = "Chicken wings"
         }
@@ -92,136 +87,65 @@ extension BusinessController: CravyWebViewControllerDelegate {
     }
 }
 
-//MARK: - UITableView DataSource
-extension BusinessController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return K.Collections.businessSectionTitles.count
+//MARK: - UICollectionView DataSource
+extension BusinessController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return K.Collections.businessStandoutImages.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 2 {
-            return kitchenCount
-        } else {
-            return 1
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            //IMAGE CELL
-            let imageCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.imageCell, for: indexPath) as! ImageCollectionTableCell
-            imageCell.setImageCollectionTableCell(images: K.Collections.businessStandoutImages)
-            imageCell.delegate = self
-            
-            return imageCell
-        } else if indexPath.section == 1 {
-            //CRAVE CELL
-            let craveCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.craveCell, for: indexPath) as! CraveCollectionTableCell
-            craveCell.setCraveCollectionTableCell()
-            craveCell.delegate = self
-            craveCell.collectionViewDelegate = self
-            
-            return craveCell
-        } else {
-            //GALLERY CELL
-            let galleryCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
-            if isLoadingKitchen && indexPath.row >= kitchen?.count ?? 0 {
-                galleryCell.setGalleryTableCell()
-                galleryCell.startLoadingAnimation()
-            } else {
-                galleryCell.stopLoadingAnimation()
-                if let myKitchen = kitchen {
-                    galleryCell.setGalleryTableCell(layout: savedLayouts[indexPath.row], images: myKitchen)
-                    galleryCell.tag = indexPath.row
-                    galleryCell.delegate = self
-                } else {
-                    //TODO
-                }
-            }
-            return galleryCell
-        }
-    }
-}
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.imageCell, for: indexPath) as! ImageCollectionCell
+        cell.setImageCollectionCell(image: K.Collections.businessStandoutImages[indexPath.item])
 
-//MARK: - UITableView Delegate
-extension BusinessController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableView.sectionWithTitle(K.Collections.businessSectionTitles[section])
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            let layout = UICollectionViewFlowLayout.imageCollectionViewFlowLayout
-            return layout.itemSize.height
-        } else if indexPath.section == 2 {
-            return 300
-        } else {
-            return UITableView.automaticDimension
-        }
-    }
-}
-
-//MARK: - CraveCollectionTableCell Delegate
-extension BusinessController: CraveCollectionTableCellDelegate {
-    func willPresent(popViewController: PopViewController) {
-        popViewController.action = {
-            //TODO
-            let loaderVC = LoaderViewController()
-            self.present(loaderVC, animated: true) {
-                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                    loaderVC.stopLoader {
-                        print("posted!")
-                    }
-                }
-            }
-        }
-        self.present(popViewController, animated: true)
+        return cell
     }
 }
 
 //MARK: - UICollectionView Delegate
-extension BusinessController: UICollectionViewDelegate {
+extension BusinessController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView.tag == K.ViewTag.IMAGE_COLLECTION_VIEW {
-            //User selected an item in the ImageCollectionTableCell
-            if indexPath.item == 0 {
+        //User selected an item in the ImageCollectionTableCell
+        if indexPath.item == 0 {
+            //TODO
+            //PROMOTE
+        } else if indexPath.item == 1 {
+            //COMING SOON
+            let popV = PopView(title: K.UIConstant.comingSoonTitle, detail: K.UIConstant.comingSoonMessage, actionTitle: K.UIConstant.doIt)
+            let popVC = PopViewController(popView: popV, animationView: AnimationView.comingSoonAnimation, actionHandler: {
                 //TODO
-                //PROMOTE
-            } else if indexPath.item == 1 {
-                //COMING SOON
-                let popV = PopView(title: K.UIConstant.comingSoonTitle, detail: K.UIConstant.comingSoonMessage, actionTitle: K.UIConstant.doIt)
-                let popVC = PopViewController(popView: popV, animationView: AnimationView.comingSoonAnimation, actionHandler: {
-                    //TODO
-                })
-                present(popVC, animated: true)
-            }
-        } else if collectionView.tag == K.ViewTag.CRAVE_COLLECTION_VIEW {
-            //User selected an item in the CraveCollectionTableCell
-            self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)
+            })
+            present(popVC, animated: true)
         }
     }
 }
 
-//MARK: - GalleryTableCell Delegate
-extension BusinessController: GalleryTableCellDelegate {
-    func didTapOnImageAt(indexPath: IndexPath, tappedImage: UIImage) {
-        print("did tap on image at position \(indexPath.row) in row \(indexPath.section)")
-        //TODO
-    }
-}
 
 //MARK: - FloaterView Delegate
 extension BusinessController: FloaterViewDelegate {
     func didTapFloaterButton(_ floaterView: FloaterView) {
         //Go to settings
         self.performSegue(withIdentifier: K.Identifier.Segue.businessToSettings, sender: self)
+    }
+}
+
+//MARK: - Product Delegate
+extension BusinessController: ProductDelegate {
+    func didSelectProduct(_ product: String, at indexPath: IndexPath?) {
+        //User selected a product in the CraveCollectionCell
+        self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)
+    }
+    
+    func didPostProduct(_ product: String, at indexPath: IndexPath?) {
+        guard let path = indexPath else {return}
+        PRCollectionVC.craves.remove(at: path.item)
+        PRCollectionVC.collectionView.deleteItems(at: [path])
+    }
+}
+
+//MARK: - LayoutUpdate Delegate
+extension BusinessController: LayoutUpdateDelegate {
+    func updateLayoutHeight(to height: CGFloat) {
+        galleryTableViewContainer.heightAnchor(of: height)
+        galleryTableViewContainer.setNeedsLayout()
     }
 }

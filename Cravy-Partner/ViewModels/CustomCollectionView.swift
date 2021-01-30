@@ -27,6 +27,28 @@ class CraveCollectionView: UICollectionView {
     }
 }
 
+class HorizontalCraveCollectionView: CraveCollectionView {
+    init() {
+        super.init(scrollDirection: .horizontal)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout, animated: true)
+    }
+}
+
+class VerticalCraveCollectionView: CraveCollectionView {
+    init() {
+        super.init(scrollDirection: .vertical)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.verticalCraveCollectionViewFlowLayout, animated: true)
+    }
+}
+
 /// A collection view responsible for handling TagCollectionCell.
 class TagsCollectionView: UICollectionView {
     
@@ -83,6 +105,7 @@ class AlbumCollectionView: UICollectionView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.albumCollectionViewFlowLayout, animated: true)
     }
     
     /// Registers the AlbumCollectionCell to this CollectionView
@@ -100,6 +123,7 @@ class ImageCollectionView: UICollectionView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.setCollectionViewLayout(UICollectionViewFlowLayout.imageCollectionViewFlowLayout, animated: true)
     }
     
     func register() {

@@ -86,7 +86,7 @@ extension AlbumCollectionViewController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         guard let view = selectedCell else {return}
         cropViewController.dismissAnimatedFrom(self, withCroppedImage: view.imageView?.image, toView: view, toFrame: view.frame, setup: nil) { () -> (Void) in
-            self.presentationDelegate?.willPresent(nil, data: image)
+            self.presentationDelegate?.presentation(NewProductViewsController.self, data: image)
         }
     }
     
