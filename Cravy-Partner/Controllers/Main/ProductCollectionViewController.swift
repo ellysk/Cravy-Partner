@@ -15,17 +15,6 @@ enum PRODUCT_STATE {
     case inActive
 }
 
-protocol ScrollViewDelegate {
-    func didScroll(scrollView: UIScrollView)
-}
-
-protocol PresentationDelegate {
-    /// Notifies that a view controller wth the provided data can be presented.
-    /// - Parameter viewController: The view controller presented.
-    func presentation(_ viewController: UIViewController.Type, data: Any?)
-    func presentation(_ viewController: UIViewController, data: Any?)
-}
-
 /// Handles the display of the products that the user has created.
 class ProductCollectionViewController: UICollectionViewController {
     var craves: [String] = []

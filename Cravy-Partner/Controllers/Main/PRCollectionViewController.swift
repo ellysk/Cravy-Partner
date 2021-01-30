@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol ProductDelegate {
-    func didSelectProduct(_ product: String, at indexPath: IndexPath?)
-    func didPostProduct(_ product: String, at indexPath: IndexPath?)
-}
-
+/// Handles the display of collection of products that require certain actions.
 class PRCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var craves: [String] = []
     var state: PRODUCT_STATE

@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol LinkViewDelegate {
-    func didTapOnLinkView(_ linkView: LinkView)
-}
-
 /// A custom view that portrays a link to the related website.
 class LinkView: UIView {
     private var linkLabel = UILabel()

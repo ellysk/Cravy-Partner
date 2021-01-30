@@ -9,10 +9,6 @@
 import UIKit
 import Lottie
 
-protocol TagsInputDelegate {
-    func didUpdateTags(tags: [String])
-}
-
 /// Handles the display of the tags that the user can select and manage.
 class TagsInputController: NPCollectionViewController, UICollectionViewDelegateFlowLayout {
     var tagsCollectionView: VerticalTagsCollectionView {

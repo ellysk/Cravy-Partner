@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol CravySearchBarDelegate {
-    func didEnquireSearch(_ text: String)
-    func didCancelSearch(_ searchBar: CravySearchBar)
-}
-
 /// A custom search bar view that lets you search and filter data.
 class CravySearchBar: UIView, UITextFieldDelegate {
     private var textField = CravyTextField()

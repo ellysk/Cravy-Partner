@@ -160,11 +160,6 @@ class AccountStackView: UIStackView {
     }
 }
 
-protocol CravyTextDelegate {
-    func textDidChange(on textField: UITextField, newText: String)
-    func textDidChange(on textView: UITextView, newText: String)
-}
-
 //MARK:- TextStackView
 
 /// A vertical stack view that displays a textfield and a textview.

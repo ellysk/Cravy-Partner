@@ -9,10 +9,7 @@
 import UIKit
 import Photos
 
-protocol ImageViewControllerDelegate {
-    func didConfirmImage(_ image: UIImage)
-}
-
+/// Handles the display of an image for confirmation.
 class ImageViewController: UIViewController {
     @IBOutlet weak var imageView: RoundImageView!
     @IBOutlet weak var confirmButton: FloaterView!

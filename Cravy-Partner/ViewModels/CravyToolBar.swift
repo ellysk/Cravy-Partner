@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol CravyToolBarDelegate {
-    func itemSelected(at index: Int)
-}
-
 /// A custom class that acts as a tool bar containing different items that the user can interact with.
 class CravyToolBar: UIView {
     private var toolBarStackView = UIStackView()
@@ -126,4 +122,6 @@ extension CravyToolBar: TransitionDelegate {
     func didTranisitionToViewAt(index: Int, pages: Int) {
         isSelectedItemAt(index: index)
     }
+    
+    func goTo(direction: UIPageViewController.NavigationDirection) {}
 }

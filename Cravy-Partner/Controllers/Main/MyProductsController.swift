@@ -13,7 +13,6 @@ class MyProductsController: UIViewController {
     @IBOutlet weak var searchBar: CravySearchBar!
     @IBOutlet weak var cravyToolBar: CravyToolBar!
     var selectedProduct: String?
-    var delegate: PageViewsTransitionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +43,8 @@ extension MyProductsController: TransitionDelegate {
         self.dismissKeyboard()
         cravyToolBar.isSelectedItemAt(index: index)
     }
+    
+    func goTo(direction: UIPageViewController.NavigationDirection) {}
 }
 
 //MARK:- ScrollView Delegate

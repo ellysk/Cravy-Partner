@@ -8,18 +8,6 @@
 
 import UIKit
 
-protocol TransitionDelegate {
-    /// Called when the page view has successfully transitioned to another view controller(page)
-    /// - Parameters:
-    ///   - index: The index of the current page displayed.
-    ///   - pages: The total number of pages the page view controller is able to display.
-    func didTranisitionToViewAt(index: Int, pages: Int)
-}
-
-protocol CravyPageControllerDelegate {
-    func didFinishLoadingPages(pages: [UIViewController])
-}
-
 /// A custom page controller with pre defined properties and methods for handling a UIPageViewController.
 class CravyPageController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     /// The availabe view controllers that can be displayed.
@@ -28,7 +16,6 @@ class CravyPageController: UIPageViewController, UIPageViewControllerDataSource,
         return self.viewControllers?.first
     }
     var transitionDelegate: TransitionDelegate?
-    var cravyPCDelegate: CravyPageControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +86,9 @@ extension CravyPageController: CravyToolBarDelegate {
 }
 
 //MARK:- PageViewsTransition Delegate
-extension CravyPageController: PageViewsTransitionDelegate {
+extension CravyPageController: TransitionDelegate {
+    func didTranisitionToViewAt(index: Int, pages: Int) {}
+    
     func goTo(direction: UIPageViewController.NavigationDirection) {
         go(direction)
     }

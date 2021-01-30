@@ -9,10 +9,6 @@
 import UIKit
 import NotificationBannerSwift
 
-protocol PageViewsTransitionDelegate {
-    func goTo(direction: UIPageViewController.NavigationDirection)
-}
-
 /// Handles the transitions of the NewsPageController
 class NewProductViewsController: UIViewController {
     @IBOutlet weak var bgImageView: UIImageView!
@@ -25,7 +21,7 @@ class NewProductViewsController: UIViewController {
         return true
     }
     var productInfo: [String:Any]!
-    var transitionDelegate: PageViewsTransitionDelegate?
+    var transitionDelegate: TransitionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,4 +106,6 @@ extension NewProductViewsController: TransitionDelegate {
         nextItem.title =  index < maxPageCount ? K.UIConstant.next : K.UIConstant.create
         nextItem.action = index < maxPageCount ? #selector(navigate(_:)) : #selector(create(_:))
     }
+    
+    func goTo(direction: UIPageViewController.NavigationDirection) {}
 }

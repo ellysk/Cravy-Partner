@@ -22,14 +22,6 @@ enum GALLERY_LAYOUT: Int {
     }
 }
 
-protocol GalleryTableCellDelegate {
-    /// Called when an image in the gallery view has been tapped by the user.
-    /// - Parameters:
-    ///   - indexPath: The index path in which the image is at. the row represents the position in which the image is arranged in the view and the section represents the row of this cell.
-    ///   - tappedImage: The image tapped by the user.
-    func didTapOnImageAt(indexPath: IndexPath, tappedImage: UIImage)
-}
-
 /// Displays a collection of RoundImageViews arranged in mutiple stackviews with a layout that is dynamic.
 class GalleryTableCell: UITableViewCell {
     private var galleryView: GalleryView!

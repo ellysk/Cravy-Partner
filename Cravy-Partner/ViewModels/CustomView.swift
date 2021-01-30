@@ -40,11 +40,6 @@ class RoundView: UIView {
     }
 }
 
-protocol FloaterViewDelegate {
-    /// Use this to get the floater view in which the user has interacted with.
-    func didTapFloaterButton(_ floaterView: FloaterView)
-}
-
 //MARK:- Floater View
 /// Displays a rounded image view and a label.
 class FloaterView: RoundView {

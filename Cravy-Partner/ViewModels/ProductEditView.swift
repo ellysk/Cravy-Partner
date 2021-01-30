@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// An interactable view for editing different product information.
 class ProductEditView: UIScrollView {
     @IBOutlet weak var imageView: RoundImageView!
     @IBOutlet weak var titleTextField: RoundTextField!

@@ -7,13 +7,6 @@
 //
 
 import UIKit
-/// Called to notify that the user has completed the new information about the product.
-protocol ProductInfoDelegate {
-    func didConfirmProductTitle(_ title: String)
-    func didConfirmProductDescription(_ description: String)
-    func didConfirmProductTags(_ tags: [String])
-    func didConfirmProductLink(_ link: String?)
-}
 
 /// Handles the display of view controllers that allow user to input product information.
 class NewProductPageController: CravyPageController {
@@ -30,7 +23,6 @@ class NewProductPageController: CravyPageController {
                 NPCollectionController.productInfoDelegate = productInfoDelegate
             }
         }
-        self.cravyPCDelegate?.didFinishLoadingPages(pages: pages)
         self.setViewControllers([pages[0]], direction: .forward, animated: true)
         
         delegate = self

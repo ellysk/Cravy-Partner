@@ -10,6 +10,7 @@
 		0FF39B370194015FAA539722 /* Pods_Cravy_Partner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B959F1B9C04B45B46A6E58A /* Pods_Cravy_Partner.framework */; };
 		14AB48C4DE7A4D0B95FEC08F /* Pods_Cravy_PartnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A869FCE7609881B8424AB01B /* Pods_Cravy_PartnerTests.framework */; };
 		2B01E6AA25C5C53C0067C6EF /* congrats.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B01E6A925C5C53C0067C6EF /* congrats.json */; };
+		2B01E6AC25C60C110067C6EF /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B01E6AB25C60C110067C6EF /* Protocols.swift */; };
 		2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B060A30258809E000F59CB5 /* BasicTableCell.swift */; };
 		2B060A33258809E000F59CB5 /* BasicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B060A31258809E000F59CB5 /* BasicTableCell.xib */; };
 		2B1BD66125BEFFD200DA0C63 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B1BD66025BEFFD200DA0C63 /* loader.json */; };
@@ -132,6 +133,7 @@
 		07AD9DE0F70648D7482D0723 /* Pods-Cravy-PartnerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cravy-PartnerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Cravy-PartnerUITests/Pods-Cravy-PartnerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		28A403A3999D88A5ABD71A3A /* Pods_Cravy_PartnerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cravy_PartnerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B01E6A925C5C53C0067C6EF /* congrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = congrats.json; sourceTree = "<group>"; };
+		2B01E6AB25C60C110067C6EF /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		2B060A30258809E000F59CB5 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 		2B060A31258809E000F59CB5 /* BasicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicTableCell.xib; sourceTree = "<group>"; };
 		2B1BD66025BEFFD200DA0C63 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				2B99FF812574309E008302FA /* SceneDelegate.swift */,
 				2B99FFB1257441B2008302FA /* Extensions.swift */,
 				2B99FFB52574543A008302FA /* Constants.swift */,
+				2B01E6AB25C60C110067C6EF /* Protocols.swift */,
 				2B99FFB9257457B8008302FA /* ViewModels */,
 				2B99FFB725745795008302FA /* Views */,
 				2B99FFB8257457A8008302FA /* Controllers */,
@@ -827,6 +830,7 @@
 				2B7315DE2583891D00E9A198 /* GalleryTableCell.swift in Sources */,
 				2B7DF496258A99FF00AA1337 /* MyProductsController.swift in Sources */,
 				2BFC75192597BF08009A35AE /* CustomPageController.swift in Sources */,
+				2B01E6AC25C60C110067C6EF /* Protocols.swift in Sources */,
 				2B823DCA259D112F0040E860 /* PopView.swift in Sources */,
 				2B823DD225A007880040E860 /* CravyWebView.swift in Sources */,
 				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,

@@ -8,10 +8,7 @@
 
 import UIKit
 
-protocol LayoutUpdateDelegate {
-    func updateLayoutHeight(to height: CGFloat)
-}
-
+/// Handles the display of collection of images in a GalleryTableCell.
 class GalleryTableViewController: UITableViewController {
     private var kitchen: [UIImage] = []
     var images: [[UIImage]] {

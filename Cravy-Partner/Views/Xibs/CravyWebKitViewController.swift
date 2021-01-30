@@ -9,12 +9,6 @@
 import UIKit
 import WebKit
 
-protocol CravyWebViewControllerDelegate {
-    /// Returns the link of the website the user is currently displaying
-    /// - Parameter url: The url of the website displayed.
-    func didCommitLink(URL: URL)
-}
-
 /// Handles the display of web content
 class CravyWebKitViewController: UIViewController {
     @IBOutlet weak var dismissItem: UIBarButtonItem!
