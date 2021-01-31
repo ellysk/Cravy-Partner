@@ -836,14 +836,24 @@ extension UIAlertController {
         }
     }
     
-    static func takeProductOffMarket(actionHandler: @escaping ()->(), presentationHanler: (UIAlertController)->()) {
+    static func takeProductOffMarket(actionHandler: @escaping ()->(), presentationHandler: (UIAlertController)->()) {
         let alertController  = UIAlertController(title: K.UIConstant.takeProductOffMarket, message: K.UIConstant.takeProductOffMarketMessage, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: K.UIConstant.takeItOff, style: .destructive, handler: { (action) in
             actionHandler()
         }))
         alertController.addAction(UIAlertAction.cancel)
         alertController.pruneNegativeWidthConstraints()
-        presentationHanler(alertController)
+        presentationHandler(alertController)
+    }
+    
+    static func internetConnectionAlert(actionHandler: (()->())?, presentationHandler: (UIAlertController)->()) {
+        let alertController  = UIAlertController(title: K.UIConstant.oops, message: K.UIConstant.internetConnectionAlertMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: K.UIConstant.OK, style: .default, handler: { (action) in
+            actionHandler?()
+        }))
+        alertController.addAction(UIAlertAction.cancel)
+        alertController.pruneNegativeWidthConstraints()
+        presentationHandler(alertController)
     }
 }
 

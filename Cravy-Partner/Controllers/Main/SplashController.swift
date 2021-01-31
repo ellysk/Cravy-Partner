@@ -52,6 +52,33 @@ class SplashController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    private func login() {
+        //TODO
+        self.view.isUserInteractionEnabled = false
+        authStackView.authButton.startAnimation()
+        //Login
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
+            //Get business info
+            let bsnFB = BusinessFireBase()
+            bsnFB.loadBusiness { (business) in
+                if let bsn = business {
+                    let userDefaults = UserDefaults.standard
+                    userDefaults.set(bsn, forKey: bsn.id)
+                    self.authStackView.authButton.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
+                        self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
+                    }
+                } else {
+                    self.authStackView.authButton.stopAnimation(animationStyle: .normal, revertAfterDelay: 0.0) {
+                        UIAlertController.internetConnectionAlert(actionHandler: self.login) { (alertController) in
+                            self.present(alertController, animated: true)
+                        }
+                    }
+                }
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
     @IBAction func getStarted(_ sender: UIButton) {
         splash = .auth
     }
@@ -61,13 +88,7 @@ class SplashController: UIViewController {
         if !authStackView.isFullFields {
             sender.shake()
         } else {
-            //TODO
-            sender.startAnimation()
-            DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-                sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
-                     self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
-                }
-            }
+            login()
         }
     }
     

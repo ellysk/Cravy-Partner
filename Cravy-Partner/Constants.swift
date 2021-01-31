@@ -109,6 +109,7 @@ struct K {
         static let newProductMessage = "Put your product on the market so as to attract customers to your business. You can do so by wakening up the sleeping fox with a simple touch."
         static let emptyProductsTitle = "You do not have any products to display."
         static let emptyGalleryTitle = "The kitchen is empty."
+        static let internetConnectionAlertMessage = "Something went wrong, please check your internet connection."
     }
     
     //MARK:- Identifier
@@ -309,5 +310,7 @@ struct K {
         static let name = "name"
         static let email = "email"
         static let number = "number"
+        static let recommendations = "recommendations"
+        static let subscribers = "subscribers"
     }
 }

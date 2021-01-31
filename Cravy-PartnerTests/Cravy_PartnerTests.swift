@@ -30,5 +30,29 @@ class Cravy_PartnerTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+}
 
+//MARK: - Business Data Tests
+class BusinessTests: XCTestCase {
+    private var businessFB: BusinessFireBase!
+    
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        businessFB = BusinessFireBase()
+    }
+    
+    /// Tests loading all business information
+    func testLoadingBusiness() throws {
+        //Given
+        let promise = self.expectation(description: "business info loaded")
+        var bsn: Business?
+        businessFB.loadBusiness { (business) in
+            //When
+            bsn = business
+            promise.fulfill()
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertNotNil(bsn, bsn.debugDescription)
+    }
 }
