@@ -10,9 +10,9 @@ import UIKit
 import Lottie
 import SkeletonView
 
-enum PRODUCT_STATE {
-    case active
-    case inActive
+enum PRODUCT_STATE: String {
+    case active = "active"
+    case inActive = "inactive"
 }
 
 /// Handles the display of the products that the user has created.

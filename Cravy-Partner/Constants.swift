@@ -110,6 +110,7 @@ struct K {
         static let emptyProductsTitle = "You do not have any products to display."
         static let emptyGalleryTitle = "The kitchen is empty."
         static let internetConnectionAlertMessage = "Something went wrong, please check your internet connection."
+        static let retry = "Retry"
     }
     
     //MARK:- Identifier
@@ -301,7 +302,6 @@ struct K {
     
     //MARK:- Key
     struct Key {
-        //PRODUCT INFO KEYS
         static let image = "image"
         static let title = "title"
         static let description = "description"
@@ -312,5 +312,7 @@ struct K {
         static let number = "number"
         static let recommendations = "recommendations"
         static let subscribers = "subscribers"
+        static let cravings = "cravings"
+        static let state = "state"
     }
 }

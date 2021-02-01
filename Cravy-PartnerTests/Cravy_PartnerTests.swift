@@ -44,7 +44,7 @@ class BusinessTests: XCTestCase {
     /// Tests loading all business information
     func testLoadingBusiness() throws {
         //Given
-        let promise = self.expectation(description: "business info loaded")
+        let promise = self.expectation(description: "business loaded")
         var bsn: Business?
         businessFB.loadBusiness { (business) in
             //When
@@ -54,5 +54,71 @@ class BusinessTests: XCTestCase {
         //Then
         self.wait(for: [promise], timeout: 5)
         XCTAssertNotNil(bsn, bsn.debugDescription)
+    }
+}
+
+//MARK: - Product Data Tests
+class ProductTests: XCTestCase {
+    private var productFB: ProductFirebase!
+    
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        productFB = ProductFirebase()
+    }
+    
+    func testLoadingProduct() throws {
+        //Given
+        let promise = self.expectation(description: "product loaded")
+        var prdct: Product?
+        productFB.loadProduct(id: "eat") { (product, error) in
+            //When
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            } else {
+                prdct = product
+                promise.fulfill()
+            }
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertNotNil(prdct)
+    }
+    
+    func testLoadingMultipleProducts() throws {
+        //Given
+        let promise = self.expectation(description: "products loaded")
+        var prdcts: [Product] = []
+        productFB.loadProducts { (products, error) in
+            //When
+            if let e = error {
+                XCTFail(e.localizedDescription)
+            } else {
+                prdcts = products
+                promise.fulfill()
+            }
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertEqual(prdcts.count, 20)
+    }
+    
+    func testProductLoadPerformance() throws {
+        self.measure {
+            let promise = self.expectation(description: "product loaded")
+            productFB.loadProduct(id: "eat") { (product, error) in
+                promise.fulfill()
+            }
+            self.wait(for: [promise], timeout: 5)
+        }
+    }
+    
+    func testMultipleProductLoadPerformance() throws {
+        self.measure {
+            let promise = self.expectation(description: "products loaded")
+            productFB.loadProducts { (products, error) in
+                promise.fulfill()
+            }
+            self.wait(for: [promise], timeout: 5)
+        }
     }
 }

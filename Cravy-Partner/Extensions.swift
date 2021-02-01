@@ -848,7 +848,7 @@ extension UIAlertController {
     
     static func internetConnectionAlert(actionHandler: (()->())?, presentationHandler: (UIAlertController)->()) {
         let alertController  = UIAlertController(title: K.UIConstant.oops, message: K.UIConstant.internetConnectionAlertMessage, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: K.UIConstant.OK, style: .default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: K.UIConstant.retry, style: .default, handler: { (action) in
             actionHandler?()
         }))
         alertController.addAction(UIAlertAction.cancel)

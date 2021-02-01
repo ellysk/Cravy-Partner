@@ -36,7 +36,7 @@ struct Business {
 //TODO
 /// Structures the required functionality to load business information from the database
 struct BusinessFireBase {
-    let group = DispatchGroup()
+    private let group = DispatchGroup()
     let asyncQueue = DispatchQueue(label: "com.queue.concurrent", qos: .userInitiated, attributes: .concurrent)
     
     /// Loads all the business information availabel.
