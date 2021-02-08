@@ -83,6 +83,7 @@
 		2B99FFC125751AEE008302FA /* CravyToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC025751AEE008302FA /* CravyToolBar.swift */; };
 		2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC6257723D7008302FA /* CustomImageView.swift */; };
 		2B99FFC925772814008302FA /* CraveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC825772814008302FA /* CraveImageView.swift */; };
+		2B9B0E9925C8F24900950D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B0E9825C8F24900950D0C /* GoogleService-Info.plist */; };
 		2BB7FE6D25B9B61700900495 /* CravyWebKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */; };
 		2BB7FE6E25B9B61700900495 /* CravyWebKitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */; };
 		2BB7FE7325B9C6C700900495 /* ProductEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE7225B9C6C700900495 /* ProductEditView.xib */; };
@@ -214,6 +215,7 @@
 		2B99FFC025751AEE008302FA /* CravyToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyToolBar.swift; sourceTree = "<group>"; };
 		2B99FFC6257723D7008302FA /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		2B99FFC825772814008302FA /* CraveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveImageView.swift; sourceTree = "<group>"; };
+		2B9B0E9825C8F24900950D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyWebKitViewController.swift; sourceTree = "<group>"; };
 		2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CravyWebKitViewController.xib; sourceTree = "<group>"; };
 		2BB7FE7225B9C6C700900495 /* ProductEditView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductEditView.xib; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				2B99FFB8257457A8008302FA /* Controllers */,
 				2B99FF88257430A0008302FA /* Assets.xcassets */,
 				2B99FF8D257430A0008302FA /* Info.plist */,
+				2B9B0E9825C8F24900950D0C /* GoogleService-Info.plist */,
 				2B61BE762593ADED00545E59 /* focus.json */,
 				2B823DC7259D01790040E860 /* ingredients.json */,
 				2B267EEB25A2212800478726 /* promote.json */,
@@ -695,6 +698,7 @@
 				2B99FF872574309E008302FA /* Main.storyboard in Resources */,
 				2B5071CB25C063F900F9715F /* LinkInputController.xib in Resources */,
 				2B1BD66125BEFFD200DA0C63 /* loader.json in Resources */,
+				2B9B0E9925C8F24900950D0C /* GoogleService-Info.plist in Resources */,
 				2B77137E258BD33E00C6C9F0 /* Product.storyboard in Resources */,
 				2B21265425BE5E1F00B5F023 /* UzumakiView.xib in Resources */,
 				2B267EEC25A2212900478726 /* promote.json in Resources */,

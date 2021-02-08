@@ -314,5 +314,6 @@ struct K {
         static let subscribers = "subscribers"
         static let cravings = "cravings"
         static let state = "state"
+        static let logo = "logo"
     }
 }

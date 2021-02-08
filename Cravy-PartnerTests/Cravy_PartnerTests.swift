@@ -7,6 +7,9 @@
 //
 
 import XCTest
+import FirebaseFunctions
+import FirebaseStorage
+import PromiseKit
 @testable import Cravy_Partner
 
 class Cravy_PartnerTests: XCTestCase {
@@ -40,20 +43,34 @@ class BusinessTests: XCTestCase {
         try super.setUpWithError()
         businessFB = BusinessFireBase()
     }
-    
+        
     /// Tests loading all business information
     func testLoadingBusiness() throws {
         //Given
-        let promise = self.expectation(description: "business loaded")
-        var bsn: Business?
-        businessFB.loadBusiness { (business) in
+        let promise = self.expectation(description: "business info successfully downloaded")
+        var bsn: Business!
+        firstly {
+            businessFB.promiseloadBusiness()
+        }.done { (business) in
             //When
             bsn = business
             promise.fulfill()
+        }.catch { (error) in
+            XCTFail(error.localizedDescription)
         }
         //Then
         self.wait(for: [promise], timeout: 5)
-        XCTAssertNotNil(bsn, bsn.debugDescription)
+        XCTAssertNotNil(bsn)
+    }
+    
+    func testLoadingBusinessPerformance() throws {
+        self.measure {
+            do {
+                try testLoadingBusiness()
+            } catch {
+                XCTFail(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -63,6 +80,7 @@ class ProductTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
+        Functions.functions().useEmulator(withHost: "localhost", port: 5001)
         productFB = ProductFirebase()
     }
     
