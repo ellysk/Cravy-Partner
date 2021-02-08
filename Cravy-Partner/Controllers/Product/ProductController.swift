@@ -118,11 +118,10 @@ class ProductController: UIViewController {
         horizontalTagsCollectionView.register()
         marketView.addAction {
             if self.marketView.state == .active {
-                UIAlertController.takeProductOffMarket(actionHandler: {
+                let alertController = UIAlertController.takeProductOffMarket(actionHandler: {
                     self.updateProductState(to: .inActive)
-                }) { (alertController) in
-                    self.present(alertController, animated: true)
-                }
+                })
+                self.present(alertController, animated: true)
             } else {
                 let post = PostView(toPost: "Chicken Wings")
                 let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {

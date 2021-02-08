@@ -11,6 +11,7 @@ import Lottie
 import SwiftyCam
 import Photos
 import NotificationBannerSwift
+import FirebaseAuth
 
 /* -------------- UIKIT EXTENSIONS -------------- */
 
@@ -836,24 +837,29 @@ extension UIAlertController {
         }
     }
     
-    static func takeProductOffMarket(actionHandler: @escaping ()->(), presentationHandler: (UIAlertController)->()) {
+    static func takeProductOffMarket(actionHandler: @escaping ()->()) -> UIAlertController {
         let alertController  = UIAlertController(title: K.UIConstant.takeProductOffMarket, message: K.UIConstant.takeProductOffMarketMessage, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: K.UIConstant.takeItOff, style: .destructive, handler: { (action) in
             actionHandler()
         }))
         alertController.addAction(UIAlertAction.cancel)
         alertController.pruneNegativeWidthConstraints()
-        presentationHandler(alertController)
+        return alertController
     }
     
-    static func internetConnectionAlert(actionHandler: (()->())?, presentationHandler: (UIAlertController)->()) {
+    static func internetConnectionAlert(actionHandler: (()->())?) -> UIAlertController {
         let alertController  = UIAlertController(title: K.UIConstant.oops, message: K.UIConstant.internetConnectionAlertMessage, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: K.UIConstant.retry, style: .default, handler: { (action) in
             actionHandler?()
         }))
         alertController.addAction(UIAlertAction.cancel)
-        alertController.pruneNegativeWidthConstraints()
-        presentationHandler(alertController)
+        return alertController
+    }
+    
+    static func errorAlert(message: String) -> UIAlertController {
+        let alertController  = UIAlertController(title: K.UIConstant.oops, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: K.UIConstant.OK, style: .cancel))
+        return alertController
     }
 }
 
@@ -1219,6 +1225,28 @@ extension SwiftyCamViewController {
             PHPhotoLibrary.requestAuthorization { (status) in
                 completionHandler(status == .authorized)
             }
+        }
+    }
+}
+
+//MARK: - AuthErrorCode
+extension AuthErrorCode {
+    var description: String {
+        switch self {
+        case .invalidEmail:
+            return "The email you entered is invalid."
+        case .missingEmail:
+            return "Please provde your email."
+        case .invalidUserToken:
+            return "Sorry, we have to log you out at the moment. Try and sign in again."
+        case .networkError:
+            return "Something went wrong, please check your internet connection."
+        case .userNotFound:
+            return "The email or password provided is incorrect!"
+        case .wrongPassword:
+            return "The password you entered is incorrect!"
+        default:
+            return AuthErrorCode.networkError.description
         }
     }
 }

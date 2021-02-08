@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import PromiseKit
 
 enum SPLASH {
     case intro
@@ -28,6 +30,8 @@ class SplashController: UIViewController {
             noticeLabel.isHidden = newValue == .intro
             
             authStackView.beginResponder = !authStackView.isHidden
+            
+            businessFB = newValue == .auth ? BusinessFireBase() : nil
         }
         
         get {
@@ -38,6 +42,7 @@ class SplashController: UIViewController {
             }
         }
     }
+    var businessFB: BusinessFireBase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,27 +61,36 @@ class SplashController: UIViewController {
         //TODO
         self.view.isUserInteractionEnabled = false
         authStackView.authButton.startAnimation()
-        //Login
-//        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-//            //Get business info
-//            let bsnFB = BusinessFireBase()
-//            bsnFB.loadBusiness { (business) in
-//                if let bsn = business {
-//                    let userDefaults = UserDefaults.standard
-//                    userDefaults.set(bsn, forKey: bsn.id)
-//                    self.authStackView.authButton.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
-//                        self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
-//                    }
-//                } else {
-//                    self.authStackView.authButton.stopAnimation(animationStyle: .normal, revertAfterDelay: 0.0) {
-//                        UIAlertController.internetConnectionAlert(actionHandler: self.login) { (alertController) in
-//                            self.present(alertController, animated: true)
-//                        }
-//                    }
-//                }
-//                self.view.isUserInteractionEnabled = true
-//            }
-//        }
+        
+        let email = authStackView.emailTextField.text!
+        let password = authStackView.passwordTextField.text!
+        
+        firstly {
+            //Login
+            businessFB!.signIn(email: email, password: password)
+        }.then { (result) in
+            //Fetch the business information
+            self.businessFB!.loadBusiness()
+        }.done(on: .main, { (business) in
+            //Cache the business information
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(business.businessInfo!, forKey: business.id)
+            
+            self.authStackView.authButton.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
+                self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
+            }
+        }).ensure {
+            self.view.isUserInteractionEnabled = true
+            self.authStackView.resignFirstResponders()
+        }.catch { (error) in
+            self.authStackView.authButton.stopAnimation(animationStyle: .normal, revertAfterDelay: 0.0) {
+                if let errCode = AuthErrorCode(rawValue: error._code) {
+                    self.present(UIAlertController.errorAlert(message: errCode.description), animated: true)
+                } else {
+                    self.present(UIAlertController.errorAlert(message: AuthErrorCode.networkError.description), animated: true)
+                }
+            }
+        }
     }
     
     @IBAction func getStarted(_ sender: UIButton) {

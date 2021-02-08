@@ -9,6 +9,7 @@
 import XCTest
 import FirebaseFunctions
 import FirebaseStorage
+import FirebaseAuth
 import PromiseKit
 @testable import Cravy_Partner
 
@@ -43,14 +44,38 @@ class BusinessTests: XCTestCase {
         try super.setUpWithError()
         businessFB = BusinessFireBase()
     }
-        
+    
+    func testSigningIn() throws {
+        //Given
+        let promise = self.expectation(description: "User signed in")
+        var rslt: AuthDataResult?
+        firstly {
+            businessFB.signIn(email: "user1@gmail.com", password: "123456789")
+        }.done { (result) in
+            //When
+            print(result.user.email!)
+            print(result.user.uid)
+            rslt = result
+            promise.fulfill()
+        }.catch { (error) in
+            if let e = AuthErrorCode(rawValue: error._code) {
+                XCTFail(e.description)
+            } else {
+                XCTFail(error.localizedDescription)
+            }
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertNotNil(rslt)
+    }
+    
     /// Tests loading all business information
     func testLoadingBusiness() throws {
         //Given
         let promise = self.expectation(description: "business info successfully downloaded")
         var bsn: Business!
         firstly {
-            businessFB.promiseloadBusiness()
+            businessFB.loadBusiness()
         }.done { (business) in
             //When
             bsn = business

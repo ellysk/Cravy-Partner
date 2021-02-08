@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFunctions
 import FirebaseStorage
+import FirebaseAuth
 import PromiseKit
 
 /// Models the necessary information of the user's business.
@@ -28,6 +29,8 @@ class Business: CustomStringConvertible {
     var totalRecommendations: Int
     /// The number of people who have subscribed to this business.
     var totalSubscribers: Int
+    /// All information in this struct embedded in a dictionary. useful for integrating with the database.
+    var businessInfo: [String : Any]?
     
     init(id: String, email: String, name: String, phoneNumber: String, logoURL: String? = nil, logo: Data?=nil, websiteLink: URL?=nil, totalRecommendations: Int=0, totalSubscribers: Int=0) {
         self.id = id
@@ -46,27 +49,39 @@ class Business: CustomStringConvertible {
 /// Structures the required functionality to load business information from the database
 struct BusinessFireBase {
     private let functions = Functions.functions()
+    private let auth = Auth.auth()
     
     init() {
         functions.useEmulator(withHost: "http://localhost", port: 5001)
+        auth.useEmulator(withHost:"localhost", port:9099)
     }
     
-    func promiseloadBusiness() -> Promise<Business> {
-        return firstly {
-            promiseLoadBusinessInfo()
-        }.then { business in
-            self.promiseLoadBusinessLogo(business: business)
+    /// Sign in the user with email and password.
+    func signIn(email: String, password: String) -> Promise<AuthDataResult> {
+        return Promise { (seal) in
+            auth.signIn(withEmail: email, password: password, completion: seal.resolve)
         }
     }
     
-    private func promiseLoadBusinessInfo() -> Promise<Business> {
+    /// Loads all business information
+    /// - Returns: A promise with a resolve of the business struct containing the information loaded from the database,
+    func loadBusiness() -> Promise<Business> {
+        return firstly {
+            loadBusinessInfo()
+        }.then { business in
+            self.loadBusinessLogo(business: business)
+        }
+    }
+    
+    /// Loads all business information except the logo.
+    private func loadBusinessInfo() -> Promise<Business> {
         return Promise { (seal) in
             functions.httpsCallable("getBusiness").call { (result, error) in
                 if let e = error {
                     seal.reject(e)
                 } else if let info = result?.data as? [String : Any] {
-                    let id = "eat"
-                    let email = "eat@restcafe.co.uk"
+                    let id = Auth.auth().currentUser!.uid
+                    let email = Auth.auth().currentUser!.email!
                     let name = info[K.Key.name] as! String
                     let number = info[K.Key.number] as! String
                     let link = info[K.Key.url] as? String
@@ -79,26 +94,34 @@ struct BusinessFireBase {
                         business.websiteLink = URL(string: URLString)
                     }
                     
+                    business.businessInfo = info
+                    
                     seal.fulfill((business))
                 }
             }
         }
     }
     
-    func promiseLoadBusinessLogo(logoURL: String) -> Promise<Data?> {
+    /// Finds and loads the business logo in the specified url if one exists.
+    /// - Parameter logoURL: The location of the image
+    /// - Returns: A promise with a resolve of optional data containing all the necesary information to compose an image.
+    func loadBusinessLogo(logoURL: String) -> Promise<Data?> {
         return Promise { (seal) in
             Storage.storage().reference(forURL: logoURL).getData(maxSize: 1000*1000*1024, completion: seal.resolve)
         }
     }
     
-    private func promiseLoadBusinessLogo(business: Business) -> Promise<Business> {
+    private func loadBusinessLogo(business: Business) -> Promise<Business> {
         return Promise { (seal) in
             if let url = business.logoURL {
                 Storage.storage().reference(forURL: url).getData(maxSize: 1000*1000*1024) { (data, error) in
                     if let e = error {
                         seal.reject(e)
                     } else {
-                        business.logo = data
+                        if let imageData = data {
+                            business.logo = imageData
+                            business.businessInfo?.updateValue(imageData, forKey: K.Key.logo)
+                        }
                         seal.fulfill(business)
                     }
                 }
