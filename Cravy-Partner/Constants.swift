@@ -315,5 +315,7 @@ struct K {
         static let cravings = "cravings"
         static let state = "state"
         static let logo = "logo"
+        static let id = "id"
+        static let productImageURL = "product_image_url"
     }
 }

@@ -78,6 +78,7 @@ class BusinessTests: XCTestCase {
             businessFB.loadBusiness()
         }.done { (business) in
             //When
+            print(business)
             bsn = business
             promise.fulfill()
         }.catch { (error) in
@@ -105,63 +106,45 @@ class ProductTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        Functions.functions().useEmulator(withHost: "localhost", port: 5001)
-        productFB = ProductFirebase()
+        productFB = ProductFirebase(state: .active)
     }
-    
-    func testLoadingProduct() throws {
+        
+    func testLoadingProducts() throws {
         //Given
-        let promise = self.expectation(description: "product loaded")
-        var prdct: Product?
-        productFB.loadProduct(id: "eat") { (product, error) in
-            //When
-            if let e = error {
-                XCTFail(e.localizedDescription)
-            } else {
-                prdct = product
-                promise.fulfill()
-            }
-        }
-        //Then
-        self.wait(for: [promise], timeout: 5)
-        XCTAssertNotNil(prdct)
-    }
-    
-    func testLoadingMultipleProducts() throws {
-        //Given
-        let promise = self.expectation(description: "products loaded")
         var prdcts: [Product] = []
-        productFB.loadProducts { (products, error) in
-            //When
-            if let e = error {
-                XCTFail(e.localizedDescription)
-            } else {
-                prdcts = products
+        let state: PRODUCT_STATE = .active
+        let promise = self.expectation(description: "\(state.description) loaded")
+        promise.expectedFulfillmentCount = 2
+        
+        func load() {
+            firstly {
+                productFB.loadProducts()
+            }.done { (products) in
+                //When
+                print(products)
+                prdcts.append(contentsOf: products)
                 promise.fulfill()
+            }.catch { (error) in
+                XCTFail(error.localizedDescription)
             }
         }
-        //Then
+        
+        load()
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+            load()
+        }
+        
         self.wait(for: [promise], timeout: 5)
-        XCTAssertEqual(prdcts.count, 20)
+        XCTAssertEqual(prdcts.count, 2)
     }
-    
-    func testProductLoadPerformance() throws {
+  
+    func testLoadingProductsPerformance() throws {
         self.measure {
-            let promise = self.expectation(description: "product loaded")
-            productFB.loadProduct(id: "eat") { (product, error) in
-                promise.fulfill()
+            do {
+                try testLoadingProducts()
+            } catch {
+                XCTFail(error.localizedDescription)
             }
-            self.wait(for: [promise], timeout: 5)
-        }
-    }
-    
-    func testMultipleProductLoadPerformance() throws {
-        self.measure {
-            let promise = self.expectation(description: "products loaded")
-            productFB.loadProducts { (products, error) in
-                promise.fulfill()
-            }
-            self.wait(for: [promise], timeout: 5)
         }
     }
 }

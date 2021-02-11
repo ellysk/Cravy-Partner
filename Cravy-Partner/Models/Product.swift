@@ -6,7 +6,10 @@
 //  Copyright © 2021 Cravy. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import FirebaseFunctions
+import FirebaseStorage
+import PromiseKit
 
 /// Models the necessary product information.
 struct Product: Hashable, Equatable {
@@ -23,6 +26,13 @@ struct Product: Hashable, Equatable {
     /// The number of people who are currently in the mood of consuming the product.
     var cravings: Int
     var productLink: URL?
+    var productInfo: [String : Any] {
+        var info: [String : Any] = [K.Key.id : id, K.Key.image : image, K.Key.title : title, K.Key.description : description, K.Key.tags : tags, K.Key.state : state.rawValue, K.Key.recommendations : recommendations, K.Key.cravings : cravings]
+        if let link = productLink {
+            info.updateValue(link.absoluteString, forKey: K.Key.url)
+        }
+        return info
+    }
     
     init(id: String, image: Data, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil) {
         self.id = id
@@ -35,7 +45,6 @@ struct Product: Hashable, Equatable {
         self.cravings = cravings
         self.productLink = productLink
     }
-    
 }
 
 /// Models the necessary information on the interaction of a specific product with the customers.
@@ -49,115 +58,74 @@ struct Market {
 }
 
 /// Structures required functionality to load product information from the database.
-struct ProductFirebase {
-    /// The maxium number of products to be loaded in one batch.
-    var max: Int = 20
-    let asyncQueue = DispatchQueue(label: "com.queue.concurrent", qos: .userInitiated, attributes: .concurrent)
+class ProductFirebase {
+    private let functions = Functions.functions()
+    private var state: PRODUCT_STATE
+    private var lastData: Any?
+    /// Data sent to the server to determine which state of products are to be loaded and keep track of the last snapshot of the data loaded.
+    var productsCallData: [String : Any] {
+        if let data = lastData {
+            return [K.Key.state : "\(state.description)_products", "last" : data]
+        } else {
+            return [K.Key.state : "\(state.description)_products"]
+        }
+    }
     
-    /// Loads multiple products. The maximum it can load depends on the limit provided.
-    func loadProducts(completion: @escaping ([Product], Error?)->()) {
-        let group = DispatchGroup()
-        let serialQueue = DispatchQueue(label: "com.queue.serial")
-        var products: [Product] = []
-        
-        for _ in 0..<max {
-            group.enter()
-            loadProduct(id: "eat") { (product, error) in
+    init(state: PRODUCT_STATE) {
+        self.state = state
+        functions.useEmulator(withHost: "http://localhost", port: 5001)
+    }
+    
+    /// Loads multiple products of the business. The maximum it can load depends on the limit provided.
+    func loadProducts(limit: Int = 20) -> Promise<[Product]> {
+        var callData = productsCallData
+        callData.updateValue(limit, forKey: "limit")
+        return Promise { (seal) in
+            functions.httpsCallable("getBusinessProducts").call(callData) { (result, error) in
                 if let e = error {
-                    completion(products,e)
-                } else if let prdct = product {
-                    addProduct(prdct)
+                    seal.reject(e)
+                } else if let resultData = result?.data as? [String : Any], let info = resultData["all"] as? [[String : Any]] {
+                    self.lastData = resultData["last"] //Get the date created of the last product loaded from the query.
+                    var productImagePromises: [Promise<Data>] = []
+                    info.forEach { (productInfo) in
+                        guard let downloadURL = productInfo[K.Key.productImageURL] as? String else {return}
+                        productImagePromises.append(self.loadProductImage(downloadURL: downloadURL))
+                    }
+                    firstly {
+                        when(fulfilled: productImagePromises)
+                    }.done { (imageResults) in
+                        var products: [Product] = []
+                        for (i, data) in imageResults.enumerated() {
+                            var productInfo = info[i]
+                            productInfo.updateValue(data, forKey: K.Key.image)
+                            guard let product = self.toProduct(productInfo: productInfo) else {return}
+                            products.append(product)
+                        }
+                        seal.fulfill(products)
+                    }.catch { (error) in
+                        seal.reject(error)
+                    }
+                } else {
+                    //Is empty = true
+                    seal.fulfill([])
                 }
-                group.leave()
             }
-        }
-        
-        /// Serially add the product in to the array. This enables to update the array before the group leaving.
-        func addProduct(_ product: Product) {
-            serialQueue.sync {
-                products.append(product)
-            }
-        }
-        
-        group.notify(queue: .main) {
-            completion(products,nil)
         }
     }
     
-    /// Loads all product information availabel.
-    func loadProduct(id: String, completion: @escaping (Product?, Error?)->()) {
-        var productInfo: [String:Any]?
-        var productTags: [String]?
-        var productImage: Data?
-        
-        let group = DispatchGroup()
-        
-        group.enter()
-        group.enter()
-        group.enter()
-        
-        loadProductInfo(id: id) { (info, error) in
-            if let e = error {
-                completion(nil,e)
-            } else {
-                productInfo = info
-            }
-            group.leave()
-        }
-        
-        loadProductTags(id: id) { (tags, error) in
-            if let e = error {
-                completion(nil,e)
-            } else {
-                productTags = tags
-            }
-            group.leave()
-        }
-        
-        loadProductImage(imageLocale: "product_images/\(id)") { (data, error) in
-            if let e = error {
-                completion(nil,e)
-            } else {
-                productImage = data
-            }
-            group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            guard let info = productInfo, let tags = productTags, let image = productImage else {return}
-            let title = info[K.Key.title] as! String
-            let description = info[K.Key.description] as! String
-            let state: PRODUCT_STATE = PRODUCT_STATE(rawValue: info[K.Key.state] as! String)!
-            let recommendations: Int = info[K.Key.recommendations] as? Int ?? 0
-            let cravings: Int = info[K.Key.cravings] as? Int ?? 0
-            let link = info[K.Key.url] as? URL
-            
-            let product = Product(id: id, image: image, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link)
-            completion(product,nil)
+    private func loadProductImage(downloadURL: String) -> Promise<Data> {
+        return Promise { (seal) in
+            Storage.storage().reference(forURL: downloadURL).getData(maxSize: .MAX_IMAGE_SIZE, completion: seal.resolve)
         }
     }
     
-    /// Loads all product information except the tags and image.
-    func loadProductInfo(id: String, completion: @escaping ([String:Any]?, Error?)->()) {
-        asyncQueue.asyncAfter(deadline: .now()+0.5) {
-            let info: [String:Any] = [K.Key.title:"Chicken wings", K.Key.description:"The best wings in town!", K.Key.state:"active", K.Key.recommendations:1200, K.Key.cravings:1200, K.Key.url:URL(string: "https://dribbble.com/elly_sk/collections/2168834-Profiles")!]
-            completion(info,nil)
-        }
-    }
-    
-    /// Loads the product's tags.
-    func loadProductTags(id: String, completion: @escaping ([String]?, Error?)->()) {
-        asyncQueue.asyncAfter(deadline: .now()+0.5) {
-            let tags = ["Chicken", "Wings", "Street", "Spicy"]
-            completion(tags,nil)
-        }
-    }
-    
-    /// Loads the product's image
-    func loadProductImage(imageLocale: String, completion: @escaping (Data?, Error?)->()) {
-        asyncQueue.asyncAfter(deadline: .now()+1.2) {
-            let data = UIImage(named: "bgimage")?.jpegData(compressionQuality: 1.0)
-            completion(data,nil)
-        }
+    private func toProduct(productInfo: [String : Any]) -> Product? {
+        guard let id = productInfo[K.Key.id] as? String, let image = productInfo[K.Key.image] as? Data, let title = productInfo[K.Key.title] as? String, let description = productInfo[K.Key.description] as? String, let tags = productInfo[K.Key.tags] as? [String], let state = PRODUCT_STATE(rawValue: productInfo[K.Key.state] as! Int) else {return nil}
+        let recommendations: Int = productInfo[K.Key.recommendations] as? Int ?? 0
+        let cravings: Int = productInfo[K.Key.cravings] as? Int ?? 0
+        let link = productInfo[K.Key.url] as? URL
+        
+        let product = Product(id: id, image: image, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link)
+        return product
     }
 }

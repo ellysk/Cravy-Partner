@@ -1104,6 +1104,11 @@ extension Int {
     }
 }
 
+//MARK: - Int64
+extension Int64 {
+    static let MAX_IMAGE_SIZE: Int64 = 1000*1000*1024
+}
+
 //MARK: - Double
 extension Double {
     /// Changes the number to a format that represents a unit provided.

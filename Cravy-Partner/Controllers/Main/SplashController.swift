@@ -74,7 +74,7 @@ class SplashController: UIViewController {
         }.done(on: .main, { (business) in
             //Cache the business information
             let userDefaults = UserDefaults.standard
-            userDefaults.set(business.businessInfo!, forKey: business.id)
+            userDefaults.set(business.businessInfo, forKey: business.id)
             
             self.authStackView.authButton.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
                 self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)

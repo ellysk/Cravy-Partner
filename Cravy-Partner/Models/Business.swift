@@ -30,7 +30,17 @@ class Business: CustomStringConvertible {
     /// The number of people who have subscribed to this business.
     var totalSubscribers: Int
     /// All information in this struct embedded in a dictionary. useful for integrating with the database.
-    var businessInfo: [String : Any]?
+    var businessInfo: [String : Any] {
+        var info: [String : Any] = [K.Key.name : name, K.Key.number : phoneNumber, K.Key.recommendations : totalRecommendations, K.Key.subscribers : totalSubscribers]
+        if let logo = self.logo {
+            info.updateValue(logo, forKey: K.Key.logo)
+        }
+        if let link = websiteLink {
+            info.updateValue(link.absoluteString, forKey: K.Key.url)
+        }
+        
+        return  info
+    }
     
     init(id: String, email: String, name: String, phoneNumber: String, logoURL: String? = nil, logo: Data?=nil, websiteLink: URL?=nil, totalRecommendations: Int=0, totalSubscribers: Int=0) {
         self.id = id
@@ -53,7 +63,7 @@ struct BusinessFireBase {
     
     init() {
         functions.useEmulator(withHost: "http://localhost", port: 5001)
-        auth.useEmulator(withHost:"localhost", port:9099)
+        auth.useEmulator(withHost:"localhost", port: 9099)
     }
     
     /// Sign in the user with email and password.
@@ -94,8 +104,6 @@ struct BusinessFireBase {
                         business.websiteLink = URL(string: URLString)
                     }
                     
-                    business.businessInfo = info
-                    
                     seal.fulfill((business))
                 }
             }
@@ -107,21 +115,18 @@ struct BusinessFireBase {
     /// - Returns: A promise with a resolve of optional data containing all the necesary information to compose an image.
     func loadBusinessLogo(logoURL: String) -> Promise<Data?> {
         return Promise { (seal) in
-            Storage.storage().reference(forURL: logoURL).getData(maxSize: 1000*1000*1024, completion: seal.resolve)
+            Storage.storage().reference(forURL: logoURL).getData(maxSize: .MAX_IMAGE_SIZE, completion: seal.resolve)
         }
     }
     
     private func loadBusinessLogo(business: Business) -> Promise<Business> {
         return Promise { (seal) in
             if let url = business.logoURL {
-                Storage.storage().reference(forURL: url).getData(maxSize: 1000*1000*1024) { (data, error) in
+                Storage.storage().reference(forURL: url).getData(maxSize: .MAX_IMAGE_SIZE) { (data, error) in
                     if let e = error {
                         seal.reject(e)
                     } else {
-                        if let imageData = data {
-                            business.logo = imageData
-                            business.businessInfo?.updateValue(imageData, forKey: K.Key.logo)
-                        }
+                        business.logo = data
                         seal.fulfill(business)
                     }
                 }
