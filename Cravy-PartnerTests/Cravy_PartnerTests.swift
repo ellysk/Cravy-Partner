@@ -165,22 +165,45 @@ class ProductTests: XCTestCase {
     
     func testUpdatingProductStat() throws {
         //Given
-        var writeResult: HTTPSCallableResult?
+        var newState: PRODUCT_STATE?
         let promise = self.expectation(description: "new product stats saved")
         
         firstly {
             productFB.updateMarketStatus(of: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), title: "", description: "", tags: [], state: .inActive))
         }.done { (result) in
             //When
-            print(result.data)
-            writeResult = result
+            newState = PRODUCT_STATE(rawValue: result.data as! Int)
+            print(newState!)
             promise.fulfill()
         }.catch { (error) in
             XCTFail(error.localizedDescription)
         }
         //Then
         self.wait(for: [promise], timeout: 5)
-        XCTAssertNotNil(writeResult)
+        XCTAssertNotNil(newState)
+    }
+    
+    func testSettingPromotion() throws {
+        //Given
+        let id = "a0yf5CoxyHOG1v5bic4m"
+        var isPrmted: Bool = false
+        let promise = self.expectation(description: "promotion of product is set")
+        
+        firstly {
+            productFB.setPromotion(id: id, isPromoted: true)
+        }.done { (result) in
+            //When
+            print(result.data)
+            guard let isPromoted = result.data as? Bool else {return}
+            print(isPromoted)
+            isPrmted = isPromoted
+            promise.fulfill()
+        }.catch { (error) in
+            XCTFail(error.localizedDescription)
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertTrue(isPrmted)
     }
   
     func testLoadingProductsPerformance() throws {

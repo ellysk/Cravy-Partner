@@ -21,6 +21,7 @@ class ProductsPageController: CravyPageController {
             let productCollectionViewController = controller as! ProductCollectionViewController
             productCollectionViewController.scrollDelegate = scrollDelegate
             productCollectionViewController.presentationDelegate = presentationDelegate
+            productCollectionViewController.delegate = self
         }
         self.setViewControllers([pages[0]], direction: .forward, animated: true)
         

@@ -98,9 +98,7 @@ exports.updateProductState = functions.https.onCall(async (data, context) => {
       .collection("products")
       .doc(data.id)
       .update({ state: data.state });
-    return {
-      newstate: data.state,
-    };
+    return data.state;
   } catch (error) {
     console.log(error);
     throw error;
@@ -123,6 +121,27 @@ exports.getMarketStatus = functions.https.onCall(async (data, context) => {
       views: productData.views,
       visits: productData.visits,
     };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+exports.setPromotion = functions.https.onCall(async (data, context) => {
+  try {
+    await admin
+      .firestore()
+      .collection("businesses")
+      .doc(context.auth.uid)
+      .collection("products")
+      .doc(data.id)
+      .update({ is_promoted: data.is_promoted });
+    await admin
+      .firestore()
+      .collection("products")
+      .doc(data.id)
+      .update({ is_promoted: data.is_promoted });
+    return data.is_promoted;
   } catch (error) {
     console.log(error);
     throw error;

@@ -39,6 +39,7 @@ struct Product: Hashable, Equatable {
     /// The number of people who are currently in the mood of consuming the product.
     var cravings: Int
     var productLink: URL?
+    var isPromoted: Bool
     var productInfo: [String : Any] {
         var info: [String : Any] = [K.Key.id : id, K.Key.image : image, K.Key.title : title, K.Key.description : description, K.Key.tags : tags, K.Key.state : state.rawValue, K.Key.recommendations : recommendations, K.Key.cravings : cravings]
         if let link = productLink {
@@ -55,7 +56,7 @@ struct Product: Hashable, Equatable {
         return lhs.id == rhs.id
     }
     
-    init(id: String, date: Date, image: Data, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil) {
+    init(id: String, date: Date, image: Data, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil, isPromoted: Bool = false) {
         self.id = id
         self.date = date
         self.image = image
@@ -66,6 +67,7 @@ struct Product: Hashable, Equatable {
         self.recommendations = recommendations
         self.cravings = cravings
         self.productLink = productLink
+        self.isPromoted = isPromoted
     }
 }
 
@@ -131,6 +133,8 @@ class ProductFirebase {
         }
     }
     
+    /// Loads the relevant market statisitics related to an active product provided.
+    /// - Throws: Bad state error, if the provided product is inactive.
     func loadMarketStatus(product: Product) throws -> Promise<[String : Any]> {
         if product.state ==  .inActive {
             throw ProductError.badStateError
@@ -147,10 +151,20 @@ class ProductFirebase {
         }
     }
     
+    /// Updates the product state on the market depending on it's current state.
     func updateMarketStatus(of product: Product) -> Promise<HTTPSCallableResult> {
         let newState: PRODUCT_STATE = product.state == .active ? .inActive : .active
         return Promise { (seal) in
             functions.httpsCallable("updateProductState").call([K.Key.id : product.id, K.Key.state : newState.rawValue], completion: seal.resolve)
+        }
+    }
+    
+    /// Set the product on the market as promoted or not promoted.
+    /// - Parameters:
+    ///   - isPromoted: True if you would like the product to be promoted otherwise false.
+    func setPromotion(id: String, isPromoted: Bool) -> Promise<HTTPSCallableResult> {
+        return Promise { (seal) in
+            functions.httpsCallable("setPromotion").call([K.Key.id : id, K.Key.isPromoted : isPromoted], completion: seal.resolve)
         }
     }
     
@@ -159,12 +173,13 @@ class ProductFirebase {
         let recommendations: Int = productInfo[K.Key.recommendations] as? Int ?? 0
         let cravings: Int = productInfo[K.Key.cravings] as? Int ?? 0
         let link = productInfo[K.Key.url] as? URL
+        let isPromoted: Bool = productInfo[K.Key.isPromoted] as? Bool ?? false
         
         guard let seconds = dateCreatedInfo["_seconds"], let nanoSeconds = dateCreatedInfo["_nanoseconds"] else {return nil}
         let totalSeconds = seconds + (nanoSeconds / 1000000)
         let dateCreated = Date(timeIntervalSince1970: totalSeconds)
         
-        let product = Product(id: id, date: dateCreated, image: image, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link)
+        let product = Product(id: id, date: dateCreated, image: image, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link, isPromoted: isPromoted)
         return product
     }
 }

@@ -323,5 +323,6 @@ struct K {
         static let searches = "searches"
         static let views = "views"
         static let visits = "visits"
+        static let isPromoted = "is_promoted"
     }
 }

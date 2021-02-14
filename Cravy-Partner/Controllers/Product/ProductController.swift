@@ -109,7 +109,7 @@ class ProductController: UIViewController {
             firstly {
                 self.productFB.updateMarketStatus(of: self.product) //Update product state
             }.done(on: .main) { (result) in
-                guard let data = result.data as? [String : Int], let value = data["newstate"], let newState = PRODUCT_STATE(rawValue: value) else {return}
+                guard let value = result.data as? Int, let newState = PRODUCT_STATE(rawValue: value) else {return}
                 self.productState = newState
                 if newState == .active {
                     self.showStatusBarNotification(title: "\(self.product.title) is \(self.marketView.statTitle!.lowercased())!", style: .success)
