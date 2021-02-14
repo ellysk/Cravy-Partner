@@ -130,16 +130,18 @@ extension BusinessController: FloaterViewDelegate {
 
 //MARK: - Product Delegate
 extension BusinessController: ProductDelegate {
-    func didSelectProduct(_ product: String, at indexPath: IndexPath?) {
+    func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {
         //User selected a product in the CraveCollectionCell
         self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)
     }
     
-    func didPostProduct(_ product: String, at indexPath: IndexPath?) {
+    func didPostProduct(_ product: Product, at indexPath: IndexPath?) {
         guard let path = indexPath else {return}
         PRCollectionVC.craves.remove(at: path.item)
         PRCollectionVC.collectionView.deleteItems(at: [path])
     }
+    
+    func didPullProduct(_ product: Product) {}
 }
 
 //MARK: - LayoutUpdate Delegate

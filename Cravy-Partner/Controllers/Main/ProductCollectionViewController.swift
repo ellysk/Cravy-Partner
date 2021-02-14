@@ -25,10 +25,16 @@ enum PRODUCT_STATE: Int {
     }
 }
 
+enum PRODUCTS_UPDATE {
+    case add
+    case remove
+}
+
 /// Handles the display of the products that the user has created.
 class ProductCollectionViewController: UICollectionViewController {
     private var products: [Product] = [] {
         didSet {
+            reloadEmptyView()
             self.collectionView.reloadData()
         }
     }
@@ -39,6 +45,10 @@ class ProductCollectionViewController: UICollectionViewController {
         }
     }
     private var state: PRODUCT_STATE
+    /// The market state of all the products in the collection.
+    var collectionState: PRODUCT_STATE {
+        return state
+    }
     var scrollDelegate: ScrollViewDelegate?
     var presentationDelegate: PresentationDelegate?
     private let dummyCount: Int = 10
@@ -57,7 +67,12 @@ class ProductCollectionViewController: UICollectionViewController {
             return data.count
         }
     }
-    var productsFB: ProductFirebase!
+    private var productUpdate: PRODUCTS_UPDATE?
+    private var productsFB: ProductFirebase!
+    /// A boolean that determines if the products have been loaded at all.
+    var didInitializeFirstBatch: Bool {
+        return productsFB != nil
+    }
     
     init(state: PRODUCT_STATE) {
         self.state = state
@@ -76,6 +91,19 @@ class ProductCollectionViewController: UICollectionViewController {
         loadCraves()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        switch productUpdate {
+        case .add:
+            sortProductsBy(sort: .normal)
+        case .remove:
+            self.collectionView.reloadData()
+        default:
+            break
+        }
+        productUpdate = nil
+    }
+    
     private func loadCraves() {
         isLoadingProducts = true
         
@@ -85,11 +113,19 @@ class ProductCollectionViewController: UICollectionViewController {
             self.products.append(contentsOf: products)
         }.ensure(on: .main) {
             self.isLoadingProducts = false
+            self.reloadEmptyView()
+        }.catch { (error) in
+            self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadCraves), animated: true)
+        }
+    }
+    
+    private func reloadEmptyView() {
+        if self.view.emptyView == nil {
             self.view.isEmptyView = self.products.isEmpty
             self.view.emptyView?.createButton.addTarget(self, action: #selector(self.startCreating(_:)), for: .touchUpInside)
             self.view.emptyView?.title = K.UIConstant.emptyProductsTitle
-        }.catch { (error) in
-            self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadCraves), animated: true)
+        } else {
+            self.view.isEmptyView = self.products.isEmpty
         }
     }
     
@@ -127,6 +163,19 @@ class ProductCollectionViewController: UICollectionViewController {
                 return aProduct.date > bProduct.date
             })
         }
+    }
+    
+    func add(_ product: Product) {
+        if didInitializeFirstBatch {
+            products.append(product)
+            productUpdate = .add
+        }
+    }
+    
+    func remove(_ product: Product) {
+        guard let index = products.firstIndex(of: product) else {return}
+        products.remove(at: index)
+        productUpdate = .remove
     }
     
     @objc func startCreating(_ sender: RoundButton) {

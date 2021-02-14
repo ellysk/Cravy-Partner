@@ -36,6 +36,7 @@ class ProductController: UIViewController {
     /// Shows a notification banner notifying the user that the product can be put on the market.
     var showFloaterBanner: Bool = false
     var productFB: ProductFirebase!
+    var delegate: ProductDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +117,7 @@ class ProductController: UIViewController {
                 } else if newState == .inActive {
                     self.showStatusBarNotification(title: "\(self.product.title) is \(self.marketView.statTitle!.lowercased())!", style: .danger)
                 }
+                newState == .active ? self.delegate?.didPostProduct(self.product, at: nil) : self.delegate?.didPullProduct(self.product)
             }.ensure(on: .main, {
                 self.marketView.stopLoader()
             }).catch(on: .main) { (error) in

@@ -13,6 +13,7 @@ class MyProductsController: UIViewController {
     @IBOutlet weak var searchBar: CravySearchBar!
     @IBOutlet weak var cravyToolBar: CravyToolBar!
     var selectedProduct: Product?
+    var productsPageController: ProductsPageController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +30,12 @@ class MyProductsController: UIViewController {
             productsPageVC.presentationDelegate = self
             searchBar.delegate = productsPageVC
             cravyToolBar.delegate = productsPageVC
+            self.productsPageController = productsPageVC
         } else if segue.identifier == K.Identifier.Segue.myProductsToProduct {
             guard let selected = selectedProduct else {return}
             let productVC = segue.destination as! ProductController
             productVC.product = selected
+            productVC.delegate = productsPageController
         }
     }
 }

@@ -129,9 +129,11 @@ protocol ImageViewControllerDelegate {
 /// Notifies of interaction with the products displayed
 protocol ProductDelegate {
     /// Called when user has selected the specified product in the located position
-    func didSelectProduct(_ product: String, at indexPath: IndexPath?)
+    func didSelectProduct(_ product: Product, at indexPath: IndexPath?)
     /// Called when user has posted the specified product located in the specified position
-    func didPostProduct(_ product: String, at indexPath: IndexPath?)
+    func didPostProduct(_ product: Product, at indexPath: IndexPath?)
+    /// Called when the user has removed the product off the market
+    func didPullProduct(_ product: Product)
 }
 
 //MARK:- LayoutUpdate Delegate

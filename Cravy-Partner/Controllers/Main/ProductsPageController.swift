@@ -33,6 +33,7 @@ class ProductsPageController: CravyPageController {
     }
 }
 
+//MARK:- CravySearchBar Delegate
 extension ProductsPageController: CravySearchBarDelegate {
     func textDidChange(_ text: String) {
         enquire(text: text)
@@ -54,5 +55,24 @@ extension ProductsPageController: CravySearchBarDelegate {
     private func enquire(text: String?) {
         guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
         productCollectionViewController.searchForProductWith(query: text)
+    }
+}
+
+//MARK:- Product Delegate
+extension ProductsPageController: ProductDelegate {
+    func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {}
+    
+    func didPostProduct(_ product: Product, at indexPath: IndexPath?) {
+        guard let productCollectionViewControllers = pages as? [ProductCollectionViewController] else {return}
+        let (activeProductsVC, inActiveProductsVC) = (productCollectionViewControllers[0], productCollectionViewControllers[1])
+        inActiveProductsVC.remove(product)
+        activeProductsVC.add(product)
+    }
+    
+    func didPullProduct(_ product: Product) {
+        guard let productCollectionViewControllers = pages as? [ProductCollectionViewController] else {return}
+        let (activeProductsVC, inActiveProductsVC) = (productCollectionViewControllers[0], productCollectionViewControllers[1])
+        inActiveProductsVC.add(product)
+        activeProductsVC.remove(product)
     }
 }

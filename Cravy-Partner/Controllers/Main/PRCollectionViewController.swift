@@ -82,7 +82,7 @@ class PRCollectionViewController: UICollectionViewController, UICollectionViewDe
                 self.startLoader { (loaderVC) in
                     DispatchQueue.main.asyncAfter(deadline: .now()+2) {
                         loaderVC.stopLoader {
-                            self.delegate?.didPostProduct(self.craves[indexPath.item], at: indexPath)
+//                            self.delegate?.didPostProduct(self.craves[indexPath.item], at: indexPath)
                         }
                     }
                 }
@@ -94,6 +94,6 @@ class PRCollectionViewController: UICollectionViewController, UICollectionViewDe
     
     //MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.didSelectProduct(craves[indexPath.item], at: indexPath)
+//        self.delegate?.didSelectProduct(craves[indexPath.item], at: indexPath)
     }
 }
