@@ -12,7 +12,7 @@ import UIKit
 class MyProductsController: UIViewController {
     @IBOutlet weak var searchBar: CravySearchBar!
     @IBOutlet weak var cravyToolBar: CravyToolBar!
-    var selectedProduct: String?
+    var selectedProduct: Product?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class MyProductsController: UIViewController {
         } else if segue.identifier == K.Identifier.Segue.myProductsToProduct {
             guard let selected = selectedProduct else {return}
             let productVC = segue.destination as! ProductController
-            productVC.productTitle = selected
+            productVC.product = selected
         }
     }
 }
@@ -65,7 +65,7 @@ extension MyProductsController: PresentationDelegate {
     
     func presentation(_ viewController: UIViewController.Type, data: Any?) {
         if viewController == ProductController.self {
-            guard let data = data, let product = data as? String else {return}
+            guard let data = data, let product = data as? Product else {return}
             selectedProduct = product
             self.performSegue(withIdentifier: K.Identifier.Segue.myProductsToProduct, sender: self)
         } else if viewController == CravyTabBarController.self {

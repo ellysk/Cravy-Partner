@@ -14,30 +14,20 @@ class MarketView: UIView {
     private var toolStackView: UIStackView!
     private var marketLabel = UILabel()
     private var optionsButton = UIButton.optionsButton
-    private var contentStackView: UIStackView?
+    private var contentStackView: UIStackView!
     private let searchContentView = ContentView(contentImage: UIImage(systemName: "magnifyingglass"))
     private let viewsContentView = ContentView(contentImage: UIImage(systemName: "eye.fill"))
     private let linksContentView = ContentView(contentImage: UIImage(systemName: "link"))
-    private var animationView: AnimationView?
+    private var animationView: AnimationView = AnimationView.inactiveAnimation
     private let loaderAnimation = AnimationView.loaderAnimation
     var state: PRODUCT_STATE {
         set {
-            toolStackView.isHidden = false
-            contentStackView?.isHidden = newValue == .inActive
-            animationView?.isHidden = newValue == .active
-            loaderAnimation.isHidden = true
             marketLabel.text = newValue == .active ? K.UIConstant.onTheMarket : K.UIConstant.offTheMarket
             marketLabel.textColor = newValue == .active ? K.Color.positive : K.Color.important
-            if newValue == .active {
-                animationView?.stop()
-                setContentStackView()
-            } else {
-                setAnimationView()
-            }
         }
         
         get {
-            if contentStackView != nil && !contentStackView!.isHidden {
+            if marketLabel.text == K.UIConstant.onTheMarket && marketLabel.textColor == K.Color.positive {
                 return .active
             } else {
                 return .inActive
@@ -46,7 +36,7 @@ class MarketView: UIView {
     }
     private var searches: Int = 0
     private var views: Int = 0
-    private var links: Int = 0
+    private var visits: Int = 0
     var statTitle: String? {
         return marketLabel.text
     }
@@ -64,6 +54,7 @@ class MarketView: UIView {
     /// The content related to number of views.
     var nuberOfViews: Int {
         set {
+            views = newValue
             viewsContentView.content = "\(newValue) \(K.UIConstant.views)"
         }
         
@@ -74,11 +65,12 @@ class MarketView: UIView {
     /// The content related to number of visits.
     var numberOfVisits: Int {
         set {
+            visits = newValue
             linksContentView.content = "\(newValue) \(K.UIConstant.visits)"
         }
         
         get {
-            return links
+            return visits
         }
     }
     private var action: (()->())?
@@ -88,12 +80,16 @@ class MarketView: UIView {
         self.backgroundColor = .clear
         self.state = state
         setToolStackView()
+        setAnimationView()
+        setContentStackView()
         setLoaderAnimation()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setToolStackView()
+        setAnimationView()
+        setContentStackView()
         setLoaderAnimation()
     }
     
@@ -112,32 +108,26 @@ class MarketView: UIView {
     private func setContentStackView() {
         if contentStackView == nil {
             contentStackView = UIStackView(arrangedSubviews: [searchContentView, viewsContentView, linksContentView])
-            contentStackView!.set(axis: .vertical, alignment: .fill, distribution: .fillEqually)
-            self.addSubview(contentStackView!)
-            contentStackView!.translatesAutoresizingMaskIntoConstraints = false
-            contentStackView!.topAnchor.constraint(equalTo: toolStackView.bottomAnchor, constant: 8).isActive = true
-            contentStackView!.bottomAnchor(to: self)
-            contentStackView!.HConstraint(to: self, constant: 8)
+            contentStackView.set(axis: .vertical, alignment: .fill, distribution: .fillEqually)
+            self.addSubview(contentStackView)
+            contentStackView.translatesAutoresizingMaskIntoConstraints = false
+            contentStackView.topAnchor.constraint(equalTo: toolStackView.bottomAnchor, constant: 8).isActive = true
+            contentStackView.bottomAnchor(to: self)
+            contentStackView.HConstraint(to: self, constant: 8)
         }
     }
     
     private func setAnimationView() {
-        if animationView == nil {
-            animationView = AnimationView.inactiveAnimation
-            animationView!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(action(_:))))
-            self.addSubview(animationView!)
-            animationView!.translatesAutoresizingMaskIntoConstraints = false
-            animationView!.topAnchor.constraint(equalTo: toolStackView.bottomAnchor, constant: 8).isActive = true
-            animationView!.bottomAnchor(to: self)
-            animationView!.HConstraint(to: self, constant: 8)
-            playAnimation()
-        } else {
-            playAnimation()
-        }
+        animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(action(_:))))
+        self.addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.topAnchor.constraint(equalTo: toolStackView.bottomAnchor, constant: 8).isActive = true
+        animationView.bottomAnchor(to: self)
+        animationView.HConstraint(to: self, constant: 8)
     }
     
     private func setLoaderAnimation() {
-        self.insertSubview(loaderAnimation, at: 0)
+        self.addSubview(loaderAnimation)
         loaderAnimation.translatesAutoresizingMaskIntoConstraints = false
         loaderAnimation.centerXYAnchor(to: self)
         loaderAnimation.sizeAnchorOf(width: 50, height: 50)
@@ -146,32 +136,49 @@ class MarketView: UIView {
     
     /// Plays the sleeping fox animation showing that there is no activity to this product as it is off the market
     func playAnimation() {
-        guard let animation = animationView, !animation.isHidden else {return}
-        if !animation.isAnimationPlaying {
-            animation.play()
-            animation.loopMode = .loop
+        if !animationView.isAnimationPlaying {
+            animationView.play()
+            animationView.loopMode = .loop
         }
     }
     
     /// Stops any animation playing in this view
     func stopAnimation() {
-        if let isPlaying = animationView?.isAnimationPlaying, isPlaying {
-            animationView?.pause()
-        } else if loaderAnimation.isAnimationPlaying {
-            loaderAnimation.stop()
+        if animationView.isAnimationPlaying {
+            animationView.pause()
         }
     }
     
     /// Starts to play the loading animation indicating the market view is fetching data.
-    func startLoader() {
-        toolStackView.isHidden = true
-        contentStackView?.isHidden = true
-        animationView?.isHidden = true
+    func startLoader(completion: (()->())?) {
+        contentStackView.isHidden = true
+        animationView.isHidden =  true
+        stopAnimation()
         loaderAnimation.isHidden = false
-        loaderAnimation.play()
-        loaderAnimation.loopMode = .loop
+        toolStackView.isHidden = true
+        if !loaderAnimation.isAnimationPlaying {
+            loaderAnimation.play()
+            loaderAnimation.loopMode = .loop
+        }
+        completion?()
     }
-        
+    
+    func stopLoader(completion: (()->())? = nil) {
+        loaderAnimation.isHidden = true
+        toolStackView.isHidden = false
+        contentStackView.isHidden = state == .inActive
+        animationView.isHidden = state == .active
+        if !animationView.isHidden {
+            playAnimation()
+        } else {
+            stopAnimation()
+        }
+        if loaderAnimation.isAnimationPlaying {
+            loaderAnimation.stop()
+        }
+        completion?()
+    }
+    
     func addAction(_ action: (()->())?) {
         self.action = action
     }

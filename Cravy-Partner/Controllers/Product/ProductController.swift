@@ -9,6 +9,7 @@
 import UIKit
 import Lottie
 import NotificationBannerSwift
+import PromiseKit
 
 /// Handles the display of the properties of a product.
 class ProductController: UIViewController {
@@ -21,25 +22,36 @@ class ProductController: UIViewController {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var marketView: MarketView!
     private var banner: FloatingNotificationBanner?
-    var link: String?
-    var tags: [String] = []
-    var productTitle: String!
-    var recomm: Int = 0
-    var cravings: Int = 0
-    var isLoadingStats: Bool = true
+    var product: Product!
+    private var productState: PRODUCT_STATE {
+        set {
+            product.state = newValue
+            marketView.state = newValue
+        }
+        
+        get {
+            return product.state
+        }
+    }
     /// Shows a notification banner notifying the user that the product can be put on the market.
     var showFloaterBanner: Bool = false
+    var productFB: ProductFirebase!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Chicken wings"
+        productFB = ProductFirebase(state: product.state)
+        self.title = product.title
+        imageView.image = UIImage(data: product.image)
         imageView.roundFactor = 15
         imageView.cornerMask = UIView.bottomCornerMask
         linkView.delegate = self
-        loadProductInfo()
-        // Do any additional setup after loading the view.
-        additionalSetup()
-        
+        titleLabel.text = product.title
+        detailLabel.text = product.description
+        widgetCollectionView.register()
+        horizontalTagsCollectionView.register()
+        self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
+        floaterView?.delegate = self
+        marketSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +61,9 @@ class ProductController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        marketView.playAnimation()
+        if productState == .inActive {
+            marketView.playAnimation()
+        }
         if showFloaterBanner {
             self.showFloaterBarNotification(title: K.UIConstant.newProductTitle, subtitle: K.UIConstant.newProductMessage) { (banner) in
                 self.banner = banner
@@ -58,74 +72,26 @@ class ProductController: UIViewController {
         }
     }
     
-    private func startLoadingAnimation() {
-        imageView.startLoadingAnimation()
-        linkView.isHidden = true
-        titleTagsStackView.startLoadingAnimation()
-        detailLabel.startLoadingAnimation()
-        marketView.startLoadingAnimation()
-    }
-    
-    private func loadProductInfo() {
-        //TODO CACHE
-        if showFloaterBanner {
-            isLoadingStats = false
-            assignLoadedData()
-        } else {
-            startLoadingAnimation()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                self.assignLoadedData()
+    private func marketSetup() {
+        //As soon as the view is loaded, set up the state of the market view according to the product state.
+        marketView.startLoader {
+            self.marketView.state = self.productState
+            if self.productState == .active {
+                self.loadProductStats()
+            } else if self.productState == .inActive {
+                self.marketView.stopLoader()
             }
         }
-    }
-    
-    //TEMP
-    private func assignLoadedData() {
-        //load image
-        self.imageView.stopLoadingAnimation()
-        self.imageView.image = UIImage(named: "bgimage")
-        
-        //Load link
-        self.linkView.isHidden = false
-        
-        //load product stats
-        self.recomm = 120
-        self.cravings = 344
-        self.isLoadingStats = false
-        self.widgetCollectionView.reloadData()
-        
-        //load basic info
-        self.detailLabel.stopLoadingAnimation()
-        self.titleLabel.text = self.productTitle
-        self.titleLabel.underline()
-        self.detailLabel.numberOfLines = 0
-        self.detailLabel.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum"
-        
-        //load tags
-        self.titleTagsStackView.stopLoadingAnimation()
-        self.tags = ["Chicken", "Wings", "Street", "Spicy"]
-        self.horizontalTagsCollectionView.reloadData()
-        
-        //load market stats
-        self.marketView.stopLoadingAnimation()
-        self.marketView.state = .inActive
-    }
-    
-    private func additionalSetup() {
-        self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
-        floaterView?.delegate = self
-        widgetCollectionView.register()
-        horizontalTagsCollectionView.register()
         marketView.addAction {
             if self.marketView.state == .active {
                 let alertController = UIAlertController.takeProductOffMarket(actionHandler: {
-                    self.updateProductState(to: .inActive)
+                    self.updateProductState()
                 })
                 self.present(alertController, animated: true)
-            } else {
-                let post = PostView(toPost: "Chicken Wings")
+            } else if self.marketView.state == .inActive {
+                let post = PostView(toPost: self.product.title)
                 let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: {
-                    self.updateProductState(to: .active)
+                    self.updateProductState()
                 }) {
                     self.marketView.playAnimation()
                 }
@@ -136,28 +102,46 @@ class ProductController: UIViewController {
         }
     }
     
-    private func updateProductState(to state: PRODUCT_STATE) {
-        //TODO
-        marketView.startLoader()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.marketView.stopAnimation()
-            if state == .active {
-                self.loadProductStats()
-            } else {
-                self.marketView.state = state
+    /// Updates the state of the product from its current state to a new state
+    private func updateProductState() {
+        marketView.startLoader {
+            firstly {
+                self.productFB.updateMarketStatus(of: self.product) //Update product state
+            }.done(on: .main) { (result) in
+                guard let data = result.data as? [String : Int], let value = data["newstate"], let newState = PRODUCT_STATE(rawValue: value) else {return}
+                self.productState = newState
+                if newState == .active {
+                    self.showStatusBarNotification(title: "\(self.product.title) is \(self.marketView.statTitle!.lowercased())!", style: .success)
+                    self.loadProductStats() //Load product market stats
+                } else if newState == .inActive {
+                    self.showStatusBarNotification(title: "\(self.product.title) is \(self.marketView.statTitle!.lowercased())!", style: .danger)
+                }
+            }.ensure(on: .main, {
+                self.marketView.stopLoader()
+            }).catch(on: .main) { (error) in
+                self.present(UIAlertController.internetConnectionAlert(actionHandler: self.updateProductState), animated: true)
             }
-            let style: BannerStyle = state == .active ? .success : .danger
-            self.showStatusBarNotification(title: "\(self.productTitle!) is \(self.marketView.statTitle!.lowercased())!", style: style)
         }
     }
     
+    /// Loads the market status of the product
     private func loadProductStats() {
-        //TODO
-        self.marketView.numberOfSearches = 254
-        self.marketView.nuberOfViews = 122
-        self.marketView.numberOfVisits = 120
-        
-        self.marketView.state = .active
+        firstly {
+            try productFB.loadMarketStatus(product: product)
+        }.done(on: .main) { (statInfo) in
+            self.marketView.numberOfSearches = statInfo[K.Key.searches] as? Int ?? 0
+            self.marketView.nuberOfViews = statInfo[K.Key.views] as? Int ?? 0
+            self.marketView.numberOfVisits = statInfo[K.Key.visits] as? Int ?? 0
+        }.ensure(on: .main) {
+            self.marketView.stopLoader()
+        }.catch(on: .main) { (error) in
+            if let e = error as? ProductError {
+                print(e.localizedDescription)
+                return
+            } else {
+                self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadProductStats), animated: true)
+            }
+        }
     }
     
     @objc func done(_ sender: UIBarButtonItem) {
@@ -167,14 +151,8 @@ class ProductController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.productToEditProduct {
             let editProductVC = segue.destination as! EditProductController
-            //assign default image
-            editProductVC.defaultValues.updateValue(imageView.image!, forKey: K.Key.image)
-            //assign default title
-            editProductVC.defaultValues.updateValue(productTitle!, forKey: K.Key.title)
-            //assign default description
-            editProductVC.defaultValues.updateValue(detailLabel.text!, forKey: K.Key.description)
-            //assign default tags
-            editProductVC.defaultValues.updateValue(tags, forKey: K.Key.tags)
+            //assign default values
+            editProductVC.defaultValues = product.productInfo
         }
     }
 }
@@ -182,7 +160,7 @@ class ProductController: UIViewController {
 //MARK:- LinkView Delegate
 extension ProductController: LinkViewDelegate {
     func didTapOnLinkView(_ linkView: LinkView) {
-        self.openCravyWebKit(link: link) { (cravyWK) in
+        self.openCravyWebKit(link: product?.productLink?.absoluteString) { (cravyWK) in
             cravyWK.delegate = self
             self.navigationController?.pushViewController(cravyWK, animated: true)
         }
@@ -193,7 +171,7 @@ extension ProductController: LinkViewDelegate {
 extension ProductController: CravyWebViewControllerDelegate {
     func didCommitLink(URL: URL) {
         //TODO
-        link = URL.absoluteString
+        product.productLink = URL
     }
 }
 
@@ -204,7 +182,7 @@ extension ProductController: UICollectionViewDataSource {
         if collectionView == widgetCollectionView {
             return 2
         } else {
-            return tags.count
+            return product.tags.count
         }
     }
     
@@ -213,23 +191,17 @@ extension ProductController: UICollectionViewDataSource {
             let widgetCell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.widgetCell, for: indexPath) as! WidgetCollectionCell
             
             let widget: UIImage = indexPath.item == 0 ? K.Image.thumbsUp : K.Image.cravings
-            let widgetTitle: NSMutableAttributedString? = indexPath.item == 0 ? recomm.represent(unit: K.UIConstant.recommendations, size: .small) : cravings.represent(unit: K.UIConstant.cravings, size: .small)
+            let widgetTitle: NSMutableAttributedString? = indexPath.item == 0 ? product.recommendations.represent(unit: K.UIConstant.recommendations, size: .small) : product.cravings.represent(unit: K.UIConstant.cravings, size: .small)
             
             widgetCell.setWidgetCell(image: widget, title: widgetTitle)
-            
-            if isLoadingStats {
-                widgetCell.startLoadingAnimation()
-            } else {
-                widgetCell.stopLoadingAnimation()
-            }
             
             return widgetCell
         } else {
             let tagCell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.tagCell, for: indexPath) as! TagCollectionCell
-            tagCell.setTagCollectionCell(tag: tags[indexPath.item])
+            tagCell.setTagCollectionCell(tag: product.tags[indexPath.item])
             
             tagCell.tagLabel.font = UIFont.medium.small
-            tagCell.isSeparatorHidden = indexPath.item == tags.count - 1
+            tagCell.isSeparatorHidden = indexPath.item == product.tags.count - 1
             
             return tagCell
         }

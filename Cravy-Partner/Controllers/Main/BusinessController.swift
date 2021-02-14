@@ -64,7 +64,7 @@ class BusinessController: UIViewController {
             galleryTableVC.layoutDelegate = self
         } else if segue.identifier == K.Identifier.Segue.businessToProduct {
             let productVC = segue.destination as! ProductController
-            productVC.productTitle = "Chicken wings"
+//            productVC.productTitle = "Chicken wings" TODO
         }
     }
 }

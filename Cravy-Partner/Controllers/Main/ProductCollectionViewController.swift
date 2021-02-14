@@ -9,6 +9,7 @@
 import UIKit
 import Lottie
 import SkeletonView
+import PromiseKit
 
 enum PRODUCT_STATE: Int {
     case active = 1
@@ -26,19 +27,37 @@ enum PRODUCT_STATE: Int {
 
 /// Handles the display of the products that the user has created.
 class ProductCollectionViewController: UICollectionViewController {
-    var craves: [String] = []
-    var state: PRODUCT_STATE
+    private var products: [Product] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+    private var filteredProducts: [Product] = []
+    private var showFiltered: Bool = false {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+    private var state: PRODUCT_STATE
     var scrollDelegate: ScrollViewDelegate?
     var presentationDelegate: PresentationDelegate?
     private let dummyCount: Int = 10
-    private var isLoadingCraves: Bool = true
-    var dataCount: Int {
-        if isLoadingCraves {
-            return craves.count + dummyCount
-        } else {
-            return craves.count
+    private var isLoadingProducts: Bool! {
+        didSet {
+            self.collectionView.reloadData()
         }
     }
+    var data: [Product] {
+        return showFiltered ? filteredProducts : products
+    }
+    var dataCount: Int {
+        if isLoadingProducts {
+            return products.count + dummyCount
+        } else {
+            return data.count
+        }
+    }
+    var productsFB: ProductFirebase!
     
     init(state: PRODUCT_STATE) {
         self.state = state
@@ -51,19 +70,62 @@ class ProductCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        productsFB = ProductFirebase(state: state)
         self.collectionView.register(CraveCollectionCell.self, forCellWithReuseIdentifier: K.Identifier.CollectionViewCell.craveCell)
         self.collectionView.isTransparent = true
         loadCraves()
     }
     
-    func loadCraves() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.craves = []
-            self.isLoadingCraves = false
-            self.collectionView.reloadData()
-            self.view.isEmptyView = self.craves.isEmpty
+    private func loadCraves() {
+        isLoadingProducts = true
+        
+        firstly {
+            productsFB.loadProducts()
+        }.done { (products) in
+            self.products.append(contentsOf: products)
+        }.ensure(on: .main) {
+            self.isLoadingProducts = false
+            self.view.isEmptyView = self.products.isEmpty
             self.view.emptyView?.createButton.addTarget(self, action: #selector(self.startCreating(_:)), for: .touchUpInside)
             self.view.emptyView?.title = K.UIConstant.emptyProductsTitle
+        }.catch { (error) in
+            self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadCraves), animated: true)
+        }
+    }
+    
+    func searchForProductWith(query text: String?) {
+        if let queryText = text {
+            filteredProducts = products.filter({ (product) -> Bool in
+                return product.title.containsIgnoringCase(find: queryText) || product.description.containsIgnoringCase(find: queryText) || product.tags.contains(where: { (tag) -> Bool in
+                    return tag.containsIgnoringCase(find: queryText)
+                })
+            })
+        }
+        showFiltered = text != nil && text != ""
+    }
+    
+    func sortProductsBy(sort: PRODUCT_SORT) {
+        switch sort {
+        case .title:
+            products = products.sorted(by: { (aProduct, bProduct) -> Bool in
+                return aProduct.title < bProduct.title
+            })
+        case .cravings:
+            products = products.sorted(by: { (aProduct, bProduct) -> Bool in
+                return aProduct.cravings > bProduct.cravings
+            })
+        case .recommmendations:
+            products = products.sorted(by: { (aProduct, bProduct) -> Bool in
+                return aProduct.recommendations > bProduct.recommendations
+            })
+        case .date:
+            products = products.sorted(by: { (aProduct, bProduct) -> Bool in
+                return aProduct.date < bProduct.date
+            })
+        case .normal:
+            products = products.sorted(by: { (aProduct, bProduct) -> Bool in
+                return aProduct.date > bProduct.date
+            })
         }
     }
     
@@ -79,22 +141,23 @@ class ProductCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.craveCell, for: indexPath) as! CraveCollectionCell
-        if isLoadingCraves && indexPath.item >= craves.count {
+        
+        if isLoadingProducts && indexPath.item >= products.count {
             //Show loading animation to this cell
             cell.setCraveCollectionCell()
             cell.startLoadingAnimation()
         } else {
             cell.stopLoadingAnimation()
-            cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 56, tags: ["Chicken", "Wings", "Street", "Spicy", "Fast food"])
-        }
-        cell.addAction {
-            let promo = PromoView(toPromote: "Chicken Wings")
-            let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation) {
-                //TODO
+            cell.setCraveCollectionCell(product: data[indexPath.item])
+            cell.addAction {
+                let promo = PromoView(toPromote: self.data[indexPath.item].title)
+                let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation) {
+                    //TODO
+                }
+                //Notifies so as to dismiss any first responders.
+                self.presentationDelegate?.presentation(PopViewController.self, data: nil)
+                self.present(popVC, animated: true)
             }
-            //Notifies so as to dismiss any first responders.
-            self.presentationDelegate?.presentation(PopViewController.self, data: nil)
-            self.present(popVC, animated: true)
         }
         if state == .inActive {
             cell.addInteractable(.post) { (popVC) in
@@ -119,7 +182,7 @@ class ProductCollectionViewController: UICollectionViewController {
     
     //MARK:- UICollectionView Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presentationDelegate?.presentation(ProductController.self, data: "Chicken wings")
+        self.presentationDelegate?.presentation(ProductController.self, data: data[indexPath.item])
     }
     
     //MARK:- UIScrollView Delegate

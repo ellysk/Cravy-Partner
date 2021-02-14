@@ -133,9 +133,54 @@ class ProductTests: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now()+3) {
             load()
         }
-        
+        //Then
         self.wait(for: [promise], timeout: 5)
         XCTAssertEqual(prdcts.count, 2)
+    }
+    
+    func testLoadingProductMarketStatus() throws {
+        //Given
+        var stats: [String : Any] = [:]
+        let state: PRODUCT_STATE = .active
+        let promise = self.expectation(description: "market stats loaded")
+        
+        firstly {
+            try productFB.loadMarketStatus(product: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), title: "", description: "", tags: [], state: state))
+        }.done(on: .main) { (statInfo) in
+            //When
+            print(statInfo)
+            stats = statInfo
+            promise.fulfill()
+        }.catch(on: .main) { (error) in
+            if let e = error as? ProductError {
+                XCTFail(e.localizedDescription)
+            } else {
+                XCTFail(error.localizedDescription)
+            }
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertTrue(!stats.isEmpty)
+    }
+    
+    func testUpdatingProductStat() throws {
+        //Given
+        var writeResult: HTTPSCallableResult?
+        let promise = self.expectation(description: "new product stats saved")
+        
+        firstly {
+            productFB.updateMarketStatus(of: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), title: "", description: "", tags: [], state: .inActive))
+        }.done { (result) in
+            //When
+            print(result.data)
+            writeResult = result
+            promise.fulfill()
+        }.catch { (error) in
+            XCTFail(error.localizedDescription)
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertNotNil(writeResult)
     }
   
     func testLoadingProductsPerformance() throws {

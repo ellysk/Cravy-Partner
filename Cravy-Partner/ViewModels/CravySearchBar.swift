@@ -8,18 +8,26 @@
 
 import UIKit
 
+enum PRODUCT_SORT {
+    case date
+    case title
+    case cravings
+    case recommmendations
+    case normal
+}
+
 /// A custom search bar view that lets you search and filter data.
 class CravySearchBar: UIView, UITextFieldDelegate {
     private var textField = CravyTextField()
-    private var filterButton = RoundButton(roundFactor: 5)
+    private var sortButton = RoundButton(roundFactor: 5)
     private let CSBTintColor: UIColor = K.Color.primary
     var isFilterHidden: Bool {
         set {
-            filterButton.isHidden = newValue
+            sortButton.isHidden = newValue
         }
         
         get {
-            return filterButton.isHidden
+            return sortButton.isHidden
         }
     }
     var beginResponder: Bool {
@@ -70,11 +78,11 @@ class CravySearchBar: UIView, UITextFieldDelegate {
     }
     
     private func setCravySearchBarView() {
-        filterButton.addTarget(self, action: #selector(showFilters(_:)), for: .touchUpInside)
-        let hStackView = UIStackView(arrangedSubviews: [textField, filterButton])
+        sortButton.addTarget(self, action: #selector(sortBy(_:)), for: .touchUpInside)
+        let hStackView = UIStackView(arrangedSubviews: [textField, sortButton])
         hStackView.set(axis: .horizontal, distribution: .fillProportionally, spacing: 0)
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        filterButton.widthAnchor(of: 70)
+        sortButton.translatesAutoresizingMaskIntoConstraints = false
+        sortButton.widthAnchor(of: 70)
         
         self.addSubview(hStackView)
         hStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +94,7 @@ class CravySearchBar: UIView, UITextFieldDelegate {
         let searchImageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         searchImageView.tintColor = CSBTintColor
         textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.leftView = searchImageView
         textField.leftViewMode = .always
         textField.setPlaceholder(K.UIConstant.searchProductsPlaceholder)
@@ -96,41 +105,54 @@ class CravySearchBar: UIView, UITextFieldDelegate {
         textField.textColor = K.Color.dark
         textField.tintColor = CSBTintColor
         
-        filterButton.setTitle(K.UIConstant.filtersButtonTitle, for: .normal)
-        filterButton.titleLabel?.font = UIFont.mediumItalic.small
-        filterButton.setTitleColor(K.Color.light, for: .normal)
-        filterButton.backgroundColor = CSBTintColor.withAlphaComponent(0.8)
+        sortButton.setTitle(K.UIConstant.sort.uppercased(), for: .normal)
+        sortButton.titleLabel?.font = UIFont.mediumItalic.small
+        sortButton.setTitleColor(K.Color.light, for: .normal)
+        sortButton.backgroundColor = CSBTintColor.withAlphaComponent(0.8)
     }
     
     func setPlaceholder(_ placeholder: String, color: UIColor) {
         textField.setPlaceholder(placeholder, placeholderTextColor: color)
     }
     
+    private func enquire(text: String?) {
+        guard let text = textField.text else {return}
+        self.delegate?.textDidChange(text.removeLeadingAndTrailingSpaces)
+    }
+    
     func clear() {
         textField.text = nil
     }
     
-    @objc func showFilters(_ sender: UIButton) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        enquire(text: textField.text)
+    }
+    
+    @objc func sortBy(_ sender: UIButton) {
         sender.pulse()
         
-        let filterByTitle = UIAlertAction(title: K.UIConstant.byTitle, style: .default) { (action) in
-            //TODO
+        let sortByDefault = UIAlertAction(title: K.UIConstant.byDefault, style: .default) { (action) in
+            self.delegate?.didSort(by: .normal)
         }
-        let filterByCravings = UIAlertAction(title: K.UIConstant.byCravings, style: .default) { (action) in
-            //TODO
+        let sortByDate = UIAlertAction(title: K.UIConstant.byDate, style: .default) { (action) in
+            self.delegate?.didSort(by: .date)
         }
-        let filterByRecommendations = UIAlertAction(title: K.UIConstant.byRecommendations, style: .default) { (action) in
-            //TODO
+        let sortByTitle = UIAlertAction(title: K.UIConstant.byTitle, style: .default) { (action) in
+            self.delegate?.didSort(by: .title)
         }
-        let removeFilterAction = UIAlertAction(title: K.UIConstant.removeFilter, style: .destructive) { (action) in
-            //TODO
+        let sortByCravings = UIAlertAction(title: K.UIConstant.byCravings, style: .default) { (action) in
+            self.delegate?.didSort(by: .cravings)
+        }
+        let sortByRecommendations = UIAlertAction(title: K.UIConstant.byRecommendations, style: .default) { (action) in
+            self.delegate?.didSort(by: .recommmendations)
         }
         
-        let alertController = UIAlertController(title: nil, message: K.UIConstant.filtersMessage, preferredStyle: .actionSheet)
-        alertController.addAction(filterByTitle)
-        alertController.addAction(filterByCravings)
-        alertController.addAction(filterByRecommendations)
-        alertController.addAction(removeFilterAction)
+        let alertController = UIAlertController(title: nil, message: K.UIConstant.sortMessage, preferredStyle: .actionSheet)
+        alertController.addAction(sortByDefault)
+        alertController.addAction(sortByDate)
+        alertController.addAction(sortByTitle)
+        alertController.addAction(sortByCravings)
+        alertController.addAction(sortByRecommendations)
         alertController.addAction(UIAlertAction.cancel)
         
         alertController.pruneNegativeWidthConstraints()
@@ -146,8 +168,7 @@ class CravySearchBar: UIView, UITextFieldDelegate {
     
     //MARK:- UITextfield Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text, text.removeLeadingAndTrailingSpaces != "" else {return false}
-        self.delegate?.didEnquireSearch(text)
+        enquire(text: textField.text)
         textField.resignFirstResponder()
         return true
     }

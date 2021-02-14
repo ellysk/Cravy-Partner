@@ -62,7 +62,7 @@ class PRCollectionViewController: UICollectionViewController, UICollectionViewDe
             cell.startLoadingAnimation()
         } else {
             cell.stopLoadingAnimation()
-            cell.setCraveCollectionCell(image: UIImage(named: "bgimage"), cravings: 100, title: "Chicken wings", recommendations: 54, tags: ["Chicken", "Wings", "Street food", "Spicy"], style: .contained)
+            cell.setCraveCollectionCell(product: Product(id: "abc", date: Date(), image: UIImage(named: "bgimage")!.pngData()!, title: "Chicken wings", description: "The best wings in town!", tags: ["Chicken", "Wings", "Street food", "Spicy"], state: .inActive), style: .contained)
         }
         
         if state == .active {

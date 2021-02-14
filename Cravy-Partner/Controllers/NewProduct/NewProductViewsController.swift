@@ -71,7 +71,7 @@ class NewProductViewsController: UIViewController {
             let productVC = segue.destination as! ProductController
             productVC.navigationItem.setHidesBackButton(true, animated: true)
             productVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: productVC, action: #selector(productVC.done(_:)))
-            productVC.productTitle = productInfo[K.Key.title] as? String
+//            productVC.productTitle = productInfo[K.Key.title] as? String TODO
             productVC.showFloaterBanner = true
         }
     }

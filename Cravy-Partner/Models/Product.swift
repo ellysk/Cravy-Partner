@@ -11,9 +11,22 @@ import FirebaseFunctions
 import FirebaseStorage
 import PromiseKit
 
+/// Errors thrown associated with loading product information.
+enum ProductError: Error {
+    case badStateError
+    
+    var localizedDescription: String {
+        switch self {
+        case .badStateError:
+            return "Market status is not availabel for products with inactive state."
+        }
+    }
+}
+
 /// Models the necessary product information.
 struct Product: Hashable, Equatable {
     var id: String
+    var date: Date
     var image: Data
     var title: String
     var description: String
@@ -34,8 +47,9 @@ struct Product: Hashable, Equatable {
         return info
     }
     
-    init(id: String, image: Data, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil) {
+    init(id: String, date: Date, image: Data, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil) {
         self.id = id
+        self.date = date
         self.image = image
         self.title = title
         self.description = description
@@ -47,16 +61,6 @@ struct Product: Hashable, Equatable {
     }
 }
 
-/// Models the necessary information on the interaction of a specific product with the customers.
-struct Market {
-    var product: Product
-    var stats: [String:Int]?
-    
-    init(product: Product) {
-        self.product = product
-    }
-}
-
 /// Structures required functionality to load product information from the database.
 class ProductFirebase {
     private let functions = Functions.functions()
@@ -65,9 +69,9 @@ class ProductFirebase {
     /// Data sent to the server to determine which state of products are to be loaded and keep track of the last snapshot of the data loaded.
     var productsCallData: [String : Any] {
         if let data = lastData {
-            return [K.Key.state : "\(state.description)_products", "last" : data]
+            return [K.Key.state : state.rawValue, "last" : data]
         } else {
-            return [K.Key.state : "\(state.description)_products"]
+            return [K.Key.state : state.rawValue]
         }
     }
     
@@ -119,13 +123,40 @@ class ProductFirebase {
         }
     }
     
+    func loadMarketStatus(product: Product) throws -> Promise<[String : Any]> {
+        if product.state ==  .inActive {
+            throw ProductError.badStateError
+        } else {
+            return Promise { (seal) in
+                functions.httpsCallable("getMarketStatus").call([K.Key.id : product.id]) { (result, error) in
+                    if let e = error {
+                        seal.reject(e)
+                    } else if let marketStatInfo = result?.data as? [String : Any] {
+                        seal.fulfill(marketStatInfo)
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateMarketStatus(of product: Product) -> Promise<HTTPSCallableResult> {
+        let newState: PRODUCT_STATE = product.state == .active ? .inActive : .active
+        return Promise { (seal) in
+            functions.httpsCallable("updateProductState").call([K.Key.id : product.id, K.Key.state : newState.rawValue], completion: seal.resolve)
+        }
+    }
+    
     private func toProduct(productInfo: [String : Any]) -> Product? {
-        guard let id = productInfo[K.Key.id] as? String, let image = productInfo[K.Key.image] as? Data, let title = productInfo[K.Key.title] as? String, let description = productInfo[K.Key.description] as? String, let tags = productInfo[K.Key.tags] as? [String], let state = PRODUCT_STATE(rawValue: productInfo[K.Key.state] as! Int) else {return nil}
+        guard let id = productInfo[K.Key.id] as? String, let dateCreatedInfo = productInfo[K.Key.dateCreated] as? [String : Double], let image = productInfo[K.Key.image] as? Data, let title = productInfo[K.Key.title] as? String, let description = productInfo[K.Key.description] as? String, let tags = productInfo[K.Key.tags] as? [String], let state = PRODUCT_STATE(rawValue: productInfo[K.Key.state] as! Int) else {return nil}
         let recommendations: Int = productInfo[K.Key.recommendations] as? Int ?? 0
         let cravings: Int = productInfo[K.Key.cravings] as? Int ?? 0
         let link = productInfo[K.Key.url] as? URL
         
-        let product = Product(id: id, image: image, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link)
+        guard let seconds = dateCreatedInfo["_seconds"], let nanoSeconds = dateCreatedInfo["_nanoseconds"] else {return nil}
+        let totalSeconds = seconds + (nanoSeconds / 1000000)
+        let dateCreated = Date(timeIntervalSince1970: totalSeconds)
+        
+        let product = Product(id: id, date: dateCreated, image: image, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link)
         return product
     }
 }

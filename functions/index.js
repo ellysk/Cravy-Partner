@@ -43,12 +43,12 @@ exports.getBusinessProducts = functions.https.onCall(async (data, context) => {
       .firestore()
       .collection("businesses")
       .doc(context.auth.uid)
-      .collection(data.state)
-      .orderBy("date_created");
+      .collection("products")
+      .where("state", "==", data.state)
+      .orderBy("date_created", "desc");
     let productRefSnapshot;
     if (data.last) {
       const ts = admin.firestore.Timestamp.fromMillis(_toTimestamp(data.last));
-      console.log(ts);
       productRefSnapshot = await productRefCollectionQuery
         .startAfter(ts)
         .limit(data.limit)
@@ -77,6 +77,52 @@ exports.getBusinessProducts = functions.https.onCall(async (data, context) => {
         last: lastDoc.data().date_created,
       };
     }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+// Update Product state
+exports.updateProductState = functions.https.onCall(async (data, context) => {
+  try {
+    await admin
+      .firestore()
+      .collection("businesses")
+      .doc(context.auth.uid)
+      .collection("products")
+      .doc(data.id)
+      .update({ state: data.state });
+    await admin
+      .firestore()
+      .collection("products")
+      .doc(data.id)
+      .update({ state: data.state });
+    return {
+      newstate: data.state,
+    };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+// Load market status of a product
+exports.getMarketStatus = functions.https.onCall(async (data, context) => {
+  try {
+    const doc = await admin
+      .firestore()
+      .collection("businesses")
+      .doc(context.auth.uid)
+      .collection("products")
+      .doc(data.id)
+      .get();
+    const productData = doc.data();
+    return {
+      searches: productData.searches,
+      views: productData.views,
+      visits: productData.visits,
+    };
   } catch (error) {
     console.log(error);
     throw error;

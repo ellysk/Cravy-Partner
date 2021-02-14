@@ -43,6 +43,8 @@ class LinkInputController: NPViewController {
 
 //MARK:- CravySearchBar Delegate
 extension LinkInputController: CravySearchBarDelegate {
+    func textDidChange(_ text: String) {}
+    
     func didEnquireSearch(_ text: String) {
         let cravyWebVC = CravyWebKitViewController(URLString: text)
         cravyWebVC.delegate = self
@@ -53,6 +55,8 @@ extension LinkInputController: CravySearchBarDelegate {
     }
     
     func didCancelSearch(_ searchBar: CravySearchBar) {}
+    
+    func didSort(by sort: PRODUCT_SORT) {}
     
     func willPresentFilterAlertController(alertController: UIAlertController) {}
 }

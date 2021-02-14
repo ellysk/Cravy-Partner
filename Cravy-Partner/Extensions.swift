@@ -1074,6 +1074,10 @@ extension String {
         
         return attributedString
     }
+    
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
+    }
 }
 
 //MARK: - Int

@@ -12,11 +12,15 @@ import UIKit
 
 /// Notifies when changes are made in the Cravy Search Bar
 protocol CravySearchBarDelegate {
+    /// Called when there has been changes in the search bar textfield.
+    func textDidChange(_ text: String)
     /// Called when user commits the search
     /// - Parameter text: The text to search for
     func didEnquireSearch(_ text: String)
     /// Called when the user has cancelled the search
     func didCancelSearch(_ searchBar: CravySearchBar)
+    /// Called when user has chosen to filter the products.
+    func didSort(by sort: PRODUCT_SORT)
 }
 
 //MARK:- CravyToolBar Delegate

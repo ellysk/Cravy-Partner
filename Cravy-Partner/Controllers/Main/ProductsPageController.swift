@@ -34,12 +34,25 @@ class ProductsPageController: CravyPageController {
 }
 
 extension ProductsPageController: CravySearchBarDelegate {
+    func textDidChange(_ text: String) {
+        enquire(text: text)
+    }
+
     func didEnquireSearch(_ text: String) {
-//        guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
-        //TODO
+        enquire(text: text)
     }
     
     func didCancelSearch(_ searchBar: CravySearchBar) {
-        //TODO
+        enquire(text: nil)
+    }
+    
+    func didSort(by sort: PRODUCT_SORT) {
+        guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
+        productCollectionViewController.sortProductsBy(sort: sort)
+    }
+    
+    private func enquire(text: String?) {
+        guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
+        productCollectionViewController.searchForProductWith(query: text)
     }
 }
