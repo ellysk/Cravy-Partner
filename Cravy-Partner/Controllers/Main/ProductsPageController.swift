@@ -76,4 +76,9 @@ extension ProductsPageController: ProductDelegate {
         inActiveProductsVC.add(product)
         activeProductsVC.remove(product)
     }
+    
+    func didEditProduct(_ product: Product) {
+        guard let productCollectionViewController = displayedController as? ProductCollectionViewController else {return}
+        productCollectionViewController.edit(product)
+    }
 }

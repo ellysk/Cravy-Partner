@@ -181,12 +181,12 @@ class CraveCollectionCell: UICollectionViewCell {
             if interactable == .post {
                 //A post button interaction to allow user to post the product to the market
                 let post = PostView(toPost: "Chicken Wings")
-                let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation)
+                let popVC = PopViewController(popView: post, animationView: AnimationView.postAnimation, actionHandler: nil)
                 presentationHandler(popVC)
             } else if interactable == .promote {
                 //A promote button interaction to allow user to promote the product on the market
                 let promo = PromoView(toPromote: "Chicken Wings")
-                let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation)
+                let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation, actionHandler: nil)
                 presentationHandler(popVC)
             }
         }

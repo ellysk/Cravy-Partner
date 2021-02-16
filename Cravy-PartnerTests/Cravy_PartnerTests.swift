@@ -145,7 +145,7 @@ class ProductTests: XCTestCase {
         let promise = self.expectation(description: "market stats loaded")
         
         firstly {
-            try productFB.loadMarketStatus(product: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), title: "", description: "", tags: [], state: state))
+            try productFB.loadMarketStatus(product: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), imageURL: "", title: "", description: "", tags: [], state: state))
         }.done(on: .main) { (statInfo) in
             //When
             print(statInfo)
@@ -169,7 +169,7 @@ class ProductTests: XCTestCase {
         let promise = self.expectation(description: "new product stats saved")
         
         firstly {
-            productFB.updateMarketStatus(of: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), title: "", description: "", tags: [], state: .inActive))
+            productFB.updateMarketStatus(of: Product(id: "a0yf5CoxyHOG1v5bic4m", date: Date(), image: Data(), imageURL: "", title: "", description: "", tags: [], state: .inActive))
         }.done { (result) in
             //When
             newState = PRODUCT_STATE(rawValue: result.data as! Int)
@@ -205,7 +205,57 @@ class ProductTests: XCTestCase {
         self.wait(for: [promise], timeout: 5)
         XCTAssertTrue(isPrmted)
     }
-  
+    
+    func testUpdatingProduct() throws {
+        //Given
+        let id = "a0yf5CoxyHOG1v5bic4m"
+        let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
+        let updateData: [String : Any] = [K.Key.title : "Double Cheese Burger"]
+        var returnedData: [String : Any] = [:]
+        var returnedURL: String = ""
+        let promise = self.expectation(description: "product has been updated")
+        
+        firstly {
+            when(fulfilled: productFB.updateProduct(id: id, update: updateData), productFB.saveImage(on: imageURL, image: (UIImage(named: "bgimage")?.jpegData(compressionQuality: 1))!))
+        }.done { (results) in
+            let (result, url) = results
+            guard let data = result.data as? [String : Any] else {return}
+            //When
+            print(data)
+            print(url)
+            returnedData = data
+            returnedURL = url
+            promise.fulfill()
+        }.catch { (error) in
+            XCTFail(error.localizedDescription)
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertTrue(!returnedData.isEmpty)
+        XCTAssertEqual(imageURL, returnedURL)
+    }
+    
+    func testSavingImage() throws {
+        //Given
+        let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
+        var returnedURL = ""
+        let promise = self.expectation(description: "product image is saved")
+        
+        firstly {
+            productFB.saveImage(on: imageURL, image: (UIImage(named: "bgimage")?.jpegData(compressionQuality: 1))!)
+        }.done { (imageURL) in
+            //When
+            print(imageURL)
+            returnedURL = imageURL
+            promise.fulfill()
+        }.catch { (error) in
+            XCTFail(error.localizedDescription)
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertEqual(imageURL, returnedURL)
+    }
+    
     func testLoadingProductsPerformance() throws {
         self.measure {
             do {

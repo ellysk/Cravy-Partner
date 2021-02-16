@@ -108,7 +108,7 @@ class TagCollectionCell: UICollectionViewCell {
             separator!.sizeAnchorOf(width: 5, height: 5)
             
             tagStackView  = UIStackView(arrangedSubviews: [tagLabel, separator!])
-            tagStackView.set(axis: .horizontal, alignment: .center, spacing: 8)
+            tagStackView.set(axis: .horizontal, alignment: .center, distribution: .fill, spacing: 8)
             self.addSubview(tagStackView)
             tagStackView.translatesAutoresizingMaskIntoConstraints = false
             if style == .none_filled {

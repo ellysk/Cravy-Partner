@@ -28,6 +28,7 @@ enum PRODUCT_STATE: Int {
 enum PRODUCTS_UPDATE {
     case add
     case remove
+    case edit
 }
 
 /// Handles the display of the products that the user has created.
@@ -97,7 +98,7 @@ class ProductCollectionViewController: UICollectionViewController {
         switch productUpdate {
         case .add:
             sortProductsBy(sort: .normal)
-        case .remove:
+        case .remove, .edit:
             self.collectionView.reloadData()
         default:
             break
@@ -184,6 +185,12 @@ class ProductCollectionViewController: UICollectionViewController {
         }
     }
     
+    func edit(_ product: Product) {
+        guard let index = products.firstIndex(of: product) else {return}
+        products[index] = product
+        productUpdate = .edit
+    }
+    
     @objc func startCreating(_ sender: RoundButton) {
         sender.pulse()
         self.presentationDelegate?.presentation(CravyTabBarController.self, data: nil)
@@ -206,7 +213,7 @@ class ProductCollectionViewController: UICollectionViewController {
             cell.setCraveCollectionCell(product: data[indexPath.item])
             cell.addAction {
                 let promo = PromoView(toPromote: self.data[indexPath.item].title)
-                let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation) {
+                let popVC = PopViewController(popView: promo, animationView: AnimationView.promoteAnimation, actionHandler: {
                     //Promote product
                     //TODO
                     func promote() {
@@ -227,10 +234,10 @@ class ProductCollectionViewController: UICollectionViewController {
                                 self.present(UIAlertController.internetConnectionAlert(actionHandler: promote), animated: true)
                             }
                         }
-                        
                     }
+                    print("promoting!!!")
                     promote()
-                }
+                })
                 //Notifies so as to dismiss any first responders.
                 self.presentationDelegate?.presentation(PopViewController.self, data: nil)
                 self.present(popVC, animated: true)

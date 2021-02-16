@@ -134,6 +134,8 @@ protocol ProductDelegate {
     func didPostProduct(_ product: Product, at indexPath: IndexPath?)
     /// Called when the user has removed the product off the market
     func didPullProduct(_ product: Product)
+    /// Called when the user has edited a product
+    func didEditProduct(_ product: Product)
 }
 
 //MARK:- LayoutUpdate Delegate

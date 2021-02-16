@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import PromiseKit
+import FirebaseFunctions
 
 /// Handles the display and editing of the product's information
 class EditProductController: UIViewController {
@@ -42,6 +44,11 @@ class EditProductController: UIViewController {
         set {
             imageView.image = newValue
             imageView.showsPlaceholder = !isImageEdited
+            if isImageEdited {
+                updateData.updateValue(newValue, forKey: K.Key.image)
+            } else {
+                updateData.removeValue(forKey: K.Key.image)
+            }
             reloadEditable()
         }
         
@@ -52,6 +59,12 @@ class EditProductController: UIViewController {
     private var productTitle: String {
         set {
             titleTextField.text = newValue
+            editedProduct.title = newValue
+            if isTitleEdited {
+                updateData.updateValue(newValue, forKey: K.Key.title)
+            } else {
+                updateData.removeValue(forKey: K.Key.title)
+            }
             reloadEditable()
         }
         
@@ -62,6 +75,12 @@ class EditProductController: UIViewController {
     private var productDescription: String {
         set {
             descriptionTextView.text = newValue
+            editedProduct.description = newValue
+            if isDescriptionEdited {
+                updateData.updateValue(newValue, forKey: K.Key.description)
+            } else {
+                updateData.removeValue(forKey: K.Key.description)
+            }
             reloadEditable()
         }
         
@@ -77,6 +96,14 @@ class EditProductController: UIViewController {
             } else {
                 linkLabel.text = newValue
             }
+            if let link = newValue {
+                editedProduct.productLink = URL(string: link)
+            }
+            if isLinkEdited {
+                updateData.updateValue(newValue, forKey: K.Key.url)
+            } else {
+                updateData.removeValue(forKey: K.Key.url)
+            }
             reloadEditable()
         }
         
@@ -88,26 +115,22 @@ class EditProductController: UIViewController {
             }
         }
     }
-    var defaultValues: [String:Any] = [:]
-    var isImageEdited: Bool {
-        guard let defaultImage = defaultValues[K.Key.image] as? UIImage else {return false}
-        return defaultImage != productImage
-    }
+    var defaultProduct: Product!
+    private var editedProduct: Product!
+    private var updateData: [String : Any?] = [:]
+    var isImageEdited: Bool = false
     var isTitleEdited: Bool {
-        guard let defaultTitle = defaultValues[K.Key.title] as? String else {return false}
-        return defaultTitle != productTitle
+        return  defaultProduct.title != editedProduct.title
     }
     var isDescriptionEdited: Bool {
-        guard let defaultDescription = defaultValues[K.Key.description] as? String else {return false}
-        return defaultDescription != productDescription
+        return defaultProduct.description != editedProduct.description
     }
     var isTagsEdited: Bool {
-        guard let defaultTags = defaultValues[K.Key.tags] as? [String] else {return false}
-        return defaultTags != productTags
+        return defaultProduct.tags != editedProduct.tags
     }
     var isLinkEdited: Bool {
-        let defaultLink = defaultValues[K.Key.url] as? String
-        return defaultLink != productLink
+        let defaultLink = defaultProduct.productLink?.absoluteString
+        return defaultLink != editedProduct.productLink?.absoluteString
     }
     var isProductEdited: Bool {
         return isImageEdited || isTitleEdited || isDescriptionEdited || isTagsEdited || isLinkEdited
@@ -115,9 +138,12 @@ class EditProductController: UIViewController {
     private var navGesture: UITapGestureRecognizer {
         return UITapGestureRecognizer(target: self, action: #selector(navigateTo(_:)))
     }
+    private var productFB: ProductFirebase!
+    var delegate: ProductDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        productFB = ProductFirebase()
         setUpDefaultValues()
         titleTextField.delegate = self
         descriptionTextView.delegate = self
@@ -150,11 +176,13 @@ class EditProductController: UIViewController {
     
     /// Assign the variables to the default values.
     private func setUpDefaultValues() {
-        productImage = defaultValues[K.Key.image] as! UIImage
-        productTitle = defaultValues[K.Key.title] as! String
-        productDescription = defaultValues[K.Key.description] as! String
-        productTags = (defaultValues[K.Key.tags] as! [String])
-        productLink = defaultValues[K.Key.url] as? String
+        editedProduct = defaultProduct
+        productImage = UIImage(data: defaultProduct.image)!
+        
+        productTitle = defaultProduct.title
+        productDescription = defaultProduct.description
+        productTags = defaultProduct.tags
+        productLink = defaultProduct.productLink?.absoluteString
     }
         
     private func reloadEditable() {
@@ -199,21 +227,32 @@ class EditProductController: UIViewController {
     }
     
     @objc func saveChanges(_ sender: UIBarButtonItem) {
-        //TODO
-        let loaderVC = LoaderViewController()
-        self.present(loaderVC, animated: true) {
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                loaderVC.stopLoader {
+        func save() {
+            self.startLoader { (loaderVC) in
+                firstly {
+                    self.productFB.updateProduct(id: self.editedProduct.id, update: self.updateData, imageURL: self.editedProduct.imageURL)
+                }.done(on: .main) { (results) in
+                    let (_, data) = results
+                    if let imageData = data {
+                        self.editedProduct.image = imageData
+                    }
                     self.navigationController?.popViewController(animated: true)
+                    self.delegate?.didEditProduct(self.editedProduct)
                     self.showStatusBarNotification(title: self.productTitle.editFormat, style: .success)
+                }.ensure(on: .main, {
+                    loaderVC.stopLoader()
+                }).catch(on: .main) { (error) in
+                    print(error.localizedDescription)
+                    self.present(UIAlertController.internetConnectionAlert(actionHandler: save), animated: true)
                 }
             }
         }
+        save()
     }
     
     @objc func deleteProduct(_ sender: UIButton) {
         //TODO
-        let alertController = UIAlertController(title: defaultValues[K.Key.title] as? String, message: K.UIConstant.deleteProductMessage, preferredStyle: .alert)
+        let alertController = UIAlertController(title: defaultProduct.title, message: K.UIConstant.deleteProductMessage, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: K.UIConstant.delete, style: .destructive) { (action) in
             let loaderVC = LoaderViewController()
             self.present(loaderVC, animated: true) {
@@ -226,7 +265,7 @@ class EditProductController: UIViewController {
                                 nav.popToViewController(cravyTabBarController, animated: true)
                             }
                         }
-                        self.showStatusBarNotification(title: (self.defaultValues[K.Key.title] as! String).deleteFormat, style: .danger)
+                        self.showStatusBarNotification(title: self.defaultProduct.title.deleteFormat, style: .danger)
                     }
                 }
             }
@@ -250,6 +289,7 @@ class EditProductController: UIViewController {
 //MARK:- ImageViewController Delegate
 extension EditProductController: ImageViewControllerDelegate {
     func didConfirmImage(_ image: UIImage) {
+        isImageEdited = true
         productImage = image
     }
 }
@@ -260,7 +300,7 @@ extension EditProductController: UITextFieldDelegate {
         if let text = textField.text, text.removeLeadingAndTrailingSpaces != "" {
             productTitle = text.removeLeadingAndTrailingSpaces
         } else {
-            productTitle = defaultValues[K.Key.title] as! String
+            productTitle = defaultProduct.title
         }
     }
     
@@ -276,7 +316,7 @@ extension EditProductController: UITextViewDelegate {
         if textView.text.removeLeadingAndTrailingSpaces != "" {
             productDescription = textView.text.removeLeadingAndTrailingSpaces
         } else {
-            productDescription = defaultValues[K.Key.description] as! String
+            productDescription = defaultProduct.description
         }
     }
 }
@@ -285,6 +325,8 @@ extension EditProductController: UITextViewDelegate {
 extension EditProductController: TagsInputDelegate {
     func didUpdateTags(tags: [String]) {
         productTags = tags
+        editedProduct.tags = tags
+        updateData.updateValue(tags, forKey: K.Key.tags)
         reloadEditable()
         horizontalTagsCollectionView.reloadData()
     }
@@ -300,7 +342,7 @@ extension EditProductController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.CollectionViewCell.tagCell, for: indexPath) as! TagCollectionCell
         cell.setTagCollectionCell(tag: productTags[indexPath.item])
         cell.tagLabel.font = UIFont.medium.small
-        
+        cell.isSeparatorHidden = indexPath.item == productTags.count - 1
         return cell
     }
 }

@@ -76,11 +76,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLp-65-aND">
                                                 <rect key="frame" x="0.0" y="644" width="414" height="70"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Jse-t8-W9u">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jse-t8-W9u">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irG-9A-Zy1" customClass="PaddingLabel" customModule="Cravy_Partner" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="40"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irG-9A-Zy1" customClass="PaddingLabel" customModule="Cravy_Partner" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="24"/>
                                                                 <color key="textColor" name="dark"/>
                                                                 <nil key="highlightedColor"/>
@@ -104,9 +104,6 @@
                                                                 </connections>
                                                             </collectionView>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="Rw7-gr-TAw" firstAttribute="width" secondItem="Jse-t8-W9u" secondAttribute="width" id="7Pj-90-6ab"/>
-                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

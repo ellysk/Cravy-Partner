@@ -597,7 +597,7 @@ extension UIStackView {
 extension UICollectionViewFlowLayout {
     static var horizontalTagCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.set(direction: .horizontal, estimatedItemSize: CGSize(width: 80, height: 20), sectionInset: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0))
+        layout.set(direction: .horizontal, estimatedItemSize: CGSize(width: 80, height: 20), sectionInset: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
         return layout
     }
     
@@ -693,6 +693,28 @@ extension UIImage {
         self.draw(at: origin)
 
         return UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(self.renderingMode).withTintColor(tintColor)
+    }
+}
+
+extension Data {
+    enum DataUnits: String {
+        case byte, kilobyte, megabyte, gigabyte
+    }
+
+    func size(in type: DataUnits)-> Double {
+        var size: Double = 0.0
+        switch type {
+        case .byte:
+            size = Double(self.count)
+        case .kilobyte:
+            size = Double(self.count) / 1024
+        case .megabyte:
+            size = Double(self.count) / 1024 / 1024
+        case .gigabyte:
+            size = Double(self.count) / 1024 / 1024 / 1024
+        }
+
+        return size
     }
 }
 
@@ -1110,7 +1132,7 @@ extension Int {
 
 //MARK: - Int64
 extension Int64 {
-    static let MAX_IMAGE_SIZE: Int64 = 1000*1000*1024
+    static let MAX_IMAGE_SIZE: Int64 = 10*1024*1024
 }
 
 //MARK: - Double

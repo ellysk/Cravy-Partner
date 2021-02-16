@@ -24,7 +24,7 @@ class PopViewController: UIViewController {
     ///   - animationView: The view which displays the animation
     ///   - actionHandler: Called when user taps on the button displayed.
     ///   - dismissHandler: Called always when the view is dismissed.
-    init(popView: PopView, animationView: AnimationView? = nil, actionHandler: (()->())? = nil, dismissHandler: (()->())? = nil) {
+    init(popView: PopView, animationView: AnimationView? = nil, actionHandler: (()->())?, dismissHandler: (()->())? = nil) {
         self.popView = popView
         self.animationView = animationView
         self.action = actionHandler

@@ -9,10 +9,6 @@ admin.initializeApp({
   projectId: "cravy-food",
 });
 
-exports.helloWorld = functions.https.onCall((data, context) => {
-  return "Hello From Firebase";
-});
-
 // Load business info
 exports.getBusiness = functions.https.onCall(async (_, context) => {
   try {
@@ -83,6 +79,14 @@ exports.getBusinessProducts = functions.https.onCall(async (data, context) => {
   }
 });
 
+// Load the product data using the path in which the data is stored in the cloud firestore.
+const _getProduct = async function (path) {
+  const doc = await admin.firestore().doc(path).get(); // The document reference to the product data
+  const product = doc.data();
+  product.id = doc.id;
+  return product;
+};
+
 // Update Product state
 exports.updateProductState = functions.https.onCall(async (data, context) => {
   try {
@@ -127,6 +131,7 @@ exports.getMarketStatus = functions.https.onCall(async (data, context) => {
   }
 });
 
+// Set the promotion status of the product
 exports.setPromotion = functions.https.onCall(async (data, context) => {
   try {
     await admin
@@ -148,37 +153,22 @@ exports.setPromotion = functions.https.onCall(async (data, context) => {
   }
 });
 
-// Load the product data using the path in which the data is stored in the cloud firestore.
-const _getProduct = async function (path) {
-  const docRef = admin.firestore().doc(path); // The document reference to the product data
-  const doc = await docRef.get(); // The document containing the product data
-  const tagsRefSnapshot = await docRef.collection("tags").get(); // The collection of documents containing the reference path to the product's tags.
-  const tags = await _getTags(tagsRefSnapshot);
-  const product = doc.data();
-  product.id = doc.id;
-  product.tags = tags;
-  return product;
-};
-
-// Load the product's tags data using the snapshot.
-const _getTags = async function (tagsRefSnapshot) {
-  if (tagsRefSnapshot.empty) {
-    return;
-  } else {
-    const tagPromises = [];
-    tagsRefSnapshot.forEach((doc) => {
-      const tagRef = doc.data().tag_ref;
-      tagPromises.push(_getTag(tagRef.path));
-    });
-    return Promise.all(tagPromises);
+// Update the product with the provided information
+exports.updateProduct = functions.https.onCall(async (data, _) => {
+  try {
+    if (Object.keys(data.update).length) {
+      await admin
+        .firestore()
+        .collection("products")
+        .doc(data.id)
+        .update(data.update);
+    }
+    return data.update;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
-};
-
-// Load a tag in the specified path
-const _getTag = async function (path) {
-  const doc = await admin.firestore().doc(path).get();
-  return doc.data().tag;
-};
+});
 
 const _toTimestamp = (obj) => {
   return obj._seconds * 1000 + obj._nanoseconds / 1000000;

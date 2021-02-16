@@ -105,7 +105,7 @@ class CravyWebKitViewController: UIViewController {
     
     private func alert(title: String, description: String) {
         let popView = PopView(title: title, detail: description, actionTitle: K.UIConstant.OK)
-        let popViewController = PopViewController(popView: popView)
+        let popViewController = PopViewController(popView: popView, actionHandler: nil)
         self.present(popViewController, animated: true)
     }
     

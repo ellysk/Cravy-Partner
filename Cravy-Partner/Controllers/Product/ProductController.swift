@@ -58,6 +58,11 @@ class ProductController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        if productState == .active {
+            marketView.startLoader {
+                self.loadProductStats()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,13 +78,19 @@ class ProductController: UIViewController {
         }
     }
     
+    private func reloadProduct() {
+        self.title = product.title
+        imageView.image = UIImage(data: product.image)
+        titleLabel.text = product.title
+        detailLabel.text = product.description
+        horizontalTagsCollectionView.reloadData()
+    }
+    
     private func marketSetup() {
         //As soon as the view is loaded, set up the state of the market view according to the product state.
         marketView.startLoader {
             self.marketView.state = self.productState
-            if self.productState == .active {
-                self.loadProductStats()
-            } else if self.productState == .inActive {
+            if self.productState == .inActive {
                 self.marketView.stopLoader()
             }
         }
@@ -154,7 +165,8 @@ class ProductController: UIViewController {
         if segue.identifier == K.Identifier.Segue.productToEditProduct {
             let editProductVC = segue.destination as! EditProductController
             //assign default values
-            editProductVC.defaultValues = product.productInfo
+            editProductVC.defaultProduct = product
+            editProductVC.delegate = self
         }
     }
 }
@@ -224,5 +236,20 @@ extension ProductController: UIScrollViewDelegate {
             banner.dismiss()
             self.banner = nil
         }
+    }
+}
+
+//MARK:- Product Delegate
+extension ProductController: ProductDelegate {
+    func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {}
+    
+    func didPostProduct(_ product: Product, at indexPath: IndexPath?) {}
+    
+    func didPullProduct(_ product: Product) {}
+    
+    func didEditProduct(_ product: Product) {
+        self.product = product
+        reloadProduct()
+        self.delegate?.didEditProduct(product)
     }
 }
