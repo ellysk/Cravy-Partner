@@ -245,6 +245,12 @@ class ProductFirebase {
         }
     }
     
+    func deleteProduct(_ product: Product) -> Promise<HTTPSCallableResult> {
+        return Promise { (seal) in
+            functions.httpsCallable("deleteProduct").call([K.Key.id : product.id], completion: seal.resolve)
+        }
+    }
+    
     private func toProduct(productInfo: [String : Any]) -> Product? {
         guard let id = productInfo[K.Key.id] as? String, let dateCreatedInfo = productInfo[K.Key.dateCreated] as? [String : Double], let image = productInfo[K.Key.image] as? Data, let imageURL = productInfo[K.Key.productImageURL] as? String, let title = productInfo[K.Key.title] as? String, let description = productInfo[K.Key.description] as? String, let tags = productInfo[K.Key.tags] as? [String], let state = PRODUCT_STATE(rawValue: productInfo[K.Key.state] as! Int) else {return nil}
         let recommendations: Int = productInfo[K.Key.recommendations] as? Int ?? 0

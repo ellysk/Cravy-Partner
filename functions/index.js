@@ -170,6 +170,26 @@ exports.updateProduct = functions.https.onCall(async (data, _) => {
   }
 });
 
+// Delete a product
+exports.deleteProduct = functions.https.onCall(async (data, context) => {
+  try {
+    await Promise.all(
+      admin
+        .firestore()
+        .collection("businesses")
+        .doc(context.auth.uid)
+        .collection("products")
+        .doc(data.id)
+        .delete(),
+      admin.firestore().collection("products").doc(data.id).delete()
+    );
+    return data.id;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
 const _toTimestamp = (obj) => {
   return obj._seconds * 1000 + obj._nanoseconds / 1000000;
 };

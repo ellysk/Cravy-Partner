@@ -252,4 +252,7 @@ extension ProductController: ProductDelegate {
         reloadProduct()
         self.delegate?.didEditProduct(product)
     }
+    func didDeleteProduct(_ product: Product) {
+        self.delegate?.didDeleteProduct(product)
+    }
 }

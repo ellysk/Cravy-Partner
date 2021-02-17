@@ -144,6 +144,8 @@ extension BusinessController: ProductDelegate {
     func didPullProduct(_ product: Product) {}
     
     func didEditProduct(_ product: Product) {}
+    
+    func didDeleteProduct(_ product: Product) {}
 }
 
 //MARK: - LayoutUpdate Delegate

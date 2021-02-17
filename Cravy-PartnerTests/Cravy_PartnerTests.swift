@@ -209,22 +209,17 @@ class ProductTests: XCTestCase {
     func testUpdatingProduct() throws {
         //Given
         let id = "a0yf5CoxyHOG1v5bic4m"
-        let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
         let updateData: [String : Any] = [K.Key.title : "Double Cheese Burger"]
         var returnedData: [String : Any] = [:]
-        var returnedURL: String = ""
         let promise = self.expectation(description: "product has been updated")
         
         firstly {
-            when(fulfilled: productFB.updateProduct(id: id, update: updateData), productFB.saveImage(on: imageURL, image: (UIImage(named: "bgimage")?.jpegData(compressionQuality: 1))!))
+            productFB.updateProduct(id: id, update: updateData)
         }.done { (results) in
-            let (result, url) = results
+            let (result, _) = results
             guard let data = result.data as? [String : Any] else {return}
             //When
-            print(data)
-            print(url)
             returnedData = data
-            returnedURL = url
             promise.fulfill()
         }.catch { (error) in
             XCTFail(error.localizedDescription)
@@ -232,28 +227,27 @@ class ProductTests: XCTestCase {
         //Then
         self.wait(for: [promise], timeout: 5)
         XCTAssertTrue(!returnedData.isEmpty)
-        XCTAssertEqual(imageURL, returnedURL)
     }
     
     func testSavingImage() throws {
         //Given
         let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
-        var returnedURL = ""
+        var data: Data?
         let promise = self.expectation(description: "product image is saved")
         
         firstly {
-            productFB.saveImage(on: imageURL, image: (UIImage(named: "bgimage")?.jpegData(compressionQuality: 1))!)
-        }.done { (imageURL) in
+            try productFB.saveImage(on: imageURL, image: (UIImage(named: "bgimage")!))
+        }.done { (imageData) in
             //When
-            print(imageURL)
-            returnedURL = imageURL
+            print(imageData)
+            data = imageData
             promise.fulfill()
         }.catch { (error) in
             XCTFail(error.localizedDescription)
         }
         //Then
         self.wait(for: [promise], timeout: 5)
-        XCTAssertEqual(imageURL, returnedURL)
+        XCTAssertNotNil(data)
     }
     
     func testLoadingProductsPerformance() throws {

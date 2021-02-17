@@ -251,24 +251,29 @@ class EditProductController: UIViewController {
     }
     
     @objc func deleteProduct(_ sender: UIButton) {
-        //TODO
         let alertController = UIAlertController(title: defaultProduct.title, message: K.UIConstant.deleteProductMessage, preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: K.UIConstant.delete, style: .destructive) { (action) in
-            let loaderVC = LoaderViewController()
-            self.present(loaderVC, animated: true) {
-                DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-                    loaderVC.stopLoader {
+            func delete() {
+                self.startLoader { (loaderVC) in
+                    firstly {
+                        self.productFB.deleteProduct(self.defaultProduct)
+                    }.done(on: .main) { (result) in
+                        self.delegate?.didDeleteProduct(self.defaultProduct)
                         guard let nav = self.navigationController else {return}
                         for viewController in nav.viewControllers {
                             if let cravyTabBarController = viewController as? CravyTabBarController {
-                                print(nav.viewControllers.firstIndex(of: viewController)!)
                                 nav.popToViewController(cravyTabBarController, animated: true)
                             }
                         }
                         self.showStatusBarNotification(title: self.defaultProduct.title.deleteFormat, style: .danger)
+                    }.ensure(on: .main, {
+                        loaderVC.stopLoader()
+                    }).catch(on: .main) { (error) in
+                        self.present(UIAlertController.internetConnectionAlert(actionHandler: delete), animated: true)
                     }
                 }
             }
+            delete()
         }
         alertController.addAction(UIAlertAction.no)
         alertController.addAction(deleteAction)
