@@ -8,8 +8,9 @@
 
 import UIKit
 import NotificationBannerSwift
+import PromiseKit
 
-/// Handles the transitions of the NewsPageController
+/// Handles the transitions of the NewPageController
 class NewProductViewsController: UIViewController {
     @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var navigationBar: UINavigationBar!
@@ -21,6 +22,7 @@ class NewProductViewsController: UIViewController {
         return true
     }
     var productInfo: [String:Any]!
+    var createdProduct: Product?
     var transitionDelegate: TransitionDelegate?
     
     override func viewDidLoad() {
@@ -43,18 +45,25 @@ class NewProductViewsController: UIViewController {
     }
     
     @objc func create(_ sender: UIBarButtonItem) {
-        //TODO
-        if isProductInfoComplete {
-            let loaderVC = LoaderViewController()
-            self.present(loaderVC, animated: true) {
-                self.dismissKeyboard()
-                DispatchQueue.main.asyncAfter(deadline: .now()+3) {
-                    loaderVC.stopLoader {
+        let productFB = ProductFirebase()
+        func create() {
+            if isProductInfoComplete {
+                self.startLoader { (loaderVC) in
+                    self.dismissKeyboard()
+                    firstly {
+                        try productFB.createProduct(productInfo: self.productInfo)
+                    }.done { (result) in
+                        self.createdProduct = ProductFirebase.toProduct(productInfo: result)
                         self.performSegue(withIdentifier: K.Identifier.Segue.newProductToProduct, sender: self)
+                    }.ensure(on: .main) {
+                        loaderVC.stopLoader()
+                    }.catch { (error) in
+                        self.present(UIAlertController.internetConnectionAlert(actionHandler: create), animated: true)
                     }
                 }
             }
         }
+        create()
     }
     
     @IBAction func cancel(_ sender: RoundButton) {
@@ -71,8 +80,8 @@ class NewProductViewsController: UIViewController {
             let productVC = segue.destination as! ProductController
             productVC.navigationItem.setHidesBackButton(true, animated: true)
             productVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: productVC, action: #selector(productVC.done(_:)))
-//            productVC.productTitle = productInfo[K.Key.title] as? String TODO
-            productVC.showFloaterBanner = true
+            productVC.product = createdProduct!
+            productVC.isNewProduct = true
         }
     }
 }

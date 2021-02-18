@@ -32,6 +32,7 @@ enum ProductError: Error {
 /// Models the necessary product information.
 struct Product: Hashable, Equatable {
     var id: String
+    /// Date Created
     var date: Date
     var image: Data
     var imageURL: String
@@ -48,7 +49,8 @@ struct Product: Hashable, Equatable {
     var productLink: URL?
     var isPromoted: Bool
     var productInfo: [String : Any] {
-        var info: [String : Any] = [K.Key.id : id, K.Key.image : image, K.Key.title : title, K.Key.description : description, K.Key.tags : tags, K.Key.state : state.rawValue, K.Key.recommendations : recommendations, K.Key.cravings : cravings]
+        let dateCreatedInfo = [K.Key.seconds : Double(date.timeIntervalSince1970), K.Key.nanoseconds : 0.0]
+        var info: [String : Any] = [K.Key.id : id, K.Key.dateCreated : dateCreatedInfo, K.Key.image : image, K.Key.productImageURL : imageURL, K.Key.title : title, K.Key.description : description, K.Key.tags : tags, K.Key.state : state.rawValue, K.Key.recommendations : recommendations, K.Key.cravings : cravings, K.Key.isPromoted : isPromoted]
         if let link = productLink {
             info.updateValue(link.absoluteString, forKey: K.Key.url)
         }
@@ -102,6 +104,34 @@ class ProductFirebase {
         functions.useEmulator(withHost: "http://localhost", port: 5001)
     }
     
+    func createProduct(productInfo: [String : Any]) throws -> Promise<[String : Any]> {
+        let image = productInfo[K.Key.image] as! UIImage
+        
+        func createAfterDownloading(url: URL?) throws -> Promise<[String : Any]> {
+            guard let imageURL = url else {throw URLError(.badURL)}
+            var info = productInfo
+            info.removeValue(forKey: K.Key.image)
+            info.updateValue(imageURL.absoluteString, forKey: K.Key.productImageURL)
+            return Promise { (seal) in
+                functions.httpsCallable("createProduct").call(info) { (result, error) in
+                    if let e = error {
+                        seal.reject(e)
+                    } else if let data = result?.data as? [String : Any], let imageData = image.jpegData(compressionQuality: 1) {
+                        var newProductInfo = data
+                        newProductInfo.updateValue(imageData, forKey: K.Key.image)
+                        seal.fulfill(newProductInfo)
+                    }
+                }
+            }
+        }
+        
+        return firstly {
+            try saveImage(image)
+        }.then { url in
+            try createAfterDownloading(url: url)
+        }
+    }
+    
     /// Loads multiple products of the business. The maximum it can load depends on the limit provided.
     func loadProducts(limit: Int = 20) -> Promise<[Product]> {
         var callData = productsCallData
@@ -124,7 +154,7 @@ class ProductFirebase {
                         for (i, data) in imageResults.enumerated() {
                             var productInfo = info[i]
                             productInfo.updateValue(data, forKey: K.Key.image)
-                            guard let product = self.toProduct(productInfo: productInfo) else {return}
+                            guard let product = ProductFirebase.toProduct(productInfo: productInfo) else {return}
                             products.append(product)
                         }
                         seal.fulfill(products)
@@ -139,7 +169,7 @@ class ProductFirebase {
         }
     }
     
-    /// Stores the imageon the database in the provided URL.
+    /// Stores the image on the database in the provided URL.
     /// - Parameters:
     ///   - imageURL: The location of where the image is stored.
     func saveImage(on imageURL: String, image: UIImage) throws -> Promise<Data> {
@@ -152,6 +182,26 @@ class ProductFirebase {
                     seal.reject(e)
                 } else {
                     seal.fulfill(data)
+                }
+            }
+        }
+    }
+    
+    /// Stores the image on the database and returns the newly created URL for the image.
+    func saveImage(_ image: UIImage) throws -> Promise<URL?> {
+        let data = try compress(image)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        let imageRef = Storage.storage().reference(withPath: "product_image/").child("\(UUID().uuidString).jpeg")
+        return Promise { (seal) in
+            imageRef.putData(data, metadata: metadata) { (metadata, error) in
+                if let e = error {
+                    seal.reject(e)
+                } else {
+                    imageRef.downloadURL { (url, error) in
+                        seal.fulfill(url)
+                    }
                 }
             }
         }
@@ -251,18 +301,21 @@ class ProductFirebase {
         }
     }
     
-    private func toProduct(productInfo: [String : Any]) -> Product? {
+    static func toProduct(productInfo: [String : Any]) -> Product? {
         guard let id = productInfo[K.Key.id] as? String, let dateCreatedInfo = productInfo[K.Key.dateCreated] as? [String : Double], let image = productInfo[K.Key.image] as? Data, let imageURL = productInfo[K.Key.productImageURL] as? String, let title = productInfo[K.Key.title] as? String, let description = productInfo[K.Key.description] as? String, let tags = productInfo[K.Key.tags] as? [String], let state = PRODUCT_STATE(rawValue: productInfo[K.Key.state] as! Int) else {return nil}
         let recommendations: Int = productInfo[K.Key.recommendations] as? Int ?? 0
         let cravings: Int = productInfo[K.Key.cravings] as? Int ?? 0
-        let link = productInfo[K.Key.url] as? URL
+        let link = productInfo[K.Key.url] as? String
         let isPromoted: Bool = productInfo[K.Key.isPromoted] as? Bool ?? false
         
-        guard let seconds = dateCreatedInfo["_seconds"], let nanoSeconds = dateCreatedInfo["_nanoseconds"] else {return nil}
+        guard let seconds = dateCreatedInfo[K.Key.seconds], let nanoSeconds = dateCreatedInfo[K.Key.nanoseconds] else {return nil}
         let totalSeconds = seconds + (nanoSeconds / 1000000)
         let dateCreated = Date(timeIntervalSince1970: totalSeconds)
         
-        let product = Product(id: id, date: dateCreated, image: image, imageURL: imageURL, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, productLink: link, isPromoted: isPromoted)
+        var product = Product(id: id, date: dateCreated, image: image, imageURL: imageURL, title: title, description: description, tags: tags, state: state, recommendations: recommendations, cravings: cravings, isPromoted: isPromoted)
+        if let link = link, let url = URL(string: link) {
+            product.productLink = url
+        }
         return product
     }
 }

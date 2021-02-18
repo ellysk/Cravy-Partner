@@ -130,6 +130,8 @@ extension BusinessController: FloaterViewDelegate {
 
 //MARK: - Product Delegate
 extension BusinessController: ProductDelegate {
+    func didCreateProduct(_ product: Product) {}
+    
     func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {
         //User selected a product in the CraveCollectionCell
         self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)

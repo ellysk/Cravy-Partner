@@ -29,6 +29,18 @@ class ProductsPageController: CravyPageController {
         dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //Add the newly created product
+        guard let productInfo = UserDefaults.standard.dictionary(forKey: K.Key.newProduct), let product = ProductFirebase.toProduct(productInfo: productInfo) else {return}
+        let productionCollectionViewController = pages.first { (viewController) -> Bool in
+            let productionCollectionVC = viewController as! ProductCollectionViewController
+            return productionCollectionVC.collectionState == product.state
+        } as! ProductCollectionViewController
+        productionCollectionViewController.add(product)
+        UserDefaults.standard.removeObject(forKey: K.Key.newProduct) //Remove the cached information of the newly created product
+    }
+    
     override func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return 0
     }
@@ -61,6 +73,11 @@ extension ProductsPageController: CravySearchBarDelegate {
 
 //MARK:- Product Delegate
 extension ProductsPageController: ProductDelegate {
+    func didCreateProduct(_ product: Product) {
+        guard let inActiveProductsVC = pages[1] as? ProductCollectionViewController else {return}
+        inActiveProductsVC.add(product)
+    }
+    
     func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {}
     
     func didPostProduct(_ product: Product, at indexPath: IndexPath?) {

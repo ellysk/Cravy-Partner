@@ -232,14 +232,14 @@ class ProductTests: XCTestCase {
     func testSavingImage() throws {
         //Given
         let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
-        var data: Data?
+        var data: URL?
         let promise = self.expectation(description: "product image is saved")
         
         firstly {
-            try productFB.saveImage(on: imageURL, image: (UIImage(named: "bgimage")!))
+            try productFB.saveImage(UIImage(named: "pmimage")!)
         }.done { (imageData) in
             //When
-            print(imageData)
+            print(imageData?.absoluteString)
             data = imageData
             promise.fulfill()
         }.catch { (error) in
@@ -248,6 +248,28 @@ class ProductTests: XCTestCase {
         //Then
         self.wait(for: [promise], timeout: 5)
         XCTAssertNotNil(data)
+    }
+    
+    func testCreatingProduct() throws {
+        //Given
+        let productInfo: [String : Any] = [K.Key.title : "Ugali Samaki", K.Key.description : "The best ugali samaki in town", K.Key.tags : ["Ugali", "Sea food", "Samaki", "Swahili"], K.Key.image : UIImage(named: "pmimage")!]
+        var prdct: Product?
+        let promise = self.expectation(description: "product is created")
+        
+        firstly {
+            try productFB.createProduct(productInfo: productInfo)
+        }.done { (result) in
+            guard let product = ProductFirebase.toProduct(productInfo: result) else {fatalError("Could not parse product!")}
+            //When
+            print(product)
+            prdct = product
+            promise.fulfill()
+        }.catch { (error) in
+            XCTFail(error.localizedDescription)
+        }
+        //Then
+        self.wait(for: [promise], timeout: 5)
+        XCTAssertNotNil(prdct)
     }
     
     func testLoadingProductsPerformance() throws {

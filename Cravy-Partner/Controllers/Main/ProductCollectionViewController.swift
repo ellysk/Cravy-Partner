@@ -235,7 +235,6 @@ class ProductCollectionViewController: UICollectionViewController {
                             }
                         }
                     }
-                    print("promoting!!!")
                     promote()
                 })
                 //Notifies so as to dismiss any first responders.

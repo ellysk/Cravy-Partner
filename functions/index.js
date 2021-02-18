@@ -31,6 +31,32 @@ exports.getBusiness = functions.https.onCall(async (_, context) => {
   }
 });
 
+// Create a Product
+exports.createProduct = functions.https.onCall(async (data, context) => {
+  try {
+    const product = data;
+    product.state = 0;
+    product.date_created = admin.firestore.Timestamp.now();
+    const ref = await admin.firestore().collection("products").add(product);
+    product.id = ref.id;
+    await admin
+      .firestore()
+      .collection("businesses")
+      .doc(context.auth.uid)
+      .collection("products")
+      .doc(product.id)
+      .set({
+        date_created: product.date_created,
+        state: product.state,
+        product_ref: ref,
+      });
+    return product;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
 // Load Business Products
 exports.getBusinessProducts = functions.https.onCall(async (data, context) => {
   try {
@@ -173,7 +199,7 @@ exports.updateProduct = functions.https.onCall(async (data, _) => {
 // Delete a product
 exports.deleteProduct = functions.https.onCall(async (data, context) => {
   try {
-    await Promise.all(
+    await Promise.all([
       admin
         .firestore()
         .collection("businesses")
@@ -181,8 +207,8 @@ exports.deleteProduct = functions.https.onCall(async (data, context) => {
         .collection("products")
         .doc(data.id)
         .delete(),
-      admin.firestore().collection("products").doc(data.id).delete()
-    );
+      admin.firestore().collection("products").doc(data.id).delete(),
+    ]);
     return data.id;
   } catch (error) {
     console.log(error);

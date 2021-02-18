@@ -34,7 +34,7 @@ class ProductController: UIViewController {
         }
     }
     /// Shows a notification banner notifying the user that the product can be put on the market.
-    var showFloaterBanner: Bool = false
+    var isNewProduct: Bool = false
     var productFB: ProductFirebase!
     var delegate: ProductDelegate?
     
@@ -70,10 +70,9 @@ class ProductController: UIViewController {
         if productState == .inActive {
             marketView.playAnimation()
         }
-        if showFloaterBanner {
+        if isNewProduct {
             self.showFloaterBarNotification(title: K.UIConstant.newProductTitle, subtitle: K.UIConstant.newProductMessage) { (banner) in
                 self.banner = banner
-                self.showFloaterBanner = false
             }
         }
     }
@@ -158,7 +157,12 @@ class ProductController: UIViewController {
     }
     
     @objc func done(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            if self.isNewProduct {
+                UserDefaults.standard.set(self.product.productInfo, forKey: K.Key.newProduct)
+                self.isNewProduct = false
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -241,6 +245,8 @@ extension ProductController: UIScrollViewDelegate {
 
 //MARK:- Product Delegate
 extension ProductController: ProductDelegate {
+    func didCreateProduct(_ product: Product) {}
+    
     func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {}
     
     func didPostProduct(_ product: Product, at indexPath: IndexPath?) {}
