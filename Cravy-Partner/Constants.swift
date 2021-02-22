@@ -317,6 +317,7 @@ struct K {
         static let cravings = "cravings"
         static let state = "state"
         static let logo = "logo"
+        static let logoURL = "logo_url"
         static let id = "id"
         static let productImageURL = "product_image_url"
         static let dateCreated = "date_created"
@@ -328,5 +329,7 @@ struct K {
         static let newProduct = "new_product"
         static let seconds = "_seconds"
         static let nanoseconds = "_nanoseconds"
+        static let productImagesPath = "product_images/"
+        static let businessImagesPath = "business_images/"
     }
 }

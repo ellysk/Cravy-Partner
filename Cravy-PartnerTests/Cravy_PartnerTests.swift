@@ -89,6 +89,25 @@ class BusinessTests: XCTestCase {
         XCTAssertNotNil(bsn)
     }
     
+    /// Tests loading all business information with an attached listener
+    func testLoadingBusinessWithListener() throws {
+        //Given
+        let promise = self.expectation(description: "business info successfully downloaded")
+        promise.expectedFulfillmentCount = 2
+        var bsn: Business!
+        let listener = businessFB.loadBusiness { (business) in
+            //When
+            guard let business = business else {return}
+            print(business)
+            bsn = business
+            promise.fulfill()
+        }
+        //Then
+        self.wait(for: [promise], timeout: 20)
+        listener.remove()
+        XCTAssertNotNil(bsn)
+    }
+    
     func testLoadingBusinessPerformance() throws {
         self.measure {
             do {
@@ -152,7 +171,7 @@ class ProductTests: XCTestCase {
             stats = statInfo
             promise.fulfill()
         }.catch(on: .main) { (error) in
-            if let e = error as? ProductError {
+            if let e = error as? CravyError {
                 XCTFail(e.localizedDescription)
             } else {
                 XCTFail(error.localizedDescription)
@@ -231,7 +250,7 @@ class ProductTests: XCTestCase {
     
     func testSavingImage() throws {
         //Given
-        let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
+//        let imageURL = "gs://cravy-food.appspot.com/product_image/B9BE6685-F21B-45A1-8628-9E04EE85C14D.jpeg"
         var data: URL?
         let promise = self.expectation(description: "product image is saved")
         
@@ -239,7 +258,7 @@ class ProductTests: XCTestCase {
             try productFB.saveImage(UIImage(named: "pmimage")!)
         }.done { (imageData) in
             //When
-            print(imageData?.absoluteString)
+//            print(imageData?.absoluteString)
             data = imageData
             promise.fulfill()
         }.catch { (error) in

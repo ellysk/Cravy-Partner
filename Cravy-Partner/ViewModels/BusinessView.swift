@@ -11,7 +11,7 @@ import UIKit
 /// A custom class that displays business information.
 class BusinessView: UIView {
     private var businessStackView = UIStackView()
-    private var businessImageView = RoundImageView(image: nil, roundfactor: 5)
+    var businessImageView = RoundImageView(image: nil, roundfactor: 5)
     private var businessInfoStackView = UIStackView()
     private var nameLabel = UILabel()
     private var emailLabel = UILabel()
@@ -28,7 +28,12 @@ class BusinessView: UIView {
     /// The company logo or any image that represents the business.
     var image: UIImage? {
         set {
-            businessImageView.image = newValue
+            businessImageView.showsPlaceholder = newValue == nil
+            if newValue == nil {
+                businessImageView.image = UIImage(named: "bgimage")
+            } else {
+                businessImageView.image = newValue
+            }
         }
         
         get {
@@ -84,7 +89,7 @@ class BusinessView: UIView {
     }
     
     private func setBusinessImageView() {
-        businessImageView.contentMode = .scaleAspectFill
+        businessImageView.contentMode = .redraw
         businessImageView.translatesAutoresizingMaskIntoConstraints = false
         businessImageView.sizeAnchorOf(width: 100, height: 100  )
         businessStackView.addArrangedSubview(businessImageView)

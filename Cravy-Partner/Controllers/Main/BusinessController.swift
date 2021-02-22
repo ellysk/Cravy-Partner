@@ -8,6 +8,9 @@
 
 import UIKit
 import Lottie
+import FirebaseAuth
+import FirebaseFirestore
+import PromiseKit
 
 /// Handles the display of the business/restaurant/owner/cook properties.
 class BusinessController: UIViewController {
@@ -17,14 +20,23 @@ class BusinessController: UIViewController {
     @IBOutlet weak var PRCollectionViewContainer: UIView!
     @IBOutlet weak var galleryTableViewContainer: UIView!
     var PRCollectionVC: PRCollectionViewController!
-    var businessInfo: [String:Any] = [:] //TODO
+    var business: Business! {
+        guard let info = UserDefaults.standard.dictionary(forKey: Auth.auth().currentUser!.uid), let business = BusinessFireBase.toBusiness(businessInfo: info) else {return nil}
+        return business
+    }
+    var businessFB: BusinessFireBase!
+    var listener: ListenerRegistration?
     
+    deinit {
+        listener?.remove()
+        listener = nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadBusinessInfo()
-        // Do any additional setup after loading the view.
+        businessFB = BusinessFireBase()
         businessView.delegate = self
+        businessView.businessImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editImage(_:))))
         self.view.setCravyGradientBackground()
         self.setFloaterViewWith(image: K.Image.ellipsisCricleFill, title: K.UIConstant.settings)
         self.floaterView?.delegate = self
@@ -38,20 +50,34 @@ class BusinessController: UIViewController {
         PRCollectionViewContainer.heightAnchor(of: UICollectionViewFlowLayout.horizontalCraveCollectionViewFlowLayout.itemSize.height)
     }
     
-    private func loadBusinessInfo() {
-        //TODO
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            //load business info
-            self.businessView.stopLoadingAnimation()
-            self.businessView.image = UIImage(named: "bgimage")
-            self.businessView.name = "EAT Restaurant & Cafe"
-            self.businessView.email = "eat@restcafe.co.uk"
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadBusinessInfo()
+    }
             
-            //load business stat
-            self.businessStatView.stopLoadingAnimation()
-            self.businessStatView.recommendations = 608
-            self.businessStatView.subscribers = 130
+    private func loadBusinessInfo() {
+        self.businessView.image = business.logo == nil ? nil : UIImage(data: business.logo!)
+        self.businessView.name = business.name
+        self.businessView.email = business.email
+        
+        attachListener()
+    }
+    
+    private func attachListener() {
+        if listener == nil {
+            listener = businessFB.loadBusiness(completion: { (business) in
+                if let business = business {
+                    self.businessStatView.recommendations = business.totalRecommendations
+                    self.businessStatView.subscribers = business.totalSubscribers
+                } else {
+                    self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadBusinessInfo), animated: true)
+                }
+            })
         }
+    }
+    
+    @objc func editImage(_ gesture: UITapGestureRecognizer) {
+        //TODO
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -72,7 +98,7 @@ class BusinessController: UIViewController {
 //MARK: - LinkView Delegate
 extension BusinessController: LinkViewDelegate {
     func didTapOnLinkView(_ linkView: LinkView) {
-        self.openCravyWebKit(link: businessInfo[K.Key.url] as? String, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
+        self.openCravyWebKit(link: business.websiteLink?.absoluteString, alertTitle: K.UIConstant.noBusinessLinkMessage) { (cravyWK) in
             cravyWK.delegate = self
             self.navigationController?.pushViewController(cravyWK, animated: true)
         }
@@ -82,8 +108,22 @@ extension BusinessController: LinkViewDelegate {
 //MARK: - CravyWebKitController Delegate
 extension BusinessController: CravyWebViewControllerDelegate {
     func didCommitLink(URL: URL) {
-        //TODO
-        businessInfo.updateValue(URL.absoluteString, forKey: K.Key.url)
+        func commit() {
+            self.startLoader { (loaderVC) in
+                firstly {
+                    self.businessFB.updateBusiness(update: [K.Key.url : URL.absoluteString])
+                }.done { (result) in
+                    //Update the cached business info
+                    try UserDefaults.standard.updateBusinessInfo(key: K.Key.url, value: URL.absoluteString, id: self.business.id)
+                }.ensure(on: .main, {
+                    loaderVC.stopLoader()
+                }).catch(on: .main) { (error) in
+                    //TODO Cravy Error
+                    self.present(UIAlertController.internetConnectionAlert(actionHandler: commit), animated: true)
+                }
+            }
+        }
+        commit()
     }
 }
 
@@ -104,7 +144,7 @@ extension BusinessController: UICollectionViewDataSource {
 //MARK: - UICollectionView Delegate
 extension BusinessController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //User selected an item in the ImageCollectionTableCell
+        //User selected an item in the ImageCollectionTableCell [PROMOTE, COMING SOON]
         if indexPath.item == 0 {
             //TODO
             //PROMOTE
@@ -155,5 +195,45 @@ extension BusinessController: LayoutUpdateDelegate {
     func updateLayoutHeight(to height: CGFloat) {
         galleryTableViewContainer.heightAnchor(of: height)
         galleryTableViewContainer.setNeedsLayout()
+    }
+}
+
+//MARK: - ImageViewController Delegate
+extension BusinessController: ImageViewControllerDelegate {
+    func didConfirmImage(_ image: UIImage) {
+        var imagePromise: Promise<(Data, URL?)>!
+        
+        func confirm() {
+            do {
+                if business.logo == nil {
+                    imagePromise = try businessFB.saveImage(image, at: K.Key.businessImagesPath)
+                } else if let url = business.logoURL {
+                    imagePromise = when(fulfilled: try businessFB.saveImage(on: url, image: image), Promise { (seal) in
+                        seal.fulfill(nil)
+                    })
+                }
+            } catch {
+                //TODO CRAVY ERROR
+                print(error)
+            }
+            
+            self.startLoader { (loaderVC) in
+                firstly {
+                    imagePromise
+                }.done(on: .main) { (imageInfo) in
+                    let (data, url) = imageInfo
+                    self.businessView.image = UIImage(data: data)
+                    try UserDefaults.standard.updateBusinessInfo(key: K.Key.logo, value: data, id: self.business.id)
+                    if let imageURL = url {
+                        try UserDefaults.standard.updateBusinessInfo(key: K.Key.logoURL, value: imageURL.absoluteString, id: self.business.id)
+                    }
+                }.ensure(on: .main, {
+                    loaderVC.stopLoader()
+                }).catch(on: .main) { (error) in
+                    self.present(UIAlertController.internetConnectionAlert(actionHandler: confirm), animated: true)
+                }
+            }
+        }
+        confirm()
     }
 }

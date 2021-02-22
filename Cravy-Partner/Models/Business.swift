@@ -10,10 +10,11 @@ import Foundation
 import FirebaseFunctions
 import FirebaseStorage
 import FirebaseAuth
+import FirebaseFirestore
 import PromiseKit
 
 /// Models the necessary information of the user's business.
-class Business: CustomStringConvertible {
+class Business: CustomStringConvertible, Hashable, Equatable {
     var description: String {
         return "id: \(id)\nemail: \(email)\nname: \(name)\nphonenumber: \(phoneNumber)\nwebsite: \(websiteLink?.absoluteString ?? "Not availabel")\ntotal recommendations: \(totalRecommendations)\nsubscribers: \(totalSubscribers)\nlogo: \(logo != nil ? "I have a logo" : "No logo")"
     }
@@ -31,9 +32,10 @@ class Business: CustomStringConvertible {
     var totalSubscribers: Int
     /// All information in this struct embedded in a dictionary. useful for integrating with the database.
     var businessInfo: [String : Any] {
-        var info: [String : Any] = [K.Key.name : name, K.Key.number : phoneNumber, K.Key.recommendations : totalRecommendations, K.Key.subscribers : totalSubscribers]
-        if let logo = self.logo {
+        var info: [String : Any] = [K.Key.id : id, K.Key.email : email, K.Key.name : name, K.Key.number : phoneNumber, K.Key.recommendations : totalRecommendations, K.Key.subscribers : totalSubscribers]
+        if let logo = self.logo, let logoURL = self.logoURL {
             info.updateValue(logo, forKey: K.Key.logo)
+            info.updateValue(logoURL, forKey: K.Key.logoURL)
         }
         if let link = websiteLink {
             info.updateValue(link.absoluteString, forKey: K.Key.url)
@@ -53,24 +55,28 @@ class Business: CustomStringConvertible {
         self.totalRecommendations = totalRecommendations
         self.totalSubscribers = totalSubscribers
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Business, rhs: Business) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 //TODO
 /// Structures the required functionality to load business information from the database
-struct BusinessFireBase {
-    private let functions = Functions.functions()
-    private let auth = Auth.auth()
+class BusinessFireBase: CravyFirebase {
+    let db = Firestore.firestore()
     
-    init() {
-        functions.useEmulator(withHost: "http://localhost", port: 5001)
-        auth.useEmulator(withHost:"localhost", port: 9099)
-    }
-    
-    /// Sign in the user with email and password.
-    func signIn(email: String, password: String) -> Promise<AuthDataResult> {
-        return Promise { (seal) in
-            auth.signIn(withEmail: email, password: password, completion: seal.resolve)
-        }
+    override init() {
+        super.init()
+        let settings = Firestore.firestore().settings
+        settings.host = "localhost:8000"
+        settings.isPersistenceEnabled = false
+        settings.isSSLEnabled = false
+        db.settings = settings
     }
     
     /// Loads all business information
@@ -83,27 +89,30 @@ struct BusinessFireBase {
         }
     }
     
+    func loadBusiness(completion: @escaping (Business?)->()) -> ListenerRegistration {
+        let id = Auth.auth().currentUser!.uid
+        let email: String = UserDefaults.standard.dictionary(forKey: id)?[K.Key.email] as? String ?? Auth.auth().currentUser!.email!
+        let listener = db.collection("businesses").document(id).addSnapshotListener { (docSnapshot, error) in
+            if let _ = error {
+                completion(nil)
+            } else if let businessInfo = docSnapshot?.data() {
+                var info = businessInfo
+                info.updateValue(id, forKey: K.Key.id)
+                info.updateValue(email, forKey: K.Key.email)
+                let business = BusinessFireBase.toBusiness(businessInfo: info)
+                completion(business)
+            }
+        }
+        return listener
+    }
+    
     /// Loads all business information except the logo.
     private func loadBusinessInfo() -> Promise<Business> {
         return Promise { (seal) in
             functions.httpsCallable("getBusiness").call { (result, error) in
                 if let e = error {
                     seal.reject(e)
-                } else if let info = result?.data as? [String : Any] {
-                    let id = Auth.auth().currentUser!.uid
-                    let email = Auth.auth().currentUser!.email!
-                    let name = info[K.Key.name] as! String
-                    let number = info[K.Key.number] as! String
-                    let link = info[K.Key.url] as? String
-                    let recommendations: Int = info[K.Key.recommendations] as? Int ?? 0
-                    let subscibers: Int = info[K.Key.subscribers] as? Int ?? 0
-                    let logoURL = info[K.Key.logo] as? String
-                    
-                    let business = Business(id: id, email: email, name: name, phoneNumber: number, logoURL: logoURL, totalRecommendations: recommendations, totalSubscribers: subscibers)
-                    if let URLString = link {
-                        business.websiteLink = URL(string: URLString)
-                    }
-                    
+                } else if let info = result?.data as? [String : Any], let business = BusinessFireBase.toBusiness(businessInfo: info) {
                     seal.fulfill((business))
                 }
             }
@@ -134,5 +143,73 @@ struct BusinessFireBase {
                 seal.fulfill(business)
             }
         }
+    }
+    
+    /// Updates an information on the business with the matching key in the database.
+    private func updateBusinessInfo(updateInfo: [String : Any?]) -> Promise<HTTPSCallableResult> {
+        return Promise { (seal) in
+            functions.httpsCallable("updateBusiness").call(updateInfo, completion: seal.resolve)
+        }
+    }
+    
+    /// Updates an information on the business with the matching key in the database.
+    /// - Parameters:
+    ///   - data: The data to be updated in the database.
+    ///   - logoURL: The location of the logo in the database.
+    func updateBusiness(update data: [String : Any?], logoURL: String? = nil) -> Promise<(HTTPSCallableResult, Data?)> {
+        return Promise { (seal) in
+            var execute1: Promise<(HTTPSCallableResult, Data)>?
+            var execute2: Promise<(HTTPSCallableResult, Data?)>?
+            
+            var businessInfo = data
+            businessInfo.removeValue(forKey: K.Key.logo)
+            if let logo = data[K.Key.logo] as? UIImage {
+                //User has picked an image to be saved
+                if let url = logoURL {
+                    //User is updating the image
+                    execute1 = firstly {
+                        try when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), saveImage(on: url, image: logo))
+                    }
+                } else {
+                    //User is saving a new image
+                    execute1 = firstly {
+                        try when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), saveImage(logo, at: K.Key.businessImagesPath))
+                    }
+                }
+            } else {
+                execute2 = firstly {
+                    when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), Promise(resolver: { (seal) in
+                        seal.fulfill(nil)
+                    }))
+                }
+            }
+            
+            if let execute = execute1 {
+                execute.done { (results) in
+                    seal.fulfill(results)
+                }.catch(seal.reject(_:))
+            } else if let execute = execute2 {
+                execute.done { (results) in
+                    seal.fulfill(results)
+                }.catch(seal.reject(_:))
+            }
+        }
+    }
+    
+    static func toBusiness(businessInfo: [String : Any]) -> Business? {
+        guard let id = businessInfo[K.Key.id] as? String, let email = businessInfo[K.Key.email] as? String, let name = businessInfo[K.Key.name] as? String, let number = businessInfo[K.Key.number] as? String else {return nil}
+        let recomm: Int = businessInfo[K.Key.recommendations] as? Int ?? 0
+        let subs: Int = businessInfo[K.Key.subscribers] as? Int ?? 0
+        let logo = businessInfo[K.Key.logo] as? Data
+        let logoURL = businessInfo[K.Key.logoURL] as? String
+        let link = businessInfo[K.Key.url] as? String
+        
+        let business = Business(id: id, email: email, name: name, phoneNumber: number, logoURL: logoURL, logo: logo, totalRecommendations: recomm, totalSubscribers: subs)
+        if let link = link {
+            let url = URL(string: link)
+            business.websiteLink = url
+        }
+        
+        return business
     }
 }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import PromiseKit
 
 /// Handles the display of account details.
 class AccountController: UIViewController {
@@ -19,6 +21,11 @@ class AccountController: UIViewController {
         set {
             accountStackView.logoImageView.image = newValue
             accountStackView.logoImageView.showsPlaceholder = !isImageEdited
+            if isImageEdited {
+                updateData.updateValue(newValue, forKey: K.Key.logo)
+            } else {
+                updateData.removeValue(forKey: K.Key.logo)
+            }
             reloadEditable()
         }
         
@@ -28,6 +35,12 @@ class AccountController: UIViewController {
     }
     var name: String {
         set {
+            editedBusiness.name = newValue
+            if isNameEdited {
+                updateData.updateValue(newValue, forKey: K.Key.name)
+            } else {
+                updateData.removeValue(forKey: K.Key.name)
+            }
             accountStackView.nameTextField.text = newValue
             reloadEditable()
         }
@@ -38,6 +51,7 @@ class AccountController: UIViewController {
     }
     var email: String {
         set {
+            editedBusiness.email = email
             accountStackView.emailTextField.text = newValue
             accountStackView.emailSectionTitle = nil
             reloadEditable()
@@ -49,6 +63,12 @@ class AccountController: UIViewController {
     }
     var phoneNumber: String {
         set {
+            editedBusiness.phoneNumber = newValue
+            if isPhoneNumberEdited {
+                updateData.updateValue(newValue, forKey: K.Key.number)
+            } else {
+                updateData.removeValue(forKey: K.Key.number)
+            }
             accountStackView.numberTextField.text = newValue
             reloadEditable()
         }
@@ -57,28 +77,30 @@ class AccountController: UIViewController {
             return accountStackView.numberTextField.text!
         }
     }
-    var defaultValues: [String:Any] = [:] //TODO
-    var isImageEdited: Bool {
-        return image != nil && image != defaultValues[K.Key.image] as? UIImage
+    var defaultBusiness: Business! {
+        guard let info = UserDefaults.standard.dictionary(forKey: Auth.auth().currentUser!.uid), let business = BusinessFireBase.toBusiness(businessInfo: info) else {return nil}
+        return business
     }
+    var editedBusiness: Business!
+    private var updateData: [String : Any?] = [:]
+    var isImageEdited: Bool = false
     var isNameEdited: Bool {
-        guard let businessName = defaultValues[K.Key.name] as? String else {return false}
-        return name != businessName
+        return defaultBusiness.name != editedBusiness.name
     }
     var isEmailEdited: Bool {
-        guard let businessEmail = defaultValues[K.Key.email] as? String else {return false}
-        return email != businessEmail
+        return defaultBusiness.email != editedBusiness.email
     }
     var isPhoneNumberEdited: Bool {
-        guard let businessNumber = defaultValues[K.Key.number] as? String else {return false}
-        return phoneNumber != businessNumber
+        return defaultBusiness.phoneNumber != editedBusiness.phoneNumber
     }
     var isBusinessEdited: Bool {
         return isImageEdited || isNameEdited || isEmailEdited || isPhoneNumberEdited
     }
+    var businessFB: BusinessFireBase!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        businessFB = BusinessFireBase()
         setUpDefaultValues()
         // Do any additional setup after loading the view.
         self.title = K.UIConstant.account
@@ -92,16 +114,11 @@ class AccountController: UIViewController {
     
     /// Assign the variables to the default values.
     private func setUpDefaultValues() {
-        //TODO
-        defaultValues.updateValue(UIImage(named: "bgimage")!, forKey: K.Key.image)
-        defaultValues.updateValue("EAT Restaurant & Cafe", forKey: K.Key.name)
-        defaultValues.updateValue("eat@restcafe.co.uk", forKey: K.Key.email)
-        defaultValues.updateValue("07948226722", forKey: K.Key.number)
-        
-        image = defaultValues[K.Key.image] as? UIImage
-        name = defaultValues[K.Key.name] as! String
-        email = defaultValues[K.Key.email] as! String
-        phoneNumber = defaultValues[K.Key.number] as! String
+        editedBusiness = defaultBusiness
+        image = defaultBusiness.logo == nil ? nil : UIImage(data: defaultBusiness.logo!)
+        name = defaultBusiness.name
+        email = defaultBusiness.email
+        phoneNumber = defaultBusiness.phoneNumber
     }
     
     private func reloadEditable() {
@@ -113,16 +130,49 @@ class AccountController: UIViewController {
     }
     
     @objc func saveChanges(_ sender: UIBarButtonItem) {
-        //TODO
-        let loaderVC = LoaderViewController()
-        self.present(loaderVC, animated: true) {
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                loaderVC.stopLoader {
-                    self.navigationController?.popViewController(animated: true)
-                    self.showStatusBarNotification(title: K.UIConstant.saveChangesSuccessTitle, style: .success)
+        //Exhaustive execution.
+        let execute = firstly {
+            self.businessFB.updateBusiness(update: self.updateData, logoURL: self.editedBusiness.logoURL)
+        }
+        
+        //Update the cached business info.
+        func finalize() {
+            UserDefaults.standard.set(self.editedBusiness.businessInfo, forKey: self.editedBusiness.id)
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        func save() {
+            self.startLoader { (loaderVC) in
+                if self.isEmailEdited {
+                    firstly {
+                        self.businessFB.updateEmail(to: self.editedBusiness.email)
+                    }.then {
+                        execute
+                    }.ensure(on: .main, {
+                        loaderVC.stopLoader()
+                    }).done { (results) in
+                        let (_, imageData) = results
+                        self.editedBusiness.logo = imageData
+                        finalize()
+                    }.catch(on: .main) { (error) in
+                        self.present(UIAlertController.internetConnectionAlert(actionHandler: save), animated: true)
+                    }
+                } else {
+                    firstly {
+                        execute
+                    }.ensure(on: .main, {
+                        loaderVC.stopLoader()
+                    }).done { (results) in
+                        let (_, imageData) = results
+                        self.editedBusiness.logo = imageData
+                        finalize()
+                    }.catch(on: .main) { (error) in
+                        self.present(UIAlertController.internetConnectionAlert(actionHandler: save), animated: true)
+                    }
                 }
             }
         }
+        save()
     }
     
     @IBAction func logOut(_ sender: UIButton) {
@@ -170,11 +220,11 @@ extension AccountController: UITextFieldDelegate {
             }
         } else {
             if textField == accountStackView.nameTextField {
-                name = defaultValues[K.Key.name] as! String
+                name = defaultBusiness.name
             } else if textField == accountStackView.emailTextField {
-                email = defaultValues[K.Key.email] as! String
+                email = defaultBusiness.email
             } else if textField == accountStackView.numberTextField {
-                phoneNumber = defaultValues[K.Key.number] as! String
+                phoneNumber = defaultBusiness.phoneNumber
             }
         }
     }
@@ -188,6 +238,7 @@ extension AccountController: UITextFieldDelegate {
 //MARK:- ImageViewController Delegate
 extension AccountController: ImageViewControllerDelegate {
     func didConfirmImage(_ image: UIImage) {
+        self.isImageEdited = true
         self.image = image
     }
 }

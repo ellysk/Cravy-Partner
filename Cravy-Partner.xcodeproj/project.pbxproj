@@ -26,6 +26,7 @@
 		2B267EEA25A2011D00478726 /* ProductsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B267EE925A2011D00478726 /* ProductsPageController.swift */; };
 		2B267EEC25A2212900478726 /* promote.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B267EEB25A2212800478726 /* promote.json */; };
 		2B267EF025A285AC00478726 /* post.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B267EEF25A285AC00478726 /* post.json */; };
+		2B35622F25E33C5F00FD94B6 /* CravyFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B35622E25E33C5F00FD94B6 /* CravyFirebase.swift */; };
 		2B5071C225C0593500F9715F /* TextInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5071C025C0593500F9715F /* TextInputController.swift */; };
 		2B5071C325C0593500F9715F /* TextInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B5071C125C0593500F9715F /* TextInputController.xib */; };
 		2B5071C625C05ED800F9715F /* TagsInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5071C425C05ED800F9715F /* TagsInputController.swift */; };
@@ -152,6 +153,7 @@
 		2B267EE925A2011D00478726 /* ProductsPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsPageController.swift; sourceTree = "<group>"; };
 		2B267EEB25A2212800478726 /* promote.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = promote.json; sourceTree = "<group>"; };
 		2B267EEF25A285AC00478726 /* post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post.json; sourceTree = "<group>"; };
+		2B35622E25E33C5F00FD94B6 /* CravyFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyFirebase.swift; sourceTree = "<group>"; };
 		2B5071C025C0593500F9715F /* TextInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputController.swift; sourceTree = "<group>"; };
 		2B5071C125C0593500F9715F /* TextInputController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInputController.xib; sourceTree = "<group>"; };
 		2B5071C425C05ED800F9715F /* TagsInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsInputController.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			children = (
 				2B85276B25C6F6EF00926A6D /* Business.swift */,
 				2B85276D25C6F83300926A6D /* Product.swift */,
+				2B35622E25E33C5F00FD94B6 /* CravyFirebase.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				2BFC75132597808C009A35AE /* AlbumCollectionViewController.swift in Sources */,
 				2B7DF498258B9F4A00AA1337 /* CustomCollectionView.swift in Sources */,
 				2B61BE4C2590DF7B00545E59 /* AccountController.swift in Sources */,
+				2B35622F25E33C5F00FD94B6 /* CravyFirebase.swift in Sources */,
 				2B823DCC259D1D420040E860 /* PopViewController.swift in Sources */,
 				2BFC751025977ED7009A35AE /* BasicReusableView.swift in Sources */,
 				2B267EDF25A13FE600478726 /* NewProductViewsController.swift in Sources */,

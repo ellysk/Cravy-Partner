@@ -147,7 +147,7 @@ class ProductController: UIViewController {
         }.ensure(on: .main) {
             self.marketView.stopLoader()
         }.catch(on: .main) { (error) in
-            if let e = error as? ProductError {
+            if let e = error as? CravyError {
                 print(e.localizedDescription)
                 return
             } else {

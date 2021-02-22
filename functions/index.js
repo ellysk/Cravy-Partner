@@ -17,14 +17,40 @@ exports.getBusiness = functions.https.onCall(async (_, context) => {
       .collection("businesses")
       .doc(context.auth.uid)
       .get();
-    if (doc.exists) {
-      return doc.data();
-    } else {
-      throw new functions.https.HttpsError(
-        "not-found",
-        "The requested document was not found"
-      );
+    const business = doc.data();
+    business.id = context.auth.uid;
+    business.email = context.auth.token.email;
+    return business;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+exports.updateBusiness = functions.https.onCall(async (data, context) => {
+  try {
+    if (Object.keys(data).length) {
+      await admin
+        .firestore()
+        .collection("businesses")
+        .doc(context.auth.uid)
+        .update(data);
     }
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+exports.setBusinessLogo = functions.https.onCall(async (data, context) => {
+  try {
+    await admin
+      .firestore()
+      .collection("businesses")
+      .doc(context.auth.uid)
+      .set({ logo_url: data.logo_url }, { merge: true });
+    return data;
   } catch (error) {
     console.log(error);
     throw error;

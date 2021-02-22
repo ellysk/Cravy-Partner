@@ -808,6 +808,7 @@ extension UIImageView {
     }
     var showsPlaceholder: Bool {
         set {
+            self.isUserInteractionEnabled = newValue
             placeholderView?.isHidden = !newValue
             
             if newValue {
@@ -1211,6 +1212,16 @@ extension URLError.Code {
         default:
             return "Please check your internet connection"
         }
+    }
+}
+
+//MARK: - UserDefaults
+extension UserDefaults {
+    func updateBusinessInfo(key: String, value: Any, id: String) throws {
+        guard let info = self.dictionary(forKey: id) else {throw CravyError.invalidID}
+        var newInfo = info
+        newInfo.updateValue(value, forKey: key)
+        UserDefaults.standard.set(newInfo, forKey: id)
     }
 }
 

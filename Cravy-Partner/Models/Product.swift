@@ -11,11 +11,12 @@ import FirebaseFunctions
 import FirebaseStorage
 import PromiseKit
 
-/// Errors thrown associated with loading product information.
-enum ProductError: Error {
+/// Errors thrown associated with the cravy application.
+enum CravyError: Error {
     case badStateError
     case imageDataCorruptedError
     case imageSizeError
+    case invalidID
     
     var localizedDescription: String {
         switch self {
@@ -24,7 +25,9 @@ enum ProductError: Error {
         case .imageDataCorruptedError:
             return "The image could not be processed. Try again later."
         case .imageSizeError:
-            return "The image you are trying to upload is too big. Make sure it is not bigger than 5MB."
+            return "The image you are trying to upload is too big."
+        case .invalidID:
+            return "Please try and sign in again."
         }
     }
 }
@@ -82,8 +85,7 @@ struct Product: Hashable, Equatable {
 }
 
 /// Structures required functionality to load product information from the database.
-class ProductFirebase {
-    private let functions = Functions.functions()
+class ProductFirebase: CravyFirebase {
     private var state: PRODUCT_STATE = .inActive
     private var lastData: Any?
     /// Data sent to the server to determine which state of products are to be loaded and keep track of the last snapshot of the data loaded.
@@ -96,12 +98,12 @@ class ProductFirebase {
     }
     
     init(state: PRODUCT_STATE) {
+        super.init()
         self.state = state
-        functions.useEmulator(withHost: "http://localhost", port: 5001)
     }
     
-    init() {
-        functions.useEmulator(withHost: "http://localhost", port: 5001)
+    override init() {
+        super.init()
     }
     
     func createProduct(productInfo: [String : Any]) throws -> Promise<[String : Any]> {
@@ -126,7 +128,7 @@ class ProductFirebase {
         }
         
         return firstly {
-            try saveImage(image)
+            try saveImage(image, at: K.Key.productImagesPath)
         }.then { url in
             try createAfterDownloading(url: url)
         }
@@ -169,54 +171,6 @@ class ProductFirebase {
         }
     }
     
-    /// Stores the image on the database in the provided URL.
-    /// - Parameters:
-    ///   - imageURL: The location of where the image is stored.
-    func saveImage(on imageURL: String, image: UIImage) throws -> Promise<Data> {
-        return Promise { (seal) in
-            let data = try compress(image)
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpg"
-            Storage.storage().reference(forURL: imageURL).putData(data, metadata: metadata) { (metadata, error) in
-                if let e = error {
-                    seal.reject(e)
-                } else {
-                    seal.fulfill(data)
-                }
-            }
-        }
-    }
-    
-    /// Stores the image on the database and returns the newly created URL for the image.
-    func saveImage(_ image: UIImage) throws -> Promise<URL?> {
-        let data = try compress(image)
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        
-        let imageRef = Storage.storage().reference(withPath: "product_image/").child("\(UUID().uuidString).jpeg")
-        return Promise { (seal) in
-            imageRef.putData(data, metadata: metadata) { (metadata, error) in
-                if let e = error {
-                    seal.reject(e)
-                } else {
-                    imageRef.downloadURL { (url, error) in
-                        seal.fulfill(url)
-                    }
-                }
-            }
-        }
-    }
-    
-    //TODO Timeout Error
-    private func compress(_ image: UIImage, cq: CGFloat = 1) throws -> Data {
-        guard let compressedData = image.jpegData(compressionQuality: cq) else {throw ProductError.imageDataCorruptedError}
-        if compressedData.size(in: .byte) > Double(Int64.MAX_IMAGE_SIZE) {
-            return try compress(image, cq: cq-0.01)
-        } else {
-            return compressedData
-        }
-    }
-    
     private func loadProductImage(downloadURL: String) -> Promise<Data> {
         return Promise { (seal) in
             Storage.storage().reference(forURL: downloadURL).getData(maxSize: .MAX_IMAGE_SIZE, completion: seal.resolve)
@@ -227,7 +181,7 @@ class ProductFirebase {
     /// - Throws: Bad state error, if the provided product is inactive.
     func loadMarketStatus(product: Product) throws -> Promise<[String : Any]> {
         if product.state ==  .inActive {
-            throw ProductError.badStateError
+            throw CravyError.badStateError
         } else {
             return Promise { (seal) in
                 functions.httpsCallable("getMarketStatus").call([K.Key.id : product.id]) { (result, error) in
