@@ -60,6 +60,7 @@ class BusinessController: UIViewController {
         self.businessView.name = business.name
         self.businessView.email = business.email
         
+        
         attachListener()
     }
     
@@ -201,30 +202,15 @@ extension BusinessController: LayoutUpdateDelegate {
 //MARK: - ImageViewController Delegate
 extension BusinessController: ImageViewControllerDelegate {
     func didConfirmImage(_ image: UIImage) {
-        var imagePromise: Promise<(Data, URL?)>!
-        
         func confirm() {
-            do {
-                if business.logo == nil {
-                    imagePromise = try businessFB.saveImage(image, at: K.Key.businessImagesPath)
-                } else if let url = business.logoURL {
-                    imagePromise = when(fulfilled: try businessFB.saveImage(on: url, image: image), Promise { (seal) in
-                        seal.fulfill(nil)
-                    })
-                }
-            } catch {
-                //TODO CRAVY ERROR
-                print(error)
-            }
-            
             self.startLoader { (loaderVC) in
                 firstly {
-                    imagePromise
-                }.done(on: .main) { (imageInfo) in
-                    let (data, url) = imageInfo
-                    self.businessView.image = UIImage(data: data)
-                    try UserDefaults.standard.updateBusinessInfo(key: K.Key.logo, value: data, id: self.business.id)
-                    if let imageURL = url {
+                    self.businessFB.updateBusiness(update: [K.Key.logo : image], logoURL: self.business.logoURL)
+                }.done { (updateInfo) in
+                    let (_, info) = updateInfo
+                    self.businessView.image = image
+                    try UserDefaults.standard.updateBusinessInfo(key: K.Key.logo, value: image.jpegData(compressionQuality: 1)!, id: self.business.id)
+                    if let imageURL = info as? URL {
                         try UserDefaults.standard.updateBusinessInfo(key: K.Key.logoURL, value: imageURL.absoluteString, id: self.business.id)
                     }
                 }.ensure(on: .main, {

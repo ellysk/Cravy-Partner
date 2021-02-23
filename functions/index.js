@@ -43,13 +43,13 @@ exports.updateBusiness = functions.https.onCall(async (data, context) => {
   }
 });
 
-exports.setBusinessLogo = functions.https.onCall(async (data, context) => {
+exports.setBusinessInfo = functions.https.onCall(async (data, context) => {
   try {
     await admin
       .firestore()
       .collection("businesses")
       .doc(context.auth.uid)
-      .set({ logo_url: data.logo_url }, { merge: true });
+      .set(data, { merge: true });
     return data;
   } catch (error) {
     console.log(error);

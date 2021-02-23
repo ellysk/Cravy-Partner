@@ -51,7 +51,7 @@ class AccountController: UIViewController {
     }
     var email: String {
         set {
-            editedBusiness.email = email
+            editedBusiness.email = newValue
             accountStackView.emailTextField.text = newValue
             accountStackView.emailSectionTitle = nil
             reloadEditable()
@@ -83,7 +83,13 @@ class AccountController: UIViewController {
     }
     var editedBusiness: Business!
     private var updateData: [String : Any?] = [:]
-    var isImageEdited: Bool = false
+    var isImageEdited: Bool = false {
+        didSet {
+            if isImageEdited {
+                editedBusiness.logo = image?.jpegData(compressionQuality: 1)
+            }
+        }
+    }
     var isNameEdited: Bool {
         return defaultBusiness.name != editedBusiness.name
     }
@@ -130,15 +136,22 @@ class AccountController: UIViewController {
     }
     
     @objc func saveChanges(_ sender: UIBarButtonItem) {
-        //Exhaustive execution.
-        let execute = firstly {
-            self.businessFB.updateBusiness(update: self.updateData, logoURL: self.editedBusiness.logoURL)
-        }
-        
         //Update the cached business info.
         func finalize() {
             UserDefaults.standard.set(self.editedBusiness.businessInfo, forKey: self.editedBusiness.id)
             self.navigationController?.popViewController(animated: true)
+        }
+        
+        //Exhaustive execution.
+        let execute: Promise<Void> = firstly {
+            self.businessFB.updateBusiness(update: self.updateData, logoURL: self.editedBusiness.logoURL)
+        }.done { (updateInfo) in
+            let (_, imageInfo) = updateInfo
+            if let imageURL = imageInfo as? URL {
+                print(imageURL)
+                self.editedBusiness.logoURL = imageURL.absoluteString
+            }
+            finalize()
         }
         
         func save() {
@@ -150,23 +163,13 @@ class AccountController: UIViewController {
                         execute
                     }.ensure(on: .main, {
                         loaderVC.stopLoader()
-                    }).done { (results) in
-                        let (_, imageData) = results
-                        self.editedBusiness.logo = imageData
-                        finalize()
-                    }.catch(on: .main) { (error) in
+                    }).catch(on: .main) { (error) in
                         self.present(UIAlertController.internetConnectionAlert(actionHandler: save), animated: true)
                     }
                 } else {
-                    firstly {
-                        execute
-                    }.ensure(on: .main, {
+                    execute.ensure(on: .main, {
                         loaderVC.stopLoader()
-                    }).done { (results) in
-                        let (_, imageData) = results
-                        self.editedBusiness.logo = imageData
-                        finalize()
-                    }.catch(on: .main) { (error) in
+                    }).catch(on: .main) { (error) in
                         self.present(UIAlertController.internetConnectionAlert(actionHandler: save), animated: true)
                     }
                 }

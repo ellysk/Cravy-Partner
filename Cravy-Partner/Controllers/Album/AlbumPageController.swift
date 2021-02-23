@@ -15,7 +15,7 @@ class AlbumPageController: CravyPageController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pages = [AlbumCollectionViewController(result: PHFetchOptions().cravyPartnerAssets), AlbumCollectionViewController(result: PHFetchOptions().allPhotos)]
+        pages = [AlbumCollectionViewController(result: PHFetchOptions().cravyPartnerAssets ?? PHFetchResult<PHAsset>()), AlbumCollectionViewController(result: PHFetchOptions().allPhotos)]
         pages.forEach { (controller) in
             let albumCollectionViewController = controller as! AlbumCollectionViewController
             albumCollectionViewController.presentationDelegate = presentationDelegate

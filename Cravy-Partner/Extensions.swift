@@ -950,8 +950,8 @@ extension PHFetchOptions {
         return self.fetchAssetCollectionWithTitle(title: K.UIConstant.albumTitle).firstObject
     }
     /// A result of assets in Cravy Partner Album.
-    var cravyPartnerAssets: PHFetchResult<PHAsset> {
-        guard let assetCollection = self.cravyPartnerAlbum else {fatalError("Cravy Partner Album not created!")}
+    var cravyPartnerAssets: PHFetchResult<PHAsset>? {
+        guard let assetCollection = self.cravyPartnerAlbum else {return nil}
         let assets = assetCollection.fetchAssets()
         
         return assets
@@ -1017,21 +1017,23 @@ extension PHFetchResult where ObjectType == PHAsset {
     func splitByCreationDate(completionHandler: ([String : [PHAsset]], [String])->()) {
         var dict: [String : [PHAsset]] = [:]
         var keys: [String] = []
+        var sortedKeys: [String] = []
         
-        for i in 0...self.count - 1 {
-            guard let creationDate = self[i].creationDate?.shortFormat else {continue}
-            
-            if dict[creationDate] == nil {
-                keys.append(creationDate)
-                dict[creationDate] = [self[i]]
-            } else {
-                var updatedAssets = dict[creationDate]!
-                updatedAssets.append(self[i])
-                dict.updateValue(updatedAssets, forKey: creationDate)
+        if self.count > 0 {
+            for i in 0...self.count - 1 {
+                guard let creationDate = self[i].creationDate?.shortFormat else {continue}
+                
+                if dict[creationDate] == nil {
+                    keys.append(creationDate)
+                    dict[creationDate] = [self[i]]
+                } else {
+                    var updatedAssets = dict[creationDate]!
+                    updatedAssets.append(self[i])
+                    dict.updateValue(updatedAssets, forKey: creationDate)
+                }
             }
+            sortedKeys = keys.sortBy(formatter: DateFormatter.shortDateFormatter)
         }
-        
-        let sortedKeys = keys.sortBy(formatter: DateFormatter.shortDateFormatter)
         
         completionHandler(dict, sortedKeys)
     }

@@ -73,51 +73,51 @@ class CravyFirebase {
         }
     }
     
-    /// Stores the image on the database and returns the newly created data of the image.
-    func saveImage(_ image: UIImage, at path: String) throws -> Promise<Data> {
-        let data = try compress(image)
-        let imageRef = Storage.storage().reference(withPath: path).child("\(UUID().uuidString).jpeg")
-        return Promise { (seal) in
-            imageRef.putData(data, metadata: metadata) { (metadata, error) in
-                if let e = error {
-                    seal.reject(e)
-                } else {
-                    imageRef.downloadURL { (url, error) in
-                        self.functions.httpsCallable("setBusinessLogo").call([K.Key.logoURL : url?.absoluteString]) { (result, error) in
-                            if let e = error {
-                                seal.reject(e)
-                            } else {
-                                seal.fulfill(data)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    /// Stores the image on the database and returns the newly created data of the image.
+//    func saveImage(_ image: UIImage, at path: String) throws -> Promise<URL?> {
+//        let data = try compress(image)
+//        let imageRef = Storage.storage().reference(withPath: path).child("\(UUID().uuidString).jpeg")
+//        return Promise { (seal) in
+//            imageRef.putData(data, metadata: metadata) { (metadata, error) in
+//                if let e = error {
+//                    seal.reject(e)
+//                } else {
+//                    imageRef.downloadURL { (url, error) in
+//                        self.functions.httpsCallable("setBusinessLogo").call([K.Key.logoURL : url?.absoluteString]) { (result, error) in
+//                            if let e = error {
+//                                seal.reject(e)
+//                            } else {
+//                                seal.fulfill(url)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
-    /// Stores the image on the database and returns the newly created data and url of the image.
-    func saveImage(_ image: UIImage, at path: String) throws -> Promise<(Data, URL?)> {
-        let data = try compress(image)
-        let imageRef = Storage.storage().reference(withPath: path).child("\(UUID().uuidString).jpeg")
-        return Promise { (seal) in
-            imageRef.putData(data, metadata: metadata) { (metadata, error) in
-                if let e = error {
-                    seal.reject(e)
-                } else {
-                    imageRef.downloadURL { (url, error) in
-                        self.functions.httpsCallable("setBusinessLogo").call([K.Key.logoURL : url?.absoluteString]) { (result, error) in
-                            if let e = error {
-                                seal.reject(e)
-                            } else {
-                                seal.fulfill((data, url))
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    /// Stores the image on the database and returns the newly created data and url of the image.
+//    func saveImage(_ image: UIImage, at path: String) throws -> Promise<(Data, URL?)> {
+//        let data = try compress(image)
+//        let imageRef = Storage.storage().reference(withPath: path).child("\(UUID().uuidString).jpeg")
+//        return Promise { (seal) in
+//            imageRef.putData(data, metadata: metadata) { (metadata, error) in
+//                if let e = error {
+//                    seal.reject(e)
+//                } else {
+//                    imageRef.downloadURL { (url, error) in
+//                        self.functions.httpsCallable("setBusinessLogo").call([K.Key.logoURL : url?.absoluteString]) { (result, error) in
+//                            if let e = error {
+//                                seal.reject(e)
+//                            } else {
+//                                seal.fulfill((data, url))
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     //TODO Timeout Error
     private func compress(_ image: UIImage, cq: CGFloat = 1) throws -> Data {

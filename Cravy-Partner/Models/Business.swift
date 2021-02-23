@@ -145,6 +145,12 @@ class BusinessFireBase: CravyFirebase {
         }
     }
     
+    func setBusinessInfo(info: [String : Any]) -> Promise<HTTPSCallableResult> {
+        return Promise { (seal) in
+            functions.httpsCallable("setBusinessInfo").call(info, completion: seal.resolve)
+        }
+    }
+    
     /// Updates an information on the business with the matching key in the database.
     private func updateBusinessInfo(updateInfo: [String : Any?]) -> Promise<HTTPSCallableResult> {
         return Promise { (seal) in
@@ -156,41 +162,32 @@ class BusinessFireBase: CravyFirebase {
     /// - Parameters:
     ///   - data: The data to be updated in the database.
     ///   - logoURL: The location of the logo in the database.
-    func updateBusiness(update data: [String : Any?], logoURL: String? = nil) -> Promise<(HTTPSCallableResult, Data?)> {
+    func updateBusiness(update data: [String : Any?], logoURL: String? = nil) -> Promise<(HTTPSCallableResult, Any?)> {
         return Promise { (seal) in
-            var execute1: Promise<(HTTPSCallableResult, Data)>?
-            var execute2: Promise<(HTTPSCallableResult, Data?)>?
-            
             var businessInfo = data
-            businessInfo.removeValue(forKey: K.Key.logo)
+            businessInfo.removeValue(forKey: K.Key.logo) //Remove the image data so as to make the data parsable.
             if let logo = data[K.Key.logo] as? UIImage {
-                //User has picked an image to be saved
                 if let url = logoURL {
-                    //User is updating the image
-                    execute1 = firstly {
-                        try when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), saveImage(on: url, image: logo))
-                    }
+                    //Logo location is present
+                    firstly {
+                        when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), try saveImage(on: url, image: logo))
+                    }.done(seal.fulfill).catch(seal.reject(_:))
                 } else {
-                    //User is saving a new image
-                    execute1 = firstly {
-                        try when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), saveImage(logo, at: K.Key.businessImagesPath))
-                    }
+                    //No Logo present in the database
+                    firstly {
+                        when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), try saveImage(logo, at: K.Key.businessImagesPath))
+                    }.then { (_, imageURL) in
+                        self.setBusinessInfo(info: [K.Key.logoURL : imageURL!.absoluteString])
+                    }.done { (result) in
+                        seal.fulfill((result, nil))
+                    }.catch(seal.reject(_:))
                 }
             } else {
-                execute2 = firstly {
-                    when(fulfilled: updateBusinessInfo(updateInfo: businessInfo), Promise(resolver: { (seal) in
-                        seal.fulfill(nil)
-                    }))
-                }
-            }
-            
-            if let execute = execute1 {
-                execute.done { (results) in
-                    seal.fulfill(results)
-                }.catch(seal.reject(_:))
-            } else if let execute = execute2 {
-                execute.done { (results) in
-                    seal.fulfill(results)
+                //Not updating Business logo
+                firstly {
+                    updateBusinessInfo(updateInfo: businessInfo)
+                }.done { (result) in
+                    seal.fulfill((result, nil))
                 }.catch(seal.reject(_:))
             }
         }
