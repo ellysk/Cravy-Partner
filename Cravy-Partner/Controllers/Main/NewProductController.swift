@@ -68,9 +68,11 @@ class NewProductController: SwiftyCamViewController {
     private func fetchImageFrom(_ album: PHAssetCollection) {
         let assets = album.fetchAssets()
         guard let asset = assets.firstObject else {return}
-        asset.fetchImage(targetSize: galleryImageView.bounds.size) { (fetchedImage, info) in
-            self.galleryImageView.image = fetchedImage
-            self.galleryImageView.isUserInteractionEnabled = true
+        DispatchQueue.main.async {
+            asset.fetchImage(targetSize: self.galleryImageView.bounds.size) { (fetchedImage, info) in
+                self.galleryImageView.image = fetchedImage
+                self.galleryImageView.isUserInteractionEnabled = true
+            }
         }
     }
     

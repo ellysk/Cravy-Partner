@@ -808,7 +808,6 @@ extension UIImageView {
     }
     var showsPlaceholder: Bool {
         set {
-            self.isUserInteractionEnabled = newValue
             placeholderView?.isHidden = !newValue
             
             if newValue {

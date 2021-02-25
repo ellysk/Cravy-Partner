@@ -14,8 +14,11 @@ struct Setting {
     var detail: String?
     
     enum SETTING: String {
+        case account = "Account"
         case notifications = "Notifications"
         case privacyAndSecurity = "Privacy & Security"
+        case helpAndSupport = "Help & Support"
+        case about = "About"
     }
 }
 

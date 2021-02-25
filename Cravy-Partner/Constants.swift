@@ -209,7 +209,7 @@ struct K {
         /// Returns [K.Image.promote, K.Image.comingSoon]
         static let businessStandoutImages = [K.Image.promote, K.Image.comingSoon]
         /// Returns ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
-        static let settingsTitles = ["Account", "Notifications", "Privacy & Security", "Help & Support", "About"]
+        static let settings: [Setting.SETTING] = [.account, .notifications, .privacyAndSecurity, .helpAndSupport, .about]
         /// Returns [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
         static let settingsImages = [K.Image.account, K.Image.notifications, K.Image.privacy, K.Image.help, K.Image.about]
         /// Returns ["Email notifications", "Push notifications"]

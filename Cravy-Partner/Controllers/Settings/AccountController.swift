@@ -83,13 +83,7 @@ class AccountController: UIViewController {
     }
     var editedBusiness: Business!
     private var updateData: [String : Any?] = [:]
-    var isImageEdited: Bool = false {
-        didSet {
-            if isImageEdited {
-                editedBusiness.logo = image?.jpegData(compressionQuality: 1)
-            }
-        }
-    }
+    var isImageEdited: Bool = false
     var isNameEdited: Bool {
         return defaultBusiness.name != editedBusiness.name
     }
@@ -146,10 +140,10 @@ class AccountController: UIViewController {
         let execute: Promise<Void> = firstly {
             self.businessFB.updateBusiness(update: self.updateData, logoURL: self.editedBusiness.logoURL)
         }.done { (updateInfo) in
-            let (_, imageInfo) = updateInfo
-            if let imageURL = imageInfo as? URL {
-                print(imageURL)
-                self.editedBusiness.logoURL = imageURL.absoluteString
+            let (result, _) = updateInfo
+            if let imageURLInfo = result.data as? [String : String] {
+                print(imageURLInfo)
+                self.editedBusiness.logoURL = imageURLInfo[K.Key.logoURL]
             }
             finalize()
         }
@@ -243,5 +237,6 @@ extension AccountController: ImageViewControllerDelegate {
     func didConfirmImage(_ image: UIImage) {
         self.isImageEdited = true
         self.image = image
+        editedBusiness.logo = image.jpegData(compressionQuality: 1)
     }
 }
