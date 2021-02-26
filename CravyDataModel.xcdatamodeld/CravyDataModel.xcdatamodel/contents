@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BusinessModel" representedClassName=".BusinessModel" syncable="YES" codeGenerationType="class">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="logo" optional="YES" attributeType="Binary"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="phoneNumber" attributeType="String"/>
+        <attribute name="recommendations" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subscribers" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="websiteLink" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="ProductModel" representedClassName=".ProductModel" syncable="YES" codeGenerationType="class">
+        <attribute name="cravings" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="detail" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="image" attributeType="Binary"/>
+        <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="isPromoted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="productLink" optional="YES" attributeType="URI"/>
+        <attribute name="recommendations" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="state" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="tags" attributeType="Transformable"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="BusinessModel" positionX="-45" positionY="0" width="128" height="163"/>
+        <element name="ProductModel" positionX="-45" positionY="63" width="128" height="223"/>
+    </elements>
+</model>

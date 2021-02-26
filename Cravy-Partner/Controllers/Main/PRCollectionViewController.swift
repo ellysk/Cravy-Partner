@@ -11,7 +11,7 @@ import UIKit
 /// Handles the display of collection of products that require certain actions.
 class PRCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var craves: [String] = []
-    var state: PRODUCT_STATE
+    var state: PRODUCT_STATE = .inActive
     private var isLoadingCraves: Bool = true
     private let dummyCount: Int = 3
     private var dataCount: Int {

@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import CoreData
 
 /// Handles the display of the application available settings.
 class SettingsController: UIViewController {
@@ -57,7 +58,7 @@ extension SettingsController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.basicCell, for: indexPath) as! BasicTableCell
         var image = K.Collections.settingsImages[indexPath.row]
-        if K.Collections.settings[indexPath.row] == .account, let logo = UserDefaults.standard.dictionary(forKey: Auth.auth().currentUser!.uid)?[K.Key.logo] as? Data {
+        if K.Collections.settings[indexPath.row] == .account, let logo = NSManagedObject.business.logo {
             image = UIImage(data: logo) ?? K.Collections.settingsImages[indexPath.row]
             cell.makeImageViewRounded = true
         } else {

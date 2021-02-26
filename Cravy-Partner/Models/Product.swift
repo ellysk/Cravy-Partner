@@ -10,6 +10,7 @@ import Foundation
 import FirebaseFunctions
 import FirebaseStorage
 import PromiseKit
+import CoreData
 
 /// Errors thrown associated with the cravy application.
 enum CravyError: Error {
@@ -40,7 +41,7 @@ struct Product: Hashable, Equatable {
     var image: Data
     var imageURL: String
     var title: String
-    var description: String
+    var detail: String
     /// The key identifiers of the product. They represent what the product is made up of.
     var tags: [String]
     /// The state of the product in relation to the customers and all statistics that go along with it.
@@ -53,11 +54,26 @@ struct Product: Hashable, Equatable {
     var isPromoted: Bool
     var productInfo: [String : Any] {
         let dateCreatedInfo = [K.Key.seconds : Double(date.timeIntervalSince1970), K.Key.nanoseconds : 0.0]
-        var info: [String : Any] = [K.Key.id : id, K.Key.dateCreated : dateCreatedInfo, K.Key.image : image, K.Key.productImageURL : imageURL, K.Key.title : title, K.Key.description : description, K.Key.tags : tags, K.Key.state : state.rawValue, K.Key.recommendations : recommendations, K.Key.cravings : cravings, K.Key.isPromoted : isPromoted]
+        var info: [String : Any] = [K.Key.id : id, K.Key.dateCreated : dateCreatedInfo, K.Key.image : image, K.Key.productImageURL : imageURL, K.Key.title : title, K.Key.description : detail, K.Key.tags : tags, K.Key.state : state.rawValue, K.Key.recommendations : recommendations, K.Key.cravings : cravings, K.Key.isPromoted : isPromoted]
         if let link = productLink {
             info.updateValue(link.absoluteString, forKey: K.Key.url)
         }
         return info
+    }
+    
+    init(id: String, date: Date, image: Data, imageURL: String, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil, isPromoted: Bool = false) {
+        self.id = id
+        self.date = date
+        self.image = image
+        self.imageURL = imageURL
+        self.title = title
+        self.detail = description
+        self.tags = tags
+        self.state = state
+        self.recommendations = recommendations
+        self.cravings = cravings
+        self.productLink = productLink
+        self.isPromoted = isPromoted
     }
     
     func hash(into hasher: inout Hasher) {
@@ -68,19 +84,37 @@ struct Product: Hashable, Equatable {
         return lhs.id == rhs.id
     }
     
-    init(id: String, date: Date, image: Data, imageURL: String, title: String, description: String, tags: [String], state: PRODUCT_STATE, recommendations: Int=0, cravings: Int=0, productLink: URL?=nil, isPromoted: Bool = false) {
-        self.id = id
-        self.date = date
-        self.image = image
-        self.imageURL = imageURL
-        self.title = title
-        self.description = description
-        self.tags = tags
-        self.state = state
-        self.recommendations = recommendations
-        self.cravings = cravings
-        self.productLink = productLink
-        self.isPromoted = isPromoted
+    
+    // Caches the product information into core data.
+    func cache() throws {
+        let context = NSManagedObject.context
+        let fetchRequest: NSFetchRequest<ProductModel> = ProductModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", self.id)
+        let res = try context.fetch(fetchRequest)
+        let cachedProduct: ProductModel = res.isEmpty ? ProductModel(context: context) :  res.first!
+       
+        cachedProduct.copy(self)
+        try context.save()
+    }
+    
+    func delete() throws {
+        let context = NSManagedObject.context
+        let fetchRequest: NSFetchRequest<ProductModel> = ProductModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", self.id)
+        let res = try context.fetch(fetchRequest)
+        guard let cachedProduct = res.first else {return}
+        
+        context.delete(cachedProduct)
+    }
+    
+    static func copy(_ productModel: ProductModel) -> Product? {
+        guard let id = productModel.id, let date = productModel.date, let image = productModel.image, let imageURL = productModel.imageURL, let title = productModel.title, let detail = productModel.detail, let tags = productModel.tags as? [String], let state = PRODUCT_STATE(rawValue: Int(productModel.state)) else {return nil}
+        var product = Product(id: id, date: date, image: image, imageURL: imageURL, title: title, description: detail, tags: tags, state: state, isPromoted: productModel.isPromoted)
+        product.productLink = productModel.productLink
+
+        return product
     }
 }
 

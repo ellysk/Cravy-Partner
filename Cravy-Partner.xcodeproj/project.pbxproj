@@ -27,6 +27,7 @@
 		2B267EEC25A2212900478726 /* promote.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B267EEB25A2212800478726 /* promote.json */; };
 		2B267EF025A285AC00478726 /* post.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B267EEF25A285AC00478726 /* post.json */; };
 		2B35622F25E33C5F00FD94B6 /* CravyFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B35622E25E33C5F00FD94B6 /* CravyFirebase.swift */; };
+		2B35623525E8CC4E00FD94B6 /* CravyDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B35623325E8CC4E00FD94B6 /* CravyDataModel.xcdatamodeld */; };
 		2B5071C225C0593500F9715F /* TextInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5071C025C0593500F9715F /* TextInputController.swift */; };
 		2B5071C325C0593500F9715F /* TextInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B5071C125C0593500F9715F /* TextInputController.xib */; };
 		2B5071C625C05ED800F9715F /* TagsInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5071C425C05ED800F9715F /* TagsInputController.swift */; };
@@ -154,6 +155,7 @@
 		2B267EEB25A2212800478726 /* promote.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = promote.json; sourceTree = "<group>"; };
 		2B267EEF25A285AC00478726 /* post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post.json; sourceTree = "<group>"; };
 		2B35622E25E33C5F00FD94B6 /* CravyFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyFirebase.swift; sourceTree = "<group>"; };
+		2B35623425E8CC4E00FD94B6 /* CravyDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CravyDataModel.xcdatamodel; sourceTree = "<group>"; };
 		2B5071C025C0593500F9715F /* TextInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputController.swift; sourceTree = "<group>"; };
 		2B5071C125C0593500F9715F /* TextInputController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInputController.xib; sourceTree = "<group>"; };
 		2B5071C425C05ED800F9715F /* TagsInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsInputController.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 		2B99FF732574309E008302FA = {
 			isa = PBXGroup;
 			children = (
+				2B35623325E8CC4E00FD94B6 /* CravyDataModel.xcdatamodeld */,
 				2B99FF7E2574309E008302FA /* Cravy-Partner */,
 				2B99FF95257430A0008302FA /* Cravy-PartnerTests */,
 				2B99FFA0257430A0008302FA /* Cravy-PartnerUITests */,
@@ -854,6 +857,7 @@
 				2B01E6AC25C60C110067C6EF /* Protocols.swift in Sources */,
 				2B85276E25C6F83300926A6D /* Product.swift in Sources */,
 				2B823DCA259D112F0040E860 /* PopView.swift in Sources */,
+				2B35623525E8CC4E00FD94B6 /* CravyDataModel.xcdatamodeld in Sources */,
 				2B823DD225A007880040E860 /* CravyWebView.swift in Sources */,
 				2B060A32258809E000F59CB5 /* BasicTableCell.swift in Sources */,
 				2B61BE752593927B00545E59 /* NewProductController.swift in Sources */,
@@ -1218,6 +1222,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2B35623325E8CC4E00FD94B6 /* CravyDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2B35623425E8CC4E00FD94B6 /* CravyDataModel.xcdatamodel */,
+			);
+			currentVersion = 2B35623425E8CC4E00FD94B6 /* CravyDataModel.xcdatamodel */;
+			path = CravyDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2B99FF742574309E008302FA /* Project object */;
 }

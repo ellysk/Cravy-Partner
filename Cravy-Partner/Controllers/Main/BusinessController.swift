@@ -11,6 +11,7 @@ import Lottie
 import FirebaseAuth
 import FirebaseFirestore
 import PromiseKit
+import CoreData
 
 /// Handles the display of the business/restaurant/owner/cook properties.
 class BusinessController: UIViewController {
@@ -20,10 +21,7 @@ class BusinessController: UIViewController {
     @IBOutlet weak var PRCollectionViewContainer: UIView!
     @IBOutlet weak var galleryTableViewContainer: UIView!
     var PRCollectionVC: PRCollectionViewController!
-    var business: Business! {
-        guard let info = UserDefaults.standard.dictionary(forKey: Auth.auth().currentUser!.uid), let business = BusinessFireBase.toBusiness(businessInfo: info) else {return nil}
-        return business
-    }
+    var business: Business!
     var businessFB: BusinessFireBase!
     var listener: ListenerRegistration?
     
@@ -51,11 +49,12 @@ class BusinessController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         loadBusinessInfo()
     }
             
     private func loadBusinessInfo() {
+        business = NSManagedObject.business
         self.businessView.image = business.logo == nil ? nil : UIImage(data: business.logo!)
         self.businessView.name = business.name
         self.businessView.email = business.email
@@ -115,7 +114,8 @@ extension BusinessController: CravyWebViewControllerDelegate {
                     self.businessFB.updateBusiness(update: [K.Key.url : URL.absoluteString])
                 }.done { (result) in
                     //Update the cached business info
-                    try UserDefaults.standard.updateBusinessInfo(key: K.Key.url, value: URL.absoluteString, id: self.business.id)
+                    self.business.websiteLink = URL
+                    try self.business.cache()
                 }.ensure(on: .main, {
                     loaderVC.stopLoader()
                 }).catch(on: .main) { (error) in
@@ -209,9 +209,11 @@ extension BusinessController: ImageViewControllerDelegate {
                 }.done { (updateInfo) in
                     let (_, info) = updateInfo
                     self.businessView.image = image
-                    try UserDefaults.standard.updateBusinessInfo(key: K.Key.logo, value: image.jpegData(compressionQuality: 1)!, id: self.business.id)
+                    self.business.logo = image.jpegData(compressionQuality: 1)
+                    try self.business.cache()
                     if let imageURL = info as? URL {
-                        try UserDefaults.standard.updateBusinessInfo(key: K.Key.logoURL, value: imageURL.absoluteString, id: self.business.id)
+                        self.business.logoURL = imageURL.absoluteString
+                        try self.business.cache()
                     }
                 }.ensure(on: .main, {
                     loaderVC.stopLoader()

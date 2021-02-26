@@ -75,7 +75,7 @@ class EditProductController: UIViewController {
     private var productDescription: String {
         set {
             descriptionTextView.text = newValue
-            editedProduct.description = newValue
+            editedProduct.detail = newValue
             if isDescriptionEdited {
                 updateData.updateValue(newValue, forKey: K.Key.description)
             } else {
@@ -123,7 +123,7 @@ class EditProductController: UIViewController {
         return  defaultProduct.title != editedProduct.title
     }
     var isDescriptionEdited: Bool {
-        return defaultProduct.description != editedProduct.description
+        return defaultProduct.detail != editedProduct.detail
     }
     var isTagsEdited: Bool {
         return defaultProduct.tags != editedProduct.tags
@@ -180,7 +180,7 @@ class EditProductController: UIViewController {
         productImage = UIImage(data: defaultProduct.image)!
         
         productTitle = defaultProduct.title
-        productDescription = defaultProduct.description
+        productDescription = defaultProduct.detail
         productTags = defaultProduct.tags
         productLink = defaultProduct.productLink?.absoluteString
     }
@@ -321,7 +321,7 @@ extension EditProductController: UITextViewDelegate {
         if textView.text.removeLeadingAndTrailingSpaces != "" {
             productDescription = textView.text.removeLeadingAndTrailingSpaces
         } else {
-            productDescription = defaultProduct.description
+            productDescription = defaultProduct.detail
         }
     }
 }

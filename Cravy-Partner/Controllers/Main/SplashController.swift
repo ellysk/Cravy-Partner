@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import PromiseKit
+import CoreData
 
 enum SPLASH {
     case intro
@@ -72,10 +73,7 @@ class SplashController: UIViewController {
             //Fetch the business information
             self.businessFB!.loadBusiness()
         }.done(on: .main, { (business) in
-            //Cache the business information
-            let userDefaults = UserDefaults.standard
-            userDefaults.set(business.businessInfo, forKey: business.id)
-            
+            try business.cache()
             self.authStackView.authButton.stopAnimation(animationStyle: .expand, revertAfterDelay: 0.0) {
                 self.performSegue(withIdentifier: K.Identifier.Segue.splashToCravyTabBar, sender: self)
             }

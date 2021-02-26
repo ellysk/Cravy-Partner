@@ -81,7 +81,13 @@ class NewProductViewsController: UIViewController {
             productVC.navigationItem.setHidesBackButton(true, animated: true)
             productVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: productVC, action: #selector(productVC.done(_:)))
             productVC.product = createdProduct!
-            productVC.isNewProduct = true
+            if let IDs = UserDefaults.standard.array(forKey: K.Key.newProducts) as? [String] {
+                var updatedIDs = IDs
+                updatedIDs.append(createdProduct!.id)
+                UserDefaults.standard.set(updatedIDs, forKey: K.Key.newProducts)
+            } else {
+                UserDefaults.standard.set([createdProduct!.id], forKey: K.Key.newProducts)
+            }
         }
     }
 }

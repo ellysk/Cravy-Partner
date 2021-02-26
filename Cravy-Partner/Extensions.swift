@@ -12,6 +12,7 @@ import SwiftyCam
 import Photos
 import NotificationBannerSwift
 import FirebaseAuth
+import CoreData
 
 /* -------------- UIKIT EXTENSIONS -------------- */
 
@@ -1216,13 +1217,89 @@ extension URLError.Code {
     }
 }
 
-//MARK: - UserDefaults
-extension UserDefaults {
-    func updateBusinessInfo(key: String, value: Any, id: String) throws {
-        guard let info = self.dictionary(forKey: id) else {throw CravyError.invalidID}
-        var newInfo = info
-        newInfo.updateValue(value, forKey: key)
-        UserDefaults.standard.set(newInfo, forKey: id)
+//MARK: - BusinessModel
+extension BusinessModel {
+    func copy(_ business: Business) {
+        self.id = business.id
+        self.email = business.email
+        self.name = business.name
+        self.phoneNumber = business.phoneNumber
+        self.logo = business.logo
+        self.websiteLink = business.websiteLink
+        self.recommendations = Int64(business.totalRecommendations)
+        self.subscribers = Int64(business.totalSubscribers)
+    }
+}
+
+//MARK: - ProductModel
+extension ProductModel {
+    func copy(_ product: Product) {
+        self.id = product.id
+        self.date = product.date
+        self.image = product.image
+        self.imageURL = product.imageURL
+        self.title = product.title
+        self.detail = product.detail
+        self.tags = product.tags as NSObject
+        self.recommendations = Int64(product.recommendations)
+        self.cravings = Int64(product.cravings)
+        self.productLink = product.productLink
+        self.state = Int32(product.state.rawValue)
+        self.isPromoted = product.isPromoted
+    }
+}
+
+/* -------------- COREDATA EXTENSIONS -------------- */
+
+//MARK:- NSManagedObject
+extension NSManagedObject {
+    static var context: NSManagedObjectContext {
+        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    }
+    
+    static var business: Business! {
+        let fetchRequest: NSFetchRequest<BusinessModel> = BusinessModel.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", Auth.auth().currentUser!.uid)
+        do {
+            let res = try context.fetch(fetchRequest)
+            guard let businessModel = res.first, let business = Business.copy(businessModel) else {return nil}
+            return business
+        } catch {
+            return nil
+        }
+    }
+    
+    /// Delete the business model of the current user saved in the core data
+    static func deleteBusinessModel() throws {
+        let fetchRequest: NSFetchRequest<BusinessModel> = BusinessModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", Auth.auth().currentUser!.uid)
+        let res = try context.fetch(fetchRequest)
+        guard let businessModel = res.first else {return}
+        context.delete(businessModel)
+    }
+    
+    static func product(id: String) throws -> Product? {
+        let fetchRequest: NSFetchRequest<ProductModel> = ProductModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        let res = try context.fetch(fetchRequest)
+        guard let productModel = res.first, let product = Product.copy(productModel) else {return nil}
+        return product
+    }
+    
+    static func products(ids: [String]) throws -> [Product] {
+        var products: [Product] = []
+        let fetchRequest: NSFetchRequest<ProductModel> = ProductModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id contains %@", ids)
+        let res = try context.fetch(fetchRequest)
+        res.forEach { (productModel) in
+            guard let product = Product.copy(productModel) else {return}
+            products.append(product)
+        }
+        
+        return products
     }
 }
 

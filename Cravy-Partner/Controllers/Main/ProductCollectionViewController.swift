@@ -134,7 +134,7 @@ class ProductCollectionViewController: UICollectionViewController {
     func searchForProductWith(query text: String?) {
         if let queryText = text {
             filteredProducts = products.filter({ (product) -> Bool in
-                return product.title.containsIgnoringCase(find: queryText) || product.description.containsIgnoringCase(find: queryText) || product.tags.contains(where: { (tag) -> Bool in
+                return product.title.containsIgnoringCase(find: queryText) || product.detail.containsIgnoringCase(find: queryText) || product.tags.contains(where: { (tag) -> Bool in
                     return tag.containsIgnoringCase(find: queryText)
                 })
             })

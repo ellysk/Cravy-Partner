@@ -12,6 +12,7 @@ import FirebaseStorage
 import FirebaseAuth
 import FirebaseFirestore
 import PromiseKit
+import CoreData
 
 /// Models the necessary information of the user's business.
 class Business: CustomStringConvertible, Hashable, Equatable {
@@ -63,6 +64,30 @@ class Business: CustomStringConvertible, Hashable, Equatable {
     static func == (lhs: Business, rhs: Business) -> Bool {
         return lhs.id == rhs.id
     }
+    
+    /// Caches the business information into core data.
+    func cache() throws {
+        let context = NSManagedObject.context
+        let fetchRequest: NSFetchRequest<BusinessModel> = BusinessModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", self.id)
+        let res = try context.fetch(fetchRequest)
+        let cachedBusiness: BusinessModel = res.isEmpty ? BusinessModel(context: context) :  res.first!
+       
+        cachedBusiness.copy(self)
+        try context.save()
+    }
+    
+    static func copy(_ businessModel: BusinessModel) -> Business? {
+        guard let id = businessModel.id, let email = businessModel.email, let name = businessModel.name, let number = businessModel.phoneNumber else {return nil}
+        let business = Business(id: id, email: email, name: name, phoneNumber: number)
+        business.logo = businessModel.logo
+        business.websiteLink = businessModel.websiteLink
+        business.totalRecommendations = Int(businessModel.recommendations)
+        business.totalSubscribers = Int(businessModel.subscribers)
+        
+        return business
+    }
 }
 
 //TODO
@@ -91,7 +116,7 @@ class BusinessFireBase: CravyFirebase {
     
     func loadBusiness(completion: @escaping (Business?)->()) -> ListenerRegistration {
         let id = Auth.auth().currentUser!.uid
-        let email: String = UserDefaults.standard.dictionary(forKey: id)?[K.Key.email] as? String ?? Auth.auth().currentUser!.email!
+        let email: String = Auth.auth().currentUser!.email!
         let listener = db.collection("businesses").document(id).addSnapshotListener { (docSnapshot, error) in
             if let _ = error {
                 completion(nil)

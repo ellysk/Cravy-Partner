@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import PromiseKit
+import CoreData
 
 /// Handles the display of account details.
 class AccountController: UIViewController {
@@ -77,10 +78,7 @@ class AccountController: UIViewController {
             return accountStackView.numberTextField.text!
         }
     }
-    var defaultBusiness: Business! {
-        guard let info = UserDefaults.standard.dictionary(forKey: Auth.auth().currentUser!.uid), let business = BusinessFireBase.toBusiness(businessInfo: info) else {return nil}
-        return business
-    }
+    var defaultBusiness: Business!
     var editedBusiness: Business!
     private var updateData: [String : Any?] = [:]
     var isImageEdited: Bool = false
@@ -101,7 +99,6 @@ class AccountController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         businessFB = BusinessFireBase()
-        setUpDefaultValues()
         // Do any additional setup after loading the view.
         self.title = K.UIConstant.account
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveChanges(_:)))
@@ -112,8 +109,14 @@ class AccountController: UIViewController {
         accountStackView.numberTextField.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpDefaultValues()
+    }
+    
     /// Assign the variables to the default values.
     private func setUpDefaultValues() {
+        defaultBusiness = NSManagedObject.business
         editedBusiness = defaultBusiness
         image = defaultBusiness.logo == nil ? nil : UIImage(data: defaultBusiness.logo!)
         name = defaultBusiness.name
@@ -131,8 +134,8 @@ class AccountController: UIViewController {
     
     @objc func saveChanges(_ sender: UIBarButtonItem) {
         //Update the cached business info.
-        func finalize() {
-            UserDefaults.standard.set(self.editedBusiness.businessInfo, forKey: self.editedBusiness.id)
+        func finalize() throws {
+            try self.editedBusiness.cache()
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -145,7 +148,7 @@ class AccountController: UIViewController {
                 print(imageURLInfo)
                 self.editedBusiness.logoURL = imageURLInfo[K.Key.logoURL]
             }
-            finalize()
+            try finalize()
         }
         
         func save() {

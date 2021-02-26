@@ -34,7 +34,10 @@ class ProductController: UIViewController {
         }
     }
     /// Shows a notification banner notifying the user that the product can be put on the market.
-    var isNewProduct: Bool = false
+    var isNewProduct: Bool {
+        guard let newProductIDs = UserDefaults.standard.array(forKey: K.Key.newProducts) as? [String], newProductIDs.contains(product.id) else {return false}
+        return true
+    }
     var productFB: ProductFirebase!
     var delegate: ProductDelegate?
     
@@ -47,7 +50,7 @@ class ProductController: UIViewController {
         imageView.cornerMask = UIView.bottomCornerMask
         linkView.delegate = self
         titleLabel.text = product.title
-        detailLabel.text = product.description
+        detailLabel.text = product.detail
         widgetCollectionView.register()
         horizontalTagsCollectionView.register()
         self.setFloaterViewWith(image: K.Image.pencilCircleFill, title: K.UIConstant.edit)
@@ -81,7 +84,7 @@ class ProductController: UIViewController {
         self.title = product.title
         imageView.image = UIImage(data: product.image)
         titleLabel.text = product.title
-        detailLabel.text = product.description
+        detailLabel.text = product.detail
         horizontalTagsCollectionView.reloadData()
     }
     
@@ -159,8 +162,11 @@ class ProductController: UIViewController {
     @objc func done(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true) {
             if self.isNewProduct {
-                UserDefaults.standard.set(self.product.productInfo, forKey: K.Key.newProduct)
-                self.isNewProduct = false
+                do {
+                    try self.product.cache()
+                } catch {
+                    return
+                }
             }
         }
     }

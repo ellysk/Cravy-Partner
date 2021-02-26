@@ -326,7 +326,7 @@ struct K {
         static let visits = "visits"
         static let isPromoted = "is_promoted"
         static let update = "update"
-        static let newProduct = "new_product"
+        static let newProducts = "new_products"
         static let seconds = "_seconds"
         static let nanoseconds = "_nanoseconds"
         static let productImagesPath = "product_images/"
