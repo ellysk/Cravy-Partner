@@ -39,7 +39,7 @@ class ProductsPageController: CravyPageController {
             products.forEach { (product) in
                 let productionCollectionViewController = pages.first { (viewController) -> Bool in
                     let productionCollectionVC = viewController as! ProductCollectionViewController
-                    return productionCollectionVC.collectionState == product.state
+                    return productionCollectionVC.state == product.state
                 } as! ProductCollectionViewController
                 productionCollectionViewController.add(product)
             }

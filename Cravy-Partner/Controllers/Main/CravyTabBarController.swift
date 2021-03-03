@@ -9,7 +9,19 @@
 import UIKit
 
 class CravyTabBarController: UITabBarController {
-
+    var PRProducts: [Product]? {
+        guard let myProductsController = self.viewControllers?.first(where: { (viewController) -> Bool in
+            return viewController as? MyProductsController != nil
+        }) as? MyProductsController, let inactiveProductCollectionVC = myProductsController.productsPageController.pages.first(where: { (viewController) -> Bool in
+            let productCollectionVC = viewController as! ProductCollectionViewController
+            return productCollectionVC.state == .inActive
+        }) as? ProductCollectionViewController else {return nil}
+        return inactiveProductCollectionVC.products.filter { (product) -> Bool in
+            guard let diff = Calendar.current.dateComponents([.hour], from: product.date, to: Date()).hour else {return false}
+            return diff > 24
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

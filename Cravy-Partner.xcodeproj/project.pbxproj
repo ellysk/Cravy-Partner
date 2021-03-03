@@ -86,6 +86,7 @@
 		2B99FFC7257723D7008302FA /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC6257723D7008302FA /* CustomImageView.swift */; };
 		2B99FFC925772814008302FA /* CraveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B99FFC825772814008302FA /* CraveImageView.swift */; };
 		2B9B0E9925C8F24900950D0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B0E9825C8F24900950D0C /* GoogleService-Info.plist */; };
+		2BA1453425ED511000F12FCB /* CravyProductsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA1453325ED511000F12FCB /* CravyProductsController.swift */; };
 		2BB7FE6D25B9B61700900495 /* CravyWebKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */; };
 		2BB7FE6E25B9B61700900495 /* CravyWebKitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */; };
 		2BB7FE7325B9C6C700900495 /* ProductEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BB7FE7225B9C6C700900495 /* ProductEditView.xib */; };
@@ -220,6 +221,7 @@
 		2B99FFC6257723D7008302FA /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		2B99FFC825772814008302FA /* CraveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CraveImageView.swift; sourceTree = "<group>"; };
 		2B9B0E9825C8F24900950D0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2BA1453325ED511000F12FCB /* CravyProductsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyProductsController.swift; sourceTree = "<group>"; };
 		2BB7FE6B25B9B61700900495 /* CravyWebKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CravyWebKitViewController.swift; sourceTree = "<group>"; };
 		2BB7FE6C25B9B61700900495 /* CravyWebKitViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CravyWebKitViewController.xib; sourceTree = "<group>"; };
 		2BB7FE7225B9C6C700900495 /* ProductEditView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductEditView.xib; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				2B1BD66225BF0B0400DA0C63 /* LoaderViewController.swift */,
 				2BCF7FEA25C45F98005629C9 /* PRCollectionViewController.swift */,
 				2BCF7FEC25C4690D005629C9 /* GalleryTableViewController.swift */,
+				2BA1453325ED511000F12FCB /* CravyProductsController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -848,6 +851,7 @@
 				2BB7FE6D25B9B61700900495 /* CravyWebKitViewController.swift in Sources */,
 				2B99FFC125751AEE008302FA /* CravyToolBar.swift in Sources */,
 				2B99FF842574309E008302FA /* SplashController.swift in Sources */,
+				2BA1453425ED511000F12FCB /* CravyProductsController.swift in Sources */,
 				2B7DF48E258A0C1400AA1337 /* IntroController.swift in Sources */,
 				2B5071C625C05ED800F9715F /* TagsInputController.swift in Sources */,
 				2B99FF802574309E008302FA /* AppDelegate.swift in Sources */,

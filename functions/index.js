@@ -131,6 +131,54 @@ exports.getBusinessProducts = functions.https.onCall(async (data, context) => {
   }
 });
 
+exports.getPRProducts = functions.https.onCall(async (data, context) => {
+  try {
+    const productRefCollectionQuery = admin
+      .firestore()
+      .collection("businesses")
+      .doc(context.auth.uid)
+      .collection("products")
+      .where("state", "==", 0)
+      .orderBy("date_created", "desc");
+    let productRefSnapshot;
+    if (data.last) {
+      const ts = admin.firestore.Timestamp.fromMillis(_toTimestamp(data.last));
+      productRefSnapshot = await productRefCollectionQuery
+        .startAfter(ts)
+        .limit(data.limit)
+        .get();
+    } else {
+      const thresholdDate = new Date();
+      thresholdDate.setHours(thresholdDate.getHours() - 24);
+      const ts = admin.firestore.Timestamp.fromDate(thresholdDate);
+      productRefSnapshot = await productRefCollectionQuery
+        .startAt(ts)
+        .limit(data.limit)
+        .get();
+    }
+    // check if there are any products
+    if (productRefSnapshot.empty) {
+      return;
+    } else {
+      const [lastDoc] = productRefSnapshot.docs.slice(-1);
+      const productPromises = []; // Will contain the promises for resolving all the products data
+      productRefSnapshot.forEach((doc) => {
+        const productRef = doc.data().product_ref; // Get the reference of a product data
+        productPromises.push(_getProduct(productRef.path)); // Add the promise of getting the product data by using the reference path
+      });
+      const allProducts = await Promise.all(productPromises); // Asynchronously fetch each product data. Will be stored in an array.
+      // console.log(allProducts);
+      return {
+        all: allProducts,
+        last: lastDoc.data().date_created,
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
 // Load the product data using the path in which the data is stored in the cloud firestore.
 const _getProduct = async function (path) {
   const doc = await admin.firestore().doc(path).get(); // The document reference to the product data

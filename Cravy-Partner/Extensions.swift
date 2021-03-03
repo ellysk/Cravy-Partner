@@ -1292,7 +1292,7 @@ extension NSManagedObject {
         var products: [Product] = []
         let fetchRequest: NSFetchRequest<ProductModel> = ProductModel.fetchRequest()
         
-        fetchRequest.predicate = NSPredicate(format: "id contains %@", ids)
+        fetchRequest.predicate = NSPredicate(format: "%@ contains id", ids)
         let res = try context.fetch(fetchRequest)
         res.forEach { (productModel) in
             guard let product = Product.copy(productModel) else {return}

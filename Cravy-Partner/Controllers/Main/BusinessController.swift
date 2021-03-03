@@ -18,10 +18,12 @@ class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
     @IBOutlet weak var imageCollectionView: ImageCollectionView!
+    @IBOutlet weak var PRStackView: UIStackView!
     @IBOutlet weak var PRCollectionViewContainer: UIView!
     @IBOutlet weak var galleryTableViewContainer: UIView!
     var PRCollectionVC: PRCollectionViewController!
     var business: Business!
+    var selectedProduct: Product?
     var businessFB: BusinessFireBase!
     var listener: ListenerRegistration?
     
@@ -50,6 +52,7 @@ class BusinessController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        reloadPR()
         loadBusinessInfo()
     }
             
@@ -76,21 +79,28 @@ class BusinessController: UIViewController {
         }
     }
     
+    private func reloadPR() {
+        guard let cravyTabBar = self.tabBarController as? CravyTabBarController, let PRVC = PRCollectionVC else {return}
+        PRVC.products = cravyTabBar.PRProducts ?? []
+    }
+    
     @objc func editImage(_ gesture: UITapGestureRecognizer) {
-        //TODO
+        self.presentEditPhotoAlert(in: self, message: K.UIConstant.addPhoto)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Identifier.Segue.toPRCollectionVC {
             let PRCollectionVC = segue.destination as! PRCollectionViewController
             PRCollectionVC.delegate = self
+            PRCollectionVC.PRDelegate = self
             self.PRCollectionVC = PRCollectionVC
+            reloadPR()
         } else if segue.identifier == K.Identifier.Segue.toGalleryTableVC {
             let galleryTableVC = segue.destination as! GalleryTableViewController
             galleryTableVC.layoutDelegate = self
         } else if segue.identifier == K.Identifier.Segue.businessToProduct {
             let productVC = segue.destination as! ProductController
-//            productVC.productTitle = "Chicken wings" TODO
+            productVC.product = selectedProduct
         }
     }
 }
@@ -175,12 +185,13 @@ extension BusinessController: ProductDelegate {
     
     func didSelectProduct(_ product: Product, at indexPath: IndexPath?) {
         //User selected a product in the CraveCollectionCell
+        selectedProduct = product
         self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)
     }
     
     func didPostProduct(_ product: Product, at indexPath: IndexPath?) {
         guard let path = indexPath else {return}
-        PRCollectionVC.craves.remove(at: path.item)
+        PRCollectionVC.products.remove(at: path.item)
         PRCollectionVC.collectionView.deleteItems(at: [path])
     }
     
@@ -189,6 +200,13 @@ extension BusinessController: ProductDelegate {
     func didEditProduct(_ product: Product) {}
     
     func didDeleteProduct(_ product: Product) {}
+}
+
+//MARK: - PRCollectionViewController Delegare
+extension BusinessController: PRCollectionViewControllerDelegate {
+    func PRProductsDidFinishLoading(products: [Product]) {
+        PRStackView.isHidden = products.isEmpty
+    }
 }
 
 //MARK: - LayoutUpdate Delegate

@@ -169,11 +169,11 @@ class ProductFirebase: CravyFirebase {
     }
     
     /// Loads multiple products of the business. The maximum it can load depends on the limit provided.
-    func loadProducts(limit: Int = 20) -> Promise<[Product]> {
+    func loadProducts(limit: Int = 20, callableFunction: String = "getBusinessProducts") -> Promise<[Product]> {
         var callData = productsCallData
         callData.updateValue(limit, forKey: "limit")
         return Promise { (seal) in
-            functions.httpsCallable("getBusinessProducts").call(callData) { (result, error) in
+            functions.httpsCallable(callableFunction).call(callData) { (result, error) in
                 if let e = error {
                     seal.reject(e)
                 } else if let resultData = result?.data as? [String : Any], let info = resultData["all"] as? [[String : Any]] {

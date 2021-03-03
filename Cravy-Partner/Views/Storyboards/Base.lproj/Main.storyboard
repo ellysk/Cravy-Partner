@@ -353,7 +353,7 @@
                                 <rect key="frame" x="0.0" y="268" width="414" height="545"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="AO3-bU-PiO">
-                                        <rect key="frame" x="0.0" y="8" width="414" height="812"/>
+                                        <rect key="frame" x="0.0" y="8" width="414" height="1004"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LfJ-Pu-Eu9">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
@@ -395,13 +395,13 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctD-WC-f9R">
-                                                <rect key="frame" x="0.0" y="146" width="414" height="666"/>
+                                                <rect key="frame" x="0.0" y="146" width="414" height="858"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zJW-MD-sMn">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="666"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="858"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JDQ-G4-3ZH">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="280"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2e9-CY-vMh">
                                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -423,7 +423,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6B-4y-GnV">
-                                                                        <rect key="frame" x="0.0" y="30" width="414" height="250"/>
+                                                                        <rect key="frame" x="0.0" y="30" width="414" height="50"/>
                                                                         <connections>
                                                                             <segue destination="e4d-KR-aqo" kind="embed" identifier="toPRCollectionVC" id="21a-XS-SpI"/>
                                                                         </connections>
@@ -431,7 +431,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Nvk-cn-n4G">
-                                                                <rect key="frame" x="0.0" y="296" width="414" height="370"/>
+                                                                <rect key="frame" x="0.0" y="96" width="414" height="762"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGh-et-7AO">
                                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -453,7 +453,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoI-8G-b1H">
-                                                                        <rect key="frame" x="0.0" y="30" width="414" height="340"/>
+                                                                        <rect key="frame" x="0.0" y="30" width="414" height="732"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="gZp-rB-LoQ"/>
                                                                         </constraints>
@@ -505,6 +505,7 @@
                     <tabBarItem key="tabBarItem" title="My business" image="mybusiness" selectedImage="mybusiness-filled" id="LKN-rm-IWb"/>
                     <connections>
                         <outlet property="PRCollectionViewContainer" destination="L6B-4y-GnV" id="GWn-LS-zPp"/>
+                        <outlet property="PRStackView" destination="JDQ-G4-3ZH" id="qDJ-Wh-SeY"/>
                         <outlet property="businessStatView" destination="R9b-pg-Y74" id="qzI-az-Ts4"/>
                         <outlet property="businessView" destination="CMK-s2-PYW" id="gIF-pC-RQe"/>
                         <outlet property="galleryTableViewContainer" destination="IoI-8G-b1H" id="zIo-h9-8J5"/>
@@ -542,7 +543,7 @@
             <objects>
                 <tableViewController id="f4K-Ox-oxo" customClass="GalleryTableViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ibe-Oa-bk8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="732"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -560,7 +561,7 @@
             <objects>
                 <collectionViewController id="e4d-KR-aqo" customClass="PRCollectionViewController" customModule="Cravy_Partner" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="ghq-km-cyG" customClass="HorizontalCraveCollectionView" customModule="Cravy_Partner" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Vdm-Tr-7kw">
