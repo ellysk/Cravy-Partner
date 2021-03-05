@@ -17,6 +17,7 @@ import CoreData
 class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var businessContentStackView: UIStackView!
     @IBOutlet weak var imageCollectionView: ImageCollectionView!
     @IBOutlet weak var PRStackView: UIStackView!
@@ -241,8 +242,8 @@ extension BusinessController: LayoutUpdateDelegate, GalleryTableViewControllerDe
     
     func didFinishLoadingGallery(_ gallery: [UIImage]) {
         businessContentStackView.isHidden = gallery.isEmpty
-        self.view.isEmptyView = gallery.isEmpty
-        self.view.emptyView?.createButton.addTarget(self, action: #selector(self.startCreating(_:)), for: .touchUpInside)
+        scrollView.isEmptyView = gallery.isEmpty
+        scrollView.emptyView?.createButton.addTarget(self, action: #selector(self.startCreating(_:)), for: .touchUpInside)
     }
     
     @objc func startCreating(_ sender: UIButton) {

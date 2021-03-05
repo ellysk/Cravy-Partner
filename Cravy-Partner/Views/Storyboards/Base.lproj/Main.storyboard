@@ -511,6 +511,7 @@
                         <outlet property="businessView" destination="CMK-s2-PYW" id="gIF-pC-RQe"/>
                         <outlet property="galleryTableViewContainer" destination="IoI-8G-b1H" id="zIo-h9-8J5"/>
                         <outlet property="imageCollectionView" destination="6Cz-XI-wOI" id="io4-HO-7hC"/>
+                        <outlet property="scrollView" destination="Chf-tf-CFE" id="SMP-9e-Sma"/>
                         <segue destination="KKx-KE-enj" kind="show" identifier="BusinessToProduct" id="xW7-G0-605"/>
                         <segue destination="WYF-bO-zgR" kind="show" identifier="BusinessToSettings" id="uFV-HV-3p4"/>
                     </connections>
