@@ -33,6 +33,18 @@ class CravyFirebase {
         }
     }
     
+    func signOut() -> Promise<Bool> {
+        return Promise { (seal) in
+            do {
+                try auth.signOut()
+                try Business.decache()
+                seal.fulfill(true)
+            } catch {
+                seal.reject(error)
+            }
+        }
+    }
+    
     /// Update the user email.
     func updateEmail(to email: String) -> Promise<Void> {
         return Promise { (seal) in

@@ -176,22 +176,24 @@ class AccountController: UIViewController {
     }
     
     @IBAction func logOut(_ sender: UIButton) {
-        //TODO
-        let alertController = UIAlertController(title: K.UIConstant.logoutMessage, message: nil, preferredStyle: .alert)
-        let logOutAction = UIAlertAction(title: K.UIConstant.logout, style: .destructive) { (action) in
-            let loaderVC = LoaderViewController()
-            self.present(loaderVC, animated: true) {
-                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                    loaderVC.stopLoader {
+        func logOut() {
+            let cravyFB = CravyFirebase()
+            
+            self.startLoader { (loaderVC) in
+                firstly {
+                    cravyFB.signOut()
+                }.done { (isSignedOut) in
+                    if isSignedOut {
                         self.navigationController?.popToRootViewController(animated: true)
                     }
+                }.ensure {
+                    loaderVC.stopLoader()
+                }.catch { (error) in
+                    self.present(UIAlertController.internetConnectionAlert(actionHandler: logOut), animated: true)
                 }
             }
         }
-        alertController.addAction(UIAlertAction.no)
-        alertController.addAction(logOutAction)
-        
-        present(alertController, animated: true)
+        logOut()
     }
 }
 

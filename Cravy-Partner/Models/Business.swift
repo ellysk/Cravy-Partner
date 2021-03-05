@@ -78,6 +78,16 @@ class Business: CustomStringConvertible, Hashable, Equatable {
         try context.save()
     }
     
+    static func decache() throws {
+        let context = NSManagedObject.context
+        let fetchRequest: NSFetchRequest<BusinessModel> = BusinessModel.fetchRequest()
+        
+        fetchRequest.predicate = NSPredicate(format: "id == %@", Auth.auth().currentUser!.uid)
+        let res = try context.fetch(fetchRequest)
+        guard let cachedBusiness = res.first else {return}
+        context.delete(cachedBusiness)
+    }
+    
     static func copy(_ businessModel: BusinessModel) -> Business? {
         guard let id = businessModel.id, let email = businessModel.email, let name = businessModel.name, let number = businessModel.phoneNumber else {return nil}
         let business = Business(id: id, email: email, name: name, phoneNumber: number)
