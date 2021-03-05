@@ -17,13 +17,16 @@ import CoreData
 class BusinessController: UIViewController {
     @IBOutlet weak var businessView: BusinessView!
     @IBOutlet weak var businessStatView: BusinessStatView!
+    @IBOutlet weak var businessContentStackView: UIStackView!
     @IBOutlet weak var imageCollectionView: ImageCollectionView!
     @IBOutlet weak var PRStackView: UIStackView!
     @IBOutlet weak var PRCollectionViewContainer: UIView!
     @IBOutlet weak var galleryTableViewContainer: UIView!
     var PRCollectionVC: PRCollectionViewController!
+    var galleryTableVC: GalleryTableViewController!
     var business: Business!
     var selectedProduct: Product?
+    var selectedImage: (String, UIImage)?
     var businessFB: BusinessFireBase!
     var listener: ListenerRegistration?
     
@@ -53,6 +56,7 @@ class BusinessController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         reloadPR()
+        reloadGallery()
         loadBusinessInfo()
     }
             
@@ -84,6 +88,15 @@ class BusinessController: UIViewController {
         PRVC.products = cravyTabBar.PRProducts ?? []
     }
     
+    private func reloadGallery() {
+        guard let cravyTabBar = self.tabBarController as? CravyTabBarController, let galleryTVC = galleryTableVC, let imageInfo = cravyTabBar.imageInfo else {return}
+        imageInfo.forEach { (info) in
+            galleryTVC.ids.append(info.key)
+            galleryTVC.images.append(info.value)
+        }
+        galleryTVC.loadGallery()
+    }
+    
     @objc func editImage(_ gesture: UITapGestureRecognizer) {
         self.presentEditPhotoAlert(in: self, message: K.UIConstant.addPhoto)
     }
@@ -98,9 +111,14 @@ class BusinessController: UIViewController {
         } else if segue.identifier == K.Identifier.Segue.toGalleryTableVC {
             let galleryTableVC = segue.destination as! GalleryTableViewController
             galleryTableVC.layoutDelegate = self
+            galleryTableVC.delegate = self
+            self.galleryTableVC = galleryTableVC
+            reloadGallery()
         } else if segue.identifier == K.Identifier.Segue.businessToProduct {
             let productVC = segue.destination as! ProductController
             productVC.product = selectedProduct
+            productVC.productImage = selectedImage?.1
+            productVC.productID = selectedImage?.0
         }
     }
 }
@@ -209,11 +227,27 @@ extension BusinessController: PRCollectionViewControllerDelegate {
     }
 }
 
-//MARK: - LayoutUpdate Delegate
-extension BusinessController: LayoutUpdateDelegate {
+//MARK: - LayoutUpdate Delegate GalleryTableViewController Delegate
+extension BusinessController: LayoutUpdateDelegate, GalleryTableViewControllerDelegate {
     func updateLayoutHeight(to height: CGFloat) {
         galleryTableViewContainer.heightAnchor(of: height)
         galleryTableViewContainer.setNeedsLayout()
+    }
+    
+    func didTapOnImage(_ image: UIImage, id: String) {
+        selectedImage = (id, image)
+        self.performSegue(withIdentifier: K.Identifier.Segue.businessToProduct, sender: self)
+    }
+    
+    func didFinishLoadingGallery(_ gallery: [UIImage]) {
+        businessContentStackView.isHidden = gallery.isEmpty
+        self.view.isEmptyView = gallery.isEmpty
+        self.view.emptyView?.createButton.addTarget(self, action: #selector(self.startCreating(_:)), for: .touchUpInside)
+    }
+    
+    @objc func startCreating(_ sender: UIButton) {
+        guard let tab = self.tabBarController as? CravyTabBarController else {return}
+        tab.selectedIndex = 1
     }
 }
 

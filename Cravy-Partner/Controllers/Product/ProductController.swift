@@ -23,6 +23,8 @@ class ProductController: UIViewController {
     @IBOutlet weak var marketView: MarketView!
     private var banner: FloatingNotificationBanner?
     var product: Product!
+    var productImage: UIImage?
+    var productID: String?
     private var productState: PRODUCT_STATE {
         set {
             product.state = newValue
@@ -80,7 +82,29 @@ class ProductController: UIViewController {
         }
     }
     
-    private func reloadProduct() {
+    private func loadProduct() {
+        if product == nil {
+            imageView.image = productImage
+            guard let id = productID else {return}
+            self.startLoader { (loaderVC) in
+                firstly {
+                    self.productFB.loadProduct(id: id, productImage: self.productImage)
+                }.ensure {
+                    loaderVC.stopLoader()
+                }
+                .done { (product) in
+                    self.product = product
+                    self.reloadProduct()
+                }.catch { (error) in
+                    self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadProduct), animated: true)
+                }
+            }
+        } else {
+            reloadProduct()
+        }
+    }
+    
+    func reloadProduct() {
         self.title = product.title
         imageView.image = UIImage(data: product.image)
         titleLabel.text = product.title

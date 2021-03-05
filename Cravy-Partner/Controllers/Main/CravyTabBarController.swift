@@ -26,6 +26,21 @@ class CravyTabBarController: UITabBarController {
         super.viewDidLoad()
     }
     
+    var imageInfo: [String : UIImage]? {
+        guard let myProductsController = self.viewControllers?.first(where: { (viewController) -> Bool in
+            return viewController as? MyProductsController != nil
+        }) as? MyProductsController, let productCollectionVCs = myProductsController.productsPageController.pages as? [ProductCollectionViewController] else {return nil}
+        var info: [String : UIImage] = [:]
+        productCollectionVCs.forEach { (productCollectionVC) in
+            productCollectionVC.products.forEach { (product) in
+                guard let image = UIImage(data: product.image) else {return}
+                info.updateValue(image, forKey: product.id)
+            }
+        }
+        
+        return info
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true

@@ -506,6 +506,7 @@
                     <connections>
                         <outlet property="PRCollectionViewContainer" destination="L6B-4y-GnV" id="GWn-LS-zPp"/>
                         <outlet property="PRStackView" destination="JDQ-G4-3ZH" id="qDJ-Wh-SeY"/>
+                        <outlet property="businessContentStackView" destination="AO3-bU-PiO" id="nJj-4S-VH1"/>
                         <outlet property="businessStatView" destination="R9b-pg-Y74" id="qzI-az-Ts4"/>
                         <outlet property="businessView" destination="CMK-s2-PYW" id="gIF-pC-RQe"/>
                         <outlet property="galleryTableViewContainer" destination="IoI-8G-b1H" id="zIo-h9-8J5"/>

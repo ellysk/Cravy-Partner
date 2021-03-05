@@ -205,9 +205,69 @@ class ProductFirebase: CravyFirebase {
         }
     }
     
+    func loadProduct(id: String, productImage: UIImage?) -> Promise<Product> {
+        return Promise { (seal) in
+            functions.httpsCallable("getProduct").call([K.Key.id : id]) { (result, error) in
+                if let e = error {
+                    seal.reject(e)
+                } else if let productInfo = result?.data as? [String : Any] {
+                    var info = productInfo
+                    if let image = productImage, let imageData = image.jpegData(compressionQuality: 1) {
+                        info.updateValue(imageData, forKey: K.Key.image)
+                        guard let product = ProductFirebase.toProduct(productInfo: info) else {return}
+                        seal.fulfill(product)
+                    } else if let downloadURL = productInfo[K.Key.productImageURL] as? String {
+                        firstly {
+                            self.loadProductImage(downloadURL: downloadURL)
+                        }.done { (imageData) in
+                            info.updateValue(imageData, forKey: K.Key.image)
+                            guard let product = ProductFirebase.toProduct(productInfo: info) else {return}
+                            seal.fulfill(product)
+                        }.catch(seal.reject(_:))
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadProductImages() -> Promise<[(String, Data)]> {
+        return Promise { (seal) in
+            firstly {
+                loadProductImageURLs()
+            }.done { (result) in
+                guard let urlData = result.data as? [String : String] else {
+                    return seal.fulfill([])
+                }
+                firstly {
+                    when(fulfilled: urlData.map({ (data) -> Promise<(String, Data)> in
+                        self.loadProductImage(downloadURL: data.value, productID: data.key)
+                    }))
+                }.done(seal.fulfill).catch(seal.reject(_:))
+            }.catch(seal.reject(_:))
+        }
+    }
+    
+    private func loadProductImageURLs() -> Promise<HTTPSCallableResult> {
+        return Promise { (seal) in
+            functions.httpsCallable("getProductImageURLs").call(completion: seal.resolve)
+        }
+    }
+    
     private func loadProductImage(downloadURL: String) -> Promise<Data> {
         return Promise { (seal) in
             Storage.storage().reference(forURL: downloadURL).getData(maxSize: .MAX_IMAGE_SIZE, completion: seal.resolve)
+        }
+    }
+    
+    private func loadProductImage(downloadURL: String, productID: String) -> Promise<(String, Data)> {
+        return Promise { (seal) in
+            Storage.storage().reference(forURL: downloadURL).getData(maxSize: .MAX_IMAGE_SIZE) { (data, error) in
+                if let e = error {
+                    seal.reject(e)
+                } else if let imageData = data {
+                    seal.fulfill((productID, imageData))
+                }
+            }
         }
     }
     

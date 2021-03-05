@@ -7,25 +7,36 @@
 //
 
 import UIKit
+import PromiseKit
+
+protocol GalleryTableViewControllerDelegate {
+    func didTapOnImage(_ image: UIImage, id: String)
+    func didFinishLoadingGallery(_ gallery: [UIImage])
+}
 
 /// Handles the display of collection of images in a GalleryTableCell.
 class GalleryTableViewController: UITableViewController {
-    private var kitchen: [UIImage] = []
-    var images: [[UIImage]] {
-        return kitchen.chunked(into: 5)
+    var ids: [String] = []
+    var images: [UIImage] = []
+    var gIds: [[String]] {
+        return ids.chunked(into: 5)
     }
-    private var savedLayouts: [GALLERY_LAYOUT] = [.uzumaki, .uchiha, .uzumaki, .uchiha, .uzumaki] //TODO
-    private var isLoadingKitchen: Bool = true
-    private let kitchenDummyCount: Int = 1
-    var kitchenCount: Int {
-        if isLoadingKitchen {
-            return kitchen.chunked(into: 5).count + kitchenDummyCount
+    var gallery: [[UIImage]] {
+        return images.chunked(into: 5)
+    }
+    private var isLoadingGallery: Bool = true
+    private let dummyCount: Int = 1
+    var count: Int {
+        if isLoadingGallery {
+            return gallery.count + dummyCount
         } else {
-            return kitchen.chunked(into: 5).count
+            return gallery.count
         }
     }
     let ROW_HEIGHT: CGFloat = 300
+    var productFB = ProductFirebase()
     var layoutDelegate: LayoutUpdateDelegate?
+    var delegate: GalleryTableViewControllerDelegate?
     
     init() {
         super.init(style: .plain)
@@ -37,41 +48,54 @@ class GalleryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadKitchen()
         self.tableView.backgroundColor = .clear
         self.tableView.allowsSelection = false
         self.tableView.register(GalleryTableCell.self, forCellReuseIdentifier: K.Identifier.TableViewCell.galleryCell)
+        loadGallery()
     }
     
-    private func loadKitchen() {
-        //TODO
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.isLoadingKitchen = false
-            self.kitchen = Array(repeating: UIImage(named: "bgimage")!, count: 10)
-            self.layoutDelegate?.updateLayoutHeight(to: self.ROW_HEIGHT * CGFloat(self.kitchenCount))
+    func loadGallery() {
+        func finishLoading() {
+            self.isLoadingGallery = false
+            self.layoutDelegate?.updateLayoutHeight(to: self.ROW_HEIGHT * CGFloat(self.count))
+            self.delegate?.didFinishLoadingGallery(self.images)
             self.tableView.reloadData()
+        }
+        
+        if ids.isEmpty || images.isEmpty {
+            firstly {
+                productFB.loadProductImages()
+            }.done { (imageInfo) in
+                imageInfo.forEach { (info) in
+                    self.ids.append(info.0)
+                    self.images.append(UIImage(data: info.1)!)
+                }
+            }.ensure {
+                finishLoading()
+            }.catch { (error) in
+                self.present(UIAlertController.internetConnectionAlert(actionHandler: self.loadGallery), animated: true)
+            }
+        } else {
+            finishLoading()
         }
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return kitchenCount
+        return count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let galleryCell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.TableViewCell.galleryCell, for: indexPath) as! GalleryTableCell
-        if isLoadingKitchen && indexPath.row >= kitchen.count {
+        if isLoadingGallery && indexPath.row >= images.count {
             galleryCell.setGalleryTableCell()
             galleryCell.startLoadingAnimation()
         } else {
             galleryCell.stopLoadingAnimation()
-            if !kitchen.isEmpty {
-                galleryCell.setGalleryTableCell(layout: savedLayouts[indexPath.row], images: images[indexPath.row])
-                galleryCell.tag = indexPath.row
-                galleryCell.delegate = self
-            } else {
-                //TODO
-            }
+            let layout: GALLERY_LAYOUT = indexPath.row % 2 == 0 ? .uzumaki : .uchiha
+            galleryCell.setGalleryTableCell(layout: layout, images: gallery[indexPath.row])
+            galleryCell.tag = indexPath.row
+            galleryCell.delegate = self
         }
         return galleryCell
     }
@@ -86,6 +110,6 @@ class GalleryTableViewController: UITableViewController {
 extension GalleryTableViewController: GalleryTableCellDelegate {
     func didTapOnImageAt(indexPath: IndexPath, tappedImage: UIImage) {
         print("did tap on image at position \(indexPath.row) in row \(indexPath.section)")
-        //TODO
+        self.delegate?.didTapOnImage(tappedImage, id: gIds[indexPath.section][indexPath.row])
     }
 }

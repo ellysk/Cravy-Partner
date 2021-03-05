@@ -74,6 +74,7 @@ exports.createProduct = functions.https.onCall(async (data, context) => {
       .set({
         date_created: product.date_created,
         state: product.state,
+        product_image_url: product.product_image_url,
         product_ref: ref,
       });
     return product;
@@ -176,6 +177,31 @@ exports.getPRProducts = functions.https.onCall(async (data, context) => {
   } catch (error) {
     console.log(error);
     throw error;
+  }
+});
+
+exports.getProduct = functions.https.onCall(async (data, context) => {
+  const doc = await admin.firestore().collection("products").doc(data.id).get();
+  const product = doc.data();
+  product.id = doc.id;
+  return product;
+});
+
+exports.getProductImageURLs = functions.https.onCall(async (_, context) => {
+  const productSnapshot = await admin
+    .firestore()
+    .collection("businesses")
+    .doc(context.auth.uid)
+    .collection("products")
+    .get();
+  if (productSnapshot.empty) {
+    return;
+  } else {
+    const urlData = {};
+    productSnapshot.forEach((doc) => {
+      urlData[doc.id] = doc.data().product_image_url;
+    });
+    return urlData;
   }
 });
 
