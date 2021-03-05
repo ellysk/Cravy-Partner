@@ -266,7 +266,7 @@ class CravyProductsController: UICollectionViewController {
     
     //MARK:- UICollectionView Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presentationDelegate?.presentation(CravyProductsController.self, data: data[indexPath.item])
+        self.presentationDelegate?.presentation(ProductController.self, data: data[indexPath.item])
     }
     
     //MARK:- UIScrollView Delegate
